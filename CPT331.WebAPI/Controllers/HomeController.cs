@@ -11,6 +11,7 @@ namespace CPT331.WebAPI.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            ViewBag.Title = "Home Page";
             return View();
         }
     }
