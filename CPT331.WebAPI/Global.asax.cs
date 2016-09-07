@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿#region Using References
+
+using System;
 using System.Web.Http;
-using System.Web.Mvc;
+
+#endregion
 
 namespace CPT331.WebAPI
 {
@@ -11,9 +11,7 @@ namespace CPT331.WebAPI
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
         }
     }
 }
