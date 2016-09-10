@@ -5,13 +5,13 @@ using System.Configuration;
 
 #endregion
 
-namespace CPT331.Data.Migration
+namespace CPT331.Core
 {
-	internal static class ApplicationConfiguration
+	public static class ApplicationConfiguration
 	{
 		private const string CPT331ConnectionStringKey = "CPT331ConnectionString";
 
-		internal static string CPT331ConnectionString
+		public static string CPT331ConnectionString
 		{
 			get
 			{
