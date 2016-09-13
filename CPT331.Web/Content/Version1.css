@@ -1,0 +1,336 @@
+﻿html
+{
+	height: 100%;
+}
+
+body
+{
+	color: #112228;
+    font: 14px/20px "Segoe UI", Tahoma, Helvetica, Arial, Sans-Serif;
+    height: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+@media only screen and (max-width: 400px)
+{
+    body
+    {
+        color: #112228;
+        font: 12px "Segoe UI", Tahoma, Helvetica, Arial, Sans-Serif;
+        height: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+}
+
+a
+{
+	color: #3662A0;
+	text-decoration: none
+}
+
+a:hover
+{
+	text-decoration: underline
+}
+
+.Comment
+{
+    color:#008000;
+}
+
+.DateTime
+{
+    color: #999999;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    font-size: 8pt;
+}
+
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.GreyBorder
+{
+    border: 1px solid #C0C0C0;
+}
+
+h1
+{
+	color: #112228;
+    font: 36px/48px "Segoe UI Light", Tahoma, Helvetica, Arial, Sans-Serif;
+}
+
+@media only screen and (max-width: 800px)
+{
+    h1
+    {
+        color: #112228;
+        font: 22px "Segoe UI Light", Tahoma, Helvetica, Arial, Sans-Serif;
+    }
+}
+
+@media only screen and (max-width: 400px)
+{
+    h1
+    {
+        color: #112228;
+        font: 16px "Segoe UI Light", Tahoma, Helvetica, Arial, Sans-Serif;
+    }
+}
+
+h2 sup
+{
+	text-transform: none;
+}
+
+h2, h3, h4, h5, h6
+{
+	font: 24px/32px "Segoe UI Light", Tahoma, Helvetica, Arial, Sans-Serif;
+}
+
+@media only screen and (max-width: 800px)
+{
+    h2, h3, h4, h5, h6
+    {
+	    font: 18px "Segoe UI Light", Tahoma, Helvetica, Arial, Sans-Serif;
+    }
+}
+
+@media only screen and (max-width: 400px)
+{
+    h2, h3, h4, h5, h6
+    {
+        font: 16px "Segoe UI Light", Tahoma, Helvetica, Arial, Sans-Serif;
+    }
+}
+
+.Header
+{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1024px;
+    width: 100%;
+}
+
+@media only screen and (max-width: 800px)
+{
+    .Header
+    {
+        /*  background-color: aqua; */
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+}
+
+@media only screen and (max-width: 400px)
+{
+    .Header
+    {
+        /*  background-color: #F0F0F0;  */
+        margin: 0px;
+        width: 100%;
+    }
+}
+
+.HeaderImage
+{
+    padding: 0px;
+    padding-bottom: 0px;
+    padding-top: 30px;
+}
+
+@media only screen and (max-width: 400px)
+{
+    .HeaderImage
+    {
+        padding: 2px;
+    }
+}
+
+.HeaderImage img
+{
+    border: 0px;
+}
+
+.HeaderLinks
+{
+    padding: 5px;
+    text-align: right;
+}
+
+@media only screen and (max-width: 400px)
+{
+    .HeaderLinks
+    {
+        padding: 0px;
+        padding-right: 2px;
+    }
+}
+
+.Hidden
+{
+	display: none;
+	visibility: hidden;
+}
+
+.HorizontalSolidLine
+{
+    background-color: rgb(228, 228, 225); 
+}
+
+.HorizontalSpacer,
+.HorizontalSolidLine
+{
+    padding: 2px;
+}
+
+hr
+{
+	border-style: none;
+	border-width: 0px;
+	width: 80%;
+}
+
+.Image
+{
+    border: 10px solid #F1F1F1;
+}
+
+.Imaginary
+{
+    font: 14px/20px "Segoe UI", Tahoma, Helvetica, Arial, Sans-Serif;
+    font-style: italic;
+}
+
+@media only screen and (max-width: 400px)
+{
+    .Imaginary
+    {
+        font: 12px "Segoe UI", Tahoma, Helvetica, Arial, Sans-Serif;
+        font-style: italic;
+    }
+}
+
+input,
+select,
+textarea
+{
+	background-color: #FFFFFF;
+    border: solid 2px #CCCCCC;
+    border-radius: 2px;
+    color: #006699;
+    font: 14px/20px "Segoe UI", Tahoma, Helvetica, Arial, Sans-Serif;
+}
+
+input-validation-error
+{
+}
+
+.Keyword
+{
+    color: #0000FF;
+}
+
+.LayoutContainer
+{
+    width:100%;
+}
+
+.Layout
+{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1024px;
+    width: 100%;
+}
+
+.Literal
+{
+    color: #A31515;
+}
+
+@media only screen and (max-width: 800px)
+{
+    .Layout
+    {
+        margin: 0px;
+        margin-left: 5px;
+        margin-right: 5px;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 400px)
+{
+    .Layout
+    {
+        margin: 0px;
+        margin-left: 5px;
+        margin-right: 5px;
+        width: 100%;
+    }
+}
+
+pre
+{
+    font-family: "Andale Mono", "Lucida Console", Consolas, Monaco, Monospace;
+    font-weight: normal;
+    font-size: 8.5pt;
+}
+
+@media only screen and (max-width: 400px)
+{
+    pre
+    {
+        font-family: "Andale Mono", "Lucida Console", Consolas, Monaco, Monospace;
+        font-weight: normal;
+        font-size: 11px;
+    }
+}
+
+.Summary
+{
+    color: #808080;
+}
+
+td
+{
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+th
+{
+    text-align: left;
+}
+
+.Type
+{
+    color: #339999;
+}
+
+.Visible
+{
+	display: table-cell;
+	visibility: visible;
+}
+
+.WhiteLink
+{
+	color: #FFFFFF;
+	font-weight: normal;
+	text-decoration: none
+}
+
+.WhiteLink:hover
+{
+	text-decoration: underline
+}
+
+.White
+{
+	color: #FFFFFF;
+}

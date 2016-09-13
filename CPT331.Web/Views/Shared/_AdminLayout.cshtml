@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+<title>CPT331 Administation - </title>
+<meta charset="utf-8" />
+<meta name="description" content="@ViewBag.Description" />
+<meta name="keywords" content="@ViewBag.Keywords" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/Content/Version1.css" type="text/css" media="screen"  />
+<link rel="stylesheet" href="/Content/Admin.css" type="text/css" media="screen"  />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"> 
+</head>
+
+<body>
+
+<div class="LayoutContainer">
+<div class="Header">
+<div class="HeaderImage"><a href="/" title="Home - {Name}"><!--INSERT LOGO HERE<img src="/images/logo.jpg" alt="Home - {Name}" title="Home - {Name}" /></a>--></div>
+<div class="HeaderLinks">
+@Html.ActionLink("Home", "Home", "Home", null, new { @title = "Home" }) &raquo;
+@Html.ActionLink("Admin", "Home", "Admin", null, new { @title = "Home" })
+</div>
+</div>
+
+<div class="HorizontalSolidLine"></div>
+<div class="HorizontalSpacer"></div>
+
+<div class="Layout">
+
+@RenderBody()
+
+<br />
+
+<p>&nbsp;</p>
+
+</div>
+
+<div class="HorizontalSpacer"></div>
+<div class="HorizontalSolidLine"></div>
+
+<p align="center">Copyright &copy; @DateTime.Now.Year.ToString() @Html.ActionLink("CPT331 Administation", "Home", "Home", null, new { @title = "CPT331 Administation" })</p>
+
+<div class="HorizontalSpacer"></div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿@using CPT331.Data;
+
+@model IEnumerable<Test>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Tests | Admin";
+}
+
+<h1>@Html.ActionLink("Home", "Home", "Admin") | Tests</h1>
+
+<p>@Html.ActionLink("New Test", "NewTest", "Admin")</p>
+
+<table cellpadding="3" cellspacing="0" border="0" width="100%" class="Area54Table">
+
+<tr>
+<td width="40"><b>ID</b></td>
+<td><b>Value0</b></td>
+<td><b>Value1</b></td>
+</tr>
+
+@{
+	foreach (Test test in Model)
+	{
+<tr>
+<td>@test.ID</td>
+<td>@Html.ActionLink(test.Value0, "Test", "Admin", new { ID = test.ID }, null)</td>
+<td>@test.Value1</td>
+</tr>
+	}
+}
+
+</table>
