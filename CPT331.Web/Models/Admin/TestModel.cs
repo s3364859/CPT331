@@ -12,14 +12,19 @@ namespace CPT331.Web.Models.Admin
         {
         }
 
-        public TestModel(int id, string value0, string value1)
-        {
-			_id = id;
+		public TestModel(string value0, string value1)
+		{
 			_value0 = value0;
 			_value1 = value1;
-        }
+		}
 
-        private int _id;
+		public TestModel(int id, string value0, string value1)
+			: this(value0, value1)
+		{
+			_id = id;
+		}
+
+		private int _id;
         private bool _isDelete;
         private string _value0;
         private string _value1;
