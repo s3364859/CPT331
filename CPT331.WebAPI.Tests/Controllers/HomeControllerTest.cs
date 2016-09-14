@@ -11,7 +11,7 @@ namespace CPT331.WebAPI.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void Home()
         {
             // Arrange
             //	HomeController controller = new HomeController();
