@@ -1,0 +1,9 @@
+﻿.AdminTable tr
+{
+    background-color: #FFFFFF;
+}
+
+.AdminTable tr:hover
+{
+    background-color: rgb(228, 228, 225);
+}

@@ -11,8 +11,8 @@ namespace CPT331.Data
 		public Test(int id, string value0, string value1)
 		{
 			_id = id;
-			_value1 = value0;
-			_value0 = value1;
+			_value0 = value0;
+			_value1 = value1;
 		}
 
 		private readonly int _id;
