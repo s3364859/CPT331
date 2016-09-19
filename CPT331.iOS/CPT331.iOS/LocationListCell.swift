@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Mapbox
+import MapboxGeocoder
 
 class LocationListCell: UITableViewCell {
     
@@ -15,6 +17,9 @@ class LocationListCell: UITableViewCell {
     @IBOutlet weak var distanceValueLabel: UILabel!
     @IBOutlet weak var distanceUnitsLabel: UILabel!
     
+    var location:GeocodedPlacemark!
+    var userLocation: MGLUserLocation?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -22,5 +27,45 @@ class LocationListCell: UITableViewCell {
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
+    
+    func update(withAttributedText query:String?=nil) {
+        if let name = location.addressDictionary?["name"] as? String {
+            primaryLabel.hidden = false
+            
+            // Format the text, to bold the portion which matches search query
+            if let query = query {
+                let attributedString = NSMutableAttributedString(string: name, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(15.0)])
+                attributedString.addAttributes(
+                    [NSFontAttributeName: UIFont.boldSystemFontOfSize(15.0)],
+                    range: (name.lowercaseString as NSString).rangeOfString(query.lowercaseString)
+                )
+                primaryLabel.attributedText = attributedString
+                
+            // Unformatted text
+            } else {
+                primaryLabel.text = name
+            }
+            
+        } else {
+            primaryLabel.hidden = true
+        }
+        
+        if let state = location.addressDictionary?["state"] as? String {
+            secondaryLabel.text = state
+            secondaryLabel.hidden = false
+        } else {
+            secondaryLabel.hidden = true
+        }
+        
+        if let currentLocation = self.userLocation?.location {
+            distanceUnitsLabel.text = "km"
+            distanceValueLabel.text = String((self.location.distanceFrom(currentLocation)/1000).roundToPlaces(2))
+            
+            distanceUnitsLabel.hidden = false
+            distanceValueLabel.hidden = false
+        } else {
+            distanceUnitsLabel.hidden = true
+            distanceValueLabel.hidden = true
+        }
+    }
 }

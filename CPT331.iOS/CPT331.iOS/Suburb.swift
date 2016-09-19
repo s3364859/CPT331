@@ -17,7 +17,7 @@ class Suburb: NSManagedObject {
     @NSManaged var longitude: Double
     @NSManaged var postcode: Int
     
-//    lazy var location:CLLocation = CLLocation(latitude: self.latitude, longitude: self.longitude)
+    lazy var location:CLLocation = CLLocation(latitude: self.latitude, longitude: self.longitude)
     
     class func create(name:String, state:State, latitude:Double, longitude:Double, postcode:Int?=nil) -> Suburb? {
         let suburb = self.initEntity(withType: "Suburb") as! Suburb

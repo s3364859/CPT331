@@ -9,6 +9,7 @@
 import UIKit
 import CSVImporter
 import Mapbox
+import MapboxGeocoder
 import SideMenu
 
 class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
@@ -22,34 +23,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     @IBOutlet weak var searchResultsTableMarginBottom: NSLayoutConstraint!
     
     let searchResultsRowHeight = 50
-    var searchResults = [Suburb]()
+    var searchResults = [GeocodedPlacemark]()
+    var searchQuery:String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-                let nsw = State.create("New South Wales", abbreviation: "NSW")
-                let qld = State.create("Queensland", abbreviation: "QLD")
-                let sa = State.create("South Australia", abbreviation: "SA")
-                let tas = State.create("Tasmania", abbreviation: "TAS")
-                let vic = State.create("Victoria", abbreviation: "VIC")
-                let wa = State.create("Western Australia", abbreviation: "WA")
-                let act = State.create("Australian Capital Territory", abbreviation: "ACT")
-                let nt = State.create("Northern Territory", abbreviation: "NT")
-        
-        
-                if let path = NSBundle.mainBundle().pathForResource("NSW_Places", ofType: "csv") {
-                    let importer = CSVImporter<[String]>(path: path)
-                    importer.startImportingRecords { $0 }.onFinish { importedRecords in
-                        for record in importedRecords {
-                            if let lat = Double(record[3]), let lng = Double(record[4]) {
-                                Suburb.create(record[1], state: nsw!, latitude: lat, longitude: lng)
-                            }
-                        }
-                    }
-                }
-        
-        
-        
         // Setup the sidebar menu
         let menu = UISideMenuNavigationController()
         menu.leftSide = true
@@ -70,7 +49,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         doubleTap.numberOfTapsRequired = 2
         self.mapView.addGestureRecognizer(doubleTap)
         
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.handleSingleTap))
+        // Register single tap recognizer to check if the user tapped on a city/town/village label
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.mapSingleTapped))
         singleTap.requireGestureRecognizerToFail(doubleTap)
         singleTap.delegate = self
         self.mapView.addGestureRecognizer(singleTap)
@@ -98,44 +78,21 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         self.dismissKeyboard()
     }
     
-    
-    
-    func handleSingleTap(tap: UITapGestureRecognizer) {
+    func mapSingleTapped(tap: UITapGestureRecognizer) {
         let location = self.mapView.convertPoint(tap.locationInView(self.mapView), toCoordinateFromView: self.mapView)
-        print(String(format: "You tapped at: %.5f, %.5f", location.latitude, location.longitude))
+//        print(String(format: "You tapped at: %.5f, %.5f", location.latitude, location.longitude))
         
         
         for feature in self.mapView.visibleFeatures(at: tap.locationInView(self.mapView)) {
             if feature is MGLPointFeature {
                 
-                // name = actual place name (not necessarily in english)
-                // name_en = english name for the place
-                // type = 
-                //      Surburbs:   "town" or "village"
-                //      Natural parks:  "Protected Area"
-                //      City: "city"
-                //
-                // Notes: state labels do not have a specified type but they appear to be the only label type with "abbr" attribute
-                //    e.g. New south Wales "abbr" = "N.S.W."
-                
                 if let name = feature.attributeForKey("name") as? String {
-                    let type = feature.attributeForKey("type")
-                    let abbr = feature.attributeForKey("abbr")
-                    
-                    if type == nil && abbr != nil {
-                        print("State label tapped: \(name) (\(abbr!))")
-                    } else if type != nil {
-                        print("\(type!) label tapped: \(name)... adding annotation")
+                    if let type = feature.attributeForKey("type") as? String {
+                        print(String(format: "%@ label tapped: %@", type, name))
+                        showLocationDetails(name, type: type, coordinate: feature.coordinate)
                         
-                        if let suburb = LocationManager.getSuburb(withName: name) {
-                            print(" >> Adding marker!")
-                            let marker = MGLPointAnnotation()
-                            marker.coordinate = feature.coordinate
-                            marker.title = suburb.name
-                            self.mapView.addAnnotation(marker)
-                        } else {
-                            print(" >> No matching suburb found, no marker to add")
-                        }
+                    } else if let abbr = feature.attributeForKey("abbr") as? String {
+                        print(String(format: "State label tapped: %@ (%@)", name, abbr))
                         
                     } else {
                         print("UNKNOWN LABEL TYPE tapped:")
@@ -146,6 +103,21 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
                 // Exit loop early if a MGLPointFeature has been found
                 break
             }
+        }
+    }
+    
+    
+    
+    
+    
+    // Type = town, village, city
+    func showLocationDetails(title:String, type:String, coordinate:CLLocationCoordinate2D) {
+        if [ "city", "town", "village", "suburb"].indexOf(type) != nil {
+            print(String(format: "Showing place details for \"%@\" (%@). Location: %F, %F", title, type, coordinate.latitude, coordinate.longitude))
+            
+//            LocationManager.getLocationInfo(coordinate, completion: { (placemark) in
+//                
+//            })
         }
     }
     
@@ -164,27 +136,40 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
      * --------------------------------- */
     func searchQueryDidChange(textField:UITextField) {
         if let query = self.searchTextField.text {
-            self.searchResults.removeAll(keepCapacity: false)
-            self.searchResults = LocationManager.getSuburbs(usingSearchQuery: query, relativeToLocation: self.mapView.userLocation?.location)
+            let location = self.mapView.userLocation?.location
             
-            // Execute on main thread so that UI updates can be made
-            dispatch_async(dispatch_get_main_queue(), {
-                
-                // Hide table if no results, otherwise show
-                if !self.searchTextField.isFirstResponder() || self.searchResults.count == 0 {
-                    self.searchResultsTable.hidden = true
+            LocationManager.getSearchPredictions(query, relativeToLocation: self.mapView.userLocation?.location, completion: { (searchResults) in
+                if searchResults != nil {
+                    if location != nil {
+                        self.searchResults = searchResults!.sort({ $0.distanceFrom(location!) < $1.distanceFrom(location!)})
+                    } else {
+                        self.searchResults = searchResults!
+                    }
+                    
+                    self.searchQuery = query
+                    
                 } else {
-                    self.searchResultsTable.hidden = false
+                    self.searchResults.removeAll(keepCapacity: false)
+                    self.searchQuery = nil
                 }
                 
-                // Request table update
-                self.searchResultsTable.reloadData()
-                
-                // Update search results table to fit all cells
-                UIView.animateWithDuration(0.5, animations: {
-                    let height = self.searchResultsRowHeight * self.searchResults.count
-                    self.searchResultsTableHeight.constant = CGFloat(height)
-                    self.view.setNeedsUpdateConstraints()
+                dispatch_async(dispatch_get_main_queue(), {
+                    // Hide table if no results, otherwise show
+                    if !self.searchTextField.isFirstResponder() || self.searchResults.count == 0 {
+                        self.searchResultsTable.hidden = true
+                    } else {
+                        self.searchResultsTable.hidden = false
+                    }
+                    
+                    // Request table update
+                    self.searchResultsTable.reloadData()
+                    
+                    // Update search results table to fit all cells
+                    UIView.animateWithDuration(0.5, animations: {
+                        let height = self.searchResultsRowHeight * self.searchResults.count
+                        self.searchResultsTableHeight.constant = CGFloat(height)
+                        self.view.setNeedsUpdateConstraints()
+                    })
                 })
             })
         }
@@ -228,23 +213,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let suburb = self.searchResults[indexPath.row]
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! LocationListCell
         
-        cell.primaryLabel.text = suburb.name
-        cell.secondaryLabel.text = suburb.state.name
-        
-        if let location = self.mapView.userLocation?.location {
-            cell.distanceUnitsLabel.text = "km"
-            cell.distanceValueLabel.text = String((suburb.distanceFrom(location)/1000).roundToPlaces(2))
-            
-            cell.distanceUnitsLabel.hidden = false
-            cell.distanceValueLabel.hidden = false
-        } else {
-            cell.distanceUnitsLabel.hidden = true
-            cell.distanceValueLabel.hidden = true
-        }
+        cell.location = self.searchResults[indexPath.row]
+        cell.userLocation = self.mapView.userLocation
+        cell.update(withAttributedText: self.searchQuery)
         
         return cell
     }
@@ -253,15 +226,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         // Deselect row immediately, selection is only temporarily shown to indicate user touch
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        let suburb = self.searchResults[indexPath.row]
-        let coords = CLLocationCoordinate2D(latitude: suburb.latitude, longitude: suburb.longitude)
-
-        // Pan to suburb location
-        self.mapView.setCenterCoordinate(coords, zoomLevel: 12.5, animated: true)
+        let location = self.searchResults[indexPath.row]
         
         // Update search bar text to use suburb names
-        self.searchTextField.text = suburb.name
+        self.searchTextField.text = location.name
         self.searchTextField.resignFirstResponder()
         self.searchQueryDidChange(self.searchTextField)
+        
+        // Pan to suburb location
+        self.mapView.setCenterCoordinate(location.location.coordinate, zoomLevel: 12.5, animated: true)
     }
 }

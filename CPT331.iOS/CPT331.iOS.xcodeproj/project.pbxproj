@@ -10,22 +10,23 @@
 		12820A3CE771C3A4F7A0AF35 /* Pods_CPT331_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D85FF1DE398821AC03BBCA /* Pods_CPT331_iOS.framework */; };
 		D04F33A91D8E619500103669 /* CPT331_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33A81D8E619500103669 /* CPT331_iOSTests.swift */; };
 		D04F33B41D8E619500103669 /* CPT331_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33B31D8E619500103669 /* CPT331_iOSUITests.swift */; };
-		D04F33C51D8E63A800103669 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33C21D8E63A800103669 /* UIViewController.swift */; };
-		D04F33C61D8E63A800103669 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33C31D8E63A800103669 /* NSManagedObject.swift */; };
-		D04F33C71D8E63A800103669 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33C41D8E63A800103669 /* Double.swift */; };
 		D04F33CC1D8E63E200103669 /* NSW_Places.csv in Resources */ = {isa = PBXBuildFile; fileRef = D04F33C91D8E63E200103669 /* NSW_Places.csv */; };
-		D04F33CD1D8E63E200103669 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33CA1D8E63E200103669 /* LocationManager.swift */; };
-		D04F33D21D8E63F200103669 /* Suburb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33D01D8E63F200103669 /* Suburb.swift */; };
-		D04F33D31D8E63F200103669 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33D11D8E63F200103669 /* State.swift */; };
-		D04F33D91D8E642600103669 /* LocationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33D61D8E642600103669 /* LocationListCell.swift */; };
-		D04F33DA1D8E642600103669 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33D71D8E642600103669 /* MapViewController.swift */; };
-		D04F33DB1D8E642600103669 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33D81D8E642600103669 /* MenuViewController.swift */; };
-		D04F33DD1D8E642B00103669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D04F33DC1D8E642B00103669 /* Assets.xcassets */; };
-		D04F33E51D8E645C00103669 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D04F33E01D8E645C00103669 /* Main.storyboard */; };
-		D04F33E61D8E645C00103669 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D04F33E21D8E645C00103669 /* LaunchScreen.storyboard */; };
 		D04F33E91D8E65E700103669 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33E81D8E65E700103669 /* AppDelegate.swift */; };
 		D04F33EB1D8E65EE00103669 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D04F33EA1D8E65EE00103669 /* Info.plist */; };
+		D08BFF2F1D9007FC001B89B6 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08BFF2E1D9007FC001B89B6 /* UIViewController.swift */; };
+		D08BFF311D900805001B89B6 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08BFF301D900805001B89B6 /* NSManagedObject.swift */; };
+		D08BFF331D900810001B89B6 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08BFF321D900810001B89B6 /* Double.swift */; };
+		D08BFF361D90081D001B89B6 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08BFF341D90081D001B89B6 /* State.swift */; };
+		D08BFF371D90081D001B89B6 /* Suburb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08BFF351D90081D001B89B6 /* Suburb.swift */; };
+		D08BFF391D90082C001B89B6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08BFF381D90082C001B89B6 /* LocationManager.swift */; };
+		D08BFF3D1D900846001B89B6 /* LocationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08BFF3A1D900846001B89B6 /* LocationListCell.swift */; };
+		D08BFF3E1D900846001B89B6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08BFF3B1D900846001B89B6 /* MapViewController.swift */; };
+		D08BFF3F1D900846001B89B6 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08BFF3C1D900846001B89B6 /* MenuViewController.swift */; };
+		D08BFF411D900851001B89B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08BFF401D900851001B89B6 /* Assets.xcassets */; };
+		D08BFF441D900893001B89B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08BFF421D900893001B89B6 /* Main.storyboard */; };
+		D08BFF471D900899001B89B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08BFF451D900899001B89B6 /* LaunchScreen.storyboard */; };
 		D0C5DE3B1D8E67FA003C0423 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0C5DE391D8E67FA003C0423 /* Model.xcdatamodeld */; };
+		D0CDE7891D8FD06B0077A6DC /* GeocodedPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CDE7881D8FD06B0077A6DC /* GeocodedPlacemark.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,22 +56,23 @@
 		D04F33AF1D8E619500103669 /* CPT331.iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPT331.iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D04F33B31D8E619500103669 /* CPT331_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPT331_iOSUITests.swift; sourceTree = "<group>"; };
 		D04F33B51D8E619500103669 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D04F33C21D8E63A800103669 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewController.swift; path = ../../../../CPT331.iOS/SpatioNews/UIViewController.swift; sourceTree = "<group>"; };
-		D04F33C31D8E63A800103669 /* NSManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSManagedObject.swift; path = ../../../../CPT331.iOS/SpatioNews/NSManagedObject.swift; sourceTree = "<group>"; };
-		D04F33C41D8E63A800103669 /* Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Double.swift; path = ../../../../CPT331.iOS/SpatioNews/Double.swift; sourceTree = "<group>"; };
 		D04F33C91D8E63E200103669 /* NSW_Places.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = NSW_Places.csv; path = ../../../../../../Users/Peter/Desktop/NSW_Places.csv; sourceTree = "<group>"; };
-		D04F33CA1D8E63E200103669 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationManager.swift; path = ../../../../CPT331.iOS/SpatioNews/LocationManager.swift; sourceTree = "<group>"; };
-		D04F33D01D8E63F200103669 /* Suburb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Suburb.swift; path = ../../../../CPT331.iOS/SpatioNews/Suburb.swift; sourceTree = "<group>"; };
-		D04F33D11D8E63F200103669 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = State.swift; path = ../../../../CPT331.iOS/SpatioNews/State.swift; sourceTree = "<group>"; };
-		D04F33D61D8E642600103669 /* LocationListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationListCell.swift; path = ../../../../CPT331.iOS/SpatioNews/LocationListCell.swift; sourceTree = "<group>"; };
-		D04F33D71D8E642600103669 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = ../../../../CPT331.iOS/SpatioNews/MapViewController.swift; sourceTree = "<group>"; };
-		D04F33D81D8E642600103669 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = ../../../../CPT331.iOS/SpatioNews/MenuViewController.swift; sourceTree = "<group>"; };
-		D04F33DC1D8E642B00103669 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../CPT331.iOS/SpatioNews/Assets.xcassets; sourceTree = "<group>"; };
-		D04F33E11D8E645C00103669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../../CPT331.iOS/SpatioNews/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D04F33E31D8E645C00103669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../../CPT331.iOS/SpatioNews/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D04F33E81D8E65E700103669 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D04F33EA1D8E65EE00103669 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D08BFF2E1D9007FC001B89B6 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		D08BFF301D900805001B89B6 /* NSManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
+		D08BFF321D900810001B89B6 /* Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		D08BFF341D90081D001B89B6 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		D08BFF351D90081D001B89B6 /* Suburb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suburb.swift; sourceTree = "<group>"; };
+		D08BFF381D90082C001B89B6 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		D08BFF3A1D900846001B89B6 /* LocationListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationListCell.swift; sourceTree = "<group>"; };
+		D08BFF3B1D900846001B89B6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		D08BFF3C1D900846001B89B6 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		D08BFF401D900851001B89B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D08BFF431D900893001B89B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D08BFF461D900899001B89B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0C5DE3A1D8E67FA003C0423 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		D0CDE7881D8FD06B0077A6DC /* GeocodedPlacemark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodedPlacemark.swift; sourceTree = "<group>"; };
 		E6D3BEBE1A24C65561C4D38C /* Pods-CPT331.iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPT331.iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-CPT331.iOS/Pods-CPT331.iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,10 +139,10 @@
 				D04F33C81D8E63D400103669 /* API & Model */,
 				D04F33D41D8E640100103669 /* ViewModel */,
 				D04F33D51D8E641900103669 /* ViewControllers */,
-				D04F33DC1D8E642B00103669 /* Assets.xcassets */,
+				D08BFF401D900851001B89B6 /* Assets.xcassets */,
 				D04F33E81D8E65E700103669 /* AppDelegate.swift */,
-				D04F33E01D8E645C00103669 /* Main.storyboard */,
-				D04F33E21D8E645C00103669 /* LaunchScreen.storyboard */,
+				D08BFF421D900893001B89B6 /* Main.storyboard */,
+				D08BFF451D900899001B89B6 /* LaunchScreen.storyboard */,
 				D04F33EA1D8E65EE00103669 /* Info.plist */,
 			);
 			path = CPT331.iOS;
@@ -167,9 +169,10 @@
 		D04F33C11D8E639E00103669 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D04F33C21D8E63A800103669 /* UIViewController.swift */,
-				D04F33C31D8E63A800103669 /* NSManagedObject.swift */,
-				D04F33C41D8E63A800103669 /* Double.swift */,
+				D08BFF2E1D9007FC001B89B6 /* UIViewController.swift */,
+				D08BFF301D900805001B89B6 /* NSManagedObject.swift */,
+				D08BFF321D900810001B89B6 /* Double.swift */,
+				D0CDE7881D8FD06B0077A6DC /* GeocodedPlacemark.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -179,7 +182,7 @@
 			children = (
 				D04F33CF1D8E63E700103669 /* Entities */,
 				D04F33C91D8E63E200103669 /* NSW_Places.csv */,
-				D04F33CA1D8E63E200103669 /* LocationManager.swift */,
+				D08BFF381D90082C001B89B6 /* LocationManager.swift */,
 				D0C5DE391D8E67FA003C0423 /* Model.xcdatamodeld */,
 			);
 			name = "API & Model";
@@ -188,8 +191,8 @@
 		D04F33CF1D8E63E700103669 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				D04F33D01D8E63F200103669 /* Suburb.swift */,
-				D04F33D11D8E63F200103669 /* State.swift */,
+				D08BFF341D90081D001B89B6 /* State.swift */,
+				D08BFF351D90081D001B89B6 /* Suburb.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -204,9 +207,9 @@
 		D04F33D51D8E641900103669 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				D04F33D61D8E642600103669 /* LocationListCell.swift */,
-				D04F33D71D8E642600103669 /* MapViewController.swift */,
-				D04F33D81D8E642600103669 /* MenuViewController.swift */,
+				D08BFF3A1D900846001B89B6 /* LocationListCell.swift */,
+				D08BFF3B1D900846001B89B6 /* MapViewController.swift */,
+				D08BFF3C1D900846001B89B6 /* MenuViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -327,11 +330,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D04F33E51D8E645C00103669 /* Main.storyboard in Resources */,
-				D04F33E61D8E645C00103669 /* LaunchScreen.storyboard in Resources */,
 				D04F33EB1D8E65EE00103669 /* Info.plist in Resources */,
 				D04F33CC1D8E63E200103669 /* NSW_Places.csv in Resources */,
-				D04F33DD1D8E642B00103669 /* Assets.xcassets in Resources */,
+				D08BFF411D900851001B89B6 /* Assets.xcassets in Resources */,
+				D08BFF471D900899001B89B6 /* LaunchScreen.storyboard in Resources */,
+				D08BFF441D900893001B89B6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,17 +407,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0CDE7891D8FD06B0077A6DC /* GeocodedPlacemark.swift in Sources */,
+				D08BFF3F1D900846001B89B6 /* MenuViewController.swift in Sources */,
 				D04F33E91D8E65E700103669 /* AppDelegate.swift in Sources */,
-				D04F33C61D8E63A800103669 /* NSManagedObject.swift in Sources */,
-				D04F33D31D8E63F200103669 /* State.swift in Sources */,
-				D04F33CD1D8E63E200103669 /* LocationManager.swift in Sources */,
-				D04F33C51D8E63A800103669 /* UIViewController.swift in Sources */,
-				D04F33D21D8E63F200103669 /* Suburb.swift in Sources */,
-				D04F33DB1D8E642600103669 /* MenuViewController.swift in Sources */,
-				D04F33DA1D8E642600103669 /* MapViewController.swift in Sources */,
-				D04F33C71D8E63A800103669 /* Double.swift in Sources */,
+				D08BFF3D1D900846001B89B6 /* LocationListCell.swift in Sources */,
+				D08BFF371D90081D001B89B6 /* Suburb.swift in Sources */,
+				D08BFF331D900810001B89B6 /* Double.swift in Sources */,
+				D08BFF2F1D9007FC001B89B6 /* UIViewController.swift in Sources */,
+				D08BFF361D90081D001B89B6 /* State.swift in Sources */,
+				D08BFF311D900805001B89B6 /* NSManagedObject.swift in Sources */,
 				D0C5DE3B1D8E67FA003C0423 /* Model.xcdatamodeld in Sources */,
-				D04F33D91D8E642600103669 /* LocationListCell.swift in Sources */,
+				D08BFF391D90082C001B89B6 /* LocationManager.swift in Sources */,
+				D08BFF3E1D900846001B89B6 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,18 +454,18 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D04F33E01D8E645C00103669 /* Main.storyboard */ = {
+		D08BFF421D900893001B89B6 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D04F33E11D8E645C00103669 /* Base */,
+				D08BFF431D900893001B89B6 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		D04F33E21D8E645C00103669 /* LaunchScreen.storyboard */ = {
+		D08BFF451D900899001B89B6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D04F33E31D8E645C00103669 /* Base */,
+				D08BFF461D900899001B89B6 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

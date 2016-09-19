@@ -10,8 +10,11 @@ import Foundation
 import CoreData
 import CoreLocation
 import Mapbox
+import MapboxGeocoder
 
 class LocationManager {
+    
+    internal static var lastSearchTask: NSURLSessionDataTask?
     
     //        let nsw = State.create("New South Wales", abbreviation: "NSW")
     //        let qld = State.create("Queensland", abbreviation: "QLD")
@@ -61,6 +64,26 @@ class LocationManager {
         return [Suburb]()
     }
     
+    // Find a single state with a matching name
+    class func getState(withName name:String) -> State? {
+        let fetchRequest = NSFetchRequest(entityName: "State")
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "name == [c] %@", name)
+        
+        do {
+            if let results = try NSManagedObject.getMainContext().executeFetchRequest(fetchRequest) as? [State] {
+                if results.count > 0 {
+                    return results[0]
+                }
+            }
+        } catch let error as NSError {
+            print("Error: \(error.userInfo)")
+        }
+        
+        // Returns nothing if no match was found
+        return nil
+    }
+    
     // Find a single suburb with a matching name
     class func getSuburb(withName name:String) -> Suburb? {
         let fetchRequest = NSFetchRequest(entityName: "Suburb")
@@ -79,5 +102,69 @@ class LocationManager {
         
         // Returns nothing if no match was found
         return nil
+    }
+    
+    class func getAllSuburbs() -> [Suburb] {
+        let fetchRequest = NSFetchRequest(entityName: "Suburb")
+        
+        do {
+            if let results = try NSManagedObject.getMainContext().executeFetchRequest(fetchRequest) as? [Suburb] {
+                return results
+            }
+        } catch let error as NSError {
+            print("Error: \(error.userInfo)")
+        }
+        
+        // Returns nothing if no match was found
+        return [Suburb]()
+    }
+    
+    
+    
+    
+    // Forward geocoding
+    class func getSearchPredictions(query:String, autocomplete:Bool=true, relativeToLocation location:CLLocation?=nil, completion: ([GeocodedPlacemark]?) -> ()) {
+        // Cancel any tasks if some are already in progress
+        if lastSearchTask != nil {
+            lastSearchTask!.cancel()
+        }
+        
+        // Fire completion handler early if there is no search query
+        guard query.characters.count > 0 else {
+            completion(nil)
+            return
+        }
+        
+        let options = ForwardGeocodeOptions(query: query)
+        options.allowedScopes = [.Locality]
+        options.autocompletesQuery = autocomplete
+        options.focalLocation = location
+        options.allowedISOCountryCodes = ["AU"]
+        
+        let newTask = Geocoder.sharedGeocoder.geocode(options: options) { (placemarks, attribution, error) in
+
+            guard error == nil else {
+                if error?.code != -999 {
+                    print("Error for search query: \"\(query)\"")
+                    print(error)
+                }
+                return
+            }
+            
+            completion(placemarks)
+        }
+        
+        lastSearchTask = newTask
+    }
+    
+    // Reverse geocoding
+    class func getLocationInfo(coordinate: CLLocationCoordinate2D, completion: (GeocodedPlacemark?) -> ()) {
+        let options = ReverseGeocodeOptions(coordinate: coordinate)
+        
+        Geocoder.sharedGeocoder.geocode(options: options) { (placemarks, attribution, error) in
+            if placemarks != nil, let placemark = placemarks?[0] {
+                completion(placemark)
+            }
+        }
     }
 }
