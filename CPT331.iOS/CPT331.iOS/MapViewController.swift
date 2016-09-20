@@ -65,11 +65,19 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showLocationView", let locationName = sender as? String {
+            let vc = segue.destinationViewController as! LocationViewController
+            vc.locationName = locationName
+        }
+    }
     
     
     
     
-    
+    /* --------------------------------- *
+     *         Map Functionality         *
+     * --------------------------------- */
     
     // Fires when panning, zooming out or transitioning to a new location
     func mapViewRegionIsChanging(mapView: MGLMapView) {
@@ -79,10 +87,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     }
     
     func mapSingleTapped(tap: UITapGestureRecognizer) {
-        let location = self.mapView.convertPoint(tap.locationInView(self.mapView), toCoordinateFromView: self.mapView)
+//        let location = self.mapView.convertPoint(tap.locationInView(self.mapView), toCoordinateFromView: self.mapView)
 //        print(String(format: "You tapped at: %.5f, %.5f", location.latitude, location.longitude))
-        
-        
+
         for feature in self.mapView.visibleFeatures(at: tap.locationInView(self.mapView)) {
             if feature is MGLPointFeature {
                 
@@ -106,25 +113,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         }
     }
     
-    
-    
-    
-    
     // Type = town, village, city
     func showLocationDetails(title:String, type:String, coordinate:CLLocationCoordinate2D) {
         if [ "city", "town", "village", "suburb"].indexOf(type) != nil {
-            print(String(format: "Showing place details for \"%@\" (%@). Location: %F, %F", title, type, coordinate.latitude, coordinate.longitude))
             
-//            LocationManager.getLocationInfo(coordinate, completion: { (placemark) in
-//                
-//            })
+            // TODO: An actual location object should be passed, not just the title
+            self.performSegueWithIdentifier("showLocationView", sender: title)
         }
     }
-    
-    
-    
-    
-    
     
     
     
@@ -196,6 +192,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
             self.view.layoutIfNeeded()
         })
     }
+    
+    
+    
+    
+    
     
     /* --------------------------------- *
      *           Tabular Data            *
