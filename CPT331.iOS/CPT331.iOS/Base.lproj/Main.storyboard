@@ -39,7 +39,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Logo-Eventfinda" translatesAutoresizingMaskIntoConstraints="NO" id="PyE-2v-gWe">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-Eventfinda" translatesAutoresizingMaskIntoConstraints="NO" id="PyE-2v-gWe">
                                 <rect key="frame" x="214" y="564" width="173" height="36"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ENF-rk-30D" userLabel="Search Bar">

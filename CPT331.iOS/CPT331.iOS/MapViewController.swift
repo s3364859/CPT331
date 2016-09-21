@@ -78,12 +78,80 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     /* --------------------------------- *
      *         Map Functionality         *
      * --------------------------------- */
+    func getRadius(fromCoordinateBounds bounds: MGLCoordinateBounds) -> Double {
+        let ne = bounds.ne
+        let sw = bounds.sw
+        
+        var point1: CLLocationCoordinate2D!
+        var point2: CLLocationCoordinate2D!
+        
+        // Use longitude if in portrait
+        if (sw.longitude - ne.longitude) >= (sw.latitude - ne.latitude) {
+            point1 = CLLocationCoordinate2D(latitude: 0, longitude: sw.longitude)
+            point2 = CLLocationCoordinate2D(latitude: 0, longitude: ne.longitude)
+            
+        // Otherwise, use latitude if in landscape
+        } else {
+            point1 = CLLocationCoordinate2D(latitude: sw.latitude, longitude: 0)
+            point2 = CLLocationCoordinate2D(latitude: ne.latitude, longitude: 0)
+        }
+        
+        // Earth's radius in Kilometers
+        let earthRadius: Double = 6371.01
+        let kDegreesToRadians: Double = M_PI / 180
+        
+        // Get the difference between our two points then convert the difference into radians
+        let nDLat: Double = (point2.latitude - point1.latitude) * kDegreesToRadians
+        let nDLon: Double = (point2.longitude - point1.longitude) * kDegreesToRadians
+        let fromLat: Double = point1.latitude * kDegreesToRadians
+        let toLat: Double = point2.latitude * kDegreesToRadians
+        let nA: Double = pow(sin(nDLat / 2), 2) + cos(fromLat) * cos(toLat) * pow(sin(nDLon / 2), 2)
+        let nC: Double = 2 * atan2(sqrt(nA), sqrt(1 - nA))
+        let nD: Double = earthRadius * nC
+        let nR: Double = nD / 2
+        
+        // Should be the radius in kilometers
+        return nR
+    }
+    
     
     // Fires when panning, zooming out or transitioning to a new location
     func mapViewRegionIsChanging(mapView: MGLMapView) {
         
         // TODO: This call should be made when the user taps on the map too
         self.dismissKeyboard()
+    }
+    
+    // Fires when the map region finishes changing
+    func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+        print("map view region changed, fetching events...")
+        
+        // Calcualte radius
+        let radius = self.getRadius(fromCoordinateBounds: mapView.visibleCoordinateBounds)
+        
+        EventManager.getEvents(atCoordinate: mapView.centerCoordinate, withinRadius: radius, days: 7) { (events) in
+            print("map view region changed, events returned. Count: \(events?.count)")
+            
+            var annotations = [MGLAnnotation]()
+            
+            // Remove existing annotations if they exist
+            if let existing = mapView.annotations {
+                mapView.removeAnnotations(existing)
+            }
+            
+            // Build annotations array
+            if events != nil {
+                for event in events! {
+                    let annotation = MGLPointFeature()
+                    annotation.title = event.name
+                    annotation.coordinate = event.coordinate
+                    annotations.append(annotation)
+                }
+            }
+            
+            // Add Markers
+            mapView.addAnnotations(annotations)
+        }
     }
     
     func mapSingleTapped(tap: UITapGestureRecognizer) {
