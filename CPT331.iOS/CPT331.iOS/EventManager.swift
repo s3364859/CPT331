@@ -11,67 +11,6 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 
-enum EventField:String {
-    case address    = "address"
-    case category   = "category"
-    case startDate  = "datetime_start"
-    case endDate    = "datetime_end"
-    case description = "description"
-    case id         = "id"
-    case cancelled  = "is_cancelled"
-    case coordinate = "point"
-    case name       = "name"
-}
-
-
-
-struct Event {
-//    static let fields:[EventField] = [.id, .name, .coordinate]
-    
-    let id:Int
-    let name:String
-    let coordinate:CLLocationCoordinate2D
-    
-    init(id:Int, name:String, coordinate:CLLocationCoordinate2D) {
-        self.id = id
-        self.name = name
-        self.coordinate = coordinate
-    }
-    
-    func getDetails(completion: (EventDetail?) -> ()) {
-        EventManager.getEvent(withId: self.id, completion: completion)
-    }
-}
-
-
-
-struct EventDetail {
-//    static let fields:[EventField] = [.id, .name, .coordinate, .startDate, .endDate, .coordinate, .description, .cancelled]
-    
-    let id:Int
-    let name:String
-    let coordinate:CLLocationCoordinate2D
-    
-    // Extra params
-    let startDate:NSDate
-    let endDate:NSDate
-    let cancelled:Bool
-    let description:String?
-    let categories:[String]?
-    
-    init(id:Int, name:String, coordinate:CLLocationCoordinate2D, startDate:NSDate, endDate:NSDate, cancelled:Bool=false, description:String?=nil, categories:[String]?=nil) {
-        self.id = id
-        self.name = name
-        self.coordinate = coordinate
-        self.startDate = startDate
-        self.endDate = endDate
-        self.cancelled = cancelled
-        self.categories = categories
-        self.description = description
-    }
-}
-
-
 
 class EventManager {
     private init() {}
@@ -142,7 +81,6 @@ class EventManager {
     
     internal class func fetchJSON(endpoint:String, parameters:[String:AnyObject], headers:[String:String], completion: (JSON?) -> ()) {
         Alamofire.request(.GET, endpoint, parameters: parameters, headers: headers).responseJSON { response in
-//            print(response)
             
             guard response.result.error == nil else {
                 return completion(nil)

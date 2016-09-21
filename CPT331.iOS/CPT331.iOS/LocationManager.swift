@@ -38,12 +38,12 @@ class LocationManager {
     //        }
     
     
-    class func getSuburbs(usingSearchQuery query:String, relativeToLocation location: CLLocation?) -> [Suburb] {
+    class func getSuburbs(usingSearchQuery query:String, relativeToLocation location: CLLocation?) -> [CDSuburb] {
         let fetchRequest = NSFetchRequest(entityName: "Suburb")
         fetchRequest.predicate = NSPredicate(format: "(name CONTAINS[cd] %@)", query)
         
         do {
-            if let suburbs = try NSManagedObject.getMainContext().executeFetchRequest(fetchRequest) as? [Suburb] {
+            if let suburbs = try NSManagedObject.getMainContext().executeFetchRequest(fetchRequest) as? [CDSuburb] {
 
                 // If location data is available, sort locations relative to distance from user
                 if location != nil {
@@ -61,17 +61,17 @@ class LocationManager {
         }
         
         // Return empty array if none found
-        return [Suburb]()
+        return [CDSuburb]()
     }
     
     // Find a single state with a matching name
-    class func getState(withName name:String) -> State? {
+    class func getState(withName name:String) -> CDState? {
         let fetchRequest = NSFetchRequest(entityName: "State")
         fetchRequest.fetchLimit = 1
         fetchRequest.predicate = NSPredicate(format: "name == [c] %@", name)
         
         do {
-            if let results = try NSManagedObject.getMainContext().executeFetchRequest(fetchRequest) as? [State] {
+            if let results = try NSManagedObject.getMainContext().executeFetchRequest(fetchRequest) as? [CDState] {
                 if results.count > 0 {
                     return results[0]
                 }
@@ -85,13 +85,13 @@ class LocationManager {
     }
     
     // Find a single suburb with a matching name
-    class func getSuburb(withName name:String) -> Suburb? {
+    class func getSuburb(withName name:String) -> CDSuburb? {
         let fetchRequest = NSFetchRequest(entityName: "Suburb")
         fetchRequest.fetchLimit = 1
         fetchRequest.predicate = NSPredicate(format: "name == [c] %@", name)
         
         do {
-            if let results = try NSManagedObject.getMainContext().executeFetchRequest(fetchRequest) as? [Suburb] {
+            if let results = try NSManagedObject.getMainContext().executeFetchRequest(fetchRequest) as? [CDSuburb] {
                 if results.count > 0 {
                     return results[0]
                 }
@@ -104,11 +104,11 @@ class LocationManager {
         return nil
     }
     
-    class func getAllSuburbs() -> [Suburb] {
+    class func getAllSuburbs() -> [CDSuburb] {
         let fetchRequest = NSFetchRequest(entityName: "Suburb")
         
         do {
-            if let results = try NSManagedObject.getMainContext().executeFetchRequest(fetchRequest) as? [Suburb] {
+            if let results = try NSManagedObject.getMainContext().executeFetchRequest(fetchRequest) as? [CDSuburb] {
                 return results
             }
         } catch let error as NSError {
@@ -116,7 +116,7 @@ class LocationManager {
         }
         
         // Returns nothing if no match was found
-        return [Suburb]()
+        return [CDSuburb]()
     }
     
     

@@ -9,13 +9,13 @@
 import UIKit
 import CoreData
 
-class State: NSManagedObject {
+class CDState: NSManagedObject {
     @NSManaged var name: String
     @NSManaged var abbreviation: String
     @NSManaged var suburbs: NSSet
     
-    class func create(name:String, abbreviation:String) -> State? {
-        let state = self.initEntity(withType: "State") as! State
+    class func create(name:String, abbreviation:String) -> CDState? {
+        let state = self.initEntity(withType: "State") as! CDState
         
         state.name = name
         state.abbreviation = abbreviation

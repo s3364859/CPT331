@@ -10,17 +10,17 @@ import UIKit
 import CoreLocation
 import CoreData
 
-class Suburb: NSManagedObject {
+class CDSuburb: NSManagedObject {
     @NSManaged var name: String
-    @NSManaged var state: State
+    @NSManaged var state: CDState
     @NSManaged var latitude: Double
     @NSManaged var longitude: Double
     @NSManaged var postcode: Int
     
     lazy var location:CLLocation = CLLocation(latitude: self.latitude, longitude: self.longitude)
     
-    class func create(name:String, state:State, latitude:Double, longitude:Double, postcode:Int?=nil) -> Suburb? {
-        let suburb = self.initEntity(withType: "Suburb") as! Suburb
+    class func create(name:String, state:CDState, latitude:Double, longitude:Double, postcode:Int?=nil) -> CDSuburb? {
+        let suburb = self.initEntity(withType: "Suburb") as! CDSuburb
         
         suburb.name = name
         suburb.state = state
