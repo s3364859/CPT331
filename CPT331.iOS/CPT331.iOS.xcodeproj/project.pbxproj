@@ -18,6 +18,7 @@
 		D0630E521D93058600200606 /* EventField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E511D93058600200606 /* EventField.swift */; };
 		D0630E541D93058E00200606 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E531D93058E00200606 /* Event.swift */; };
 		D0630E561D93059700200606 /* EventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E551D93059700200606 /* EventDetail.swift */; };
+		D0630E5A1D93072A00200606 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E591D93072A00200606 /* Location.swift */; };
 		D08857891D90E62600790857 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08857881D90E62600790857 /* LocationViewController.swift */; };
 		D088578B1D91106100790857 /* LocationEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D088578A1D91106100790857 /* LocationEventsViewController.swift */; };
 		D088578D1D91108300790857 /* LocationCrimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D088578C1D91108300790857 /* LocationCrimeViewController.swift */; };
@@ -73,6 +74,7 @@
 		D0630E511D93058600200606 /* EventField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventField.swift; sourceTree = "<group>"; };
 		D0630E531D93058E00200606 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		D0630E551D93059700200606 /* EventDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetail.swift; sourceTree = "<group>"; };
+		D0630E591D93072A00200606 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D08857881D90E62600790857 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		D088578A1D91106100790857 /* LocationEventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationEventsViewController.swift; sourceTree = "<group>"; };
 		D088578C1D91108300790857 /* LocationCrimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCrimeViewController.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				D0630E511D93058600200606 /* EventField.swift */,
 				D0630E531D93058E00200606 /* Event.swift */,
 				D0630E551D93059700200606 /* EventDetail.swift */,
+				D0630E591D93072A00200606 /* Location.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 			files = (
 				D088578B1D91106100790857 /* LocationEventsViewController.swift in Sources */,
 				D0CDE7891D8FD06B0077A6DC /* GeocodedPlacemark.swift in Sources */,
+				D0630E5A1D93072A00200606 /* Location.swift in Sources */,
 				D08BFF3F1D900846001B89B6 /* MenuViewController.swift in Sources */,
 				D04F33E91D8E65E700103669 /* AppDelegate.swift in Sources */,
 				D08BFF3D1D900846001B89B6 /* LocationListCell.swift in Sources */,

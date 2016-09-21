@@ -45,7 +45,7 @@ class LocationViewController: UIViewController {
     
     weak var currentSubview: UIViewController?
     
-    var locationName:String!
+    var location:Location!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,9 @@ class LocationViewController: UIViewController {
         self.visualEffectView.layer.cornerRadius = 4
         self.visualEffectView.clipsToBounds = true
         
-        self.headingLabel.text = locationName
+//        self.headingLabel.text = location.name
+        
+        print(location)
         
         // Show events view by default
         self.toggleSubview("locationEventsView")

@@ -66,9 +66,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showLocationView", let locationName = sender as? String {
+        if segue.identifier == "showLocationView", let location = sender as? Location {
             let vc = segue.destinationViewController as! LocationViewController
-            vc.locationName = locationName
+            vc.location = location
         }
     }
     
@@ -164,7 +164,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
                 if let name = feature.attributeForKey("name") as? String {
                     if let type = feature.attributeForKey("type") as? String {
                         print(String(format: "%@ label tapped: %@", type, name))
-                        showLocationDetails(name, type: type, coordinate: feature.coordinate)
+                        
+                        // Convert object to make it easier to work with
+                        locationLabelTapped(Location(name: name, type: type, coordinate: feature.coordinate))
                         
                     } else if let abbr = feature.attributeForKey("abbr") as? String {
                         print(String(format: "State label tapped: %@ (%@)", name, abbr))
@@ -182,11 +184,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     }
     
     // Type = town, village, city
-    func showLocationDetails(title:String, type:String, coordinate:CLLocationCoordinate2D) {
-        if [ "city", "town", "village", "suburb"].indexOf(type) != nil {
+    func locationLabelTapped(location:Location) {
+        if location.shouldShowDetails {
             
             // TODO: An actual location object should be passed, not just the title
-            self.performSegueWithIdentifier("showLocationView", sender: title)
+            self.performSegueWithIdentifier("showLocationView", sender: location as? AnyObject)
         }
     }
     
