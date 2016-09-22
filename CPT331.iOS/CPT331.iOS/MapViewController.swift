@@ -12,13 +12,35 @@ import Mapbox
 import MapboxGeocoder
 import SideMenu
 
+
+struct Pair<T:Hashable,U:Hashable> : Hashable {
+    let values : (T, U)
+    
+    var hashValue : Int {
+        get {
+            let (a,b) = values
+            return a.hashValue &* 31 &+ b.hashValue
+        }
+    }
+}
+
+// comparison function for conforming to Equatable protocol
+func ==<T:Hashable,U:Hashable>(lhs: Pair<T,U>, rhs: Pair<T,U>) -> Bool {
+    return lhs.values == rhs.values
+}
+
+
 class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var mapView: MGLMapView!
+    
+    @IBOutlet weak var searchBarView: UIVisualEffectView!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchSubmitButton: UIButton!
+    
+    @IBOutlet weak var searchResultsView: UIVisualEffectView!
     @IBOutlet weak var searchResultsTable: UITableView!
-    @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var searchResultsTableHeight: NSLayoutConstraint!
     @IBOutlet weak var searchResultsTableMarginBottom: NSLayoutConstraint!
     
@@ -29,6 +51,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     // Stores the most recently tapped location label
     // Used to pass the location to child views
     var lastLocationTapped:Location?
+    var lastEventTapped:Event?
+    
+    var currentAnnotations = Dictionary<Pair<Double,Double>,MGLAnnotation>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,9 +64,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         SideMenuManager.menuFadeStatusBar = false
         SideMenuManager.menuLeftNavigationController = menu
         
-        // Setup search
+        // Setup search bar
+        searchBarView.layer.cornerRadius = 4
         searchTextField.addTarget(self, action: #selector(MapViewController.searchQueryDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
-        searchResultsTable.hidden = true
+        
+        // Setup search results
+        searchResultsView.layer.cornerRadius = 4
+        searchResultsView.hidden = true
+        searchResultsTable.backgroundColor = .clearColor()
+        searchResultsTable.tableFooterView = UIView()
         searchResultsTable.delegate = self
         searchResultsTable.dataSource = self
         
@@ -73,6 +104,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         if segue.identifier == "showLocationView", let location = self.lastLocationTapped {
             let vc = segue.destinationViewController as! LocationViewController
             vc.location = location
+            
+        } else if segue.identifier == "showEventView", let event = self.lastEventTapped {
+            let vc = segue.destinationViewController as! EventViewController
+            vc.event = event
         }
     }
     
@@ -136,7 +171,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         EventManager.getEvents(atCoordinate: mapView.centerCoordinate, withinRadius: radius, days: 7) { (events) in
             print("map view region changed, events returned. Count: \(events?.count)")
             
-            var annotations = [MGLAnnotation]()
+            self.currentAnnotations.removeAll(keepCapacity: false)
             
             // Remove existing annotations if they exist
             if let existing = mapView.annotations {
@@ -146,43 +181,56 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
             // Build annotations array
             if events != nil {
                 for event in events! {
-                    let annotation = MGLPointFeature()
+                    
+                    let annotation = MGLEventFeature()
+                    annotation.id = event.id
                     annotation.title = event.name
+                    annotation.category = event.category
                     annotation.coordinate = event.coordinate
-                    annotations.append(annotation)
+                    
+                    // Store annotations in dictionary, using coordinates as the key
+                    let key = Pair(values: (event.coordinate.latitude.roundToPlaces(3), event.coordinate.longitude.roundToPlaces(3)))
+                    self.currentAnnotations[key] = annotation
                 }
             }
             
             // Add Markers
-            mapView.addAnnotations(annotations)
+            mapView.addAnnotations(self.currentAnnotations.map{$0.1})
         }
     }
     
     func mapSingleTapped(tap: UITapGestureRecognizer) {
 //        let location = self.mapView.convertPoint(tap.locationInView(self.mapView), toCoordinateFromView: self.mapView)
 //        print(String(format: "You tapped at: %.5f, %.5f", location.latitude, location.longitude))
-
-        for feature in self.mapView.visibleFeatures(at: tap.locationInView(self.mapView)) {
-            if feature is MGLPointFeature {
+        
+        let pointFeatures = self.mapView.visibleFeatures(at: tap.locationInView(self.mapView)).filter{$0 is MGLPointFeature}
+        
+        // Because single tap is being intercepted, it's necessary to manually call didSelectannotation
+        for feature in pointFeatures {
+            
+            // If it doesn't have a name attribute, it's probably a marker?
+            if feature.attributeForKey("name") == nil {
+                self.mapView.selectAnnotation(feature, animated: true)
+                return
+            }
+        }
+        
+        // If it has a name attribute, assume it's a location label
+        if pointFeatures.count > 0, let name = pointFeatures[0].attributeForKey("name") as? String {
+            let feature = pointFeatures[0]
+            
+            if let type = feature.attributeForKey("type") as? String {
+                print(String(format: "%@ label tapped: %@", type, name))
                 
-                if let name = feature.attributeForKey("name") as? String {
-                    if let type = feature.attributeForKey("type") as? String {
-                        print(String(format: "%@ label tapped: %@", type, name))
-                        
-                        // Convert object to make it easier to work with
-                        locationLabelTapped(Location(name: name, type: type, coordinate: feature.coordinate))
-                        
-                    } else if let abbr = feature.attributeForKey("abbr") as? String {
-                        print(String(format: "State label tapped: %@ (%@)", name, abbr))
-                        
-                    } else {
-                        print("UNKNOWN LABEL TYPE tapped:")
-                        print(feature.attributes)
-                    }
-                }
+                // Convert object to make it easier to work with
+                locationLabelTapped(Location(name: name, type: type, coordinate: feature.coordinate))
                 
-                // Exit loop early if a MGLPointFeature has been found
-                break
+            } else if let abbr = feature.attributeForKey("abbr") as? String {
+                print(String(format: "State label tapped: %@ (%@)", name, abbr))
+                
+            } else {
+                print("UNKNOWN LABEL TYPE tapped:")
+                print(feature.attributes)
             }
         }
     }
@@ -192,6 +240,24 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         if location.shouldShowDetails {
             self.lastLocationTapped = location
             self.performSegueWithIdentifier("showLocationView", sender: nil)
+        }
+    }
+    
+    func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
+        let key = Pair(values: (annotation.coordinate.latitude.roundToPlaces(3), annotation.coordinate.longitude.roundToPlaces(3)))
+        
+        if let a = self.currentAnnotations[key] as? MGLEventFeature {
+            self.lastEventTapped = Event(id: a.id!, name: a.title!, coordinate: a.coordinate, category: a.category)
+            self.performSegueWithIdentifier("showEventView", sender: nil)
+            
+        } else {
+            print("Zoomed too far out...")
+            
+//            for (k,_) in self.currentAnnotations {
+//                let (lat, lng) = k.values
+//                
+//                print(lat.roundToPlaces(3), lng.roundToPlaces(3))
+//            }
         }
     }
     
@@ -225,9 +291,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
                 dispatch_async(dispatch_get_main_queue(), {
                     // Hide table if no results, otherwise show
                     if !self.searchTextField.isFirstResponder() || self.searchResults.count == 0 {
-                        self.searchResultsTable.hidden = true
+                        self.searchResultsView.hidden = true
                     } else {
-                        self.searchResultsTable.hidden = false
+                        self.searchResultsView.hidden = false
                     }
                     
                     // Request table update

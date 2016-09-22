@@ -21,6 +21,8 @@
 		D0630E5A1D93072A00200606 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E591D93072A00200606 /* Location.swift */; };
 		D080C2801D937AA20071BB43 /* LocationSubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080C27F1D937AA20071BB43 /* LocationSubViewController.swift */; };
 		D080C2821D937F020071BB43 /* EventsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080C2811D937F020071BB43 /* EventsListCell.swift */; };
+		D080C2841D93C3A90071BB43 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080C2831D93C3A90071BB43 /* EventViewController.swift */; };
+		D080C2861D93C8110071BB43 /* MGLEventFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080C2851D93C8110071BB43 /* MGLEventFeature.swift */; };
 		D08857891D90E62600790857 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08857881D90E62600790857 /* LocationViewController.swift */; };
 		D088578B1D91106100790857 /* LocationEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D088578A1D91106100790857 /* LocationEventsViewController.swift */; };
 		D088578D1D91108300790857 /* LocationCrimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D088578C1D91108300790857 /* LocationCrimeViewController.swift */; };
@@ -79,6 +81,8 @@
 		D0630E591D93072A00200606 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D080C27F1D937AA20071BB43 /* LocationSubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSubViewController.swift; sourceTree = "<group>"; };
 		D080C2811D937F020071BB43 /* EventsListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsListCell.swift; sourceTree = "<group>"; };
+		D080C2831D93C3A90071BB43 /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
+		D080C2851D93C8110071BB43 /* MGLEventFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGLEventFeature.swift; sourceTree = "<group>"; };
 		D08857881D90E62600790857 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		D088578A1D91106100790857 /* LocationEventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationEventsViewController.swift; sourceTree = "<group>"; };
 		D088578C1D91108300790857 /* LocationCrimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCrimeViewController.swift; sourceTree = "<group>"; };
@@ -233,11 +237,13 @@
 		D04F33D51D8E641900103669 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D080C2851D93C8110071BB43 /* MGLEventFeature.swift */,
 				D08857921D91134F00790857 /* Cells */,
 				D08857911D91133300790857 /* Location Subviews */,
 				D08BFF3C1D900846001B89B6 /* MenuViewController.swift */,
 				D08BFF3B1D900846001B89B6 /* MapViewController.swift */,
 				D08857881D90E62600790857 /* LocationViewController.swift */,
+				D080C2831D93C3A90071BB43 /* EventViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -362,6 +368,7 @@
 				TargetAttributes = {
 					D04F338C1D8E619500103669 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = W7F2H272FL;
 					};
 					D04F33A31D8E619500103669 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -489,10 +496,12 @@
 				D08857891D90E62600790857 /* LocationViewController.swift in Sources */,
 				D08BFF361D90081D001B89B6 /* CDState.swift in Sources */,
 				D08BFF311D900805001B89B6 /* NSManagedObject.swift in Sources */,
+				D080C2841D93C3A90071BB43 /* EventViewController.swift in Sources */,
 				D0630E501D92466F00200606 /* NSDate.swift in Sources */,
 				D0630E4C1D92243D00200606 /* String.swift in Sources */,
 				D0C5DE3B1D8E67FA003C0423 /* Model.xcdatamodeld in Sources */,
 				D088578D1D91108300790857 /* LocationCrimeViewController.swift in Sources */,
+				D080C2861D93C8110071BB43 /* MGLEventFeature.swift in Sources */,
 				D080C2821D937F020071BB43 /* EventsListCell.swift in Sources */,
 				D08BFF391D90082C001B89B6 /* LocationManager.swift in Sources */,
 				D080C2801D937AA20071BB43 /* LocationSubViewController.swift in Sources */,
@@ -643,10 +652,13 @@
 			baseConfigurationReference = CE2ACB0AEC3BCDD3ECBCC99C /* Pods-CPT331.iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CPT331.iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterweller.CPT331-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -655,10 +667,13 @@
 			baseConfigurationReference = E6D3BEBE1A24C65561C4D38C /* Pods-CPT331.iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CPT331.iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterweller.CPT331-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
