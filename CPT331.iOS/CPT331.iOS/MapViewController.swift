@@ -25,6 +25,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     let searchResultsRowHeight = 50
     var searchResults = [GeocodedPlacemark]()
     var searchQuery:String?
+    
+    // Stores the most recently tapped location label
+    // Used to pass the location to child views
+    var lastLocationTapped:Location?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +70,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showLocationView", let location = sender as? Location {
+        if segue.identifier == "showLocationView", let location = self.lastLocationTapped {
             let vc = segue.destinationViewController as! LocationViewController
             vc.location = location
         }
@@ -186,9 +190,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     // Type = town, village, city
     func locationLabelTapped(location:Location) {
         if location.shouldShowDetails {
-            
-            // TODO: An actual location object should be passed, not just the title
-            self.performSegueWithIdentifier("showLocationView", sender: location as? AnyObject)
+            self.lastLocationTapped = location
+            self.performSegueWithIdentifier("showLocationView", sender: nil)
         }
     }
     

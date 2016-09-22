@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LocationCrimeViewController: UIViewController {
+class LocationCrimeViewController: LocationSubViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

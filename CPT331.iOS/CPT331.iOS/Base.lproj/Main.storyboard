@@ -388,7 +388,7 @@
                                                                 <color key="titleColor" red="0.25882352939999997" green="0.59215686270000001" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
                                                             <state key="selected">
-                                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
                                                             <state key="highlighted">
                                                                 <color key="titleColor" red="0.25882352939999997" green="0.59215686270000001" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -577,12 +577,65 @@
                     <view key="view" contentMode="scaleToFill" id="FGd-ej-5Kl">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ebe-78-Agm">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventCell" rowHeight="44" id="oak-40-0CE" customClass="EventsListCell" customModule="CPT331_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="300" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oak-40-0CE" id="t1Y-TM-nbt">
+                                            <rect key="frame" x="0.0" y="0.0" width="267" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Event Categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DX9-kM-O4x">
+                                                    <rect key="frame" x="8" y="22" width="284" height="15"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                    <color key="textColor" white="0.75472561469999999" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" misplaced="YES" text="Event Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4k-eu-LHp">
+                                                    <rect key="frame" x="8" y="5" width="284" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="x4k-eu-LHp" secondAttribute="trailing" id="0J3-Zw-03f"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="DX9-kM-O4x" secondAttribute="trailing" id="5zR-eU-DH7"/>
+                                                <constraint firstItem="x4k-eu-LHp" firstAttribute="centerY" secondItem="t1Y-TM-nbt" secondAttribute="centerY" constant="-8" id="HRS-f4-1jq"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="DX9-kM-O4x" secondAttribute="leading" id="Ivo-8V-XI5"/>
+                                                <constraint firstItem="DX9-kM-O4x" firstAttribute="centerY" secondItem="t1Y-TM-nbt" secondAttribute="centerY" constant="8" id="PL3-eB-vkA"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="x4k-eu-LHp" secondAttribute="leading" id="g12-Yo-tml"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="primaryLabel" destination="x4k-eu-LHp" id="Ldm-me-Lyp"/>
+                                            <outlet property="secondaryLabel" destination="DX9-kM-O4x" id="aNH-Nd-aPS"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ebe-78-Agm" firstAttribute="top" secondItem="vJF-FD-Cna" secondAttribute="bottom" id="N3N-ty-wG3"/>
+                            <constraint firstAttribute="trailing" secondItem="ebe-78-Agm" secondAttribute="trailing" id="eXf-dT-cki"/>
+                            <constraint firstItem="ebe-78-Agm" firstAttribute="leading" secondItem="FGd-ej-5Kl" secondAttribute="leading" id="gzI-Gp-DKZ"/>
+                            <constraint firstItem="ebe-78-Agm" firstAttribute="bottom" secondItem="DGe-2P-Sbj" secondAttribute="top" id="rnZ-lr-sov"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="300" height="300"/>
+                    <connections>
+                        <outlet property="tableView" destination="ebe-78-Agm" id="I7z-XY-TEM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MB6-Rw-vrJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

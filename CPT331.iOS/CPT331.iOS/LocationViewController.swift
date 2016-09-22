@@ -26,7 +26,6 @@ class LocationViewController: UIViewController {
     @IBOutlet weak var crimeTabButton: UIButton!
     @IBOutlet weak var infoTabButton: UIButton!
     
-    
     @IBAction func closeButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: {})
     }
@@ -43,9 +42,12 @@ class LocationViewController: UIViewController {
         self.toggleSubview("locationInfoView")
     }
     
-    weak var currentSubview: UIViewController?
-    
+    // Passed in from MapViewController
     var location:Location!
+    
+    // Stores which subview is currently being displayed
+    // Used to manage view controller hierarchy
+    weak var currentSubview: UIViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,9 +56,7 @@ class LocationViewController: UIViewController {
         self.visualEffectView.layer.cornerRadius = 4
         self.visualEffectView.clipsToBounds = true
         
-//        self.headingLabel.text = location.name
-        
-        print(location)
+        self.headingLabel.text = location.name
         
         // Show events view by default
         self.toggleSubview("locationEventsView")
@@ -67,9 +67,8 @@ class LocationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
     func toggleSubview(id:String) {
-        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier(id) {
+        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier(id) as? LocationSubViewController {
             
             // Remove current child view controller (if exists)
             if let current = self.currentSubview {
@@ -81,6 +80,9 @@ class LocationViewController: UIViewController {
                 current.removeFromParentViewController()
                 self.currentSubview = nil
             }
+            
+            // Pass location info
+            vc.location = self.location
             
             // Add new child view controller
             vc.view.frame = self.containerView.frame

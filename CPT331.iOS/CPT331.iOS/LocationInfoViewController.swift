@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LocationInfoViewController: UIViewController {
+class LocationInfoViewController: LocationSubViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

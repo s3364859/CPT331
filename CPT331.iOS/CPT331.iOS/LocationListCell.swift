@@ -23,10 +23,6 @@ class LocationListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
     func update(withAttributedText query:String?=nil) {
         if let name = location.addressDictionary?["name"] as? String {

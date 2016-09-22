@@ -8,12 +8,34 @@
 
 import UIKit
 
-class LocationEventsViewController: UIViewController {
+class LocationEventsViewController: LocationSubViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var tableView: UITableView!
+    
+    var events = [Event]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        
+        self.tableView.backgroundColor = .clearColor()
+        self.tableView.tableFooterView = UIView()
+        
+        EventManager.getEvents(atCoordinate: self.location.coordinate, withinRadius: 20, days: 7) { (events) in
+            self.events.removeAll(keepCapacity: false)
+            
+            if events != nil {
+                self.events = events!
+            }
+            
+            // Execute table reload on main thread
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.tableView.reloadData()
+            })
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,15 +43,24 @@ class LocationEventsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.events.count
     }
-    */
-
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("eventCell", forIndexPath: indexPath) as! EventsListCell
+        
+        cell.event = self.events[indexPath.row]
+        cell.update()
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = .clearColor()
+    }
 }

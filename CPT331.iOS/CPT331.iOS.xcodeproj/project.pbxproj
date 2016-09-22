@@ -19,6 +19,8 @@
 		D0630E541D93058E00200606 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E531D93058E00200606 /* Event.swift */; };
 		D0630E561D93059700200606 /* EventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E551D93059700200606 /* EventDetail.swift */; };
 		D0630E5A1D93072A00200606 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E591D93072A00200606 /* Location.swift */; };
+		D080C2801D937AA20071BB43 /* LocationSubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080C27F1D937AA20071BB43 /* LocationSubViewController.swift */; };
+		D080C2821D937F020071BB43 /* EventsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080C2811D937F020071BB43 /* EventsListCell.swift */; };
 		D08857891D90E62600790857 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08857881D90E62600790857 /* LocationViewController.swift */; };
 		D088578B1D91106100790857 /* LocationEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D088578A1D91106100790857 /* LocationEventsViewController.swift */; };
 		D088578D1D91108300790857 /* LocationCrimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D088578C1D91108300790857 /* LocationCrimeViewController.swift */; };
@@ -75,6 +77,8 @@
 		D0630E531D93058E00200606 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		D0630E551D93059700200606 /* EventDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetail.swift; sourceTree = "<group>"; };
 		D0630E591D93072A00200606 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		D080C27F1D937AA20071BB43 /* LocationSubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSubViewController.swift; sourceTree = "<group>"; };
+		D080C2811D937F020071BB43 /* EventsListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsListCell.swift; sourceTree = "<group>"; };
 		D08857881D90E62600790857 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		D088578A1D91106100790857 /* LocationEventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationEventsViewController.swift; sourceTree = "<group>"; };
 		D088578C1D91108300790857 /* LocationCrimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCrimeViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +265,7 @@
 		D08857911D91133300790857 /* Location Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				D080C27F1D937AA20071BB43 /* LocationSubViewController.swift */,
 				D088578A1D91106100790857 /* LocationEventsViewController.swift */,
 				D088578C1D91108300790857 /* LocationCrimeViewController.swift */,
 				D088578E1D9110C600790857 /* LocationInfoViewController.swift */,
@@ -272,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				D08BFF3A1D900846001B89B6 /* LocationListCell.swift */,
+				D080C2811D937F020071BB43 /* EventsListCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -487,7 +493,9 @@
 				D0630E4C1D92243D00200606 /* String.swift in Sources */,
 				D0C5DE3B1D8E67FA003C0423 /* Model.xcdatamodeld in Sources */,
 				D088578D1D91108300790857 /* LocationCrimeViewController.swift in Sources */,
+				D080C2821D937F020071BB43 /* EventsListCell.swift in Sources */,
 				D08BFF391D90082C001B89B6 /* LocationManager.swift in Sources */,
+				D080C2801D937AA20071BB43 /* LocationSubViewController.swift in Sources */,
 				D088578F1D9110C600790857 /* LocationInfoViewController.swift in Sources */,
 				D0630E541D93058E00200606 /* Event.swift in Sources */,
 				D08BFF3E1D900846001B89B6 /* MapViewController.swift in Sources */,
