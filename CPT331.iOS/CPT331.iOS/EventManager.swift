@@ -40,7 +40,7 @@ class EventManager {
         let future = calendar.dateByAddingUnit(.Day, value: days, toDate: NSDate(), options: [])
         
         // Data which should be returned
-        let fields:[EventField] = [.id, .name, .coordinate]
+        let fields:[EventField] = [.id, .name, .coordinate, .category]
         
         let parameters:[String:AnyObject] = [
             "rows": 20,
@@ -62,13 +62,14 @@ class EventManager {
                     let name = event["name"].string
                     let lat = event["point"]["lat"].double
                     let lng = event["point"]["lng"].double
+                    let category = event["category"]["name"].string
                     
                     // Ensure all data has been returned
                     if id != nil && name != nil && lat != nil && lng != nil {
                         let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: lng!)
                         
                         // Construct and append to array
-                        parsedEvents.append(Event(id: id!, name: name!, coordinate: coordinate))
+                        parsedEvents.append(Event(id: id!, name: name!, coordinate: coordinate, category: category))
                     }
                 }
                 

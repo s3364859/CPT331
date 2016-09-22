@@ -21,6 +21,11 @@ class EventsListCell: UITableViewCell {
     
     func update() {
         self.primaryLabel.text = event.name
-        self.secondaryLabel.text = "Categories [NYI]"
+        
+        if let category = event.category {
+            self.secondaryLabel.text = category
+        } else {
+            self.secondaryLabel.text = "No Category"
+        }
     }
 }

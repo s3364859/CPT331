@@ -15,11 +15,13 @@ struct Event {
     let id:Int
     let name:String
     let coordinate:CLLocationCoordinate2D
+    let category:String?
     
-    init(id:Int, name:String, coordinate:CLLocationCoordinate2D) {
+    init(id:Int, name:String, coordinate:CLLocationCoordinate2D, category:String?) {
         self.id = id
         self.name = name
         self.coordinate = coordinate
+        self.category = category
     }
     
     func getDetails(completion: (EventDetail?) -> ()) {
