@@ -52,8 +52,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     // Used to pass the location to child views
     var lastLocationTapped:Location?
     var lastEventTapped:Event?
-    
-    var currentAnnotations = Dictionary<Pair<Double,Double>,MGLAnnotation>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,11 +81,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         let doubleTap = UITapGestureRecognizer(target: self, action: nil)
         doubleTap.numberOfTapsRequired = 2
         self.mapView.addGestureRecognizer(doubleTap)
-        
+
         // Register single tap recognizer to check if the user tapped on a city/town/village label
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.mapSingleTapped))
         singleTap.requireGestureRecognizerToFail(doubleTap)
         singleTap.delegate = self
+        singleTap.cancelsTouchesInView = false
         self.mapView.addGestureRecognizer(singleTap)
         
         // Bind observers to listen to keyboard show/hide events
@@ -154,6 +153,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     }
     
     
+    
+    
+    
+    
     // Fires when panning, zooming out or transitioning to a new location
     func mapViewRegionIsChanging(mapView: MGLMapView) {
         
@@ -161,17 +164,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         self.dismissKeyboard()
     }
     
+    
     // Fires when the map region finishes changing
     func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
-        print("map view region changed, fetching events...")
         
         // Calcualte radius
         let radius = self.getRadius(fromCoordinateBounds: mapView.visibleCoordinateBounds)
         
         EventManager.getEvents(atCoordinate: mapView.centerCoordinate, withinRadius: radius, days: 7) { (events) in
-            print("map view region changed, events returned. Count: \(events?.count)")
-            
-            self.currentAnnotations.removeAll(keepCapacity: false)
+            var annotations = [MGLAnnotation]()
             
             // Remove existing annotations if they exist
             if let existing = mapView.annotations {
@@ -187,33 +188,35 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
                     annotation.title = event.name
                     annotation.category = event.category
                     annotation.coordinate = event.coordinate
-                    
-                    // Store annotations in dictionary, using coordinates as the key
-                    let key = Pair(values: (event.coordinate.latitude.roundToPlaces(3), event.coordinate.longitude.roundToPlaces(3)))
-                    self.currentAnnotations[key] = annotation
+                    annotations.append(annotation)
                 }
             }
             
             // Add Markers
-            mapView.addAnnotations(self.currentAnnotations.map{$0.1})
+            mapView.addAnnotations(annotations)
         }
     }
-    
-    func mapSingleTapped(tap: UITapGestureRecognizer) {
-//        let location = self.mapView.convertPoint(tap.locationInView(self.mapView), toCoordinateFromView: self.mapView)
-//        print(String(format: "You tapped at: %.5f, %.5f", location.latitude, location.longitude))
-        
-        let pointFeatures = self.mapView.visibleFeatures(at: tap.locationInView(self.mapView)).filter{$0 is MGLPointFeature}
-        
-        // Because single tap is being intercepted, it's necessary to manually call didSelectannotation
-        for feature in pointFeatures {
+
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let tap = gestureRecognizer as? UITapGestureRecognizer {
+            let pointFeatures = self.mapView.visibleFeatures(at: tap.locationInView(self.mapView)).filter{$0 is MGLPointFeature}
             
-            // If it doesn't have a name attribute, it's probably a marker?
-            if feature.attributeForKey("name") == nil {
-                self.mapView.selectAnnotation(feature, animated: true)
-                return
+            // Because single tap is being intercepted, it's necessary to manually call didSelectannotation
+            for feature in pointFeatures {
+                
+                // If it doesn't have a name attribute, it's probably a marker?
+                if feature.attributeForKey("name") == nil {
+                    return false
+                }
             }
         }
+        
+        return true
+    }
+    
+    
+    func mapSingleTapped(tap: UITapGestureRecognizer) {
+        let pointFeatures = self.mapView.visibleFeatures(at: tap.locationInView(self.mapView)).filter{$0 is MGLPointFeature}
         
         // If it has a name attribute, assume it's a location label
         if pointFeatures.count > 0, let name = pointFeatures[0].attributeForKey("name") as? String {
@@ -244,20 +247,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     }
     
     func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
-        let key = Pair(values: (annotation.coordinate.latitude.roundToPlaces(3), annotation.coordinate.longitude.roundToPlaces(3)))
-        
-        if let a = self.currentAnnotations[key] as? MGLEventFeature {
+        print("Annotation selected...")
+        if let a = annotation as? MGLEventFeature {
             self.lastEventTapped = Event(id: a.id!, name: a.title!, coordinate: a.coordinate, category: a.category)
             self.performSegueWithIdentifier("showEventView", sender: nil)
-            
-        } else {
-            print("Zoomed too far out...")
-            
-//            for (k,_) in self.currentAnnotations {
-//                let (lat, lng) = k.values
-//                
-//                print(lat.roundToPlaces(3), lng.roundToPlaces(3))
-//            }
         }
     }
     
