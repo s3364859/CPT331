@@ -8,6 +8,8 @@ using System.Linq;
 
 using Dapper;
 
+using CPT331.Core.ObjectModel;
+
 #endregion
 
 namespace CPT331.Data

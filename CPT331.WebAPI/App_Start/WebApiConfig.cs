@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿#region Using References
+
+using System;
 using System.Web.Http;
-using Newtonsoft.Json.Serialization;
+
+#endregion
 
 namespace CPT331.WebAPI
 {
     public static class WebApiConfig
     {
-        public static void Register(HttpConfiguration config)
-        {
-            // Web API routes
-            config.MapHttpAttributeRoutes();
+		public static void Register(HttpConfiguration httpConfiguration)
+		{
+			httpConfiguration.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-        }
+			httpConfiguration.Routes.MapHttpRoute(name: "DefaultApi", routeTemplate: "api/{controller}/{id}", defaults: new { id = RouteParameter.Optional });
+		}
     }
 }

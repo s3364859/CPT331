@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPT331.Web.Tests", "CPT331.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPT331.Core", "CPT331.Core\CPT331.Core.csproj", "{2BFFA3C5-61CC-450E-9D64-5886D01534DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPT331.WebAPI.Parsers", "CPT331.WebAPI.Parsers\CPT331.WebAPI.Parsers.csproj", "{D2C6DA46-E582-4DED-9C17-8E3A940A9920}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPT331.Data.Parsers", "CPT331.Data.Parsers\CPT331.Data.Parsers.csproj", "{16F2EDA1-5C35-44DE-BFA4-8B2CD804242C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{2BFFA3C5-61CC-450E-9D64-5886D01534DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BFFA3C5-61CC-450E-9D64-5886D01534DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BFFA3C5-61CC-450E-9D64-5886D01534DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2C6DA46-E582-4DED-9C17-8E3A940A9920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C6DA46-E582-4DED-9C17-8E3A940A9920}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C6DA46-E582-4DED-9C17-8E3A940A9920}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C6DA46-E582-4DED-9C17-8E3A940A9920}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16F2EDA1-5C35-44DE-BFA4-8B2CD804242C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16F2EDA1-5C35-44DE-BFA4-8B2CD804242C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16F2EDA1-5C35-44DE-BFA4-8B2CD804242C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16F2EDA1-5C35-44DE-BFA4-8B2CD804242C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

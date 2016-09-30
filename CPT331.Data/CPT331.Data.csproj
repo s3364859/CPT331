@@ -45,15 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlConnectionFactory.cs" />
-    <Compile Include="Test.cs" />
     <Compile Include="TestRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CPT331.Core\CPT331.Core.csproj">
       <Project>{2bffa3c5-61cc-450e-9d64-5886d01534df}</Project>
       <Name>CPT331.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CPT331.WebAPI.Parsers\CPT331.WebAPI.Parsers.csproj">
+      <Project>{d2c6da46-e582-4ded-9c17-8e3a940a9920}</Project>
+      <Name>CPT331.WebAPI.Parsers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
