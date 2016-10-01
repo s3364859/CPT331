@@ -92,6 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -125,6 +126,10 @@
     <ProjectReference Include="..\CPT331.Data\CPT331.Data.csproj">
       <Project>{df2816c3-5654-4d29-b552-af0b0d33f91e}</Project>
       <Name>CPT331.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CPT331.WebAPI.Parsers\CPT331.WebAPI.Parsers.csproj">
+      <Project>{D2C6DA46-E582-4DED-9C17-8E3A940A9920}</Project>
+      <Name>CPT331.WebAPI.Parsers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

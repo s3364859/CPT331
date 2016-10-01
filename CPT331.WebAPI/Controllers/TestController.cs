@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
+using CPT331.Core.ObjectModel;
 using CPT331.Data;
 
 using CPT331.WebAPI.Models;

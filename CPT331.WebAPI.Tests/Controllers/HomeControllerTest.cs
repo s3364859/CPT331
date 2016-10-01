@@ -1,9 +1,13 @@
-﻿using System.Web.Mvc;
+﻿#region Using References
+
+using System.Web.Mvc;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using CPT331.WebAPI;
 using CPT331.WebAPI.Controllers;
+
+#endregion
 
 namespace CPT331.WebAPI.Tests.Controllers
 {
