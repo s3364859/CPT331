@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CPT331.Data.Parsers</RootNamespace>
     <AssemblyName>CPT331.Data.Parsers</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,9 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NswXmlParser.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpreadsheetParser.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CPT331.Core\CPT331.Core.csproj">
+      <Project>{2BFFA3C5-61CC-450E-9D64-5886D01534DF}</Project>
+      <Name>CPT331.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CPT331.Data\CPT331.Data.csproj">
+      <Project>{df2816c3-5654-4d29-b552-af0b0d33f91e}</Project>
+      <Name>CPT331.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
