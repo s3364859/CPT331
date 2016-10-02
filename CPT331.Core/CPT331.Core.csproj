@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CPT331.Core</RootNamespace>
     <AssemblyName>CPT331.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,13 +43,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationConfiguration.cs" />
+    <Compile Include="ObjectModel\LocalGovernmentArea.cs" />
+    <Compile Include="ObjectModel\LocalGovernmentAreaLocation.cs" />
+    <Compile Include="ObjectModel\Offence.cs" />
+    <Compile Include="ObjectModel\Location.cs" />
     <Compile Include="Extensions\XmlNodeExtensions.cs" />
     <Compile Include="Logging\OutputStreams.cs" />
+    <Compile Include="ObjectModel\Crime.cs" />
     <Compile Include="ObjectModel\EventCategory.cs" />
     <Compile Include="ObjectModel\EventImage.cs" />
     <Compile Include="ObjectModel\EventInfo.cs" />
     <Compile Include="ObjectModel\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ObjectModel\State.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ObjectModel\CrimeClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

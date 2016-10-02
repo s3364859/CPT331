@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CPT331.Core.ObjectModel.Crime">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAABAAAgAAAAABAAIcACAAAIAAEAACAAAAAAAA=</HashCode>
+      <FileName>ObjectModel\Crime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.Offence">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAgAAAAABAAAQAAACAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>ObjectModel\Offence.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.Location">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAgEAAAABAAAQAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>ObjectModel\Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.State">
+    <Position X="14.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAgAAAAABAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectModel\State.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.LocalGovernmentArea">
+    <Position X="6.25" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAgAAAAABAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectModel\LocalGovernmentArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.LocalGovernmentAreaLocation">
+    <Position X="8.75" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAACAAAAAAAAAAAAIAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectModel\LocalGovernmentAreaLocation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

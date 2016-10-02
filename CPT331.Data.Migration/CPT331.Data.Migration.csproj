@@ -59,6 +59,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\M0004.cs" />
+    <Compile Include="Migrations\M0003.cs" />
+    <Compile Include="Migrations\M0002.cs" />
     <Compile Include="Migrations\M0001.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
@@ -75,6 +78,10 @@
       <Project>{2bffa3c5-61cc-450e-9d64-5886d01534df}</Project>
       <Name>CPT331.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CPT331.Data.Parsers\CPT331.Data.Parsers.csproj">
+      <Project>{16f2eda1-5c35-44de-bfa4-8b2cd804242c}</Project>
+      <Name>CPT331.Data.Parsers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CPT331.Data\CPT331.Data.csproj">
       <Project>{DF2816C3-5654-4D29-B552-AF0B0D33F91E}</Project>
       <Name>CPT331.Data</Name>
@@ -82,6 +89,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\M0001.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\M0003.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\M0002.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
