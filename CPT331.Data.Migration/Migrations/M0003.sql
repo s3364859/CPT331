@@ -1,8 +1,10 @@
-﻿--	NSW Local Government Areas
+﻿DECLARE @@StateID INT = 0
+
+--	NSW Local Government Areas
 
 BEGIN TRAN
 
-DECLARE @@StateID INT = (SELECT ID FROM [Location].State WHERE AbbreviatedName = 'NSW')
+SET @@StateID = (SELECT ID FROM [Location].State WHERE AbbreviatedName = 'NSW')
 
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Albury')
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Armidale Dumaresq')
@@ -158,7 +160,7 @@ INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'W
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Woollahra')
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Wyong')
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Yass Valley')
-INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Young');
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Young')
 
 COMMIT
 
@@ -312,5 +314,186 @@ SELECT ID, 'Fraud' FROM Crime.Offence WHERE Name = 'Theft'
 
 INSERT INTO Crime.Offence (ParentID, Name)
 SELECT ID, 'Other theft' FROM Crime.Offence WHERE Name = 'Theft'
+
+COMMIT
+
+--	VIC Local Government Areas
+
+BEGIN TRAN
+
+SET @@StateID = (SELECT ID FROM [Location].State WHERE AbbreviatedName = 'VIC')
+
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Alpine')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Ararat')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Ballarat')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Banyule')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Bass Coast')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Baw Baw')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Bayside')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Benalla')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Boroondara')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Brimbank')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Buloke')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Campaspe')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Cardinia')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Casey')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Central Goldfields')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Colac-Otway')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Corangamite')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Darebin')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'East Gippsland')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Frankston')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Gannawarra')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Glen Eira')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Glenelg')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Golden Plains')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Greater Bendigo')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Greater Dandenong')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Greater Geelong')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Greater Shepparton')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Hepburn')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Hindmarsh')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Hobsons Bay')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Horsham')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Hume')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Indigo')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Kingston')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Knox')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Latrobe')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Loddon')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Macedon Ranges')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Manningham')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Mansfield')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Maribyrnong')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Maroondah')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Melbourne')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Melton')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Mildura')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Mitchell')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Moira')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Monash')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Moonee Valley')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Moorabool')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Moreland')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Mornington Peninsula')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Mount Alexander')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Moyne')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Murrindindi')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Nillumbik')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Northern Grampians')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Port Phillip')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Pyrenees')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Queenscliffe')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'South Gippsland')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Southern Grampians')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Stonnington')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Strathbogie')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Surf Coast')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Swan Hill')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Towong')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Wangaratta')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Warrnambool')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Wellington')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'West Wimmera')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Whitehorse')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Whittlesea')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Wodonga')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Wyndham')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Yarra')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Yarra Ranges')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Yarriambiack')
+
+COMMIT
+
+--	VIC OFFENCES
+
+BEGIN TRAN
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Homicide and related offences' FROM Crime.Offence WHERE Name = 'Crimes against the person'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Assault and related offences' FROM Crime.Offence WHERE Name = 'Crimes against the person'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Sexual offences' FROM Crime.Offence WHERE Name = 'Crimes against the person'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Abduction and related offences' FROM Crime.Offence WHERE Name = 'Crimes against the person'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Robbery' FROM Crime.Offence WHERE Name = 'Crimes against the person'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Blackmail and extortion' FROM Crime.Offence WHERE Name = 'Crimes against the person'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Stalking, harassment and threatening behaviour' FROM Crime.Offence WHERE Name = 'Crimes against the person'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Dangerous and negligent acts endangering people' FROM Crime.Offence WHERE Name = 'Crimes against the person'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Homicide and related offences' FROM Crime.Offence WHERE Name = 'Crimes against the person'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Arson' FROM Crime.Offence WHERE Name = 'Property and deception offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Property damage' FROM Crime.Offence WHERE Name = 'Property and deception offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Burglary/Break and enter' FROM Crime.Offence WHERE Name = 'Property and deception offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Theft' FROM Crime.Offence WHERE Name = 'Property and deception offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Deception' FROM Crime.Offence WHERE Name = 'Property and deception offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Bribery' FROM Crime.Offence WHERE Name = 'Property and deception offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Drug dealing and trafficking' FROM Crime.Offence WHERE Name = 'Drug offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Cultivate or manufacture drugs' FROM Crime.Offence WHERE Name = 'Drug offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Drug use and possession' FROM Crime.Offence WHERE Name = 'Drug offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Other drug offences' FROM Crime.Offence WHERE Name = 'Drug offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Weapons and explosives offences' FROM Crime.Offence WHERE Name = 'Public order and security offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Disorderly and offensive conduct' FROM Crime.Offence WHERE Name = 'Public order and security offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Public nuisance offences' FROM Crime.Offence WHERE Name = 'Public order and security offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Public security offences' FROM Crime.Offence WHERE Name = 'Public order and security offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Justice procedures' FROM Crime.Offence WHERE Name = 'Justice procedures offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Breaches of orders' FROM Crime.Offence WHERE Name = 'Justice procedures offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Other government regulatory offences' FROM Crime.Offence WHERE Name = 'Other offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Miscellaneous offences' FROM Crime.Offence WHERE Name = 'Other offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Transport regulation offences' FROM Crime.Offence WHERE Name = 'Other offences'
+
+INSERT INTO Crime.Offence (ParentID, Name)
+SELECT ID, 'Regulatory driving offences' FROM Crime.Offence WHERE Name = 'Other offences'
 
 COMMIT

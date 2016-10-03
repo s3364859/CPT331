@@ -3,6 +3,7 @@
 using System;
 
 using FluentMigrator;
+
 using CPT331.Data.Parsers;
 
 #endregion
