@@ -21,7 +21,7 @@ namespace CPT331.Data.Migration.Migrations
 		public override void Up()
 		{
 			//	Obviously this isn't going to work for you if you don't have the file
-			VicXmlParser vicXmlParser = new VicXmlParser(@"C:\Users\carl.belle\Downloads\Crime Data\VIC 2014.xml");
+			VicXmlParser vicXmlParser = new VicXmlParser(ApplicationConfig.Default.CrimeDataFolder + @"\VIC\2014.xml");
 			
 			vicXmlParser.Parse();
 		}
