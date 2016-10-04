@@ -23,7 +23,7 @@ namespace CPT331.Data.Migration.Migrations
             // TODO: 
 			//	Obviously this isn't going to work for you if you don't have the file (which is ~50 MB atm)
             
-			NswXmlParser nswXmlParser = new NswXmlParser(ApplicationConfig.Default.CrimeDataFolder + @"\NSW\Book1.xml");
+			NswXmlParser nswXmlParser = new NswXmlParser(ApplicationConfig.Default.CrimeDataFolder + @"NSW\Book1.xml");
 			
 			nswXmlParser.Parse();
 		}
