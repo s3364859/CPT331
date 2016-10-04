@@ -4,18 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{515BED89-4798-43EA-967F-626E19D092FD}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{16F2EDA1-5C35-44DE-BFA4-8B2CD804242C}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CPT331.Data.Migration</RootNamespace>
-    <AssemblyName>CPT331.Data.Migration</AssemblyName>
+    <RootNamespace>CPT331.Data.Parsers</RootNamespace>
+    <AssemblyName>CPT331.Data.Parsers</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,22 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>CPT331.Data.Migration.Program</StartupObject>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FluentMigrator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.1.6.0\lib\40\FluentMigrator.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner, Version=1.6.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMigrator.Runner.1.6.0\lib\40\FluentMigrator.Runner.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,42 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\M0004.cs" />
-    <Compile Include="Migrations\M0003.cs" />
-    <Compile Include="Migrations\M0002.cs" />
-    <Compile Include="Migrations\M0001.cs" />
-    <Compile Include="Options.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="NswXmlParser.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
+    <Compile Include="SpreadsheetParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CPT331.Core\CPT331.Core.csproj">
-      <Project>{2bffa3c5-61cc-450e-9d64-5886d01534df}</Project>
+      <Project>{2BFFA3C5-61CC-450E-9D64-5886D01534DF}</Project>
       <Name>CPT331.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CPT331.Data.Parsers\CPT331.Data.Parsers.csproj">
-      <Project>{16f2eda1-5c35-44de-bfa4-8b2cd804242c}</Project>
-      <Name>CPT331.Data.Parsers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CPT331.Data\CPT331.Data.csproj">
-      <Project>{DF2816C3-5654-4D29-B552-AF0B0D33F91E}</Project>
+      <Project>{df2816c3-5654-4d29-b552-af0b0d33f91e}</Project>
       <Name>CPT331.Data</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\M0001.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\M0003.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\M0002.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

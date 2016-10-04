@@ -10,12 +10,39 @@ namespace CPT331.Core
 	public static class ApplicationConfiguration
 	{
 		private const string CPT331ConnectionStringKey = "CPT331ConnectionString";
+		private const string EventFindaPasswordKey = "EventFinda.Password";
+		private const string EventFindaUrlKey = "EventFinda.Url";
+		private const string EventFindaUsernameKey = "EventFinda.Username";
 
 		public static string CPT331ConnectionString
 		{
 			get
 			{
 				return GetConnectionStringValue(CPT331ConnectionStringKey);
+			}
+		}
+
+		public static string EventFindaPassword
+		{
+			get
+			{
+				return GetAppSettingsValue(EventFindaPasswordKey);
+			}
+		}
+
+		public static string EventFindaUrl
+		{
+			get
+			{
+				return GetAppSettingsValue(EventFindaUrlKey);
+			}
+		}
+
+		public static string EventFindaUsername
+		{
+			get
+			{
+				return GetAppSettingsValue(EventFindaUsernameKey);
 			}
 		}
 
