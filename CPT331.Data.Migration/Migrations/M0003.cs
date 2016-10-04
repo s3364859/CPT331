@@ -52,6 +52,13 @@ namespace CPT331.Data.Migration.Migrations
 				.Row(new { Name = "Theft" })
 				.Row(new { Name = "Transport regulatory offences" });
 
+			//	Offences from VIC
+			Insert.IntoTable("Offence").InSchema("Crime")
+				.Row(new { Name = "Crimes against the person" })
+				.Row(new { Name = "Justice procedures offences" })
+				.Row(new { Name = "Property and deception offences" })
+				.Row(new { Name = "Public order and security offences" });
+
 			Execute.EmbeddedScript("M0003.sql");
 		}
 	}
