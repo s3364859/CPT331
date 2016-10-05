@@ -10,8 +10,6 @@ import Foundation
 import CoreLocation
 
 struct EventDetail {
-    //    static let fields:[EventField] = [.id, .name, .coordinate, .startDate, .endDate, .coordinate, .description, .cancelled]
-    
     let id:Int
     let name:String
     let coordinate:CLLocationCoordinate2D

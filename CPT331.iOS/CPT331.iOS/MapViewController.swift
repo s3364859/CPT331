@@ -154,7 +154,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     
     
     
-    
+    func mapViewDidFinishLoadingMap(mapView: MGLMapView) {
+        WeatherManager.getWeather(atCoordinate: mapView.centerCoordinate) { weather in
+            // ...
+        }
+    }
     
     
     // Fires when panning, zooming out or transitioning to a new location

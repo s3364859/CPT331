@@ -15,12 +15,12 @@ import SwiftyJSON
 class EventManager {
     private init() {}
     
-    private static let endpoint = "http://api.eventfinda.com.au/v2/events.json"
-    private static let username = "spationews"
-    private static let password = "m34nzj4pvscm"
+    private static let USERNAME = "spationews"
+    private static let PASSWORD = "m34nzj4pvscm"
+    private static let ENDPOINT = "http://api.eventfinda.com.au/v2/events.json"
     
     private static var authToken:String {
-        let credentialData = "\(username):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
+        let credentialData = "\(USERNAME):\(PASSWORD)".dataUsingEncoding(NSUTF8StringEncoding)!
         let base64Credentials = credentialData.base64EncodedStringWithOptions([])
         return "Basic \(base64Credentials)"
     }
@@ -52,7 +52,7 @@ class EventManager {
             "end_date": future!.asISO8601()
         ]
         
-        fetchJSON(endpoint, parameters: parameters, headers: defaultHeaders) { json in
+        fetchJSON(ENDPOINT, parameters: parameters, headers: defaultHeaders) { json in
             if let events = json?["events"] {
                 var parsedEvents = [Event]()
                 
