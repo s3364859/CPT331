@@ -1,6 +1,7 @@
 ﻿#region Using References
 
 using System;
+using System.IO;
 
 using FluentMigrator;
 
@@ -20,8 +21,8 @@ namespace CPT331.Data.Migration.Migrations
 
 		public override void Up()
 		{
-			//	Obviously this isn't going to work for you if you don't have the file
-			VicXmlParser vicXmlParser = new VicXmlParser(ApplicationConfig.Default.CrimeDataFolder + @"VIC\2014.xml");
+			//	Eventually these should be pulled out of here
+			VicXmlParser vicXmlParser = new VicXmlParser(Path.Combine(ApplicationConfig.Default.CrimeDataFolder, "VIC.xml"));
 			
 			vicXmlParser.Parse();
 		}
