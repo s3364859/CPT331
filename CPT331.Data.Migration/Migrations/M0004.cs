@@ -3,6 +3,7 @@
 using System;
 
 using FluentMigrator;
+
 using CPT331.Data.Parsers;
 
 #endregion
@@ -19,8 +20,10 @@ namespace CPT331.Data.Migration.Migrations
 
 		public override void Up()
 		{
+            // TODO: 
 			//	Obviously this isn't going to work for you if you don't have the file (which is ~50 MB atm)
-			NswXmlParser nswXmlParser = new NswXmlParser(@"D:\Downloads\Crime Data\NSW\Book1.xml");
+            
+			NswXmlParser nswXmlParser = new NswXmlParser(ApplicationConfig.Default.CrimeDataFolder + @"NSW\Book1.xml");
 			
 			nswXmlParser.Parse();
 		}

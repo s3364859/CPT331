@@ -20,7 +20,7 @@ namespace CPT331.WebAPI.Tests.Controllers
 		public void Event()
 		{
 			EventController eventController = new EventController();
-			EventInfo eventInfo = eventController.Event(214829);
+			EventInfo eventInfo = eventController.Event(0);
 
 			Assert.IsNotNull(eventInfo);
 		}
