@@ -8,6 +8,11 @@ namespace CPT331.Core.ObjectModel
 {
 	public class Crime
 	{
+		public Crime(int count, int localGovernmentAreaID, int month, int offenceID, int year)
+			: this(count, DateTime.UtcNow, DateTime.UtcNow, -1, false, true, localGovernmentAreaID, month, offenceID, year)
+		{
+		}
+
 		public Crime(int count, int id, int localGovernmentAreaID, int month, int offenceID, int year)
 			 : this(count, DateTime.UtcNow, DateTime.UtcNow, id, false, true, localGovernmentAreaID, month, offenceID, year)
 		{

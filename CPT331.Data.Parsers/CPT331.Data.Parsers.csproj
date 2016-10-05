@@ -41,10 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QldXmlParser.cs" />
     <Compile Include="NswXmlParser.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpreadsheetParser.cs" />
     <Compile Include="VicXmlParser.cs" />
   </ItemGroup>
   <ItemGroup>

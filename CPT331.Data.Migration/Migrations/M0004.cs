@@ -1,6 +1,7 @@
 ﻿#region Using References
 
 using System;
+using System.IO;
 
 using FluentMigrator;
 
@@ -20,10 +21,8 @@ namespace CPT331.Data.Migration.Migrations
 
 		public override void Up()
 		{
-            // TODO: 
-			//	Obviously this isn't going to work for you if you don't have the file (which is ~50 MB atm)
-            
-			NswXmlParser nswXmlParser = new NswXmlParser(ApplicationConfig.Default.CrimeDataFolder + @"NSW\Book1.xml");
+			//	Eventually these should be pulled out of here
+			NswXmlParser nswXmlParser = new NswXmlParser(Path.Combine(ApplicationConfig.Default.CrimeDataFolder, "NSW.xml"));
 			
 			nswXmlParser.Parse();
 		}

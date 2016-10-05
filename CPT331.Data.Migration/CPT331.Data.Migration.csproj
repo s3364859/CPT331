@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationConfig.cs" />
+    <Compile Include="Migrations\M0006.cs" />
     <Compile Include="Migrations\M0005.cs" />
     <Compile Include="Migrations\M0004.cs" />
     <Compile Include="Migrations\M0003.cs" />
