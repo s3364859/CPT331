@@ -6,70 +6,66 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 
+using CPT331.Core.Extensions;
 using CPT331.Core.ObjectModel;
 
 #endregion
 
 namespace CPT331.Data.Parsers
 {
-	public class NswXmlParser
+	public class NswXmlParser : Parser
 	{
-		public NswXmlParser(string filename)
+		public NswXmlParser(string fileName)
+			: base(fileName)
 		{
-			_filename = filename;
 		}
 
-		private readonly string _filename;
-
-		public void Parse()
+		protected override void OnParse(string fileName, List<Crime> crimes)
 		{
-			if ((String.IsNullOrEmpty(_filename) == false) && (File.Exists(_filename) == true))
+			XmlDocument xmlDocument = new XmlDocument();
+			xmlDocument.Load(fileName);
+
+			XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/Workbook/Worksheet/Table/Row[position() > 1]");
+			int year = 1995;
+
+			State nswState = StateRepository.GetStateByAbbreviatedName("NSW");
+			List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(nswState.ID);
+			List<Offence> offences = OffenceRepository.GetOffences();
+
+			foreach (XmlNode xmlNode in xmlNodeList)
 			{
-				XmlDocument xmlDocument = new XmlDocument();
-				xmlDocument.Load(_filename);
+				string localGovernmentAreaName = xmlNode.ChildNodes[0].InnerText.Trim();
+				string offenceName = xmlNode.ChildNodes[1].InnerText.Trim();
+				string suboffenceName = xmlNode.ChildNodes[2].InnerText.Trim();
 
-				XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/Workbook/Worksheet/Table/Row[position() > 1]");
-				int year = 1995;
+				//	Console.WriteLine($"{localGovernmentAreaName}: {offenceName} ({suboffenceName})");
 
-				State nswState = StateRepository.GetStateByAbbreviatedName("NSW");
-				List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(nswState.ID);
-				List<Offence> offences = OffenceRepository.GetOffences();
+				Offence offence = null;
+				LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name.EqualsIgnoreCase(localGovernmentAreaName) == true)).FirstOrDefault();
 
-				List<Crime> crimes = new List<Crime>();
-
-				foreach (XmlNode xmlNode in xmlNodeList)
+				if (String.IsNullOrEmpty(offenceName) == false)
 				{
-					string localGovernmentAreaName = xmlNode.ChildNodes[0].InnerText.Trim();
-					string offenceName = xmlNode.ChildNodes[1].InnerText.Trim();
-					string suboffenceName = xmlNode.ChildNodes[2].InnerText.Trim();
+					offence = offences.Where(m => (m.Name.EqualsIgnoreCase(offenceName) == true)).FirstOrDefault();
+				}
 
-					Console.WriteLine($"{localGovernmentAreaName}: {offenceName} ({suboffenceName})");
+				if (String.IsNullOrEmpty(suboffenceName) == false)
+				{
+					offence = offences.Where(m => (m.Name.EqualsIgnoreCase(suboffenceName) == true)).FirstOrDefault();
+				}
 
-					LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name == localGovernmentAreaName)).FirstOrDefault();
-					Offence offence = null;
+				DateTime dateTime = new DateTime(year, 1, 1);
 
-					if (String.IsNullOrEmpty(offenceName) == false)
-					{
-						offence = offences.Where(m => (m.Name == offenceName)).FirstOrDefault();
-					}
+				for (int i = 3; i < xmlNode.ChildNodes.Count; i++)
+				{
+					int count = Convert.ToInt32(xmlNode.ChildNodes[i].InnerText);
 
-					if (String.IsNullOrEmpty(suboffenceName) == false)
-					{
-						offence = offences.Where(m => (m.Name == suboffenceName)).FirstOrDefault();
-					}
+					crimes.Add(new Crime(count, localGovernmentArea.ID, dateTime.Month, offence.ID, dateTime.Year));
 
-					DateTime dateTime = new DateTime(year, 1, 1);
-
-					for (int i = 3; i < xmlNode.ChildNodes.Count; i++)
-					{
-						int count = Convert.ToInt32(xmlNode.ChildNodes[i].InnerText);
-
-						CrimeRepository.AddCrime(count, localGovernmentArea.ID, dateTime.Month, offence.ID, dateTime.Year);
-
-						dateTime = dateTime.AddMonths(1);
-					}
+					dateTime = dateTime.AddMonths(1);
 				}
 			}
+
+			base.OnParse(fileName, crimes);
 		}
 	}
 }
