@@ -23,9 +23,6 @@ class WeatherStatView: UIView {
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var unitLabel: UILabel!
     
-    
-    
-    
     @IBOutlet private weak var unitLabelWidth: NSLayoutConstraint!
     
     @IBOutlet weak var labelSpacing: NSLayoutConstraint!
