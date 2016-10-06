@@ -26,6 +26,8 @@ class LocationWeatherViewController: LocationSubViewController {
     @IBOutlet weak var predictionView4: WeatherPredictionView!
     var predictionViews:[WeatherPredictionView]?
     
+    @IBOutlet weak var predictionsHeightConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,6 +49,11 @@ class LocationWeatherViewController: LocationSubViewController {
             self.predictionView4
         ]
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateConstraints()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -54,8 +61,6 @@ class LocationWeatherViewController: LocationSubViewController {
     }
     
     func showWeatherData(data: WeatherDataCollection?) {
-        
-        
         if let current = data?.current {
             
             // Top view
@@ -101,5 +106,21 @@ class LocationWeatherViewController: LocationSubViewController {
                 }
             }
         }
+    }
+    
+    func updateConstraints() {
+        if UIDevice.currentDevice().orientation.isLandscape {
+            self.predictionsHeightConstraint.priority = 900
+        } else {
+            self.predictionsHeightConstraint.priority = 250
+        }
+        
+        self.view.updateConstraintsIfNeeded()
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        self.updateConstraints()
     }
 }

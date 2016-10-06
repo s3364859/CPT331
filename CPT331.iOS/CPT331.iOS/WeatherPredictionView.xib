@@ -19,11 +19,11 @@
             <rect key="frame" x="0.0" y="0.0" width="76" height="76"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SvZ-wb-GoI" userLabel="DayContainer">
-                    <rect key="frame" x="24.5" y="0.0" width="27" height="19"/>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SvZ-wb-GoI" userLabel="DayContainer">
+                    <rect key="frame" x="25" y="0.0" width="27" height="20.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJc-Rt-eNk">
-                            <rect key="frame" x="0.0" y="1" width="27" height="18"/>
+                            <rect key="frame" x="0.0" y="2" width="27" height="18"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
@@ -36,13 +36,13 @@
                         <constraint firstAttribute="trailing" secondItem="tJc-Rt-eNk" secondAttribute="trailing" id="il6-yu-OHq"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TjG-pG-2DQ" userLabel="ImageContainer">
-                    <rect key="frame" x="0.0" y="19" width="76" height="38"/>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TjG-pG-2DQ" userLabel="ImageContainer">
+                    <rect key="frame" x="0.0" y="20" width="76" height="35"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xJM-1p-naz">
-                            <rect key="frame" x="19" y="0.0" width="38" height="38"/>
+                            <rect key="frame" x="21" y="0.0" width="35" height="35"/>
                             <constraints>
-                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="bgY-qZ-ncF"/>
+                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="35" id="bgY-qZ-ncF"/>
                                 <constraint firstAttribute="width" secondItem="xJM-1p-naz" secondAttribute="height" multiplier="1:1" id="vKW-ov-gc3"/>
                             </constraints>
                         </imageView>
@@ -52,10 +52,10 @@
                         <constraint firstItem="xJM-1p-naz" firstAttribute="centerY" secondItem="TjG-pG-2DQ" secondAttribute="centerY" id="XUQ-s7-9P9"/>
                         <constraint firstItem="xJM-1p-naz" firstAttribute="centerX" secondItem="TjG-pG-2DQ" secondAttribute="centerX" id="fbZ-aB-0kY"/>
                         <constraint firstItem="xJM-1p-naz" firstAttribute="height" secondItem="TjG-pG-2DQ" secondAttribute="height" priority="750" id="rpn-9I-KTe"/>
-                        <constraint firstAttribute="height" constant="38" id="ymA-Co-PCD"/>
+                        <constraint firstAttribute="height" priority="250" constant="38" id="ymA-Co-PCD"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KZ4-zj-Sfg" userLabel="TempContainer">
+                <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KZ4-zj-Sfg" userLabel="TempContainer">
                     <rect key="frame" x="24" y="57" width="28" height="19"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yiN-b2-Q2P">
@@ -69,9 +69,9 @@
                             <constraints>
                                 <constraint firstAttribute="width" priority="250" id="gqo-p7-4tK"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="11"/>
+                            <color key="textColor" red="0.40156250003333338" green="0.40156250003333338" blue="0.40156250003333338" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" red="0.4549019608" green="0.62745098040000002" blue="0.79607843140000001" alpha="1" colorSpace="calibratedRGB"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

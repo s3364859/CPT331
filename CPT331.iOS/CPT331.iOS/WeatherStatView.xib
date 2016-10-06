@@ -18,14 +18,14 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="82.5" height="68"/>
+            <rect key="frame" x="0.0" y="0.0" width="83" height="68"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BVD-Na-ibV" userLabel="ImageContainer">
-                    <rect key="frame" x="0.0" y="0.0" width="82.5" height="39"/>
+                    <rect key="frame" x="0.0" y="0.0" width="83" height="39"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vpJ-0m-K8x">
-                            <rect key="frame" x="19" y="2" width="45" height="44.5"/>
+                            <rect key="frame" x="19" y="2" width="45" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="vpJ-0m-K8x" secondAttribute="height" multiplier="1:1" id="K7d-re-Ikd"/>
                                 <constraint firstAttribute="width" constant="45" id="MQr-gW-ipH"/>
@@ -38,8 +38,8 @@
                         <constraint firstItem="vpJ-0m-K8x" firstAttribute="centerY" secondItem="BVD-Na-ibV" secondAttribute="centerY" constant="5" id="uFD-uW-eMi"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qL7-w7-OXf" userLabel="LabelContainer">
-                    <rect key="frame" x="31.5" y="39" width="20.5" height="29"/>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qL7-w7-OXf" userLabel="LabelContainer">
+                    <rect key="frame" x="32" y="39" width="20" height="29"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zwJ-hi-5Al">
                             <rect key="frame" x="0.0" y="5" width="10" height="18"/>
@@ -48,12 +48,12 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" text="u" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJu-GF-Xcd">
-                            <rect key="frame" x="13" y="7" width="7.5" height="16"/>
+                            <rect key="frame" x="13" y="7" width="8" height="16"/>
                             <constraints>
                                 <constraint firstAttribute="width" priority="250" id="LRv-7r-BDc"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </label>
                     </subviews>
