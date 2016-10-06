@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 
+using CPT331.Core.Extensions;
 using CPT331.Core.ObjectModel;
 
 #endregion
@@ -63,12 +64,12 @@ namespace CPT331.Data.Parsers
 
 					//	Console.WriteLine($"{localGovernmentAreaName}: {offenceName} - {count}");
 
-					LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name == localGovernmentAreaName)).FirstOrDefault();
+					LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name.EqualsIgnoreCase(localGovernmentAreaName) == true)).FirstOrDefault();
 					Offence offence = null;
 
 					if (String.IsNullOrEmpty(offenceName) == false)
 					{
-						offence = offences.Where(m => (m.Name.ToUpper() == offenceName.ToUpper())).FirstOrDefault();
+						offence = offences.Where(m => (m.Name.EqualsIgnoreCase(offenceName) == true)).FirstOrDefault();
 					}
 
 					crimes.Add(new Crime(count, localGovernmentArea.ID, dateTime.Month, offence.ID, dateTime.Year));
