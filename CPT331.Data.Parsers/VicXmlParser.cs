@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 
+using CPT331.Core.Extensions;
 using CPT331.Core.ObjectModel;
 
 #endregion
@@ -43,17 +44,17 @@ namespace CPT331.Data.Parsers
 
 				Console.WriteLine($"{localGovernmentAreaName}: {offenceName} ({suboffenceName}), count: {count}");
 
-				LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name == localGovernmentAreaName)).FirstOrDefault();
+				LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name.EqualsIgnoreCase(localGovernmentAreaName) == true)).FirstOrDefault();
 				Offence offence = null;
 
 				if (String.IsNullOrEmpty(offenceName) == false)
 				{
-					offence = offences.Where(m => (m.Name == offenceName)).FirstOrDefault();
+					offence = offences.Where(m => (m.Name.EqualsIgnoreCase(offenceName) == true)).FirstOrDefault();
 				}
 
 				if (String.IsNullOrEmpty(suboffenceName) == false)
 				{
-					offence = offences.Where(m => (m.Name == suboffenceName)).FirstOrDefault();
+					offence = offences.Where(m => (m.Name.EqualsIgnoreCase(suboffenceName) == true)).FirstOrDefault();
 				}
 
 				//	We only have crime data per year, so it will always be added in on 01/01/YYYY

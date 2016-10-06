@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 using CPT331.Core.ObjectModel;
@@ -22,19 +23,32 @@ namespace CPT331.Data.Parsers
 
 		private void Commit(List<Crime> crimes)
 		{
-			StringBuilder stringBuilder = new StringBuilder();
+			//	This takes too long with massive lists
+			//	crimes = crimes.Distinct().ToList();
 
-			stringBuilder.AppendLine();
-			stringBuilder.AppendLine("BEGIN TRAN");
-			stringBuilder.AppendLine();
+			while (crimes.Count > 0)
+			{
+				int toTake = 100000;
+				List<Crime> crimesToCommit = crimes.Take(toTake).ToList();
 
-			crimes.ForEach(m => stringBuilder.AppendLine($"EXEC Crime.spAddCrime @LocalGovernmentAreaID = {m.LocalGovernmentAreaID}, @OffenceID = {m.OffenceID}, @Count = {m.Count}, @Month = {m.Month}, @Year = {m.Year}"));
+				StringBuilder stringBuilder = new StringBuilder();
 
-			stringBuilder.AppendLine();
-			stringBuilder.AppendLine("COMMIT");
-			stringBuilder.AppendLine();
+				stringBuilder.AppendLine();
+				stringBuilder.AppendLine("BEGIN TRAN");
+				stringBuilder.AppendLine();
 
-			AdhocScriptRepository.ExecuteScript(stringBuilder.ToString());
+				crimesToCommit.ForEach(m => stringBuilder.AppendLine($"EXEC Crime.spAddCrime @LocalGovernmentAreaID = {m.LocalGovernmentAreaID}, @OffenceID = {m.OffenceID}, @Count = {m.Count}, @Month = {m.Month}, @Year = {m.Year}"));
+
+				stringBuilder.AppendLine();
+				stringBuilder.AppendLine("COMMIT");
+				stringBuilder.AppendLine();
+
+				Console.WriteLine($"  Commiting {crimesToCommit.Count} records, {(crimes.Count - crimesToCommit.Count)} left");
+
+				AdhocScriptRepository.ExecuteScript(stringBuilder.ToString());
+
+				crimes.RemoveRange(0, crimesToCommit.Count);
+			}
 		}
 
 		public void Parse()
