@@ -18,7 +18,7 @@ namespace CPT331.Data
 
 		private static string _connectionString;
 
-		internal static SqlConnection NewSqlConnetion()
+		public static SqlConnection NewSqlConnetion()
 		{
 			SqlConnection sqlConnection = new SqlConnection(_connectionString);
 
