@@ -23,8 +23,8 @@ class LocationViewController: UIViewController {
     @IBOutlet weak var subheadingLabel: UILabel!
     
     @IBOutlet weak var eventsTabButton: UIButton!
+    @IBOutlet weak var weatherTabButton: UIButton!
     @IBOutlet weak var crimeTabButton: UIButton!
-    @IBOutlet weak var infoTabButton: UIButton!
     
     @IBAction func closeButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: {})
@@ -34,12 +34,12 @@ class LocationViewController: UIViewController {
         self.toggleSubview("locationEventsView")
     }
     
-    @IBAction func crimeTabButtonTapped(sender: AnyObject) {
-        self.toggleSubview("locationCrimeView")
+    @IBAction func weatherTabButtonTapped(sender: AnyObject) {
+        self.toggleSubview("locationWeatherView")
     }
     
-    @IBAction func infoTabButtonTapped(sender: AnyObject) {
-        self.toggleSubview("locationInfoView")
+    @IBAction func crimeTabButtonTapped(sender: AnyObject) {
+        self.toggleSubview("locationCrimeView")
     }
     
     // Passed in from MapViewController
@@ -102,19 +102,19 @@ class LocationViewController: UIViewController {
             self.subheadingLabel.text = "Nearby Events"
             self.eventsTabButton.enabled = false
             self.crimeTabButton.enabled = true
-            self.infoTabButton.enabled = true
+            self.weatherTabButton.enabled = true
             
         case "locationCrimeView":
             self.subheadingLabel.text = "Crime Statistics"
             self.eventsTabButton.enabled = true
             self.crimeTabButton.enabled = false
-            self.infoTabButton.enabled = true
+            self.weatherTabButton.enabled = true
             
-        case "locationInfoView":
-            self.subheadingLabel.text = "Information"
+        case "locationWeatherView":
+            self.subheadingLabel.text = "Current Weather"
             self.eventsTabButton.enabled = true
             self.crimeTabButton.enabled = true
-            self.infoTabButton.enabled = false
+            self.weatherTabButton.enabled = false
             
         default:
             ()

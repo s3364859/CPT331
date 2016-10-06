@@ -54,7 +54,7 @@ extension WeatherDataCollection {
         
         if let latitude = json?["latitude"].double, let longitude = json?["longitude"].double  {
             let dailySummary = json?["daily"]["summary"].string
-            let currentData = WeatherDataCurrent.fromJSON(json?["current"])
+            let currentData = WeatherDataCurrent.fromJSON(json?["currently"])
             var dailyData = [WeatherDataPrediction]()
             
             // Parse predictions
