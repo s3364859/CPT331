@@ -61,7 +61,7 @@ namespace CPT331.Data.Parsers
 						count = Convert.ToInt32(countDouble);
 					}
 
-					Console.WriteLine($"{localGovernmentAreaName}: {offenceName} - {count}");
+					//	Console.WriteLine($"{localGovernmentAreaName}: {offenceName} - {count}");
 
 					LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name == localGovernmentAreaName)).FirstOrDefault();
 					Offence offence = null;
@@ -71,7 +71,7 @@ namespace CPT331.Data.Parsers
 						offence = offences.Where(m => (m.Name.ToUpper() == offenceName.ToUpper())).FirstOrDefault();
 					}
 
-					CrimeRepository.AddCrime(count, localGovernmentArea.ID, dateTime.Month, offence.ID, dateTime.Year);
+					crimes.Add(new Crime(count, localGovernmentArea.ID, dateTime.Month, offence.ID, dateTime.Year));
 				}
 			}
 

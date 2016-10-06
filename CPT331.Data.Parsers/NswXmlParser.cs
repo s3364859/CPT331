@@ -37,19 +37,19 @@ namespace CPT331.Data.Parsers
 				string offenceName = xmlNode.ChildNodes[1].InnerText.Trim();
 				string suboffenceName = xmlNode.ChildNodes[2].InnerText.Trim();
 
-				Console.WriteLine($"{localGovernmentAreaName}: {offenceName} ({suboffenceName})");
+				//	Console.WriteLine($"{localGovernmentAreaName}: {offenceName} ({suboffenceName})");
 
 				Offence offence = null;
-				LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name == localGovernmentAreaName)).FirstOrDefault();
+				LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name.ToUpper() == localGovernmentAreaName.ToUpper())).FirstOrDefault();
 
 				if (String.IsNullOrEmpty(offenceName) == false)
 				{
-					offence = offences.Where(m => (m.Name == offenceName)).FirstOrDefault();
+					offence = offences.Where(m => (m.Name.ToUpper() == offenceName.ToUpper())).FirstOrDefault();
 				}
 
 				if (String.IsNullOrEmpty(suboffenceName) == false)
 				{
-					offence = offences.Where(m => (m.Name == suboffenceName)).FirstOrDefault();
+					offence = offences.Where(m => (m.Name.ToUpper() == suboffenceName.ToUpper())).FirstOrDefault();
 				}
 
 				DateTime dateTime = new DateTime(year, 1, 1);
