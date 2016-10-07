@@ -83,7 +83,6 @@ AS
 
 SELECT
 	ID,
-	ParentID,
 	Name,
 	IsDeleted,
 	IsVisible,
@@ -104,7 +103,6 @@ AS
 
 SELECT
 	ID,
-	ParentID,
 	Name,
 	IsDeleted,
 	IsVisible,

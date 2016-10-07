@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml;
 
@@ -23,6 +22,8 @@ namespace CPT331.Data.Parsers
 
 		protected override void OnParse(string fileName, List<Crime> crimes)
 		{
+			Console.WriteLine("Parsing VIC data...");
+
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);
 
@@ -33,28 +34,27 @@ namespace CPT331.Data.Parsers
 
 			State vicState = StateRepository.GetStateByAbbreviatedName("VIC");
 			List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(vicState.ID);
-			List<Offence> offences = OffenceRepository.GetOffences();
+			Dictionary<string, Offence> offences = new Dictionary<string, Offence>();
+			OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));
 
 			foreach (XmlNode xmlNode in xmlNodeList)
 			{
 				string localGovernmentAreaName = xmlNode.ChildNodes[2].InnerText.Trim();
-				string offenceName = xmlNode.ChildNodes[3].InnerText.Trim();
-				string suboffenceName = xmlNode.ChildNodes[4].InnerText.Trim();
+				string offenceName = xmlNode.ChildNodes[3].InnerText.Trim().ToUpper();
+				string suboffenceName = xmlNode.ChildNodes[4].InnerText.Trim().ToUpper();
 				int count = Convert.ToInt32(xmlNode.ChildNodes[5].InnerText);
-
-				Console.WriteLine($"{localGovernmentAreaName}: {offenceName} ({suboffenceName}), count: {count}");
 
 				LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name.EqualsIgnoreCase(localGovernmentAreaName) == true)).FirstOrDefault();
 				Offence offence = null;
 
-				if (String.IsNullOrEmpty(offenceName) == false)
+				if ((String.IsNullOrEmpty(offenceName) == false) && (offences.ContainsKey(offenceName) == true))
 				{
-					offence = offences.Where(m => (m.Name.EqualsIgnoreCase(offenceName) == true)).FirstOrDefault();
+					offence = offences[offenceName];
 				}
 
-				if (String.IsNullOrEmpty(suboffenceName) == false)
+				if ((String.IsNullOrEmpty(suboffenceName) == false) && (offences.ContainsKey(offenceName) == true))
 				{
-					offence = offences.Where(m => (m.Name.EqualsIgnoreCase(suboffenceName) == true)).FirstOrDefault();
+					offence = offences[suboffenceName];
 				}
 
 				//	We only have crime data per year, so it will always be added in on 01/01/YYYY
