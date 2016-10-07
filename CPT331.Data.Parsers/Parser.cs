@@ -23,6 +23,8 @@ namespace CPT331.Data.Parsers
 
 		private void Commit(List<Crime> crimes)
 		{
+			Console.WriteLine("Beginning commit...");
+
 			//	This takes too long with massive lists
 			//	crimes = crimes.Distinct().ToList();
 
@@ -49,6 +51,8 @@ namespace CPT331.Data.Parsers
 
 				crimes.RemoveRange(0, crimesToCommit.Count);
 			}
+
+			Console.WriteLine("Commit completed");
 		}
 
 		public void Parse()
