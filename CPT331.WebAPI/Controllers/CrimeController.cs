@@ -20,14 +20,14 @@ namespace CPT331.WebAPI.Controllers
 		private const string SortFieldName = "NAME";
 
 		[HttpGet]
-		[Route("api/Event/{id}")]
+		[Route("api/Crime/{id}")]
 		public Crime Crime(int id)
 		{
 			return CrimeRepository.GetCrimeByID(id);
 		}
 
 		[HttpGet]
-		[Route("api/Event/EventsByCoordinate")]
+		[Route("api/Crime/CrimesByCoordinate")]
 		public IEnumerable<Crime> CrimesByCoordinate(double latitude, double longitude, double radius, string sortBy = "", SortDirection? sortDirection = null)
 		{
 			IEnumerable<Crime> crimes = CrimeRepository.GetCrimesByCoordinate(latitude, longitude, radius);
