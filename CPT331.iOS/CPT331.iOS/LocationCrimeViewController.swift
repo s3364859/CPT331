@@ -8,10 +8,11 @@
 
 import UIKit
 
-class LocationCrimeViewController: LocationSubViewController {
+class LocationCrimeViewController: LocationViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.navigationItem.setTitle(self.location.name, subtitle: "Crime Statistics")
 
         // Do any additional setup after loading the view.
     }

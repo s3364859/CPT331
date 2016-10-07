@@ -8,14 +8,15 @@
 
 import UIKit
 
-class LocationEventsViewController: LocationSubViewController, UITableViewDataSource, UITableViewDelegate {
+class LocationEventsViewController: LocationViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
     var events = [Event]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.navigationItem.setTitle(self.location.name, subtitle: "Nearby Events - X (Y km)")
 
         // Do any additional setup after loading the view.
         self.tableView.dataSource = self
@@ -58,6 +59,14 @@ class LocationEventsViewController: LocationSubViewController, UITableViewDataSo
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        // Manually segue to single event view
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? EventsListCell {
+            if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("eventViewController") as? EventViewController {
+                controller.event = cell.event
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
+        }
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {

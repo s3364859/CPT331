@@ -38,8 +38,8 @@
                         <constraint firstItem="vpJ-0m-K8x" firstAttribute="centerY" secondItem="BVD-Na-ibV" secondAttribute="centerY" constant="5" id="uFD-uW-eMi"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qL7-w7-OXf" userLabel="LabelContainer">
-                    <rect key="frame" x="32" y="39" width="20" height="29"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qL7-w7-OXf" userLabel="LabelContainer">
+                    <rect key="frame" x="31.5" y="39" width="21" height="29"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zwJ-hi-5Al">
                             <rect key="frame" x="0.0" y="5" width="10" height="18"/>

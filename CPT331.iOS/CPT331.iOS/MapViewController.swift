@@ -101,11 +101,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showLocationView", let location = self.lastLocationTapped {
-            let vc = segue.destinationViewController as! LocationViewController
+            let vc = segue.destinationViewController as! ModalViewController
             vc.location = location
             
         } else if segue.identifier == "showEventView", let event = self.lastEventTapped {
-            let vc = segue.destinationViewController as! EventViewController
+            let vc = segue.destinationViewController as! ModalViewController
             vc.event = event
         }
     }
@@ -251,7 +251,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     }
     
     func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
-        print("Annotation selected...")
         if let a = annotation as? MGLEventFeature {
             self.lastEventTapped = Event(id: a.id!, name: a.title!, coordinate: a.coordinate, category: a.category)
             self.performSegueWithIdentifier("showEventView", sender: nil)

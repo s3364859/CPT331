@@ -9,40 +9,40 @@
 import UIKit
 
 class EventViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var visualEffectView: UIVisualEffectView!
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var contentView: UIView!
-    
-    @IBOutlet weak var headingLabel: UILabel!
-    @IBOutlet weak var subheadingLabel: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
     
-    @IBAction func closeButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: {})
+    // Allow the event to be manually set.
+    // If not set, fetch it from the tab bar controller
+    private var _event:Event?
+    var event:Event {
+        set {
+            self._event = newValue
+        }
+        
+        get {
+            if let event = self._event {
+                return event
+            } else {
+                return (self.navigationController as! EventNavigationController).event
+            }
+        }
     }
-    
-    // Passed in from MapViewController or LocationViewController
-    var event:Event!
     
     // Async loaded from Eventfinda API
     var detailedEvent:EventDetail?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.navigationItem.title = self.event.name
 
-        self.headingLabel.text = event.name
-        self.subheadingLabel.text = event.category
-        
-        // Load additional event data for display
-        self.event.getDetails { (returnedEvent) in
-            if returnedEvent != nil {
-                self.detailedEvent = returnedEvent!
-                self.update()
-            }
-        }
+//        // Load additional event data for display
+//        self.event.getDetails { (returnedEvent) in
+//            if returnedEvent != nil {
+//                self.detailedEvent = returnedEvent!
+//                self.update()
+//            }
+//        }
         
         // Configure table
         self.tableView.delegate = self
@@ -50,17 +50,20 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.tableView.backgroundColor = .clearColor()
         self.tableView.tableFooterView = UIView()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Disable tab bar
+        self.tabBarController?.tabBar.hidden = true
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func update() {
-        print(self.detailedEvent)
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return 0
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

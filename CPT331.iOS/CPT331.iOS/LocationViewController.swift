@@ -2,7 +2,7 @@
 //  LocationViewController.swift
 //  CPT331.iOS
 //
-//  Created by Peter Weller on 20/09/2016.
+//  Created by Peter Weller on 7/10/2016.
 //  Copyright © 2016 Peter Weller. All rights reserved.
 //
 
@@ -10,114 +10,32 @@ import UIKit
 
 class LocationViewController: UIViewController {
     
-    let tabButtonNormalColor = UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1)
-    let tabButtonSelectedColor = UIColor(red: 66/255, green: 151/255, blue: 221/255, alpha: 1)
-    
-    @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var visualEffectView: UIVisualEffectView!
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var footerView: UIView!
-    
-    @IBOutlet weak var headingLabel: UILabel!
-    @IBOutlet weak var subheadingLabel: UILabel!
-    
-    @IBOutlet weak var eventsTabButton: UIButton!
-    @IBOutlet weak var weatherTabButton: UIButton!
-    @IBOutlet weak var crimeTabButton: UIButton!
-    
-    @IBAction func closeButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: {})
+    // Allow the location to be manually set.
+    // If not set, fetch it from the tab bar controller
+    private var _location:Location?
+    var location:Location {
+        set {
+            self._location = newValue
+        }
+        
+        get {
+            if let location = self._location {
+                return location
+            } else {
+                return (self.tabBarController as! LocationTabBarController).location
+            }
+        }
     }
-    
-    @IBAction func eventsTabButtonTapped(sender: AnyObject) {
-        self.toggleSubview("locationEventsView")
-    }
-    
-    @IBAction func weatherTabButtonTapped(sender: AnyObject) {
-        self.toggleSubview("locationWeatherView")
-    }
-    
-    @IBAction func crimeTabButtonTapped(sender: AnyObject) {
-        self.toggleSubview("locationCrimeView")
-    }
-    
-    // Passed in from MapViewController
-    var location:Location!
-    
-    // Stores which subview is currently being displayed
-    // Used to manage view controller hierarchy
-    weak var currentSubview: UIViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Round corners
-        self.visualEffectView.layer.cornerRadius = 4
-        self.visualEffectView.clipsToBounds = true
-        
-        self.headingLabel.text = location.name
-        
-        // Show events view by default
-        self.toggleSubview("locationEventsView")
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.navigationItem.title = self.location.name
     }
     
-    func toggleSubview(id:String) {
-        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier(id) as? LocationSubViewController {
-            
-            // Remove current child view controller (if exists)
-            if let current = self.currentSubview {
-                for view in self.containerView.subviews {
-                    view.removeFromSuperview()
-                }
-                
-                current.willMoveToParentViewController(nil)
-                current.removeFromParentViewController()
-                self.currentSubview = nil
-            }
-            
-            // Pass location info
-            vc.location = self.location
-            
-            // Add new child view controller
-            vc.view.frame = self.containerView.frame
-            self.addChildViewController(vc)
-            self.containerView.addSubview(vc.view)
-            vc.didMoveToParentViewController(self)
-            self.currentSubview = vc
-            
-            // Update button colors
-            self.toggleButton(id)
-        }
-    }
-    
-    func toggleButton(id:String) {
-        switch id {
-        case "locationEventsView":
-            self.subheadingLabel.text = "Nearby Events"
-            self.eventsTabButton.enabled = false
-            self.crimeTabButton.enabled = true
-            self.weatherTabButton.enabled = true
-            
-        case "locationCrimeView":
-            self.subheadingLabel.text = "Crime Statistics"
-            self.eventsTabButton.enabled = true
-            self.crimeTabButton.enabled = false
-            self.weatherTabButton.enabled = true
-            
-        case "locationWeatherView":
-            self.subheadingLabel.text = "Current Weather"
-            self.eventsTabButton.enabled = true
-            self.crimeTabButton.enabled = true
-            self.weatherTabButton.enabled = false
-            
-        default:
-            ()
-        }
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Enable tab bar
+        self.tabBarController?.tabBar.hidden = false
     }
 }

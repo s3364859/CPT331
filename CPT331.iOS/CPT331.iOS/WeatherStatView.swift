@@ -87,6 +87,7 @@ class WeatherStatView: UIView {
     override func awakeFromNib() {
         NSBundle.mainBundle().loadNibNamed("WeatherStatView", owner: self, options: nil)
         self.addSubview(self.contentView)
+        self.contentView.sizeToFit(parent: self)
         self.type = .None
     }
 }

@@ -18,9 +18,6 @@ extension UIImageView {
 extension UIImage {
     // Source: https://ruigomes.me/blog/how-to-rotate-an-uiimage-using-swift/
     public func imageRotatedByDegrees(degrees: CGFloat, flip: Bool) -> UIImage {
-        let radiansToDegrees: (CGFloat) -> CGFloat = {
-            return $0 * (180.0 / CGFloat(M_PI))
-        }
         let degreesToRadians: (CGFloat) -> CGFloat = {
             return $0 / 180.0 * CGFloat(M_PI)
         }

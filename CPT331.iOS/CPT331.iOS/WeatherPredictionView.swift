@@ -43,5 +43,6 @@ class WeatherPredictionView: UIView {
     override func awakeFromNib() {
         NSBundle.mainBundle().loadNibNamed("WeatherPredictionView", owner: self, options: nil)
         self.addSubview(self.contentView)
+        self.contentView.sizeToFit(parent: self)
     }
 }

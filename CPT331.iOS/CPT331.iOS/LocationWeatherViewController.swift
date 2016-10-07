@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LocationWeatherViewController: LocationSubViewController {
+class LocationWeatherViewController: LocationViewController {
 
     
     @IBOutlet weak var currentTemperatureLabel: UILabel!
@@ -30,6 +30,7 @@ class LocationWeatherViewController: LocationSubViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.navigationItem.setTitle(self.location.name, subtitle: "Weather Forecast")
 
         self.humidityView.type = .Humidity
         self.windSpeedView.type = .WindSpeed
@@ -38,16 +39,16 @@ class LocationWeatherViewController: LocationSubViewController {
         self.currentTemperatureLabel.text = "??"
         self.currentCategoryNameLabel.text = ""
         
-        WeatherManager.getWeather(atCoordinate: self.location.coordinate) { data in
-            self.showWeatherData(data)
-        }
-        
         self.predictionViews = [
             self.predictionView1,
             self.predictionView2,
             self.predictionView3,
             self.predictionView4
         ]
+        
+        WeatherManager.getWeather(atCoordinate: self.location.coordinate) { data in
+            self.showWeatherData(data)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -109,6 +110,7 @@ class LocationWeatherViewController: LocationSubViewController {
     }
     
     func updateConstraints() {
+        // Hide prediction views when device is in landscape
         if UIDevice.currentDevice().orientation.isLandscape {
             self.predictionsHeightConstraint.priority = 900
         } else {
@@ -118,9 +120,9 @@ class LocationWeatherViewController: LocationSubViewController {
         self.view.updateConstraintsIfNeeded()
     }
     
+    // Monitor device rotation so constraints can be updated upon changing
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        
         self.updateConstraints()
     }
 }
