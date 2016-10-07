@@ -17,6 +17,7 @@ class WeatherPredictionView: UIView {
     
     private var _prediction:WeatherDataPrediction?
     var prediction:WeatherDataPrediction? {
+        
         get {
             return _prediction
         }

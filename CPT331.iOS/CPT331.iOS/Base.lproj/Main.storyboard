@@ -536,7 +536,7 @@
                                         </variation>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LiR-rX-ob8">
-                                        <rect key="frame" x="0.0" y="167.5" width="600" height="128"/>
+                                        <rect key="frame" x="0.0" y="167" width="600" height="128"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m30-BT-GBo" userLabel="Spacer">
                                                 <rect key="frame" x="0.0" y="0.0" width="35" height="128"/>
@@ -605,57 +605,48 @@
                                         </variation>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="THD-Qb-w4D">
-                                        <rect key="frame" x="0.0" y="320.5" width="600" height="156.5"/>
+                                        <rect key="frame" x="0.0" y="320" width="600" height="156.5"/>
                                         <subviews>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gvb-Dd-Hie" customClass="WeatherPredictionView" customModule="CPT331_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="149.5" height="156.5"/>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fIB-2b-k6J">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="156.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Teh-Hl-vCw" userLabel="Separator">
-                                                <rect key="frame" x="149.5" y="0.0" width="1" height="156.5"/>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.59663254310344827" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="1" id="8B5-56-lAz">
-                                                        <variation key="heightClass=compact" constant="0.0"/>
-                                                    </constraint>
-                                                </constraints>
-                                            </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xOv-Gm-Qv8" customClass="WeatherPredictionView" customModule="CPT331_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="150.5" y="0.0" width="149" height="156.5"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hOr-5z-eEq" userLabel="Separator">
-                                                <rect key="frame" x="299.5" y="0.0" width="1" height="156.5"/>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.59663254310344827" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="1" id="O0g-yW-spm">
-                                                        <variation key="heightClass=compact" constant="0.0"/>
-                                                    </constraint>
-                                                </constraints>
-                                            </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jH5-qa-YK4" customClass="WeatherPredictionView" customModule="CPT331_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="300.5" y="0.0" width="149.5" height="156.5"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TVz-s7-TiC" userLabel="Separator">
-                                                <rect key="frame" x="450" y="0.0" width="1" height="156.5"/>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.59663254310344827" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="1" id="elV-kC-Cqt">
-                                                        <variation key="heightClass=compact" constant="0.0"/>
-                                                    </constraint>
-                                                </constraints>
-                                            </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hLt-EB-rjs" customClass="WeatherPredictionView" customModule="CPT331_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="451" y="0.0" width="149" height="156.5"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </view>
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="tiz-iO-CS4">
+                                                    <size key="itemSize" width="111" height="136.5"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="weatherPredictionCell" id="K8r-Pa-ZKm" customClass="WeatherPredictionCell" customModule="CPT331_iOS" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="10" width="111" height="136.5"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                            <rect key="frame" x="0.0" y="0.0" width="111" height="136.5"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ewR-6n-xEc" customClass="WeatherPredictionView" customModule="CPT331_iOS" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="1" width="111" height="143.5"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                </view>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        </view>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstItem="ewR-6n-xEc" firstAttribute="top" secondItem="K8r-Pa-ZKm" secondAttribute="topMargin" constant="-7" id="3AS-Jl-UmX"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ewR-6n-xEc" secondAttribute="trailing" id="6JF-Fc-RbJ"/>
+                                                            <constraint firstAttribute="bottomMargin" secondItem="ewR-6n-xEc" secondAttribute="bottom" constant="-7" id="gEJ-AU-A7q"/>
+                                                            <constraint firstItem="ewR-6n-xEc" firstAttribute="leading" secondItem="K8r-Pa-ZKm" secondAttribute="leading" id="r6r-Pe-Ahb"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <outlet property="predictionView" destination="ewR-6n-xEc" id="zey-KN-zzf"/>
+                                                        </connections>
+                                                    </collectionViewCell>
+                                                </cells>
+                                            </collectionView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="gvb-Dd-Hie" firstAttribute="width" secondItem="hLt-EB-rjs" secondAttribute="width" id="M5f-5i-RZP"/>
-                                            <constraint firstItem="gvb-Dd-Hie" firstAttribute="width" secondItem="jH5-qa-YK4" secondAttribute="width" id="Sno-4Y-yFM"/>
                                             <constraint firstAttribute="height" priority="250" id="k5b-qB-r4J"/>
-                                            <constraint firstItem="gvb-Dd-Hie" firstAttribute="width" secondItem="xOv-Gm-Qv8" secondAttribute="width" id="rsI-Xg-iCE"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -684,10 +675,7 @@
                         <outlet property="currentCategoryNameLabel" destination="Ukz-Lz-buY" id="IBZ-gn-5z7"/>
                         <outlet property="currentTemperatureLabel" destination="1YB-zQ-OFJ" id="45t-Fl-fsK"/>
                         <outlet property="humidityView" destination="UaE-Ww-fkJ" id="n0o-mb-1ij"/>
-                        <outlet property="predictionView1" destination="gvb-Dd-Hie" id="Yn6-Oj-oOv"/>
-                        <outlet property="predictionView2" destination="xOv-Gm-Qv8" id="XtZ-eY-UWT"/>
-                        <outlet property="predictionView3" destination="jH5-qa-YK4" id="2Ea-oi-44Z"/>
-                        <outlet property="predictionView4" destination="hLt-EB-rjs" id="u0Z-5W-iSt"/>
+                        <outlet property="predictionCollectionView" destination="fIB-2b-k6J" id="cwu-hm-f1F"/>
                         <outlet property="predictionsHeightConstraint" destination="k5b-qB-r4J" id="30X-BF-Rv3"/>
                         <outlet property="windBearingView" destination="K8c-cX-7NX" id="oS0-yv-9tS"/>
                         <outlet property="windSpeedView" destination="8RT-kg-Uwm" id="62l-rX-JXE"/>

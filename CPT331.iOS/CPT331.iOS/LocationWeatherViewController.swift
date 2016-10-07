@@ -8,8 +8,7 @@
 
 import UIKit
 
-class LocationWeatherViewController: LocationViewController {
-
+class LocationWeatherViewController: LocationViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var currentTemperatureLabel: UILabel!
     @IBOutlet weak var currentCategoryImageView: UIImageView!
@@ -19,35 +18,31 @@ class LocationWeatherViewController: LocationViewController {
     @IBOutlet weak var windSpeedView: WeatherStatView!
     @IBOutlet weak var windBearingView: WeatherStatView!
     
-    // TODO: add support for dynamically adding prediction views
-    @IBOutlet weak var predictionView1: WeatherPredictionView!
-    @IBOutlet weak var predictionView2: WeatherPredictionView!
-    @IBOutlet weak var predictionView3: WeatherPredictionView!
-    @IBOutlet weak var predictionView4: WeatherPredictionView!
-    var predictionViews:[WeatherPredictionView]?
-    
+    @IBOutlet weak var predictionCollectionView: UICollectionView!
     @IBOutlet weak var predictionsHeightConstraint: NSLayoutConstraint!
+    let PREDICTION_COLUMNS = 4
+    
+    // Loaded from async api call
+    var weatherData: WeatherDataCollection?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationItem.setTitle(self.location.name, subtitle: "Weather Forecast")
-
-        self.humidityView.type = .Humidity
-        self.windSpeedView.type = .WindSpeed
-        self.windBearingView.type = .WindBearing
         
         self.currentTemperatureLabel.text = "??"
         self.currentCategoryNameLabel.text = ""
         
-        self.predictionViews = [
-            self.predictionView1,
-            self.predictionView2,
-            self.predictionView3,
-            self.predictionView4
-        ]
+        self.humidityView.type = .Humidity
+        self.windSpeedView.type = .WindSpeed
+        self.windBearingView.type = .WindBearing
+        
+        
+        self.predictionCollectionView.backgroundView?.backgroundColor = nil
+        self.predictionCollectionView.delegate = self
+        self.predictionCollectionView.dataSource = self
         
         WeatherManager.getWeather(atCoordinate: self.location.coordinate) { data in
-            self.showWeatherData(data)
+            self.weatherData = data
+            self.update()
         }
     }
     
@@ -61,9 +56,30 @@ class LocationWeatherViewController: LocationViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func showWeatherData(data: WeatherDataCollection?) {
-        if let current = data?.current {
-            
+    // Monitor device rotation so constraints can be updated upon changing
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        self.updateConstraints()
+    }
+    
+    func updateConstraints() {
+        // Hide prediction views when device is in landscape
+        if UIDevice.currentDevice().orientation.isLandscape {
+            self.predictionsHeightConstraint.priority = 900
+        } else {
+            self.predictionsHeightConstraint.priority = 250
+        }
+        
+        self.view.updateConstraintsIfNeeded()
+    }
+    
+    
+    func update() {
+        guard self.weatherData != nil else {
+            return
+        }
+        
+        if let current = self.weatherData?.current {
             // Top view
             if let temperature = current.temperature {
                 self.currentTemperatureLabel.text = String(Int(temperature))
@@ -95,34 +111,39 @@ class LocationWeatherViewController: LocationViewController {
             }
         }
         
-        // TODO: predictions views should be dynamically added to parent view in the event of <4 predictions
-        if let predictions = data?.dailyData {
-            
-            for i in 0..<predictions.count {
-                if i < predictionViews?.count {
-                    self.predictionViews![i].prediction = predictions[i]
-                    
-                } else {
-                    break
-                }
+        self.updateConstraints()
+        self.predictionCollectionView.reloadData()
+    }
+    
+    
+    
+    
+    /* --------------------------------- *
+     *    Prediction Colleciton View     *
+     * --------------------------------- */
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let predictions = self.weatherData?.dailyData {
+            return predictions.count
+        } else {
+            return 0
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("weatherPredictionCell", forIndexPath: indexPath)
+        
+        if let predictionCell = cell as? WeatherPredictionCell, let predictions = self.weatherData?.dailyData {
+            if indexPath.row < predictions.count  {
+                predictionCell.predictionView.prediction = predictions[indexPath.row]
             }
         }
-    }
-    
-    func updateConstraints() {
-        // Hide prediction views when device is in landscape
-        if UIDevice.currentDevice().orientation.isLandscape {
-            self.predictionsHeightConstraint.priority = 900
-        } else {
-            self.predictionsHeightConstraint.priority = 250
-        }
         
-        self.view.updateConstraintsIfNeeded()
+        return cell
     }
     
-    // Monitor device rotation so constraints can be updated upon changing
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        self.updateConstraints()
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let width = CGFloat(Int(self.predictionCollectionView.frame.width)/self.PREDICTION_COLUMNS)
+        let height = self.predictionCollectionView.frame.height
+        return CGSize(width: width, height: height)
     }
 }
