@@ -14,12 +14,14 @@ namespace CPT331.Data.Parsers
 {
 	public class Parser
 	{
-		public Parser(string fileName)
+		public Parser(string dataSourceDirectory, string state)
 		{
-			_fileName = fileName;
+			_fileName = Path.Combine(dataSourceDirectory, $"{state}.xml");
+			_state = state;
 		}
 
 		private readonly string _fileName;
+		private readonly string _state;
 
 		private void Commit(List<Crime> crimes)
 		{

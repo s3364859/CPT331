@@ -1,13 +1,13 @@
 ﻿#region Using References
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using System.Web.Helpers;
 
 using CPT331.Core.ObjectModel;
 using CPT331.Data;
-
 using CPT331.Web.Models.Admin;
 
 #endregion
@@ -23,76 +23,286 @@ namespace CPT331.Web.Controllers
         }
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult NewTest()
+		public ActionResult NewOffence()
 		{
-			return View(new TestModel());
+			return View(new OffenceModel());
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult NewTest(TestModel testModel)
+		public ActionResult NewOffence(OffenceModel offenceModel)
 		{
 			ActionResult actionResult = null;
 
 			if (ModelState.IsValid == true)
 			{
-				TestRepository.AddTest(testModel.Value0, testModel.Value1);
+				OffenceRepository.AddOffence(offenceModel.IsDeleted, offenceModel.IsVisible, offenceModel.Name);
 
-				actionResult = RedirectToAction("Tests", "Admin");
+				actionResult = RedirectToAction("Offences", "Admin");
 			}
 			else
 			{
-				actionResult = View(testModel);
+				actionResult = View(offenceModel);
 			}
 
 			return actionResult;
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Test(int id)
+        public ActionResult Offence(int id)
         {
-			TestModel testModel = null;
-			Test test = TestRepository.GetTestByID(id);
+			OffenceModel offenceModel = null;
+			Offence offence = OffenceRepository.GetOffenceByID(id);
 
-			if (test != null)
+			if (offence != null)
 			{
-				testModel = new TestModel(test.ID, test.Value0, test.Value1);
+				offenceModel = new OffenceModel(offence.DateCreatedUtc, offence.DateUpdatedUtc, offence.ID, offence.IsDeleted, offence.IsVisible, offence.Name);
 			}
 
-			return View(testModel);
+			return View(offenceModel);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Test(TestModel testModel)
+        public ActionResult Offence(OffenceModel offenceModel)
         {
             ActionResult actionResult = null;
 
             if (ModelState.IsValid == true)
             {
-                if (testModel.IsDelete == true)
+                if (offenceModel.IsDelete == true)
 				{
-					TestRepository.DeleteTestByID(testModel.ID);
+					//	Can't delete them at this time
                 }
                 else
                 {
-					TestRepository.UpdateTest(testModel.ID, testModel.Value0, testModel.Value1);
+					OffenceRepository.UpdateOffence(offenceModel.ID, offenceModel.IsDeleted, offenceModel.IsVisible, offenceModel.Name);
                 }
 
-                actionResult = RedirectToAction("Tests", "Admin");
+                actionResult = RedirectToAction("Offences", "Admin");
             }
             else
             {
-                actionResult = View(testModel);
+                actionResult = View(offenceModel);
             }
 
             return actionResult;
         }
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult Tests()
+		public ActionResult Offences(string sortBy, SortDirection? sortDirection, int? page)
 		{
-			IEnumerable<Test> tests = TestRepository.GetTests();
+			IEnumerable<Offence> offences = OffenceRepository.GetOffences();
 
-			return View(tests);
+			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
+			{
+				SortDirection sort = sortDirection.Value;
+
+				switch (sortBy)
+				{
+					case "Date":
+						if (sort == SortDirection.Ascending)
+						{
+							offences = offences.OrderBy(m => (m.DateCreatedUtc)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							offences = offences.OrderByDescending(m => (m.DateCreatedUtc)).ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "ID":
+						if (sort == SortDirection.Ascending)
+						{
+							offences = offences.OrderBy(m => (m.ID));
+						}
+						else
+						{
+							offences = offences.OrderByDescending(m => (m.ID));
+						}
+						break;
+
+					case "IsDeleted":
+						if (sort == SortDirection.Ascending)
+						{
+							offences = offences.OrderBy(m => (m.IsDeleted)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							offences = offences.OrderByDescending(m => (m.IsDeleted)).ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "IsVisible":
+						if (sort == SortDirection.Ascending)
+						{
+							offences = offences.OrderBy(m => (m.IsVisible)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							offences = offences.OrderByDescending(m => (m.IsVisible)).ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "Name":
+						if (sort == SortDirection.Ascending)
+						{
+							offences = offences.OrderBy(m => (m.Name));
+						}
+						else
+						{
+							offences = offences.OrderByDescending(m => (m.Name));
+						}
+						break;
+				}
+			}
+
+			return View(offences);
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult NewState()
+		{
+			return View(new StateModel());
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult NewState(StateModel stateModel)
+		{
+			ActionResult actionResult = null;
+
+			if (ModelState.IsValid == true)
+			{
+				StateRepository.AddState(stateModel.AbbreviatedName, stateModel.IsDeleted, stateModel.IsVisible, stateModel.Name);
+
+				actionResult = RedirectToAction("States", "Admin");
+			}
+			else
+			{
+				actionResult = View(stateModel);
+			}
+
+			return actionResult;
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult State(int id)
+		{
+			StateModel stateModel = null;
+			State state = StateRepository.GetStateByID(id);
+
+			if (state != null)
+			{
+				stateModel = new StateModel(state.AbbreviatedName, state.DateCreatedUtc, state.DateUpdatedUtc, state.ID, state.IsDeleted, state.IsVisible, state.Name);
+			}
+
+			return View(stateModel);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult State(StateModel stateModel)
+		{
+			ActionResult actionResult = null;
+
+			if (ModelState.IsValid == true)
+			{
+				if (stateModel.IsDelete == true)
+				{
+					//	Can't delete them at this time
+				}
+				else
+				{
+					StateRepository.UpdateState(stateModel.ID, stateModel.AbbreviatedName, stateModel.IsDeleted, stateModel.IsVisible, stateModel.Name);
+				}
+
+				actionResult = RedirectToAction("States", "Admin");
+			}
+			else
+			{
+				actionResult = View(stateModel);
+			}
+
+			return actionResult;
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult States(string sortBy, SortDirection? sortDirection, int? page)
+		{
+			IEnumerable<State> states = StateRepository.GetStates();
+
+			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
+			{
+				SortDirection sort = sortDirection.Value;
+
+				switch (sortBy)
+				{
+					case "AbbreviatedName":
+						if (sort == SortDirection.Ascending)
+						{
+							states = states.OrderBy(m => (m.AbbreviatedName));
+						}
+						else
+						{
+							states = states.OrderByDescending(m => (m.AbbreviatedName));
+						}
+						break;
+
+					case "Date":
+						if (sort == SortDirection.Ascending)
+						{
+							states = states.OrderBy(m => (m.DateCreatedUtc)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							states = states.OrderByDescending(m => (m.DateCreatedUtc)).ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "ID":
+						if (sort == SortDirection.Ascending)
+						{
+							states = states.OrderBy(m => (m.ID));
+						}
+						else
+						{
+							states = states.OrderByDescending(m => (m.ID));
+						}
+						break;
+
+					case "IsDeleted":
+						if (sort == SortDirection.Ascending)
+						{
+							states = states.OrderBy(m => (m.IsDeleted)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							states = states.OrderByDescending(m => (m.IsDeleted)).ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "IsVisible":
+						if (sort == SortDirection.Ascending)
+						{
+							states = states.OrderBy(m => (m.IsVisible)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							states = states.OrderByDescending(m => (m.IsVisible)).ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "Name":
+						if (sort == SortDirection.Ascending)
+						{
+							states = states.OrderBy(m => (m.Name));
+						}
+						else
+						{
+							states = states.OrderByDescending(m => (m.Name));
+						}
+						break;
+				}
+			}
+
+			return View(states);
 		}
 	}
 }

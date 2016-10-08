@@ -18,30 +18,191 @@ namespace CPT331.Data.Migration.Migrations
 
 		public override void Up()
 		{
-			//	Example of test bits and pieces
+			Create.Schema("Crime");
+			Create.Schema("Location");
 
-			//	Whip up a new table
-			Create.Table("Test")
-				.WithColumn("ID")
-					.AsInt32()
-					.NotNullable()
-					.Identity()
-					.PrimaryKey()
-				.WithColumn("Value0")
-					.AsString()
-					.NotNullable()
-				.WithColumn("Value1")
-					.AsString()
-					.NotNullable();
+			Create.Table("Crime")
+				.InSchema("Crime")
+					.WithColumn("ID")
+						.AsInt32()
+						.NotNullable()
+						.Identity()
+						.PrimaryKey()
+					.WithColumn("LocalGovernmentAreaID")
+						.AsInt32()
+						.NotNullable()
+					.WithColumn("OffenceID")
+						.AsInt32()
+						.NotNullable()
+					.WithColumn("Count")
+						.AsInt32()
+						.NotNullable()
+					.WithColumn("Month")
+						.AsInt32()
+						.NotNullable()
+					.WithColumn("Year")
+						.AsInt32()
+						.NotNullable()
+					.WithColumn("IsDeleted")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(false)
+					.WithColumn("IsVisible")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(true)
+					.WithColumn("DateCreatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime)
+					.WithColumn("DateUpdatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime);
 
-			//	Whack some data into it
-			Insert.IntoTable("Test")
-				.Row(new { Value0 = "Row0Value0", Value1 = "Row0Value1" })
-				.Row(new { Value0 = "Row1Value0", Value1 = "Row1Value1" })
-				.Row(new { Value0 = "Row2Value0", Value1 = "Row2Value1" });
+			Create.Table("LocalGovernmentArea")
+				.InSchema("Location")
+					.WithColumn("ID")
+						.AsInt32()
+						.NotNullable()
+						.Identity()
+						.PrimaryKey()
+					.WithColumn("StateID")
+						.AsInt32()
+						.NotNullable()
+					.WithColumn("Name")
+						.AsAnsiString(100)
+						.NotNullable()
+					.WithColumn("IsDeleted")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(false)
+					.WithColumn("IsVisible")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(true)
+					.WithColumn("DateCreatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime)
+					.WithColumn("DateUpdatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime);
 
-			//	Not designed with sprocs in mind, typical - we can take care of this by ourselves
-			Execute.EmbeddedScript("M0001.sql");
+			Create.Table("LocalGovernmentAreaLocation")
+				.InSchema("Location")
+					.WithColumn("LocalGovernmentAreaID")
+						.AsInt32()
+						.NotNullable()
+						.PrimaryKey()
+					.WithColumn("LocationID")
+						.AsInt32()
+						.NotNullable()
+						.PrimaryKey();
+
+			Create.Table("Location")
+				.InSchema("Location")
+					.WithColumn("ID")
+						.AsInt32()
+						.NotNullable()
+						.Identity()
+						.PrimaryKey()
+					.WithColumn("StateID")
+						.AsInt32()
+						.NotNullable()
+					.WithColumn("Name")
+						.AsAnsiString(100)
+						.NotNullable()
+					.WithColumn("IsDeleted")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(false)
+					.WithColumn("IsVisible")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(true)
+					.WithColumn("DateCreatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime)
+					.WithColumn("DateUpdatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime);
+
+			Create.Table("Offence")
+				.InSchema("Crime")
+					.WithColumn("ID")
+						.AsInt32()
+						.NotNullable()
+						.Identity()
+						.PrimaryKey()
+					.WithColumn("Name")
+						.AsAnsiString(100)
+						.NotNullable()
+					.WithColumn("IsDeleted")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(false)
+					.WithColumn("IsVisible")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(true)
+					.WithColumn("DateCreatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime)
+					.WithColumn("DateUpdatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime);
+
+			Create.Table("State")
+				.InSchema("Location")
+					.WithColumn("ID")
+						.AsInt32()
+						.NotNullable()
+						.Identity()
+						.PrimaryKey()
+					.WithColumn("Name")
+						.AsAnsiString(100)
+						.NotNullable()
+					.WithColumn("AbbreviatedName")
+						.AsAnsiString(3)
+						.NotNullable()
+					.WithColumn("IsDeleted")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(false)
+					.WithColumn("IsVisible")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(true)
+					.WithColumn("DateCreatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime)
+					.WithColumn("DateUpdatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime);
+
+			Execute.EmbeddedScript("Crime.spAddCrime.sql");
+			Execute.EmbeddedScript("Crime.spAddOffence.sql");
+			Execute.EmbeddedScript("Crime.spGetOffence.sql");
+			Execute.EmbeddedScript("Crime.spGetOffenceByID.sql");
+			Execute.EmbeddedScript("Crime.spUpdateOffence.sql");
+			Execute.EmbeddedScript("Location.spAddLocalGovernmentArea.sql");
+			Execute.EmbeddedScript("Location.spAddState.sql");
+			Execute.EmbeddedScript("Location.spGetLocalGovernmentArea.sql");
+			Execute.EmbeddedScript("Location.spGetLocalGovernmentAreaByID.sql");
+			Execute.EmbeddedScript("Location.spGetLocalGovernmentAreasByStateID.sql");
+			Execute.EmbeddedScript("Location.spGetState.sql");
+			Execute.EmbeddedScript("Location.spGetStateByAbbreviatedName.sql");
+			Execute.EmbeddedScript("Location.spGetStateByID.sql");
+			Execute.EmbeddedScript("Location.spUpdateLocalGovernmentArea.sql");
+			Execute.EmbeddedScript("Location.spUpdateState.sql");
 		}
 	}
 }

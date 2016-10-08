@@ -14,21 +14,23 @@ namespace CPT331.Data.Parsers
 {
 	public class QldXmlParser : Parser
 	{
-		public QldXmlParser(string fileName)
-			: base(fileName)
+		public QldXmlParser(string dataSourceDirectory)
+			: base(dataSourceDirectory, QLD)
 		{
 		}
 
+		internal const string QLD = "QLD";
+
 		protected override void OnParse(string fileName, List<Crime> crimes)
 		{
-			Console.WriteLine("Parsing QLD data...");
+			Console.WriteLine($"Parsing {QLD} data...");
 
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);
 
 			XmlNode qldXmlNode = xmlDocument.SelectSingleNode("/Workbook/Worksheet/Table/Row[position() = 1]");
 
-			State qldState = StateRepository.GetStateByAbbreviatedName("QLD");
+			State qldState = StateRepository.GetStateByAbbreviatedName(QLD);
 			List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(qldState.ID);
 			Dictionary<string, Offence> offences = new Dictionary<string, Offence>();
 			OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));

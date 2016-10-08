@@ -16,6 +16,21 @@ namespace CPT331.Data
 {
 	public static class OffenceRepository
 	{
+		public static int AddOffence(bool isDeleted, bool isVisible, string name)
+		{
+			int id = 0;
+
+			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+			{
+				id = (int)SqlMapper
+					.Query(sqlConnection, "Crime.spAddOffence", new { IsDeleted = isDeleted, IsVisible = isVisible, Name = name }, commandType: CommandType.StoredProcedure)
+					.Select(m => m.NewID)
+					.Single();
+			}
+
+			return id;
+		}
+
 		public static Offence GetOffenceByID(int id)
 		{
 			Offence offence = null;
@@ -44,6 +59,14 @@ namespace CPT331.Data
 			}
 
 			return offences;
+		}
+
+		public static void UpdateOffence(int id, bool isDeleted, bool isVisible, string name)
+		{
+			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+			{
+				SqlMapper.Execute(sqlConnection, "Crime.spUpdateOffence", new { ID = id, IsDeleted = isDeleted, IsVisible = isVisible, Name = name }, commandType: CommandType.StoredProcedure);
+			}
 		}
 	}
 }

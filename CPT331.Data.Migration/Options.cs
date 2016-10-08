@@ -12,9 +12,8 @@ namespace CPT331.Data.Migration
 	internal class Options
 	{
 		private string _drop;
+		private string _process;
 		private IParserState _lastParserState;
-		private string _password;
-		private string _username;
 
 		[Option('d', "drop", Required = false, HelpText = "Drop the database and recreate it. Use this option for the initial database creation.")]
 		public string Drop
@@ -29,29 +28,16 @@ namespace CPT331.Data.Migration
 			}
 		}
 
-		[Option('p', "password", Required = true, HelpText = "The password for the credentials used to create the database.")]
-		public string Password
+		[Option('p', "process", Required = false, HelpText = "Process the XML data sources. Use this option to hydrate an empty database.")]
+		public string Process
 		{
 			get
 			{
-				return _password;
+				return _process;
 			}
 			set
 			{
-				_password = value;
-			}
-		}
-
-		[Option('u', "username", Required = true, HelpText = "The username for the credentials used to create the database.")]
-		public string Username
-		{
-			get
-			{
-				return _username;
-			}
-			set
-			{
-				_username = value;
+				_process = value;
 			}
 		}
 

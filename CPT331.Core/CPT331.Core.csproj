@@ -54,7 +54,6 @@
     <Compile Include="ObjectModel\EventCategory.cs" />
     <Compile Include="ObjectModel\EventImage.cs" />
     <Compile Include="ObjectModel\EventInfo.cs" />
-    <Compile Include="ObjectModel\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ObjectModel\State.cs" />
   </ItemGroup>

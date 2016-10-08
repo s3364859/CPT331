@@ -1,8 +1,11 @@
 ﻿#region Using References
 
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 
 using CommandLine;
@@ -11,7 +14,12 @@ using FluentMigrator.Runner.Announcers;
 using FluentMigrator.Runner.Initialization;
 
 using CPT331.Core;
+using CPT331.Core.Extensions;
 using CPT331.Core.Logging;
+using CPT331.Data.Parsers;
+
+using CommandLineParser = CommandLine.Parser;
+using XmlDataSourceParser = CPT331.Data.Parsers.Parser;
 
 #endregion
 
@@ -73,13 +81,11 @@ namespace CPT331.Data.Migration
 
 			try
 			{
-				if (Parser.Default.ParseArguments(arguments, _options) == true)
+				if (CommandLineParser.Default.ParseArguments(arguments, _options) == true)
 				{
 					SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder(ApplicationConfiguration.CPT331ConnectionString);
 
 					string targetDatabase = sqlConnectionStringBuilder.InitialCatalog;
-					sqlConnectionStringBuilder.UserID = _options.Username;
-					sqlConnectionStringBuilder.Password = _options.Password;
 
 					//	Switch over to master db to do admin type stuff
 					sqlConnectionStringBuilder.InitialCatalog = "master";
@@ -109,6 +115,16 @@ namespace CPT331.Data.Migration
 					{
 						RunMigration(sqlConnection);
 					}
+
+					//	Import data if required
+					if (String.IsNullOrEmpty(_options.Process) == false)
+					{
+						OutputStreams.WriteLine("Processing XML data sources...");
+
+						ProcessXmlDataSources(_options.Process);
+
+						OutputStreams.WriteLine("Processing complete.");
+					}
 				}
 
 				Environment.ExitCode = ErrorSuccess;
@@ -130,6 +146,26 @@ namespace CPT331.Data.Migration
 			OutputStreams.WriteLine();
 			OutputStreams.WriteLine("Process complete.");
 			OutputStreams.WriteLine();
+		}
+
+		private static void ProcessXmlDataSources(string dataSources)
+		{
+			List<string> dataSourceNames = new List<string>();
+			List<XmlDataSourceParser> parsers = new List<XmlDataSourceParser>();
+
+			if (dataSources.EqualsIgnoreCase("ALL") == true)
+			{
+				dataSourceNames.AddRange(ParserFactory.SupportedParserNames);
+			}
+			else
+			{
+				dataSources.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(m => dataSourceNames.Add(m.ToUpper().Trim()));
+			}
+
+			dataSourceNames = dataSourceNames.Distinct().OrderBy(m => (m)).ToList();
+			dataSourceNames.ForEach(m => parsers.Add(ParserFactory.NewParser(ApplicationConfig.Default.CrimeDataFolder, m)));
+
+			parsers.AsParallel().ForAll(m => m.Parse());
 		}
 
 		private static void RunMigration(SqlConnection sqlConnection)
