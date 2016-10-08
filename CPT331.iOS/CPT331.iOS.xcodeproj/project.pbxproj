@@ -50,6 +50,8 @@
 		D097BDA31DA7747F004B1AB0 /* EventNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097BDA21DA7747F004B1AB0 /* EventNavigationController.swift */; };
 		D09BB5301DA6694500438289 /* WeatherPredictionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D09BB52F1DA6694500438289 /* WeatherPredictionView.xib */; };
 		D09BB5321DA6699400438289 /* WeatherPredictionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09BB5311DA6699400438289 /* WeatherPredictionView.swift */; };
+		D0AD35DB1DA913EC00EA3013 /* EventCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD35DA1DA913EC00EA3013 /* EventCategory.swift */; };
+		D0AD35DE1DA9150100EA3013 /* EventSubcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD35DD1DA9150100EA3013 /* EventSubcategory.swift */; };
 		D0CDE7891D8FD06B0077A6DC /* GeocodedPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CDE7881D8FD06B0077A6DC /* GeocodedPlacemark.swift */; };
 		D0FB9F001DA75AD200848C11 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB9EFF1DA75AD200848C11 /* LocationViewController.swift */; };
 		D0FB9F021DA761A400848C11 /* UINavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB9F011DA761A400848C11 /* UINavigationItem.swift */; };
@@ -123,6 +125,8 @@
 		D097BDA21DA7747F004B1AB0 /* EventNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventNavigationController.swift; sourceTree = "<group>"; };
 		D09BB52F1DA6694500438289 /* WeatherPredictionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherPredictionView.xib; sourceTree = "<group>"; };
 		D09BB5311DA6699400438289 /* WeatherPredictionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherPredictionView.swift; sourceTree = "<group>"; };
+		D0AD35DA1DA913EC00EA3013 /* EventCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCategory.swift; sourceTree = "<group>"; };
+		D0AD35DD1DA9150100EA3013 /* EventSubcategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSubcategory.swift; sourceTree = "<group>"; };
 		D0CDE7881D8FD06B0077A6DC /* GeocodedPlacemark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodedPlacemark.swift; sourceTree = "<group>"; };
 		D0FB9EFF1DA75AD200848C11 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		D0FB9F011DA761A400848C11 /* UINavigationItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationItem.swift; sourceTree = "<group>"; };
@@ -294,10 +298,12 @@
 		D06740BC1DA4D58800E87E0B /* Event */ = {
 			isa = PBXGroup;
 			children = (
+				D080C2851D93C8110071BB43 /* MGLEventFeature.swift */,
 				D0630E511D93058600200606 /* EventField.swift */,
 				D0630E531D93058E00200606 /* Event.swift */,
 				D0630E551D93059700200606 /* EventDetail.swift */,
-				D080C2851D93C8110071BB43 /* MGLEventFeature.swift */,
+				D0AD35DA1DA913EC00EA3013 /* EventCategory.swift */,
+				D0AD35DD1DA9150100EA3013 /* EventSubcategory.swift */,
 			);
 			name = Event;
 			sourceTree = "<group>";
@@ -563,11 +569,13 @@
 				D06740B91DA4CC8B00E87E0B /* WeatherDataCurrent.swift in Sources */,
 				D0630E4C1D92243D00200606 /* String.swift in Sources */,
 				D04259A91DA627B70019103E /* WeatherStatView.swift in Sources */,
+				D0AD35DE1DA9150100EA3013 /* EventSubcategory.swift in Sources */,
 				D045324C1DA4A45400345DC3 /* WeatherCategory.swift in Sources */,
 				D088578D1D91108300790857 /* LocationCrimeViewController.swift in Sources */,
 				D080C2861D93C8110071BB43 /* MGLEventFeature.swift in Sources */,
 				D080C2821D937F020071BB43 /* EventsListCell.swift in Sources */,
 				D08BFF391D90082C001B89B6 /* LocationManager.swift in Sources */,
+				D0AD35DB1DA913EC00EA3013 /* EventCategory.swift in Sources */,
 				D080C2801D937AA20071BB43 /* LocationTabBarController.swift in Sources */,
 				D088578F1D9110C600790857 /* LocationWeatherViewController.swift in Sources */,
 				D0630E541D93058E00200606 /* Event.swift in Sources */,
