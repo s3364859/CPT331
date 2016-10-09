@@ -13,15 +13,10 @@ import SwiftyJSON
 
 // Event data which can be requested from API
 enum EventField:String {
-    case address    = "address"
-    case category   = "category"
-    case startDate  = "datetime_start"
-    case endDate    = "datetime_end"
-    case description = "description"
     case id         = "id"
-    case cancelled  = "is_cancelled"
-    case coordinate = "point"
     case name       = "name"
+    case coordinate = "point"
+    case category   = "category"
 }
 
 class EventManager {
