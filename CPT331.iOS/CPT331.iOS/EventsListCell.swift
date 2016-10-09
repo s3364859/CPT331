@@ -23,9 +23,9 @@ class EventsListCell: UITableViewCell {
     func update() {
         self.primaryLabel.text = event.name
         self.secondaryLabel.text = event.subcategory.name
-        self.thumbnailView.image = event.subcategory.image
         
-        // TODO: debug this... it has no affect
+        // Rendering mode set so a tint color can be specified
+        self.thumbnailView.image = event.subcategory.image?.imageWithRenderingMode(.AlwaysTemplate)
         self.thumbnailView.tintColor = event.category.color
     }
 }

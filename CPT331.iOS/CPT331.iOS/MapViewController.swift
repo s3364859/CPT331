@@ -45,6 +45,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     @IBOutlet weak var searchResultsTableMarginBottom: NSLayoutConstraint!
     
     let searchResultsRowHeight = 50
+    let annotationImage = UIImage(named: "Event-Annotation.png")
+    
     var searchResults = [GeocodedPlacemark]()
     var searchQuery:String?
     
@@ -153,11 +155,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     }
     
     
-    
-    func mapViewDidFinishLoadingMap(mapView: MGLMapView) {
-    }
-    
-    
     // Fires when panning, zooming out or transitioning to a new location
     func mapViewRegionIsChanging(mapView: MGLMapView) {
         
@@ -166,7 +163,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     }
     
     
-    // Fires when the map region finishes changing
+    // Update the markers displayed on the map with the region changes
     func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
         
         // Calcualte radius
@@ -190,6 +187,20 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
             // Add Markers
             mapView.addAnnotations(annotations)
         }
+    }
+    
+    // Returns the image to be displayed for a marker on the map
+    func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
+        if let eventFeature = annotation as? EventPointFeature {
+            let category = eventFeature.event.category
+            
+            // TODO: implement anotation dequeueing
+            if let tintedImage = self.annotationImage?.tintWithColor(category.color) {
+                return MGLAnnotationImage(image: tintedImage, reuseIdentifier: category.name)
+            }
+        }
+        
+        return nil
     }
 
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
