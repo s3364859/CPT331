@@ -16,6 +16,8 @@
 		D045324C1DA4A45400345DC3 /* WeatherCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D045324B1DA4A45400345DC3 /* WeatherCategory.swift */; };
 		D045324E1DA4B1AF00345DC3 /* PrecipitationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D045324D1DA4B1AF00345DC3 /* PrecipitationType.swift */; };
 		D04532501DA4B26800345DC3 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D045324F1DA4B26800345DC3 /* WeatherData.swift */; };
+		D04580EA1DAA26CB002DC89F /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04580E91DAA26CB002DC89F /* CLLocationCoordinate2D.swift */; };
+		D04580EC1DAA2AD8002DC89F /* GeocodedPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04580EB1DAA2AD8002DC89F /* GeocodedPlacemark.swift */; };
 		D0490C401DA7DFA600E05770 /* WeatherPredictionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0490C3F1DA7DFA600E05770 /* WeatherPredictionCell.swift */; };
 		D04F33A91D8E619500103669 /* CPT331_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33A81D8E619500103669 /* CPT331_iOSTests.swift */; };
 		D04F33B41D8E619500103669 /* CPT331_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33B31D8E619500103669 /* CPT331_iOSUITests.swift */; };
@@ -51,7 +53,6 @@
 		D09BB5321DA6699400438289 /* WeatherPredictionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09BB5311DA6699400438289 /* WeatherPredictionView.swift */; };
 		D0AD35DB1DA913EC00EA3013 /* EventCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD35DA1DA913EC00EA3013 /* EventCategory.swift */; };
 		D0AD35DE1DA9150100EA3013 /* EventSubcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD35DD1DA9150100EA3013 /* EventSubcategory.swift */; };
-		D0CDE7891D8FD06B0077A6DC /* GeocodedPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CDE7881D8FD06B0077A6DC /* GeocodedPlacemark.swift */; };
 		D0FB9F001DA75AD200848C11 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB9EFF1DA75AD200848C11 /* LocationViewController.swift */; };
 		D0FB9F021DA761A400848C11 /* UINavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB9F011DA761A400848C11 /* UINavigationItem.swift */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,8 @@
 		D045324B1DA4A45400345DC3 /* WeatherCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCategory.swift; sourceTree = "<group>"; };
 		D045324D1DA4B1AF00345DC3 /* PrecipitationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrecipitationType.swift; sourceTree = "<group>"; };
 		D045324F1DA4B26800345DC3 /* WeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		D04580E91DAA26CB002DC89F /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
+		D04580EB1DAA2AD8002DC89F /* GeocodedPlacemark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodedPlacemark.swift; sourceTree = "<group>"; };
 		D0490C3F1DA7DFA600E05770 /* WeatherPredictionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherPredictionCell.swift; sourceTree = "<group>"; };
 		D04F338D1D8E619500103669 /* CPT331.iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CPT331.iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D04F33A41D8E619500103669 /* CPT331.iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPT331.iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,7 +128,6 @@
 		D09BB5311DA6699400438289 /* WeatherPredictionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherPredictionView.swift; sourceTree = "<group>"; };
 		D0AD35DA1DA913EC00EA3013 /* EventCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCategory.swift; sourceTree = "<group>"; };
 		D0AD35DD1DA9150100EA3013 /* EventSubcategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSubcategory.swift; sourceTree = "<group>"; };
-		D0CDE7881D8FD06B0077A6DC /* GeocodedPlacemark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodedPlacemark.swift; sourceTree = "<group>"; };
 		D0FB9EFF1DA75AD200848C11 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		D0FB9F011DA761A400848C11 /* UINavigationItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationItem.swift; sourceTree = "<group>"; };
 		E6D3BEBE1A24C65561C4D38C /* Pods-CPT331.iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPT331.iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-CPT331.iOS/Pods-CPT331.iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -252,11 +254,12 @@
 				D08BFF2E1D9007FC001B89B6 /* UIViewController.swift */,
 				D0FB9F011DA761A400848C11 /* UINavigationItem.swift */,
 				D08BFF321D900810001B89B6 /* Double.swift */,
-				D0CDE7881D8FD06B0077A6DC /* GeocodedPlacemark.swift */,
 				D0630E4B1D92243D00200606 /* String.swift */,
 				D0630E4F1D92466F00200606 /* NSDate.swift */,
 				D04259AA1DA6416F0019103E /* UIImage.swift */,
 				D097BDA01DA76E4F004B1AB0 /* UIView.swift */,
+				D04580E91DAA26CB002DC89F /* CLLocationCoordinate2D.swift */,
+				D04580EB1DAA2AD8002DC89F /* GeocodedPlacemark.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -542,7 +545,6 @@
 				D097BDA11DA76E4F004B1AB0 /* UIView.swift in Sources */,
 				D088578B1D91106100790857 /* LocationEventsViewController.swift in Sources */,
 				D09BB5321DA6699400438289 /* WeatherPredictionView.swift in Sources */,
-				D0CDE7891D8FD06B0077A6DC /* GeocodedPlacemark.swift in Sources */,
 				D0630E5A1D93072A00200606 /* Location.swift in Sources */,
 				D08BFF3F1D900846001B89B6 /* MenuViewController.swift in Sources */,
 				D04F33E91D8E65E700103669 /* AppDelegate.swift in Sources */,
@@ -552,6 +554,7 @@
 				D0630E561D93059700200606 /* EventDetail.swift in Sources */,
 				D0490C401DA7DFA600E05770 /* WeatherPredictionCell.swift in Sources */,
 				D0630E4A1D92243900200606 /* EventManager.swift in Sources */,
+				D04580EA1DAA26CB002DC89F /* CLLocationCoordinate2D.swift in Sources */,
 				D04532481DA4904800345DC3 /* WeatherManager.swift in Sources */,
 				D08BFF331D900810001B89B6 /* Double.swift in Sources */,
 				D08BFF2F1D9007FC001B89B6 /* UIViewController.swift in Sources */,
@@ -575,6 +578,7 @@
 				D080C2801D937AA20071BB43 /* LocationTabBarController.swift in Sources */,
 				D088578F1D9110C600790857 /* LocationWeatherViewController.swift in Sources */,
 				D0630E541D93058E00200606 /* Event.swift in Sources */,
+				D04580EC1DAA2AD8002DC89F /* GeocodedPlacemark.swift in Sources */,
 				D04259AB1DA6416F0019103E /* UIImage.swift in Sources */,
 				D045324A1DA499C100345DC3 /* WeatherDataCollection.swift in Sources */,
 				D08BFF3E1D900846001B89B6 /* MapViewController.swift in Sources */,

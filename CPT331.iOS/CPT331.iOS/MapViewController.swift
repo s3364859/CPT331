@@ -136,22 +136,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
             point2 = CLLocationCoordinate2D(latitude: ne.latitude, longitude: 0)
         }
         
-        // Earth's radius in Kilometers
-        let earthRadius: Double = 6371.01
-        let kDegreesToRadians: Double = M_PI / 180
+        // Get diameter in meters
+        let diameter = point1.distanceFrom(point2)
+        let radius = diameter/2
         
-        // Get the difference between our two points then convert the difference into radians
-        let nDLat: Double = (point2.latitude - point1.latitude) * kDegreesToRadians
-        let nDLon: Double = (point2.longitude - point1.longitude) * kDegreesToRadians
-        let fromLat: Double = point1.latitude * kDegreesToRadians
-        let toLat: Double = point2.latitude * kDegreesToRadians
-        let nA: Double = pow(sin(nDLat / 2), 2) + cos(fromLat) * cos(toLat) * pow(sin(nDLon / 2), 2)
-        let nC: Double = 2 * atan2(sqrt(nA), sqrt(1 - nA))
-        let nD: Double = earthRadius * nC
-        let nR: Double = nD / 2
-        
-        // Should be the radius in kilometers
-        return nR
+        // Return radius in kilometers
+        return radius/1000
     }
     
     
@@ -269,12 +259,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
      * --------------------------------- */
     func searchQueryDidChange(textField:UITextField) {
         if let query = self.searchTextField.text {
-            let location = self.mapView.userLocation?.location
-            
             LocationManager.getSearchPredictions(query, relativeToLocation: self.mapView.userLocation?.location, completion: { (searchResults) in
                 if searchResults != nil {
-                    if location != nil {
-                        self.searchResults = searchResults!.sort({ $0.distanceFrom(location!) < $1.distanceFrom(location!)})
+                    
+                    // Sort results by distance from user
+                    if let userLocation = self.mapView.userLocation?.location {
+                        self.searchResults = searchResults!.sort({ $0.distanceFrom(userLocation) < $1.distanceFrom(userLocation)})
                     } else {
                         self.searchResults = searchResults!
                     }
@@ -353,7 +343,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! LocationListCell
         
-        cell.location = self.searchResults[indexPath.row]
+        cell.placemark = self.searchResults[indexPath.row]
         cell.userLocation = self.mapView.userLocation
         cell.update(withAttributedText: self.searchQuery)
         

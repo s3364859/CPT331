@@ -17,7 +17,7 @@ class LocationListCell: UITableViewCell {
     @IBOutlet weak var distanceValueLabel: UILabel!
     @IBOutlet weak var distanceUnitsLabel: UILabel!
     
-    var location:GeocodedPlacemark!
+    var placemark:GeocodedPlacemark!
     var userLocation: MGLUserLocation?
     
     override func awakeFromNib() {
@@ -25,7 +25,7 @@ class LocationListCell: UITableViewCell {
     }
     
     func update(withAttributedText query:String?=nil) {
-        if let name = location.addressDictionary?["name"] as? String {
+        if let name = self.placemark.addressDictionary?["name"] as? String {
             primaryLabel.hidden = false
             
             // Format the text, to bold the portion which matches search query
@@ -46,16 +46,22 @@ class LocationListCell: UITableViewCell {
             primaryLabel.hidden = true
         }
         
-        if let state = location.addressDictionary?["state"] as? String {
+        if let state = self.placemark.addressDictionary?["state"] as? String {
             secondaryLabel.text = state
             secondaryLabel.hidden = false
         } else {
             secondaryLabel.hidden = true
         }
         
-        if let currentLocation = self.userLocation?.location {
+        // Calculate and display distance from user
+        if let userCoordinate = self.userLocation?.coordinate {
+            let locationCoordinate = self.placemark.location.coordinate
+            
+            // Distance to location in meters
+            let distance = userCoordinate.distanceFrom(locationCoordinate)
+            
             distanceUnitsLabel.text = "km"
-            distanceValueLabel.text = String((self.location.distanceFrom(currentLocation)/1000).roundToPlaces(2))
+            distanceValueLabel.text = String((distance/1000).roundToPlaces(2))
             
             distanceUnitsLabel.hidden = false
             distanceValueLabel.hidden = false
