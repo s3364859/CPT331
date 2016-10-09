@@ -16,14 +16,13 @@ namespace CPT331.WebAPI.Tests.Controllers
     public class CrimeControllerTest
     {
         [TestMethod]
-        public void CrimeByLocation()
+        public void CrimesByCoordinate()
         {
             CrimeController controller = new CrimeController();
 
-			CrimeByLocationModel crimeByLocationModel = controller.CrimeByLocation("foo");
+			CrimeByCoordinateModel crimeByCoordinateModel = controller.CrimesByCoordinate(-33.9112549, 151.1743105);
    
-            Assert.IsNotNull(crimeByLocationModel);
-            Assert.IsTrue(crimeByLocationModel.Offences.Count > 0);
+            Assert.IsNotNull(crimeByCoordinateModel);
         }
     }
 }

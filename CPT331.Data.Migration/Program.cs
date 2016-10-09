@@ -2,13 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-
-using CommandLine;
 
 using FluentMigrator.Runner.Announcers;
 using FluentMigrator.Runner.Initialization;
@@ -19,7 +16,9 @@ using CPT331.Core.Logging;
 using CPT331.Data.Parsers;
 
 using CommandLineParser = CommandLine.Parser;
-using XmlDataSourceParser = CPT331.Data.Parsers.Parser;
+using KmlDataSourceParser = CPT331.Data.Parsers.KmlParser;
+using XmlDataSourceParser = CPT331.Data.Parsers.XmlParser;
+using System.IO;
 
 #endregion
 
@@ -116,12 +115,22 @@ namespace CPT331.Data.Migration
 						RunMigration(sqlConnection);
 					}
 
-					//	Import data if required
-					if (String.IsNullOrEmpty(_options.Process) == false)
+					//	Import KML data if required
+					if (String.IsNullOrEmpty(_options.Kml) == false)
+					{
+						OutputStreams.WriteLine("Processing KML data sources...");
+
+						ProcessKmlDataSources(_options.Kml);
+
+						OutputStreams.WriteLine("Processing complete.");
+					}
+
+					//	Import XML data if required
+					if (String.IsNullOrEmpty(_options.Xml) == false)
 					{
 						OutputStreams.WriteLine("Processing XML data sources...");
 
-						ProcessXmlDataSources(_options.Process);
+						ProcessXmlDataSources(_options.Xml);
 
 						OutputStreams.WriteLine("Processing complete.");
 					}
@@ -148,14 +157,14 @@ namespace CPT331.Data.Migration
 			OutputStreams.WriteLine();
 		}
 
-		private static void ProcessXmlDataSources(string dataSources)
+		private static void ProcessKmlDataSources(string dataSources)
 		{
 			List<string> dataSourceNames = new List<string>();
-			List<XmlDataSourceParser> parsers = new List<XmlDataSourceParser>();
+			List<KmlDataSourceParser> parsers = new List<KmlDataSourceParser>();
 
 			if (dataSources.EqualsIgnoreCase("ALL") == true)
 			{
-				dataSourceNames.AddRange(ParserFactory.SupportedParserNames);
+				dataSourceNames.AddRange(ParserFactory.SupportedKmlParserNames);
 			}
 			else
 			{
@@ -163,7 +172,39 @@ namespace CPT331.Data.Migration
 			}
 
 			dataSourceNames = dataSourceNames.Distinct().OrderBy(m => (m)).ToList();
-			dataSourceNames.ForEach(m => parsers.Add(ParserFactory.NewParser(ApplicationConfig.Default.CrimeDataFolder, m)));
+			dataSourceNames.ForEach(m => parsers.Add(ParserFactory.NewKmlParser(Path.Combine(ApplicationConfig.Default.CrimeDataFolder, "KML Data Sources"), m)));
+
+			//	foreach (KmlDataSourceParser foo in parsers)
+			//	
+			//	try
+			//	{
+			//		foo.Parse();
+			//	}
+			//	catch (Exception exception)
+			//	{
+			//		Console.WriteLine(exception.Message);
+			//		Console.WriteLine();
+			//	}
+			
+			parsers.AsParallel().ForAll(m => m.Parse());
+		}
+
+		private static void ProcessXmlDataSources(string dataSources)
+		{
+			List<string> dataSourceNames = new List<string>();
+			List<XmlDataSourceParser> parsers = new List<XmlDataSourceParser>();
+
+			if (dataSources.EqualsIgnoreCase("ALL") == true)
+			{
+				dataSourceNames.AddRange(ParserFactory.SupportedXmlParserNames);
+			}
+			else
+			{
+				dataSources.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(m => dataSourceNames.Add(m.ToUpper().Trim()));
+			}
+
+			dataSourceNames = dataSourceNames.Distinct().OrderBy(m => (m)).ToList();
+			dataSourceNames.ForEach(m => parsers.Add(ParserFactory.NewXmlParser(Path.Combine(ApplicationConfig.Default.CrimeDataFolder, "XML Data Sources"), m)));
 
 			parsers.AsParallel().ForAll(m => m.Parse());
 		}

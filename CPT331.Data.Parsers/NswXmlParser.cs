@@ -12,7 +12,7 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data.Parsers
 {
-	public class NswXmlParser : Parser
+	public class NswXmlParser : XmlParser
 	{
 		public NswXmlParser(string dataSourceDirectory)
 			: base(dataSourceDirectory, NSW)

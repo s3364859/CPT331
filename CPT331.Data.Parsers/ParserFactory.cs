@@ -8,7 +8,15 @@ namespace CPT331.Data.Parsers
 {
 	public static class ParserFactory
 	{
-		public static string[] SupportedParserNames =
+		public static string[] SupportedKmlParserNames =
+		{
+			ActKmlParser.ACT,
+			NswKmlParser.NSW,
+			NtKmlParser.NT,
+			QldKmlParser.QLD
+		};
+
+		public static string[] SupportedXmlParserNames =
 		{
 			ActXmlParser.ACT,
 			NswXmlParser.NSW,
@@ -17,9 +25,35 @@ namespace CPT331.Data.Parsers
 			VicXmlParser.VIC
 		};
 
-		public static Parser NewParser(string dataSourceDirectory, string name)
+		public static KmlParser NewKmlParser(string dataSourceDirectory, string name)
 		{
-			Parser parser = null;
+			KmlParser parser = null;
+
+			switch (name.ToUpper())
+			{
+				case ActKmlParser.ACT:
+					parser = new ActKmlParser(dataSourceDirectory);
+					break;
+
+				case NswKmlParser.NSW:
+					parser = new NswKmlParser(dataSourceDirectory);
+					break;
+
+				case NtKmlParser.NT:
+					parser = new NtKmlParser(dataSourceDirectory);
+					break;
+
+				case QldKmlParser.QLD:
+					parser = new QldKmlParser(dataSourceDirectory);
+					break;
+			}
+
+			return parser;
+		}
+
+		public static XmlParser NewXmlParser(string dataSourceDirectory, string name)
+		{
+			XmlParser parser = null;
 
 			switch (name.ToUpper())
 			{

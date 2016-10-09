@@ -12,7 +12,7 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data.Parsers
 {
-	public class VicXmlParser : Parser
+	public class VicXmlParser : XmlParser
 	{
 		public VicXmlParser(string dataSourceDirectory)
 			 : base(dataSourceDirectory, VIC)

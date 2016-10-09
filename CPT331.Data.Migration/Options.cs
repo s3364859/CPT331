@@ -12,7 +12,8 @@ namespace CPT331.Data.Migration
 	internal class Options
 	{
 		private string _drop;
-		private string _process;
+		private string _kml;
+		private string _xml;
 		private IParserState _lastParserState;
 
 		[Option('d', "drop", Required = false, HelpText = "Drop the database and recreate it. Use this option for the initial database creation.")]
@@ -28,16 +29,29 @@ namespace CPT331.Data.Migration
 			}
 		}
 
-		[Option('p', "process", Required = false, HelpText = "Process the XML data sources. Use this option to hydrate an empty database.")]
-		public string Process
+		[Option('k', "kml", Required = false, HelpText = "Process the KML data sources. Use this option to hydrate an empty database.")]
+		public string Kml
 		{
 			get
 			{
-				return _process;
+				return _kml;
 			}
 			set
 			{
-				_process = value;
+				_kml = value;
+			}
+		}
+
+		[Option('x', "xml", Required = false, HelpText = "Process the XML data sources. Use this option to hydrate an empty database.")]
+		public string Xml
+		{
+			get
+			{
+				return _xml;
+			}
+			set
+			{
+				_xml = value;
 			}
 		}
 

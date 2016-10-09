@@ -12,7 +12,7 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data.Parsers
 {
-	public class QldXmlParser : Parser
+	public class QldXmlParser : XmlParser
 	{
 		public QldXmlParser(string dataSourceDirectory)
 			: base(dataSourceDirectory, QLD)

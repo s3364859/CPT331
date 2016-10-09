@@ -19,7 +19,7 @@ namespace CPT331.Data.Migration
         }
 
         [ApplicationScopedSetting()]
-        [DefaultSettingValue("D:\\Downloads\\Crime Data\\")]
+        [DefaultSettingValue(@"C:\Downloads\Crime Data\")]
         public string CrimeDataFolder
         {
             get

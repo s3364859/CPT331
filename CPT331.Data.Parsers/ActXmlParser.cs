@@ -12,7 +12,7 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data.Parsers
 {
-	public class ActXmlParser : Parser
+	public class ActXmlParser : XmlParser
 	{
 		public ActXmlParser(string dataSourceDirectory)
 			: base(dataSourceDirectory, ACT)

@@ -12,7 +12,7 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data.Parsers
 {
-	public class NtXmlParser : Parser
+	public class NtXmlParser : XmlParser
 	{
 		public NtXmlParser(string dataSourceDirectory)
 			: base(dataSourceDirectory, NT)

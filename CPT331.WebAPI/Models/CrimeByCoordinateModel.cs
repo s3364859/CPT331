@@ -7,9 +7,9 @@ using System.Collections.Generic;
 
 namespace CPT331.WebAPI.Models
 {
-	public class CrimeByLocationModel
+	public class CrimeByCoordinateModel
 	{
-		public CrimeByLocationModel(int beginYear, int endYear, string name, Dictionary<string, double> offences)
+		public CrimeByCoordinateModel(int beginYear, int endYear, string name, Dictionary<string, double> offences)
 		{
 			_beginYear = beginYear;
 			_endYear = endYear;

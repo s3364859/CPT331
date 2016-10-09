@@ -12,9 +12,9 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data.Parsers
 {
-	public class Parser
+	public class XmlParser
 	{
-		public Parser(string dataSourceDirectory, string state)
+		public XmlParser(string dataSourceDirectory, string state)
 		{
 			_fileName = Path.Combine(dataSourceDirectory, $"{state}.xml");
 			_state = state;

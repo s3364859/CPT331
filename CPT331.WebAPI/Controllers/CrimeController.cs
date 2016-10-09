@@ -30,55 +30,23 @@ namespace CPT331.WebAPI.Controllers
 
 		[HttpGet]
 		[Route("api/Crime/CrimesByCoordinate")]
-		public IEnumerable<Crime> CrimesByCoordinate(double latitude, double longitude, double radius, string sortBy = "", SortDirection? sortDirection = null)
+		public CrimeByCoordinateModel CrimesByCoordinate(double latitude, double longitude, string sortBy = "", SortDirection? sortDirection = null)
 		{
-			IEnumerable<Crime> crimes = CrimeRepository.GetCrimesByCoordinate(latitude, longitude, radius);
+			List<CrimeByCoordinate> crimeByCoordinates = CrimeRepository.GetCrimesByCoordinate(latitude, longitude);
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
 			{
-				crimes = SortCrimes(crimes, sortBy, sortDirection);
+				crimeByCoordinates = SortCrimeByCoordinates(crimeByCoordinates, sortBy, sortDirection).ToList();
 			}
 
-			return crimes;
-		}
-
-		[HttpGet]
-		[Route("api/Crime/CrimeByLocation")]
-		public CrimeByLocationModel CrimeByLocation(string location)
-		{
-			CrimeByLocationModel crimeByLocationModel = null;
-			LocalGovernmentArea localGovernmentArea = null;
-
-			List<LocalGovernmentArea> localGovermentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreas();
-
-			if (localGovermentAreas.Any(m => (m.Name.EqualsIgnoreCase(location) == true)) == true)
-			{
-				localGovernmentArea = localGovermentAreas.Where(m => (m.Name.EqualsIgnoreCase(location))).FirstOrDefault();
-			}
-
-			Random random = new Random();
-
-			if (localGovernmentArea == null)
-			{
-				localGovernmentArea = localGovermentAreas[random.Next(0, (localGovermentAreas.Count - 1))];
-			}
-
-			List<Offence> offences = OffenceRepository.GetOffences();
-
-			int beginYear = random.Next(2010, 2016);
-			int endYear = random.Next(beginYear, 2016);
-
+			CrimeByCoordinateModel crimeByCoordinateModel = null;
 			Dictionary<string, double> offenceValues = new Dictionary<string, double>();
 
-			int upper = random.Next(3, 6);
-			for (int i = 0; i < upper; i++)
-			{
-				List<Offence> otherOffences = offences.Where(m => (offenceValues.ContainsKey(m.Name) == false)).ToList();
-				Offence offence = otherOffences[random.Next(0, (otherOffences.Count - 1))];
+			crimeByCoordinates.ForEach(m => offenceValues.Add(m.OffenceName, m.OffenceCount));
 
-				offenceValues.Add(offence.Name, random.Next(1, 1000));
-			}
-
+			int beginYear = crimeByCoordinates.Min(m => (m.BeginYear));
+			int endYear = crimeByCoordinates.Max(m => (m.EndYear));
+			string localGovernmentAreaName = crimeByCoordinates.Select(m => (m.LocalGovernmentAreaName)).FirstOrDefault();
 			double total = offenceValues.Sum(m => (m.Value));
 
 			for (int i = 0; i < offenceValues.Count; i++)
@@ -88,12 +56,12 @@ namespace CPT331.WebAPI.Controllers
 				offenceValues[key] /= total;
 			}
 
-			crimeByLocationModel = new CrimeByLocationModel(beginYear, endYear, localGovernmentArea.Name, offenceValues);
+			crimeByCoordinateModel = new CrimeByCoordinateModel(beginYear, endYear, localGovernmentAreaName, offenceValues.OrderByDescending(m => (m.Value)).Take(6).ToDictionary(m => m.Key, m => m.Value));
 
-			return crimeByLocationModel;
+			return crimeByCoordinateModel;
 		}
 
-		private static IEnumerable<Crime> SortCrimes(IEnumerable<Crime> events, string sortBy, SortDirection? sortDirection)
+		private static IEnumerable<CrimeByCoordinate> SortCrimeByCoordinates(IEnumerable<CrimeByCoordinate> crimeByCoordinates, string sortBy, SortDirection? sortDirection)
 		{
 			SortDirection direction = ((sortDirection.HasValue == true) ? sortDirection.Value : SortDirection.Ascending);
 
@@ -112,7 +80,7 @@ namespace CPT331.WebAPI.Controllers
 			//			break;
 			//	}
 
-			return events;
+			return crimeByCoordinates;
 		}
 	}
 }
