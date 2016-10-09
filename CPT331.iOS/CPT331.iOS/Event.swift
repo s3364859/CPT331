@@ -9,17 +9,22 @@
 import Foundation
 import CoreLocation
 
-struct Event {
+class Event {
     let id:Int
     let name:String
     let coordinate:CLLocationCoordinate2D
-    let category:String?
+    let subcategory:EventSubcategry
+    var category:EventCategory {
+        get {
+            return self.subcategory.parentCategory
+        }
+    }
     
-    init(id:Int, name:String, coordinate:CLLocationCoordinate2D, category:String?) {
+    init(id:Int, name:String, coordinate:CLLocationCoordinate2D, subcategory:EventSubcategry) {
         self.id = id
         self.name = name
         self.coordinate = coordinate
-        self.category = category
+        self.subcategory = subcategory
     }
     
     func getDetails(completion: (EventDetail?) -> ()) {

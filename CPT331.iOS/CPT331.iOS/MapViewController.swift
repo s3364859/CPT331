@@ -183,13 +183,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
             // Build annotations array
             if events != nil {
                 for event in events! {
-                    
-                    let annotation = MGLEventFeature()
-                    annotation.id = event.id
-                    annotation.title = event.name
-                    annotation.category = event.category
-                    annotation.coordinate = event.coordinate
-                    annotations.append(annotation)
+                    annotations.append(EventPointFeature(event: event))
                 }
             }
             
@@ -248,8 +242,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     }
     
     func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
-        if let a = annotation as? MGLEventFeature {
-            self.lastEventTapped = Event(id: a.id!, name: a.title!, coordinate: a.coordinate, category: a.category)
+        if let a = annotation as? EventPointFeature {
+            self.lastEventTapped = a.event
             self.performSegueWithIdentifier("showEventView", sender: nil)
         }
     }

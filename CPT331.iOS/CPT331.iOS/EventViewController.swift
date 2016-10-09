@@ -86,7 +86,7 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
             
         case 3:
             cell.textLabel?.text = "category"
-            cell.detailTextLabel?.text = event.category
+            cell.detailTextLabel?.text = event.subcategory.name
             
         case 4:
             cell.textLabel?.text = "startDate"

@@ -11,6 +11,18 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 
+// Event data which can be requested from API
+enum EventField:String {
+    case address    = "address"
+    case category   = "category"
+    case startDate  = "datetime_start"
+    case endDate    = "datetime_end"
+    case description = "description"
+    case id         = "id"
+    case cancelled  = "is_cancelled"
+    case coordinate = "point"
+    case name       = "name"
+}
 
 class EventManager {
     private init() {}
@@ -62,14 +74,16 @@ class EventManager {
                     let name = event["name"].string
                     let lat = event["point"]["lat"].double
                     let lng = event["point"]["lng"].double
-                    let category = event["category"]["name"].string
                     
+                    let subcategoryId = event["category"]["name"].string
+                    let subcategory = subcategoryId != nil ? EventSubcategry.fromString(subcategoryId!) : EventSubcategry.Generic
+
                     // Ensure all data has been returned
                     if id != nil && name != nil && lat != nil && lng != nil {
                         let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: lng!)
                         
                         // Construct and append to array
-                        parsedEvents.append(Event(id: id!, name: name!, coordinate: coordinate, category: category))
+                        parsedEvents.append(Event(id: id!, name: name!, coordinate: coordinate, subcategory: subcategory))
                     }
                 }
                 

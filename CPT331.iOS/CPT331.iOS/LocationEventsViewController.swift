@@ -10,8 +10,11 @@ import UIKit
 
 class LocationEventsViewController: LocationViewController, UITableViewDataSource, UITableViewDelegate {
 
+    let ROW_HEIGHT:CGFloat = 54
+    
     @IBOutlet weak var tableView: UITableView!
     
+    // Fetched from API
     var events = [Event]()
 
     override func viewDidLoad() {
@@ -71,5 +74,9 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.backgroundColor = .clearColor()
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return self.ROW_HEIGHT
     }
 }

@@ -624,8 +624,8 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="111" height="136.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ewR-6n-xEc" customClass="WeatherPredictionView" customModule="CPT331_iOS" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="1" width="111" height="143.5"/>
+                                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ewR-6n-xEc" customClass="WeatherPredictionView" customModule="CPT331_iOS" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="1" width="111" height="134.5"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 </view>
                                                             </subviews>
@@ -702,39 +702,49 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventCell" rowHeight="44" id="oak-40-0CE" customClass="EventsListCell" customModule="CPT331_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventCell" id="oak-40-0CE" customClass="EventsListCell" customModule="CPT331_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oak-40-0CE" id="t1Y-TM-nbt">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DX9-kM-O4x">
-                                                    <rect key="frame" x="8" y="22" width="551" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" white="0.69552888651208056" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Event Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4k-eu-LHp">
-                                                    <rect key="frame" x="8" y="6" width="551" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Event Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x4k-eu-LHp">
+                                                    <rect key="frame" x="46" y="4" width="513" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DX9-kM-O4x">
+                                                    <rect key="frame" x="46" y="22" width="513" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
+                                                    <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-Cy-hfx">
+                                                    <rect key="frame" x="8" y="6.5" width="30" height="30.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="GOL-rb-Sbe"/>
+                                                        <constraint firstAttribute="width" secondItem="Ao6-Cy-hfx" secondAttribute="height" multiplier="1:1" id="tuo-96-cJm"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="x4k-eu-LHp" secondAttribute="trailing" id="0J3-Zw-03f"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="DX9-kM-O4x" secondAttribute="trailing" id="5zR-eU-DH7"/>
-                                                <constraint firstItem="x4k-eu-LHp" firstAttribute="centerY" secondItem="t1Y-TM-nbt" secondAttribute="centerY" constant="-8" id="HRS-f4-1jq"/>
-                                                <constraint firstAttribute="leadingMargin" secondItem="DX9-kM-O4x" secondAttribute="leading" id="Ivo-8V-XI5"/>
-                                                <constraint firstItem="DX9-kM-O4x" firstAttribute="centerY" secondItem="t1Y-TM-nbt" secondAttribute="centerY" constant="8" id="PL3-eB-vkA"/>
-                                                <constraint firstAttribute="leadingMargin" secondItem="x4k-eu-LHp" secondAttribute="leading" id="g12-Yo-tml"/>
+                                                <constraint firstItem="x4k-eu-LHp" firstAttribute="centerY" secondItem="t1Y-TM-nbt" secondAttribute="centerY" constant="-9" id="HRS-f4-1jq"/>
+                                                <constraint firstItem="DX9-kM-O4x" firstAttribute="leading" secondItem="Ao6-Cy-hfx" secondAttribute="trailing" constant="8" id="MGk-bQ-EdN"/>
+                                                <constraint firstItem="Ao6-Cy-hfx" firstAttribute="centerY" secondItem="t1Y-TM-nbt" secondAttribute="centerY" id="NV8-7m-IZd"/>
+                                                <constraint firstItem="DX9-kM-O4x" firstAttribute="centerY" secondItem="t1Y-TM-nbt" secondAttribute="centerY" constant="9" id="PL3-eB-vkA"/>
+                                                <constraint firstItem="x4k-eu-LHp" firstAttribute="leading" secondItem="Ao6-Cy-hfx" secondAttribute="trailing" constant="8" id="aRw-6o-gRr"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="Ao6-Cy-hfx" secondAttribute="leading" id="yna-fF-3ln"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="primaryLabel" destination="x4k-eu-LHp" id="Ldm-me-Lyp"/>
                                             <outlet property="secondaryLabel" destination="DX9-kM-O4x" id="aNH-Nd-aPS"/>
+                                            <outlet property="thumbnailView" destination="Ao6-Cy-hfx" id="U9D-NT-7wj"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

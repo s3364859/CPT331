@@ -12,6 +12,7 @@ class EventsListCell: UITableViewCell {
     
     @IBOutlet weak var primaryLabel: UILabel!
     @IBOutlet weak var secondaryLabel: UILabel!
+    @IBOutlet weak var thumbnailView: UIImageView!
     
     var event:Event!
     
@@ -21,11 +22,10 @@ class EventsListCell: UITableViewCell {
     
     func update() {
         self.primaryLabel.text = event.name
+        self.secondaryLabel.text = event.subcategory.name
+        self.thumbnailView.image = event.subcategory.image
         
-        if let category = event.category {
-            self.secondaryLabel.text = category
-        } else {
-            self.secondaryLabel.text = "No Category"
-        }
+        // TODO: debug this... it has no affect
+        self.thumbnailView.tintColor = event.category.color
     }
 }
