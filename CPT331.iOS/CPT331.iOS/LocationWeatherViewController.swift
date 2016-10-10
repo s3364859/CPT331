@@ -40,7 +40,7 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
         self.predictionCollectionView.delegate = self
         self.predictionCollectionView.dataSource = self
         
-        WeatherManager.getWeather(atCoordinate: self.location.coordinate) { data in
+        WeatherManager.sharedInstance.getWeather(atCoordinate: self.location.coordinate) { data in
             self.weatherData = data
             self.update()
         }

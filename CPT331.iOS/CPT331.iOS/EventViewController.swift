@@ -34,9 +34,6 @@ class EventViewController: UIViewController {
         }
     }
     
-    // Async loaded from Eventfinda API
-    var detailedEvent:EventDetail?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
