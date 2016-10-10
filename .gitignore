@@ -132,3 +132,7 @@ FakesAssemblies/
 
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat
+
+# Ignore cocoapods generated project file
+*.xcworkspace
+*.xcuserstate

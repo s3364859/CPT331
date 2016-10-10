@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G31" minimumToolsVersion="Xcode 7.0">
+    <entity name="State" representedClassName=".CDState" syncable="YES">
+        <attribute name="abbreviation" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="suburbs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Suburb" inverseName="state" inverseEntity="Suburb" syncable="YES"/>
+    </entity>
+    <entity name="Suburb" representedClassName=".CDSuburb" syncable="YES">
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="postcode" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="state" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="State" inverseName="suburbs" inverseEntity="State" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="State" positionX="-360" positionY="36" width="128" height="90"/>
+        <element name="Suburb" positionX="-144" positionY="53" width="128" height="120"/>
+    </elements>
+</model>
