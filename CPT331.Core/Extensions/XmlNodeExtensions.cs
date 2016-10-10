@@ -29,7 +29,7 @@ namespace CPT331.Core.Extensions
 		{
 			string asString = "";
 
-			if (xmlNode != null)
+			if ((xmlNode != null) && (xmlNode.HasChildNodes == true))
 			{
 				asString = xmlNode.SelectSingleNode("text()").InnerText
 					.Replace("<![CDATA[", "")
