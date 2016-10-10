@@ -35,13 +35,13 @@ namespace CPT331.Data
 		{
 			Crime crime = null;
 
-			//	using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
-			//	{
-			//		crime = SqlMapper
-			//			.Query(sqlConnection, "dbo.spGetCrimeByID", new { ID = id }, commandType: CommandType.StoredProcedure)
-			//			.Select(m => new Test(m.ID, m.Value0, m.Value1))
-			//			.FirstOrDefault();
-			//	}
+			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+			{
+				crime = SqlMapper
+					.Query(sqlConnection, "Crime.spGetCrimeByID", new { ID = id }, commandType: CommandType.StoredProcedure)
+					.Select(m => new Crime(m.Count, m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsDeleted, m.IsVisible, m.LocalGovernmentAreaID, m.Month, m.OffenceID, m.Year))
+					.FirstOrDefault();
+			}
 
 			return crime;
 		}

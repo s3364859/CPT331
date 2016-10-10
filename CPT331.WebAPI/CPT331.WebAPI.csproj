@@ -99,6 +99,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CrimeModel.cs" />
     <Compile Include="Models\CrimeByCoordinateModel.cs" />
     <Compile Include="Models\EventCategoryModel.cs" />
     <Compile Include="Models\ImageModel.cs" />

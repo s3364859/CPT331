@@ -227,6 +227,7 @@ namespace CPT331.Data.Migration.Migrations
 			//	Stored Procedures
 			Execute.EmbeddedScript("Crime.spAddCrime.sql");
 			Execute.EmbeddedScript("Crime.spAddOffence.sql");
+			Execute.EmbeddedScript("Crime.spGetCrimeByID.sql");
 			Execute.EmbeddedScript("Crime.spGetCrimesByCoordinate.sql");
 			Execute.EmbeddedScript("Crime.spGetOffence.sql");
 			Execute.EmbeddedScript("Crime.spGetOffenceByID.sql");

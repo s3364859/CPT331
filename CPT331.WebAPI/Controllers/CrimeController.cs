@@ -23,9 +23,23 @@ namespace CPT331.WebAPI.Controllers
 
 		[HttpGet]
 		[Route("api/Crime/{id}")]
-		public Crime Crime(int id)
+		public CrimeModel Crime(int id)
 		{
-			return CrimeRepository.GetCrimeByID(id);
+			Crime crime = CrimeRepository.GetCrimeByID(id);
+
+			return new CrimeModel
+			(
+				crime.Count,
+				crime.DateCreatedUtc,
+				crime.DateUpdatedUtc,
+				crime.ID,
+				crime.IsDeleted,
+				crime.IsVisible,
+				crime.LocalGovernmentAreaID,
+				crime.Month,
+				crime.OffenceID,
+				crime.Year
+			);
 		}
 
 		[HttpGet]
