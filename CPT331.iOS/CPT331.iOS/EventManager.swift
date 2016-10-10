@@ -11,74 +11,143 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 
-// Event data which can be requested from API
-enum EventField:String {
-    case id         = "id"
-    case name       = "name"
-    case coordinate = "point"
-    case category   = "category"
-}
-
-class EventManager {
-    private init() {}
+class EventManager: JSONAPI {
+    static let sharedInstance = EventManager()
     
-    private static let USERNAME = "spationews"
-    private static let PASSWORD = "m34nzj4pvscm"
-    private static let ENDPOINT = "http://api.eventfinda.com.au/v2/events.json"
+    // TODO: move domain to info.plist
+    private let ENDPOINT = "http://ec2-52-32-105-85.us-west-2.compute.amazonaws.com/api/Event/EventsByCoordinate"
     
-    private static var authToken:String {
-        let credentialData = "\(USERNAME):\(PASSWORD)".dataUsingEncoding(NSUTF8StringEncoding)!
-        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-        return "Basic \(base64Credentials)"
-    }
+    // Prevent external initialization
+    private override init() {}
     
-    private static var defaultHeaders:[String:String] {
-        return ["Authorization": authToken]
-    }
+    // Cache all incoming events
+    private var eventCache = [Int:Event]()
     
     
-    class func getEvent(withId id:Int, completion: (EventDetail?) -> ()) {
-        completion(nil)
-    }
-    
-    class func getEvents(atCoordinate coordinate: CLLocationCoordinate2D, withinRadius radius:Double, days:Int=7, completion: ([Event]?) -> ()) {
-        let calendar = NSCalendar.currentCalendar()
-        let now = NSDate()
-        let future = calendar.dateByAddingUnit(.Day, value: days, toDate: NSDate(), options: [])
+    func getEvents(atCoordinate coordinate: CLLocationCoordinate2D, withinRadius radius:Double, days:Int=7, completion: ([Event]?) -> ()) {
         
-        // Data which should be returned
-        let fields:[EventField] = [.id, .name, .coordinate, .category]
+//        // BENCHMARKING
+//        let startTime:CFTimeInterval = CACurrentMediaTime();
         
         let parameters:[String:AnyObject] = [
-            "rows": 20,
-            "point": "\(coordinate.latitude),\(coordinate.longitude)",
-            "radius": radius,
-            "order": "date",
-            "fields": "event:(\(fieldsAsString(fields)))",
-            "start_date": now.asISO8601(),
-            "end_date": future!.asISO8601()
+            "latitude": coordinate.latitude,
+            "longitude": coordinate.longitude,
+            "radius": radius
         ]
         
-        fetchJSON(ENDPOINT, parameters: parameters, headers: defaultHeaders) { json in
-            if let events = json?["events"] {
+        fetchJSON(self.ENDPOINT, parameters: parameters) { json in
+            
+//            // BENCHMARKING
+//            let endTime:CFTimeInterval = CACurrentMediaTime();
+//            print(String(format: "API Request: %gms", (endTime - startTime)*1000));
+            
+            if let events = json {
                 var parsedEvents = [Event]()
                 
-                // Build markers
                 for (_,event) in events {
-                    let id = event["id"].int
-                    let name = event["name"].string
-                    let lat = event["point"]["lat"].double
-                    let lng = event["point"]["lng"].double
+                    // Skip events that don't have an ID (This probably will never happen)
+                    guard let id = event["ID"].int else {
+                        continue
+                    }
                     
-                    let subcategoryId = event["category"]["name"].string
-                    let subcategory = subcategoryId != nil ? EventSubcategry.fromString(subcategoryId!) : EventSubcategry.Generic
-
-                    // Ensure all data has been returned
-                    if id != nil && name != nil && lat != nil && lng != nil {
-                        let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: lng!)
+                    // Optional fields
+                    let name = event["Name"].string
+                    let address = event["Address"].string
+                    var beginDateTime:NSDate?
+                    var endDateTime:NSDate?
+                    var coordinate:CLLocationCoordinate2D?
+                    var subcategory:EventSubcategry?
+                    var url:NSURL?
+                    var thumbnailURL:NSURL?
+                    var bannerURL:NSURL?
+                    
+                    // Get event begin and end times
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    
+                    if let rawBegin = event["BeginDateTime"].string {
+                        beginDateTime = dateFormatter.dateFromString(rawBegin)
+                    }
+                    
+                    if let rawEnd = event["EndDateTime"].string {
+                        endDateTime = dateFormatter.dateFromString(rawEnd)
+                    }
+                    
+                    // Get coordinate
+                    if let lat = event["Latitude"].double, let lng = event["Longitude"].double {
+                        coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+                    }
+                    
+                    // Get subcategory
+                    if let subcategoryName = event["Categories"].array?[0]["Name"].string {
+                        subcategory = EventSubcategry.fromString(subcategoryName)
+                    } else {
+                        subcategory = EventSubcategry.Generic
+                    }
+                    
+                    // Get event callback url
+                    if let urlString = event["Url"].string {
+                        url = NSURL(string: urlString)
+                    }
+                    
+                    // Find banner and thumbnail images
+                    // TODO: Should this be done on serverside??
+                    if let images = event["EventImages"].array {
+                        for image in images {
+                            // Skip images that don't have a url (This probably will never happen)
+                            guard let urlString = image["Url"].string, let url = NSURL(string: urlString) else {
+                                continue
+                            }
+                            
+                            let height = image["Height"].int
+                            let width = image["Width"].int
+                            
+                            if height == 75 && width == 75 {
+                                thumbnailURL = url
+                            } else if height == 280 && width == 650 {
+                                bannerURL = url
+                            }
+                            
+                            // Break out of loop early if both images have been found
+                            if thumbnailURL != nil && bannerURL != nil {
+                                break
+                            }
+                        }
+                    }
+                    
+                    // Update cached event if it exists
+                    if let cachedEvent = self.eventCache[id] {
+                        cachedEvent.update(
+                            name: name,
+                            address: address,
+                            coordinate: coordinate,
+                            beginDateTime: beginDateTime,
+                            endDateTime: endDateTime,
+                            url: url,
+                            thumbnailURL: thumbnailURL,
+                            bannerURL: bannerURL,
+                            subcategory: subcategory
+                        )
                         
-                        // Construct and append to array
-                        parsedEvents.append(Event(id: id!, name: name!, coordinate: coordinate, subcategory: subcategory))
+                        parsedEvents.append(cachedEvent)
+                        
+                    // Otherwise create a new event and add to cache
+                    } else {
+                        let newEvent = Event(
+                            id: id,
+                            name: name,
+                            address: address,
+                            coordinate: coordinate,
+                            beginDateTime: beginDateTime,
+                            endDateTime: endDateTime,
+                            url: url,
+                            thumbnailURL: thumbnailURL,
+                            bannerURL: bannerURL,
+                            subcategory: subcategory
+                        )
+                        
+                        self.eventCache[id] = newEvent
+                        parsedEvents.append(newEvent)
                     }
                 }
                 
@@ -87,24 +156,5 @@ class EventManager {
                 completion(nil)
             }
         }
-    }
-    
-    internal class func fetchJSON(endpoint:String, parameters:[String:AnyObject], headers:[String:String], completion: (JSON?) -> ()) {
-        Alamofire.request(.GET, endpoint, parameters: parameters, headers: headers).responseJSON { response in
-            
-            guard response.result.error == nil else {
-                return completion(nil)
-            }
-            
-            if let data = response.result.value {
-                completion(JSON(data))
-            } else {
-                completion(nil)
-            }
-        }
-    }
-    
-    internal class func fieldsAsString(fields: [EventField]) -> String {
-        return fields.map{$0.rawValue}.joinWithSeparator(",")
     }
 }

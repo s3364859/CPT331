@@ -159,7 +159,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         // Calcualte radius
         let radius = self.getRadius(fromCoordinateBounds: mapView.visibleCoordinateBounds)
         
-        EventManager.getEvents(atCoordinate: mapView.centerCoordinate, withinRadius: radius, days: 7) { (events) in
+        EventManager.sharedInstance.getEvents(atCoordinate: mapView.centerCoordinate, withinRadius: radius, days: 7) { (events) in
             var annotations = [MGLAnnotation]()
             
             // Remove existing annotations if they exist
@@ -259,7 +259,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
      * --------------------------------- */
     func searchQueryDidChange(textField:UITextField) {
         if let query = self.searchTextField.text {
-            LocationManager.getSearchPredictions(query, relativeToLocation: self.mapView.userLocation?.location, completion: { (searchResults) in
+            LocationManager.sharedInstance.getSearchPredictions(query, relativeToLocation: self.mapView.userLocation?.location, completion: { (searchResults) in
                 if searchResults != nil {
                     
                     // Sort results by distance from user

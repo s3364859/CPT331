@@ -11,13 +11,16 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 
-class WeatherManager {
-    private init() {}
+class WeatherManager: JSONAPI {
+    static let sharedInstance = WeatherManager()
     
-    private static let APIKEY = "5136e36ec5498cfd8c583e3f580d3060"
-    private static let ENDPOINT = "https://api.darksky.net/forecast/\(APIKEY)"
+    // TODO: move domain and API key to info.plist
+    private let ENDPOINT = "https://api.darksky.net/forecast/5136e36ec5498cfd8c583e3f580d3060"
     
-    class func getWeather(atCoordinate coordinate: CLLocationCoordinate2D, date:NSDate?=nil, completion: (WeatherDataCollection?) -> ()) {
+    // Prevent external initialization
+    private override init() {}
+    
+    func getWeather(atCoordinate coordinate: CLLocationCoordinate2D, date:NSDate?=nil, completion: (WeatherDataCollection?) -> ()) {
         let endpoint = self.ENDPOINT + "/\(coordinate.latitude),\(coordinate.longitude)"
         var parameters:[String:AnyObject] = [
             "exclude": "hourly,minutely,flags",
@@ -28,23 +31,8 @@ class WeatherManager {
             parameters["date"] = date!
         }
         
-        fetchJSON(endpoint, parameters: parameters) { json in
+        super.fetchJSON(endpoint, parameters: parameters) { json in
             completion(WeatherDataCollection.fromJSON(json))
-        }
-    }
-    
-    internal class func fetchJSON(endpoint:String, parameters:[String:AnyObject], completion: (JSON?) -> ()) {
-        Alamofire.request(.GET, endpoint, parameters: parameters).responseJSON { response in
-            
-            guard response.result.error == nil else {
-                return completion(nil)
-            }
-            
-            if let data = response.result.value {
-                completion(JSON(data))
-            } else {
-                completion(nil)
-            }
         }
     }
 }

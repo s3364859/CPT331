@@ -28,7 +28,7 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         self.tableView.backgroundColor = .clearColor()
         self.tableView.tableFooterView = UIView()
         
-        EventManager.getEvents(atCoordinate: self.location.coordinate, withinRadius: 20, days: 7) { (events) in
+        EventManager.sharedInstance.getEvents(atCoordinate: self.location.coordinate, withinRadius: 20, days: 7) { (events) in
             self.events.removeAll(keepCapacity: false)
             
             if events != nil {

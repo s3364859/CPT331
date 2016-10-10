@@ -29,9 +29,6 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     
-    // Async loaded from Eventfinda API
-    var detailedEvent:EventDetail?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.navigationItem.title = self.event.name
@@ -72,40 +69,40 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("attributeCell", forIndexPath: indexPath)
-        
-        switch indexPath.row {
-        case 0:
-            cell.textLabel?.text = "id"
-            cell.detailTextLabel?.text = String(event.id)
-        case 1:
-            cell.textLabel?.text = "name"
-            cell.detailTextLabel?.text = event.name
-        case 2:
-            cell.textLabel?.text = "coordinate"
-            cell.detailTextLabel?.text = "\(event.coordinate.latitude), \(event.coordinate.longitude)"
-            
-        case 3:
-            cell.textLabel?.text = "category"
-            cell.detailTextLabel?.text = event.subcategory.name
-            
-        case 4:
-            cell.textLabel?.text = "startDate"
-            cell.detailTextLabel?.text = "[NYI]"
-            
-        case 5:
-            cell.textLabel?.text = "endDate"
-            cell.detailTextLabel?.text = "[NYI]"
-            
-        case 6:
-            cell.textLabel?.text = "cancelled"
-            cell.detailTextLabel?.text = "[NYI]"
-            
-        case 7:
-            cell.textLabel?.text = "description"
-            cell.detailTextLabel?.text = "[NYI]"
-        default:
-            ()
-        }
+
+//        switch indexPath.row {
+//        case 0:
+//            cell.textLabel?.text = "id"
+//            cell.detailTextLabel?.text = String(event.id)
+//        case 1:
+//            cell.textLabel?.text = "name"
+//            cell.detailTextLabel?.text = event.name
+//        case 2:
+//            cell.textLabel?.text = "coordinate"
+//            cell.detailTextLabel?.text = "\(event.coordinate.latitude), \(event.coordinate.longitude)"
+//            
+//        case 3:
+//            cell.textLabel?.text = "category"
+//            cell.detailTextLabel?.text = event.subcategory.name
+//            
+//        case 4:
+//            cell.textLabel?.text = "startDate"
+//            cell.detailTextLabel?.text = "[NYI]"
+//            
+//        case 5:
+//            cell.textLabel?.text = "endDate"
+//            cell.detailTextLabel?.text = "[NYI]"
+//            
+//        case 6:
+//            cell.textLabel?.text = "cancelled"
+//            cell.detailTextLabel?.text = "[NYI]"
+//            
+//        case 7:
+//            cell.textLabel?.text = "description"
+//            cell.detailTextLabel?.text = "[NYI]"
+//        default:
+//            ()
+//        }
         
         return cell
     }
