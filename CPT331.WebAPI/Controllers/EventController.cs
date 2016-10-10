@@ -77,6 +77,8 @@ namespace CPT331.WebAPI.Controllers
 				eventInfo.ID,
 				eventInfo.EventCategories.Select(m => new EventCategoryModel(m.ID, m.Name)),
 				eventInfo.EventImages.Select(m => new ImageModel(m.Height, m.Url, m.Width)),
+				eventInfo.Latitude,
+				eventInfo.Longitude,
 				eventInfo.Name,
 				eventInfo.Url
 			);

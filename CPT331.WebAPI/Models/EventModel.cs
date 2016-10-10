@@ -11,7 +11,7 @@ namespace CPT331.WebAPI.Models
 	[DataContract(Name = "Event")]
 	public class EventModel
 	{
-		public EventModel(string address, DateTime beginDateTime, string description, DateTime endDateTime, int id, IEnumerable<EventCategoryModel> eventCategoryModels, IEnumerable<ImageModel> eventImageModels, string name, string url)
+		public EventModel(string address, DateTime beginDateTime, string description, DateTime endDateTime, int id, IEnumerable<EventCategoryModel> eventCategoryModels, IEnumerable<ImageModel> eventImageModels, double latitude, double longitude, string name, string url)
 		{
 			_address = address;
 			_beginDateTime = beginDateTime;
@@ -20,6 +20,8 @@ namespace CPT331.WebAPI.Models
 			_eventCategoryModels = eventCategoryModels;
 			_eventImageModels = eventImageModels;
 			_id = id;
+			_latitude = latitude;
+			_longitude = longitude;
 			_name = name;
 			_url = url;
 		}
@@ -31,6 +33,8 @@ namespace CPT331.WebAPI.Models
 		private int _id;
 		private IEnumerable<EventCategoryModel> _eventCategoryModels;
 		private IEnumerable<ImageModel> _eventImageModels;
+		private double _latitude;
+		private double _longitude;
 		private string _name;
 		private string _url;
 
@@ -122,6 +126,32 @@ namespace CPT331.WebAPI.Models
 			set
 			{
 				_eventImageModels = value;
+			}
+		}
+
+		[DataMember]
+		public double Latitude
+		{
+			get
+			{
+				return _latitude;
+			}
+			set
+			{
+				_latitude = value;
+			}
+		}
+
+		[DataMember]
+		public double Longitude
+		{
+			get
+			{
+				return _longitude;
+			}
+			set
+			{
+				_longitude = value;
 			}
 		}
 

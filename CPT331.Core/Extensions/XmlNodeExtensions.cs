@@ -17,6 +17,14 @@ namespace CPT331.Core.Extensions
 			return dateTime;
 		}
 
+		public static double AsDouble(this XmlNode xmlNode)
+		{
+			double value = 0;
+			Double.TryParse(xmlNode.AsString(), out value);
+
+			return value;
+		}
+
 		public static int AsInt32(this XmlNode xmlNode)
 		{
 			int value = 0;

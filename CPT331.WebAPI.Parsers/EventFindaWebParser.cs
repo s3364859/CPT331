@@ -80,6 +80,8 @@ namespace CPT331.WebAPI.Parsers
 				XmlNode idXmlNode = xmlNode.SelectSingleNode("id");
 				XmlNode eventCategoryXmlNode = xmlNode.SelectSingleNode("category");
 				XmlNodeList eventImagesXmlNodeList = xmlNode.SelectNodes("images/image/transforms/transform");
+				XmlNode latitudeXmlNode = xmlNode.SelectSingleNode("point/lat");
+				XmlNode longitudeXmlNode = xmlNode.SelectSingleNode("point/lng");
 				XmlNode nameXmlNode = xmlNode.SelectSingleNode("name");
 				XmlNode urlXmlNode = xmlNode.SelectSingleNode("url");
 
@@ -91,6 +93,9 @@ namespace CPT331.WebAPI.Parsers
 				EventCategory eventCategory = ToEventCategory(eventCategoryXmlNode);
 				List<EventImage> eventImages = new List<EventImage>();
 				eventImagesXmlNodeList.OfType<XmlNode>().ToList().ForEach(m => eventImages.Add(ToEventImage(m)));
+
+				double latitude = latitudeXmlNode.AsDouble();
+				double longitude = longitudeXmlNode.AsDouble();
 
 				string name = nameXmlNode.AsString();
 				string url = urlXmlNode.AsString();
@@ -104,6 +109,8 @@ namespace CPT331.WebAPI.Parsers
 					id,
 					new List<EventCategory>(new EventCategory[] { eventCategory }),
 					eventImages,
+					latitude,
+					longitude,
 					name,
 					url
 				);
