@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import MXParallaxHeader
 
-class EventViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class EventViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var scrollView: MXScrollView!
+    
+    @IBOutlet weak var eventNameLabel: UILabel!
+    @IBOutlet weak var eventCategoryLabel: UILabel!
+    
     
     // Allow the event to be manually set.
     // If not set, fetch it from the tab bar controller
@@ -34,21 +39,18 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationItem.title = self.event.name
-
-//        // Load additional event data for display
-//        self.event.getDetails { (returnedEvent) in
-//            if returnedEvent != nil {
-//                self.detailedEvent = returnedEvent!
-//                self.update()
-//            }
-//        }
         
-        // Configure table
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.backgroundColor = .clearColor()
-        self.tableView.tableFooterView = UIView()
+        // Setup parallax header
+        let headerView = UIImageView()
+        headerView.image = UIImage(named: "Background-Nature.jpg")
+        headerView.contentMode = .ScaleAspectFill
+        let parallax = self.scrollView.parallaxHeader
+        parallax.view = headerView
+        parallax.height = 150
+        parallax.mode = .Fill
+        
+        self.eventNameLabel.text = self.event.name
+        self.eventCategoryLabel.text = self.event.subcategory.name
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -61,52 +63,4 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.tableView.frame.height/8
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("attributeCell", forIndexPath: indexPath)
-        
-        switch indexPath.row {
-        case 0:
-            cell.textLabel?.text = "id"
-            cell.detailTextLabel?.text = String(event.id)
-        case 1:
-            cell.textLabel?.text = "name"
-            cell.detailTextLabel?.text = event.name
-        case 2:
-            cell.textLabel?.text = "coordinate"
-            cell.detailTextLabel?.text = "\(event.coordinate.latitude), \(event.coordinate.longitude)"
-            
-        case 3:
-            cell.textLabel?.text = "category"
-            cell.detailTextLabel?.text = event.subcategory.name
-            
-        case 4:
-            cell.textLabel?.text = "startDate"
-            cell.detailTextLabel?.text = "[NYI]"
-            
-        case 5:
-            cell.textLabel?.text = "endDate"
-            cell.detailTextLabel?.text = "[NYI]"
-            
-        case 6:
-            cell.textLabel?.text = "cancelled"
-            cell.detailTextLabel?.text = "[NYI]"
-            
-        case 7:
-            cell.textLabel?.text = "description"
-            cell.detailTextLabel?.text = "[NYI]"
-        default:
-            ()
-        }
-        
-        return cell
-    }
-}
+ }

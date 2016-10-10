@@ -56,7 +56,7 @@
                                                 <constraint firstAttribute="width" constant="1" id="DDn-t0-wYs"/>
                                             </constraints>
                                         </view>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="arY-T2-Mhq">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="arY-T2-Mhq">
                                             <rect key="frame" x="54" y="2" width="481" height="43"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" spellCheckingType="no"/>
@@ -407,17 +407,59 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="joI-fV-2vh">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ti-Mf-pyI" customClass="MXScrollView">
                                 <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="46o-vM-P4K">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="71"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cM1-IT-uIq" userLabel="Title View">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="71"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="Tio-Ij-hVH">
+                                                        <rect key="frame" x="16" y="16" width="568" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Categories" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czT-rk-fS0">
+                                                        <rect key="frame" x="16" y="38" width="568" height="17"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                                                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="czT-rk-fS0" firstAttribute="top" secondItem="Tio-Ij-hVH" secondAttribute="bottom" constant="4" id="Afh-FV-cVC"/>
+                                                    <constraint firstAttribute="bottom" secondItem="czT-rk-fS0" secondAttribute="bottom" constant="16" id="Ih6-F8-Kjb"/>
+                                                    <constraint firstItem="czT-rk-fS0" firstAttribute="leading" secondItem="cM1-IT-uIq" secondAttribute="leading" constant="16" id="Ocr-xw-qDP"/>
+                                                    <constraint firstItem="Tio-Ij-hVH" firstAttribute="top" secondItem="cM1-IT-uIq" secondAttribute="top" constant="16" id="Rum-Ya-wdJ"/>
+                                                    <constraint firstItem="Tio-Ij-hVH" firstAttribute="leading" secondItem="cM1-IT-uIq" secondAttribute="leading" constant="16" id="pT1-gl-arv"/>
+                                                    <constraint firstAttribute="trailing" secondItem="czT-rk-fS0" secondAttribute="trailing" constant="16" id="x4Z-HJ-2jC"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Tio-Ij-hVH" secondAttribute="trailing" constant="16" id="xgQ-P7-qgw"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </tableView>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="46o-vM-P4K" secondAttribute="trailing" id="6ko-Az-Wav"/>
+                                    <constraint firstItem="46o-vM-P4K" firstAttribute="leading" secondItem="9Ti-Mf-pyI" secondAttribute="leading" id="HwI-du-q2E"/>
+                                    <constraint firstAttribute="bottom" secondItem="46o-vM-P4K" secondAttribute="bottom" id="Mu4-RA-OcY"/>
+                                    <constraint firstItem="46o-vM-P4K" firstAttribute="width" secondItem="9Ti-Mf-pyI" secondAttribute="width" id="RDI-JE-iha"/>
+                                    <constraint firstItem="46o-vM-P4K" firstAttribute="top" secondItem="9Ti-Mf-pyI" secondAttribute="top" id="kjP-3F-tMT"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="joI-fV-2vh" firstAttribute="bottom" secondItem="ISP-nP-3bu" secondAttribute="top" id="8lS-k5-2C4"/>
-                            <constraint firstItem="joI-fV-2vh" firstAttribute="top" secondItem="pxL-c5-mhP" secondAttribute="bottom" id="90Q-Zx-s8j"/>
-                            <constraint firstItem="joI-fV-2vh" firstAttribute="leading" secondItem="J6G-u2-2oG" secondAttribute="leading" id="duq-kR-G5x"/>
-                            <constraint firstAttribute="trailing" secondItem="joI-fV-2vh" secondAttribute="trailing" id="pJA-pR-z7h"/>
+                            <constraint firstAttribute="trailing" secondItem="9Ti-Mf-pyI" secondAttribute="trailing" id="HHv-T7-wTO"/>
+                            <constraint firstItem="9Ti-Mf-pyI" firstAttribute="top" secondItem="pxL-c5-mhP" secondAttribute="bottom" placeholder="YES" id="ZIq-39-hpj"/>
+                            <constraint firstItem="9Ti-Mf-pyI" firstAttribute="bottom" secondItem="ISP-nP-3bu" secondAttribute="top" id="ZsK-E3-Esn"/>
+                            <constraint firstItem="9Ti-Mf-pyI" firstAttribute="leading" secondItem="J6G-u2-2oG" secondAttribute="leading" id="mcy-J9-Ifc"/>
+                            <constraint firstItem="9Ti-Mf-pyI" firstAttribute="top" secondItem="pxL-c5-mhP" secondAttribute="bottom" priority="1" constant="-44" id="rp6-vp-91V"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Event" id="LUa-eJ-Otp">
@@ -426,7 +468,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="joI-fV-2vh" id="Aw4-xt-fYh"/>
+                        <outlet property="eventCategoryLabel" destination="czT-rk-fS0" id="Vgf-nS-sEO"/>
+                        <outlet property="eventNameLabel" destination="Tio-Ij-hVH" id="W7E-Xo-6Aa"/>
+                        <outlet property="scrollView" destination="9Ti-Mf-pyI" id="vRm-aT-sYf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VOp-0H-0YO" userLabel="First Responder" sceneMemberID="firstResponder"/>
