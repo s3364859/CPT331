@@ -100,6 +100,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CrimeByCoordinateModel.cs" />
+    <Compile Include="Models\EventCategoryModel.cs" />
+    <Compile Include="Models\ImageModel.cs" />
+    <Compile Include="Models\EventModel.cs" />
+    <Compile Include="Models\OffenceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

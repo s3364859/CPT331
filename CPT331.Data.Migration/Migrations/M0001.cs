@@ -221,6 +221,10 @@ namespace CPT331.Data.Migration.Migrations
 						.NotNullable()
 						.WithDefault(SystemMethods.CurrentUTCDateTime);
 
+			//	Indicies
+			Execute.EmbeddedScript("Crime.Crime.Indicies.sql");
+
+			//	Stored Procedures
 			Execute.EmbeddedScript("Crime.spAddCrime.sql");
 			Execute.EmbeddedScript("Crime.spAddOffence.sql");
 			Execute.EmbeddedScript("Crime.spGetCrimesByCoordinate.sql");

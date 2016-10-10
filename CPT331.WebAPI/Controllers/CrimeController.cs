@@ -56,7 +56,7 @@ namespace CPT331.WebAPI.Controllers
 				offenceValues[key] /= total;
 			}
 
-			crimeByCoordinateModel = new CrimeByCoordinateModel(beginYear, endYear, localGovernmentAreaName, offenceValues.OrderByDescending(m => (m.Value)).Take(6).ToDictionary(m => m.Key, m => m.Value));
+			crimeByCoordinateModel = new CrimeByCoordinateModel(beginYear, endYear, localGovernmentAreaName, offenceValues.OrderByDescending(m => (m.Value)).Take(6).Select(m => new OffenceModel(m.Key, m.Value)));
 
 			return crimeByCoordinateModel;
 		}
