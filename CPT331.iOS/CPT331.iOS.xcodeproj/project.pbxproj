@@ -30,6 +30,10 @@
 		D0630E5A1D93072A00200606 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E591D93072A00200606 /* Location.swift */; };
 		D06740B91DA4CC8B00E87E0B /* WeatherDataCurrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06740B81DA4CC8B00E87E0B /* WeatherDataCurrent.swift */; };
 		D06740BB1DA4CCB100E87E0B /* WeatherDataPrediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06740BA1DA4CCB100E87E0B /* WeatherDataPrediction.swift */; };
+		D06EC6001DAC40DC00626F6C /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06EC5FF1DAC40DC00626F6C /* UIImageView.swift */; };
+		D06EC6021DAC6FDE00626F6C /* EventDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06EC6011DAC6FDE00626F6C /* EventDataView.xib */; };
+		D06EC6041DAC707700626F6C /* EventDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06EC6031DAC707700626F6C /* EventDataView.swift */; };
+		D06EC6061DAC8A9100626F6C /* NSDateComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06EC6051DAC8A9100626F6C /* NSDateComponents.swift */; };
 		D080C2801D937AA20071BB43 /* LocationTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080C27F1D937AA20071BB43 /* LocationTabBarController.swift */; };
 		D080C2821D937F020071BB43 /* EventsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080C2811D937F020071BB43 /* EventsListCell.swift */; };
 		D080C2841D93C3A90071BB43 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080C2831D93C3A90071BB43 /* EventViewController.swift */; };
@@ -105,6 +109,10 @@
 		D0630E591D93072A00200606 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D06740B81DA4CC8B00E87E0B /* WeatherDataCurrent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherDataCurrent.swift; sourceTree = "<group>"; };
 		D06740BA1DA4CCB100E87E0B /* WeatherDataPrediction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherDataPrediction.swift; sourceTree = "<group>"; };
+		D06EC5FF1DAC40DC00626F6C /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		D06EC6011DAC6FDE00626F6C /* EventDataView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventDataView.xib; sourceTree = "<group>"; };
+		D06EC6031DAC707700626F6C /* EventDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDataView.swift; sourceTree = "<group>"; };
+		D06EC6051DAC8A9100626F6C /* NSDateComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateComponents.swift; sourceTree = "<group>"; };
 		D080C27F1D937AA20071BB43 /* LocationTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTabBarController.swift; sourceTree = "<group>"; };
 		D080C2811D937F020071BB43 /* EventsListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsListCell.swift; sourceTree = "<group>"; };
 		D080C2831D93C3A90071BB43 /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
@@ -251,15 +259,17 @@
 		D04F33C11D8E639E00103669 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D08BFF2E1D9007FC001B89B6 /* UIViewController.swift */,
-				D0FB9F011DA761A400848C11 /* UINavigationItem.swift */,
-				D08BFF321D900810001B89B6 /* Double.swift */,
-				D0630E4B1D92243D00200606 /* String.swift */,
-				D0630E4F1D92466F00200606 /* NSDate.swift */,
-				D04259AA1DA6416F0019103E /* UIImage.swift */,
-				D097BDA01DA76E4F004B1AB0 /* UIView.swift */,
 				D04580E91DAA26CB002DC89F /* CLLocationCoordinate2D.swift */,
+				D08BFF321D900810001B89B6 /* Double.swift */,
 				D04580EB1DAA2AD8002DC89F /* GeocodedPlacemark.swift */,
+				D0630E4F1D92466F00200606 /* NSDate.swift */,
+				D06EC6051DAC8A9100626F6C /* NSDateComponents.swift */,
+				D0630E4B1D92243D00200606 /* String.swift */,
+				D04259AA1DA6416F0019103E /* UIImage.swift */,
+				D06EC5FF1DAC40DC00626F6C /* UIImageView.swift */,
+				D0FB9F011DA761A400848C11 /* UINavigationItem.swift */,
+				D097BDA01DA76E4F004B1AB0 /* UIView.swift */,
+				D08BFF2E1D9007FC001B89B6 /* UIViewController.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -344,6 +354,8 @@
 			isa = PBXGroup;
 			children = (
 				D080C2811D937F020071BB43 /* EventsListCell.swift */,
+				D06EC6011DAC6FDE00626F6C /* EventDataView.xib */,
+				D06EC6031DAC707700626F6C /* EventDataView.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -466,6 +478,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D08BFF411D900851001B89B6 /* Assets.xcassets in Resources */,
+				D06EC6021DAC6FDE00626F6C /* EventDataView.xib in Resources */,
 				D08BFF471D900899001B89B6 /* LaunchScreen.storyboard in Resources */,
 				D08BFF441D900893001B89B6 /* Main.storyboard in Resources */,
 				D09BB5301DA6694500438289 /* WeatherPredictionView.xib in Resources */,
@@ -555,11 +568,13 @@
 				D0630E4A1D92243900200606 /* EventManager.swift in Sources */,
 				D04580EA1DAA26CB002DC89F /* CLLocationCoordinate2D.swift in Sources */,
 				D04532481DA4904800345DC3 /* WeatherManager.swift in Sources */,
+				D06EC6041DAC707700626F6C /* EventDataView.swift in Sources */,
 				D08BFF331D900810001B89B6 /* Double.swift in Sources */,
 				D08BFF2F1D9007FC001B89B6 /* UIViewController.swift in Sources */,
 				D08857891D90E62600790857 /* ModalViewController.swift in Sources */,
 				D06740BB1DA4CCB100E87E0B /* WeatherDataPrediction.swift in Sources */,
 				D045324E1DA4B1AF00345DC3 /* PrecipitationType.swift in Sources */,
+				D06EC6061DAC8A9100626F6C /* NSDateComponents.swift in Sources */,
 				D080C2841D93C3A90071BB43 /* EventViewController.swift in Sources */,
 				D097BDA31DA7747F004B1AB0 /* EventNavigationController.swift in Sources */,
 				D0630E501D92466F00200606 /* NSDate.swift in Sources */,
@@ -569,6 +584,7 @@
 				D04259A91DA627B70019103E /* WeatherStatView.swift in Sources */,
 				D0AD35DE1DA9150100EA3013 /* EventSubcategory.swift in Sources */,
 				D045324C1DA4A45400345DC3 /* WeatherCategory.swift in Sources */,
+				D06EC6001DAC40DC00626F6C /* UIImageView.swift in Sources */,
 				D088578D1D91108300790857 /* LocationCrimeViewController.swift in Sources */,
 				D080C2861D93C8110071BB43 /* EventPointFeature.swift in Sources */,
 				D080C2821D937F020071BB43 /* EventsListCell.swift in Sources */,

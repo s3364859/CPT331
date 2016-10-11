@@ -52,6 +52,7 @@ class EventManager: JSONAPI {
                     
                     // Optional fields
                     let name = event["Name"].string
+                    let description = event["Description"].string
                     let address = event["Address"].string
                     var beginDateTime:NSDate?
                     var endDateTime:NSDate?
@@ -66,11 +67,11 @@ class EventManager: JSONAPI {
                     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                     
                     if let rawBegin = event["BeginDateTime"].string {
-                        beginDateTime = dateFormatter.dateFromString(rawBegin)
+                        beginDateTime = NSDate.fromISO8601(rawBegin)
                     }
                     
                     if let rawEnd = event["EndDateTime"].string {
-                        endDateTime = dateFormatter.dateFromString(rawEnd)
+                        endDateTime = NSDate.fromISO8601(rawEnd)
                     }
                     
                     // Get coordinate
@@ -92,7 +93,7 @@ class EventManager: JSONAPI {
                     
                     // Find banner and thumbnail images
                     // TODO: Should this be done on serverside??
-                    if let images = event["EventImages"].array {
+                    if let images = event["Images"].array {
                         for image in images {
                             // Skip images that don't have a url (This probably will never happen)
                             guard let urlString = image["Url"].string, let url = NSURL(string: urlString) else {
@@ -119,6 +120,7 @@ class EventManager: JSONAPI {
                     if let cachedEvent = self.eventCache[id] {
                         cachedEvent.update(
                             name: name,
+                            desc: description,
                             address: address,
                             coordinate: coordinate,
                             beginDateTime: beginDateTime,
@@ -136,6 +138,7 @@ class EventManager: JSONAPI {
                         let newEvent = Event(
                             id: id,
                             name: name,
+                            desc: description,
                             address: address,
                             coordinate: coordinate,
                             beginDateTime: beginDateTime,

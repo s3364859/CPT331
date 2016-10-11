@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppBackground" translatesAutoresizingMaskIntoConstraints="NO" id="m52-Ef-JFw">
+                            <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppBackground" translatesAutoresizingMaskIntoConstraints="NO" id="m52-Ef-JFw">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtr-vk-nqH">
@@ -52,7 +52,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="m52-Ef-JFw" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="2dh-TV-FCA"/>
                             <constraint firstItem="m52-Ef-JFw" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="3N9-UX-tbe"/>
@@ -69,7 +69,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AppBackground" width="2048" height="2048"/>
+        <image name="AppBackground" width="1858" height="1220"/>
         <image name="AppLogo" width="256" height="256"/>
     </resources>
 </document>
