@@ -13,7 +13,7 @@ namespace CPT331.Data
 	{
 		static SqlConnectionFactory()
 		{
-			_connectionString = new SqlConnectionStringBuilder(ApplicationConfiguration.CPT331ConnectionString).ConnectionString;
+			_connectionString = new SqlConnectionStringBuilder(ApplicationConfiguration.Default.CPT331ConnectionString).ConnectionString;
 		}
 
 		private static string _connectionString;

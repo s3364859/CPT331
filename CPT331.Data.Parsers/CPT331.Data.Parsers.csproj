@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActKmlParser.cs" />
-    <Compile Include="Coordinate.cs" />
     <Compile Include="KmlParser.cs" />
     <Compile Include="NswKmlParser.cs" />
     <Compile Include="NtKmlParser.cs" />

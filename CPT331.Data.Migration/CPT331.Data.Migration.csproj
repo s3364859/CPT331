@@ -59,7 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationConfig.cs" />
     <Compile Include="Migrations\M0002.cs" />
     <Compile Include="Migrations\M0001.cs" />
     <Compile Include="Options.cs" />
