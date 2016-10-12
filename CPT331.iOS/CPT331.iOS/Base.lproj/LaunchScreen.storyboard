@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,7 +17,50 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppBackground" translatesAutoresizingMaskIntoConstraints="NO" id="m52-Ef-JFw">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtr-vk-nqH">
+                                <rect key="frame" x="217" y="229" width="166.5" height="142.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppLogo" translatesAutoresizingMaskIntoConstraints="NO" id="yNe-A3-aU7">
+                                        <rect key="frame" x="43" y="14" width="80" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="SnA-qW-w4b"/>
+                                            <constraint firstAttribute="width" secondItem="yNe-A3-aU7" secondAttribute="height" multiplier="1:1" id="wNo-Vj-sck"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EventGuardian" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2k-Fm-Y7L">
+                                        <rect key="frame" x="0.0" y="102" width="166.5" height="32.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="27"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="x2k-Fm-Y7L" firstAttribute="centerX" secondItem="qtr-vk-nqH" secondAttribute="centerX" id="8NN-oD-TQ6"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yNe-A3-aU7" secondAttribute="trailing" id="FAd-F0-Ygi"/>
+                                    <constraint firstItem="x2k-Fm-Y7L" firstAttribute="top" secondItem="yNe-A3-aU7" secondAttribute="bottom" constant="8" id="FDL-W3-w00"/>
+                                    <constraint firstItem="yNe-A3-aU7" firstAttribute="centerX" secondItem="qtr-vk-nqH" secondAttribute="centerX" id="NZ3-9A-TTc"/>
+                                    <constraint firstAttribute="bottom" secondItem="x2k-Fm-Y7L" secondAttribute="bottom" constant="8" id="Osv-jd-zrz"/>
+                                    <constraint firstAttribute="trailing" secondItem="x2k-Fm-Y7L" secondAttribute="trailing" id="eCR-m4-Arl"/>
+                                    <constraint firstItem="yNe-A3-aU7" firstAttribute="top" secondItem="qtr-vk-nqH" secondAttribute="top" constant="14" id="rus-bf-yF0"/>
+                                    <constraint firstItem="x2k-Fm-Y7L" firstAttribute="leading" secondItem="qtr-vk-nqH" secondAttribute="leading" id="yqk-6o-ojn"/>
+                                    <constraint firstItem="yNe-A3-aU7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qtr-vk-nqH" secondAttribute="leading" id="zRL-t8-kbK"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="m52-Ef-JFw" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="2dh-TV-FCA"/>
+                            <constraint firstItem="m52-Ef-JFw" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="3N9-UX-tbe"/>
+                            <constraint firstItem="m52-Ef-JFw" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="fCZ-sf-OvW"/>
+                            <constraint firstItem="qtr-vk-nqH" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="nLh-ao-in1"/>
+                            <constraint firstAttribute="trailing" secondItem="m52-Ef-JFw" secondAttribute="trailing" id="nNQ-O7-9x1"/>
+                            <constraint firstItem="qtr-vk-nqH" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="tM9-p1-vN5"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +68,8 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="AppBackground" width="1858" height="1220"/>
+        <image name="AppLogo" width="256" height="256"/>
+    </resources>
 </document>

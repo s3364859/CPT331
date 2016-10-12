@@ -7,10 +7,33 @@
 //
 
 import UIKit
+import MXParallaxHeader
 
-class EventViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class EventViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
+    let bannerHeight:CGFloat = 150
+    
+    @IBOutlet weak var scrollView: MXScrollView!
+    @IBOutlet weak var eventNameLabel: UILabel!
+    @IBOutlet weak var eventCategoryLabel: UILabel!
+    @IBOutlet weak var eventDescriptionLabel: UILabel!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var descriptionView: UIView!
+    @IBOutlet weak var dateView: EventDataView!
+    @IBOutlet weak var durationView: EventDataView!
+    @IBOutlet weak var locationView: EventDataView!
+    @IBOutlet weak var footerView: UIView!
+    @IBOutlet weak var calloutButton: UIButton!
+    
+    // Open event url in browser when "get more info" button is tapped
+    @IBAction func calloutButtonTapped(sender: AnyObject) {
+        if let url = self.event.url {
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
+    // Dynamically loaded if event has banner image
+    var bannerView:UIImageView?
     
     // Allow the event to be manually set.
     // If not set, fetch it from the tab bar controller
@@ -29,26 +52,10 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     
-    // Async loaded from Eventfinda API
-    var detailedEvent:EventDetail?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationItem.title = self.event.name
-
-//        // Load additional event data for display
-//        self.event.getDetails { (returnedEvent) in
-//            if returnedEvent != nil {
-//                self.detailedEvent = returnedEvent!
-//                self.update()
-//            }
-//        }
-        
-        // Configure table
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.backgroundColor = .clearColor()
-        self.tableView.tableFooterView = UIView()
+        self.showEvent(self.event)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -57,56 +64,45 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Disable tab bar
         self.tabBarController?.tabBar.hidden = true
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.tableView.frame.height/8
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("attributeCell", forIndexPath: indexPath)
-        
-        switch indexPath.row {
-        case 0:
-            cell.textLabel?.text = "id"
-            cell.detailTextLabel?.text = String(event.id)
-        case 1:
-            cell.textLabel?.text = "name"
-            cell.detailTextLabel?.text = event.name
-        case 2:
-            cell.textLabel?.text = "coordinate"
-            cell.detailTextLabel?.text = "\(event.coordinate.latitude), \(event.coordinate.longitude)"
-            
-        case 3:
-            cell.textLabel?.text = "category"
-            cell.detailTextLabel?.text = event.subcategory.name
-            
-        case 4:
-            cell.textLabel?.text = "startDate"
-            cell.detailTextLabel?.text = "[NYI]"
-            
-        case 5:
-            cell.textLabel?.text = "endDate"
-            cell.detailTextLabel?.text = "[NYI]"
-            
-        case 6:
-            cell.textLabel?.text = "cancelled"
-            cell.detailTextLabel?.text = "[NYI]"
-            
-        case 7:
-            cell.textLabel?.text = "description"
-            cell.detailTextLabel?.text = "[NYI]"
-        default:
-            ()
+    func showEvent(event:Event) {
+        // Load banner image if it exists
+        if let url = self.event.bannerURL {
+            self.showBannerImage(fromURL: url)
         }
         
-        return cell
+        // Header
+        self.eventNameLabel.text = self.event.name
+        self.eventCategoryLabel.text = self.event.subcategory.name
+        self.eventDescriptionLabel.text = self.event.desc
+
+        // Data views
+        self.setDataLabel(event.beginDateTime?.toString("EEEE, MMM d @ h:mm a"), forView: dateView)
+        self.setDataLabel(event.duration?.string, forView: durationView)
+        self.setDataLabel(event.address, forView: locationView)
+        
+        // Only enable callout button if url exists
+        self.calloutButton.enabled = self.event.url != nil ? true : false
     }
-}
+    
+    func setDataLabel(label:String?, forView view:EventDataView, undefined:String="Not Specified") {
+        view.dataLabel.text = label != nil ? label! : undefined
+    }
+    
+    func showBannerImage(fromURL url:NSURL) {
+        
+        if self.bannerView == nil {
+            self.bannerView = UIImageView()
+        }
+        
+        // Setup parallax header
+        self.bannerView?.contentMode = .ScaleAspectFill
+        
+        self.scrollView.parallaxHeader.view = self.bannerView
+        self.scrollView.parallaxHeader.height = self.bannerHeight
+        self.scrollView.parallaxHeader.mode = .Fill
+        
+        self.bannerView?.imageFromUrl(url, showIndicator: true)
+    }
+ }
