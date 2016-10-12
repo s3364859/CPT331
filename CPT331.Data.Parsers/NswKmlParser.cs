@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 
+using CPT331.Core.ObjectModel;
+
 #endregion
 
 namespace CPT331.Data.Parsers

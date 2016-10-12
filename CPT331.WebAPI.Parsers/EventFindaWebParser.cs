@@ -16,7 +16,7 @@ namespace CPT331.WebAPI.Parsers
 	public class EventFindaWebParser : WebParser
 	{
 		public EventFindaWebParser()
-			: base(ApplicationConfiguration.EventFindaUrl, ApplicationConfiguration.EventFindaUsername, ApplicationConfiguration.EventFindaPassword)
+			: base(ApplicationConfiguration.Default.EventFindaUrl, ApplicationConfiguration.Default.EventFindaUsername, ApplicationConfiguration.Default.EventFindaPassword)
 		{
 		}
 

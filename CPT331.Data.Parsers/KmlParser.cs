@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
+using CPT331.Core.ObjectModel;
+
 #endregion
 
 namespace CPT331.Data.Parsers

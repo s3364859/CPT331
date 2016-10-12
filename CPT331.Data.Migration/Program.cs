@@ -86,7 +86,7 @@ namespace CPT331.Data.Migration
 			{
 				if (CommandLineParser.Default.ParseArguments(arguments, _options) == true)
 				{
-					SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder(ApplicationConfiguration.CPT331ConnectionString);
+					SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder(ApplicationConfiguration.Default.CPT331ConnectionString);
 
 					string targetDatabase = sqlConnectionStringBuilder.InitialCatalog;
 
@@ -176,21 +176,9 @@ namespace CPT331.Data.Migration
 			}
 
 			dataSourceNames = dataSourceNames.Distinct().OrderBy(m => (m)).ToList();
-			dataSourceNames.ForEach(m => parsers.Add(ParserFactory.NewKmlParser(Path.Combine(ApplicationConfig.Default.CrimeDataFolder, "KML Data Sources"), m)));
+			dataSourceNames.ForEach(m => parsers.Add(ParserFactory.NewKmlParser(Path.Combine(ApplicationConfiguration.Default.MigrationDataSourceDirectory, "KML Data Sources"), m)));
 
-			//	foreach (KmlDataSourceParser foo in parsers)
-			//	
-			//	try
-			//	{
-			//		foo.Parse();
-			//	}
-			//	catch (Exception exception)
-			//	{
-			//		Console.WriteLine(exception.Message);
-			//		Console.WriteLine();
-			//	}
-			
-			parsers.AsParallel().ForAll(m => m.Parse());
+			parsers.ForEach(m => m.Parse());
 		}
 
 		private static void ProcessXmlDataSources(string dataSources)
@@ -208,9 +196,9 @@ namespace CPT331.Data.Migration
 			}
 
 			dataSourceNames = dataSourceNames.Distinct().OrderBy(m => (m)).ToList();
-			dataSourceNames.ForEach(m => parsers.Add(ParserFactory.NewXmlParser(Path.Combine(ApplicationConfig.Default.CrimeDataFolder, "XML Data Sources"), m)));
+			dataSourceNames.ForEach(m => parsers.Add(ParserFactory.NewXmlParser(Path.Combine(ApplicationConfiguration.Default.MigrationDataSourceDirectory, "XML Data Sources"), m)));
 
-			parsers.AsParallel().ForAll(m => m.Parse());
+			parsers.ForEach(m => m.Parse());
 		}
 
 		private static void RunMigration(SqlConnection sqlConnection)

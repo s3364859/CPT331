@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace CPT331.Data.Parsers
+namespace CPT331.Core.ObjectModel
 {
 	public class Coordinate
 	{
