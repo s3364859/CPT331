@@ -14,6 +14,7 @@ namespace CPT331.Data.Migration
 		private string _drop;
 		private string _kml;
 		private string _xml;
+        private bool _simpleRecoveryModel;
 		private IParserState _lastParserState;
 
 		[Option('d', "drop", Required = false, HelpText = "Drop the database and recreate it. Use this option for the initial database creation.")]
@@ -54,6 +55,20 @@ namespace CPT331.Data.Migration
 				_xml = value;
 			}
 		}
+        
+        [Option('s', "simplelog", Required = false, HelpText = "Use simple transaction log when creating database. Use this option for the development databases.")]
+        public bool SimpleRecoveryModel
+        {
+            get
+            {
+                return _simpleRecoveryModel;
+            }
+            set
+            {
+                _simpleRecoveryModel = value;
+            }
+        }
+
 
 		[ParserState]
 		public IParserState LastParserState

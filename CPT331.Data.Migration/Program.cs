@@ -44,10 +44,14 @@ namespace CPT331.Data.Migration
 			stringBuilder.AppendLine($"IF NOT EXISTS(SELECT database_id FROM sys.databases WHERE name = '{databaseName}')");
 			stringBuilder.AppendLine("BEGIN");
 			stringBuilder.AppendLine($"\tCREATE DATABASE [{databaseName}]");
-			stringBuilder.AppendLine("END");
+            stringBuilder.AppendLine("END");
 
-			ExecuteNonQuery(sqlConnection, stringBuilder.ToString());
-		}
+            if (_options.SimpleRecoveryModel)
+            {
+                stringBuilder.AppendLine($"ALTER DATABASE [{databaseName}] SET RECOVERY SIMPLE;");
+            }
+            ExecuteNonQuery(sqlConnection, stringBuilder.ToString());
+        }
 
 		private static void DropDatabase(SqlConnection sqlConnection, string databaseName)
 		{
