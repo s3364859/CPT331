@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mapbox
 import CoreLocation
 import Alamofire
 import SwiftyJSON
@@ -20,14 +21,41 @@ class EventManager: JSONAPI {
     // Prevent external initialization
     private override init() {}
     
-    // Cache all incoming events
+    // Cache to store all events
     private var eventCache = [Int:Event]()
     
+    // Helper function
+    internal func coordinate(coordinate: CLLocationCoordinate2D, isInsideBounds bounds: MGLCoordinateBounds) -> Bool {
+        return ((coordinate.latitude >= bounds.sw.latitude && coordinate.latitude <= bounds.ne.latitude) &&
+            (coordinate.longitude >= bounds.sw.longitude && coordinate.longitude <= bounds.ne.longitude))
+    }
     
-    func getEvents(atCoordinate coordinate: CLLocationCoordinate2D, withinRadius radius:Double, days:Int=7, completion: ([Event]?) -> ()) {
+    
+    
+    // Synchronously fetch events from cache
+    func getEventsFromCache(withinBounds bounds: MGLCoordinateBounds) -> [Int:Event] {
+        let startTime:CFTimeInterval = CACurrentMediaTime();
+        // Benchmark: START ---------------------------------
         
-//        // BENCHMARKING
-//        let startTime:CFTimeInterval = CACurrentMediaTime();
+        var filtered = [Int:Event]()
+        for (_,cachedEvent) in self.eventCache {
+            if let coord = cachedEvent.coordinate where coordinate(coord, isInsideBounds: bounds) {
+                filtered[cachedEvent.id] = cachedEvent
+            }
+        }
+        
+        // Benchmark: END -----------------------------------
+        print(String(format: "Cache Request: %g ms", (CACurrentMediaTime() - startTime)*1000));
+        
+        return filtered
+    }
+    
+    
+    
+    // Asynchronously fetch events from API
+    func getEventsFromAPI(atCoordinate coordinate: CLLocationCoordinate2D, withinRadius radius:Double, completion: ([Int:Event]?) -> ()) {
+        let startTime:CFTimeInterval = CACurrentMediaTime();
+        // Benchmark: START ---------------------------------
         
         let parameters:[String:AnyObject] = [
             "latitude": coordinate.latitude,
@@ -37,12 +65,8 @@ class EventManager: JSONAPI {
         
         fetchJSON(self.ENDPOINT, parameters: parameters) { json in
             
-//            // BENCHMARKING
-//            let endTime:CFTimeInterval = CACurrentMediaTime();
-//            print(String(format: "API Request: %gms", (endTime - startTime)*1000));
-            
             if let events = json {
-                var parsedEvents = [Event]()
+                var parsedEvents = [Int:Event]()
                 
                 for (_,event) in events {
                     // Skip events that don't have an ID (This probably will never happen)
@@ -131,7 +155,7 @@ class EventManager: JSONAPI {
                             subcategory: subcategory
                         )
                         
-                        parsedEvents.append(cachedEvent)
+                        parsedEvents[cachedEvent.id] = cachedEvent
                         
                     // Otherwise create a new event and add to cache
                     } else {
@@ -150,7 +174,7 @@ class EventManager: JSONAPI {
                         )
                         
                         self.eventCache[id] = newEvent
-                        parsedEvents.append(newEvent)
+                        parsedEvents[newEvent.id] = newEvent
                     }
                 }
                 
@@ -158,6 +182,10 @@ class EventManager: JSONAPI {
             } else {
                 completion(nil)
             }
-        }
-    }
+            
+            // Benchmark: END -----------------------------------
+            print(String(format: "API Request: %g ms", (CACurrentMediaTime() - startTime)*1000));
+            
+        } // END: fetchJSON
+    } // END: getEventsFromAPI
 }
