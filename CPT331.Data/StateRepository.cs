@@ -16,6 +16,21 @@ namespace CPT331.Data
 {
 	public static class StateRepository
 	{
+		public static int AddState(string abbreviatedName, bool isDeleted, bool isVisible, string name)
+		{
+			int id = 0;
+
+			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+			{
+				id = (int)SqlMapper
+					.Query(sqlConnection, "Location.spAddState", new { AbbreviatedName = abbreviatedName, IsDeleted = isDeleted, IsVisible = isVisible, Name = name }, commandType: CommandType.StoredProcedure)
+					.Select(m => m.NewID)
+					.Single();
+			}
+
+			return id;
+		}
+
 		public static State GetStateByAbbreviatedName(string abbreviatedName)
 		{
 			State state = null;
@@ -59,6 +74,14 @@ namespace CPT331.Data
 			}
 
 			return states;
+		}
+
+		public static void UpdateState(int id, string abbreviatedName, bool isDeleted, bool isVisible, string name)
+		{
+			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+			{
+				SqlMapper.Execute(sqlConnection, "Location.spUpdateState", new { ID = id, AbbreviatedName = abbreviatedName, IsDeleted = isDeleted, IsVisible = isVisible, Name = name }, commandType: CommandType.StoredProcedure);
+			}
 		}
 	}
 }

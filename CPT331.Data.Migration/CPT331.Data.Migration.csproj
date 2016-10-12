@@ -59,11 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationConfig.cs" />
-    <Compile Include="Migrations\M0006.cs" />
-    <Compile Include="Migrations\M0005.cs" />
-    <Compile Include="Migrations\M0004.cs" />
-    <Compile Include="Migrations\M0003.cs" />
     <Compile Include="Migrations\M0002.cs" />
     <Compile Include="Migrations\M0001.cs" />
     <Compile Include="Options.cs" />
@@ -74,6 +69,12 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="CmdHelpers\dbprod.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CmdHelpers\dbdev.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -91,13 +92,61 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\M0001.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\M0003.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Migrations\M0002.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Location.spUpdateState.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Crime.spUpdateOffence.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Location.spGetLocalGovernmentAreaByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Location.spGetLocalGovernmentAreasByStateID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Crime.spGetOffence.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Crime.spGetOffenceByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Location.spGetState.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Location.spGetStateByID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Location.spGetStateByAbbreviatedName.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Location.spUpdateLocalGovernmentArea.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Crime.spAddCrime.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Crime.spAddOffence.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Location.spAddLocalGovernmentArea.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Location.spAddState.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Location.spGetLocalGovernmentArea.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Crime.spGetCrimesByCoordinate.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Crime.Crime.Indicies.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Crime.spGetCrimeByID.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

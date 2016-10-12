@@ -1,0 +1,15 @@
+﻿@using CPT331.Core.ObjectModel
+@using CPT331.Data
+
+@model IEnumerable<State>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "States | Admin";
+}
+
+<h1>@Html.ActionLink("Home", "Home", "Admin") | States</h1>
+
+<p>@Html.ActionLink("New State", "NewState", "Admin")</p>
+
+@Html.Partial("StatesPartial", Model)

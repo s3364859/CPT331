@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="ApplicationConfiguration.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="ObjectModel\Coordinate.cs" />
+    <Compile Include="ObjectModel\CrimeByCoordinate.cs" />
     <Compile Include="ObjectModel\LocalGovernmentArea.cs" />
     <Compile Include="ObjectModel\LocalGovernmentAreaLocation.cs" />
     <Compile Include="ObjectModel\Offence.cs" />
@@ -54,7 +56,6 @@
     <Compile Include="ObjectModel\EventCategory.cs" />
     <Compile Include="ObjectModel\EventImage.cs" />
     <Compile Include="ObjectModel\EventInfo.cs" />
-    <Compile Include="ObjectModel\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ObjectModel\State.cs" />
   </ItemGroup>

@@ -1,0 +1,14 @@
+﻿@using CPT331.Core.ObjectModel
+
+@model IEnumerable<Offence>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Offences | Admin";
+}
+
+<h1>@Html.ActionLink("Home", "Home", "Admin") | Offences</h1>
+
+<p>@Html.ActionLink("New Offence", "NewOffence", "Admin")</p>
+
+@Html.Partial("OffencesPartial", Model)

@@ -12,16 +12,18 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data.Parsers
 {
-	public class NswXmlParser : Parser
+	public class NswXmlParser : XmlParser
 	{
-		public NswXmlParser(string fileName)
-			: base(fileName)
+		public NswXmlParser(string dataSourceDirectory)
+			: base(dataSourceDirectory, NSW)
 		{
 		}
 
+		internal const string NSW = "NSW";
+
 		protected override void OnParse(string fileName, List<Crime> crimes)
 		{
-			Console.WriteLine("Parsing NSW data...");
+			Console.WriteLine($"Parsing {NSW} data...");
 
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);
@@ -29,7 +31,7 @@ namespace CPT331.Data.Parsers
 			XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/Workbook/Worksheet/Table/Row[position() > 1]");
 			int year = 1995;
 
-			State nswState = StateRepository.GetStateByAbbreviatedName("NSW");
+			State nswState = StateRepository.GetStateByAbbreviatedName(NSW);
 			List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(nswState.ID);
 			Dictionary<string, Offence> offences = new Dictionary<string, Offence>();
 			OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));

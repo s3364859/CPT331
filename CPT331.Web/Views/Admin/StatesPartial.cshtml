@@ -1,0 +1,64 @@
+﻿@using CPT331.Core.ObjectModel
+
+@model IEnumerable<State>
+
+@{
+    SortDirection sortDirection = ((Request.QueryString["SortDirection"] == "Ascending") ? SortDirection.Descending : SortDirection.Ascending);
+    string sortBy = "";
+
+    if (Request.QueryString["SortBy"] != null)
+    {
+        sortBy = Request.QueryString["SortBy"];
+    }
+
+    int pageSize = 50;
+    int currentPage = 0, endIndex = 0, pages = 0, previousPage = 0, nextPage = 0, startIndex = 0;
+
+    if (Model != null)
+    {
+        pages = (Model.Count() / pageSize) + 1;
+        currentPage = ((Request.QueryString["Page"] != null) ? Convert.ToInt32(Request.QueryString["Page"]) : 1);
+        previousPage = ((currentPage - 1) > 1) ? (currentPage - 1) : 1;
+        nextPage = ((currentPage + 1) <= pages) ? (currentPage + 1) : pages;
+        startIndex = (currentPage * pageSize) - pageSize;
+    }
+}
+
+<br />
+
+<table cellpadding="3" cellspacing="0" border="0" width="100%" class="AdminTable">
+
+<tr>
+<td>@Html.ActionLink("<< Previous", "States", "Admin", new { Page = previousPage }, null)</td>
+<td colspan="4">&nbsp;</td>
+<td align="right">@Html.ActionLink("Next >>", "States", "Admin", new { Page = nextPage }, null)</td>
+</tr>
+
+<tr>
+<td colspan="6">&nbsp;</td>
+</tr>
+
+<tr>
+<td><strong>@Html.ActionLink("ID", "States", "Admin", new { @SortBy = "ID", @SortDirection = sortDirection }, new { @class = (sortBy == "ID" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Name", "States", "Admin", new { @SortBy = "Name", @SortDirection = sortDirection }, new { @class = (sortBy == "Name" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Abbr.", "States", "Admin", new { @SortBy = "AbbreviatedName", @SortDirection = sortDirection }, new { @class = (sortBy == "AbbreviatedName" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Date", "States", "Admin", new { @SortBy = "Date", @SortDirection = sortDirection }, new { @class = (sortBy == "Date" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Visible", "States", "Admin", new { @SortBy = "Visible", @SortDirection = sortDirection }, new { @class = (sortBy == "Visible" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Deleted", "States", "Admin", new { @SortBy = "Deleted", @SortDirection = sortDirection }, new { @class = (sortBy == "Deleted" ? "Orange" : "BoneD") })</strong></td>
+</tr>
+
+@{
+    foreach (State state in Model.Skip(startIndex).Take(pageSize))
+    {
+<tr>
+<td>@state.ID</td>
+<td>@Html.ActionLink(state.Name, "State", "Admin", new { ID = state.ID }, null)&nbsp;</td>
+<td>@state.AbbreviatedName</td>
+<td>@state.DateUpdatedUtc.ToString("dd MMM yyyy HH:mm")</td>
+<td>@state.IsVisible</td>
+<td>@state.IsDeleted</td>
+</tr>
+    }
+}
+
+</table>
