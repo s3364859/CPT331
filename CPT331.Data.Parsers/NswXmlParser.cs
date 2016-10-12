@@ -2,10 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml;
 
+using CPT331.Core.Extensions;
 using CPT331.Core.ObjectModel;
 
 #endregion
@@ -21,6 +21,8 @@ namespace CPT331.Data.Parsers
 
 		protected override void OnParse(string fileName, List<Crime> crimes)
 		{
+			Console.WriteLine("Parsing NSW data...");
+
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);
 
@@ -29,27 +31,26 @@ namespace CPT331.Data.Parsers
 
 			State nswState = StateRepository.GetStateByAbbreviatedName("NSW");
 			List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(nswState.ID);
-			List<Offence> offences = OffenceRepository.GetOffences();
+			Dictionary<string, Offence> offences = new Dictionary<string, Offence>();
+			OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));
 
 			foreach (XmlNode xmlNode in xmlNodeList)
 			{
 				string localGovernmentAreaName = xmlNode.ChildNodes[0].InnerText.Trim();
-				string offenceName = xmlNode.ChildNodes[1].InnerText.Trim();
-				string suboffenceName = xmlNode.ChildNodes[2].InnerText.Trim();
-
-				Console.WriteLine($"{localGovernmentAreaName}: {offenceName} ({suboffenceName})");
+				string offenceName = xmlNode.ChildNodes[1].InnerText.Trim().ToUpper();
+				string suboffenceName = xmlNode.ChildNodes[2].InnerText.Trim().ToUpper();
 
 				Offence offence = null;
-				LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name == localGovernmentAreaName)).FirstOrDefault();
+				LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name.EqualsIgnoreCase(localGovernmentAreaName) == true)).FirstOrDefault();
 
-				if (String.IsNullOrEmpty(offenceName) == false)
+				if ((String.IsNullOrEmpty(offenceName) == false) && (offences.ContainsKey(offenceName) == true))
 				{
-					offence = offences.Where(m => (m.Name == offenceName)).FirstOrDefault();
+					offence = offences[offenceName];
 				}
 
-				if (String.IsNullOrEmpty(suboffenceName) == false)
+				if ((String.IsNullOrEmpty(suboffenceName) == false) && (offences.ContainsKey(offenceName) == true))
 				{
-					offence = offences.Where(m => (m.Name == suboffenceName)).FirstOrDefault();
+					offence = offences[suboffenceName];
 				}
 
 				DateTime dateTime = new DateTime(year, 1, 1);

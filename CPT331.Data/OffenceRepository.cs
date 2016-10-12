@@ -24,7 +24,7 @@ namespace CPT331.Data
 			{
 				offence = SqlMapper
 					.Query(sqlConnection, "Crime.spGetOffenceByID", new { ID = id }, commandType: CommandType.StoredProcedure)
-					.Select(m => new Offence(m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsDeleted, m.IsVisible, m.Name, m.ParentID))
+					.Select(m => new Offence(m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsDeleted, m.IsVisible, m.Name))
 					.FirstOrDefault();
 			}
 
@@ -39,7 +39,7 @@ namespace CPT331.Data
 			{
 				offences = SqlMapper
 					.Query(sqlConnection, "Crime.spGetOffence", commandType: CommandType.StoredProcedure)
-					.Select(m => new Offence(m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsDeleted, m.IsVisible, m.Name, m.ParentID))
+					.Select(m => new Offence(m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsDeleted, m.IsVisible, m.Name))
 					.ToList();
 			}
 

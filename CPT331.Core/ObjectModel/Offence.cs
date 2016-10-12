@@ -9,16 +9,11 @@ namespace CPT331.Core.ObjectModel
 	public class Offence
 	{
 		public Offence(int id, string name)
-			: this(id, name, null)
+			: this(DateTime.UtcNow, DateTime.UtcNow, id, false, true, name)
 		{
 		}
 
-		public Offence(int id, string name, int? parentID)
-			: this (DateTime.UtcNow, DateTime.UtcNow, id, false, true, name, parentID)
-		{
-		}
-
-		public Offence(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name, int? parentID)
+		public Offence(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name)
 		{
 			_dateCreatedUtc = dateCreatedUtc;
 			_dateUpdatedUtc = dateUpdatedUtc;
@@ -26,7 +21,6 @@ namespace CPT331.Core.ObjectModel
 			_isDeleted = isDeleted;
 			_isVisible = isVisible;
 			_name = name;
-			_parentID = parentID;
 		}
 
 		private readonly DateTime _dateCreatedUtc;
@@ -35,7 +29,6 @@ namespace CPT331.Core.ObjectModel
 		private readonly bool _isDeleted;
 		private readonly bool _isVisible;
 		private readonly string _name;
-		private readonly int? _parentID;
 
 		public DateTime DateCreatedUtc
 		{
@@ -85,14 +78,6 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
-		public int? ParentID
-		{
-			get
-			{
-				return _parentID;
-			}
-		}
-
 		public override int GetHashCode()
 		{
 			int getHashCode =
@@ -100,8 +85,7 @@ namespace CPT331.Core.ObjectModel
 				_dateUpdatedUtc.GetHashCode() ^
 				_id.GetHashCode() ^
 				_isDeleted.GetHashCode() ^
-				_isVisible.GetHashCode() ^
-				_parentID.GetHashCode();
+				_isVisible.GetHashCode();
 
 			if (String.IsNullOrEmpty(_name) == false)
 			{
@@ -125,8 +109,7 @@ namespace CPT331.Core.ObjectModel
 					(_id == offence._id) &&
 					(_isDeleted == offence._isDeleted) &&
 					(_isVisible == offence._isDeleted) &&
-					(_name == offence._name) &&
-					(_parentID == offence._parentID)
+					(_name == offence._name)
 				);
 			}
 

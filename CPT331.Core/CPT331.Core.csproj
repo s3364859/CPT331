@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationConfiguration.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="ObjectModel\LocalGovernmentArea.cs" />
     <Compile Include="ObjectModel\LocalGovernmentAreaLocation.cs" />
     <Compile Include="ObjectModel\Offence.cs" />

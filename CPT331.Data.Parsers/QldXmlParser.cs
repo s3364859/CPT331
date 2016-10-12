@@ -2,10 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml;
 
+using CPT331.Core.Extensions;
 using CPT331.Core.ObjectModel;
 
 #endregion
@@ -21,6 +21,8 @@ namespace CPT331.Data.Parsers
 
 		protected override void OnParse(string fileName, List<Crime> crimes)
 		{
+			Console.WriteLine("Parsing QLD data...");
+
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);
 
@@ -28,7 +30,8 @@ namespace CPT331.Data.Parsers
 
 			State qldState = StateRepository.GetStateByAbbreviatedName("QLD");
 			List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(qldState.ID);
-			List<Offence> offences = OffenceRepository.GetOffences();
+			Dictionary<string, Offence> offences = new Dictionary<string, Offence>();
+			OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));
 
 			List<string> offenceNames = new List<string>();
 			qldXmlNode.ChildNodes.OfType<XmlNode>().Skip(2).ToList().ForEach(m => offenceNames.Add(m.InnerText));
@@ -44,14 +47,14 @@ namespace CPT331.Data.Parsers
 
 				if (DateTime.TryParse(dateTimeValue, out dateTime) == false)
 				{
-					Console.WriteLine($"Date time parse choked: {dateTimeValue}");
+					//	Can't really use this, but should the whole thing fall over because of it?
 
 					throw new Exception($"Date time parse choked: {dateTimeValue}");
 				}
 
 				for (int i = 0, j = 2; i < offenceNames.Count; i++, j++)
 				{
-					string offenceName = offenceNames[i];
+					string offenceName = offenceNames[i].ToUpper();
 					double countDouble = 0;
 					int count = 0;
 
@@ -61,17 +64,15 @@ namespace CPT331.Data.Parsers
 						count = Convert.ToInt32(countDouble);
 					}
 
-					Console.WriteLine($"{localGovernmentAreaName}: {offenceName} - {count}");
-
-					LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name == localGovernmentAreaName)).FirstOrDefault();
+					LocalGovernmentArea localGovernmentArea = localGovernmentAreas.Where(m => (m.Name.EqualsIgnoreCase(localGovernmentAreaName) == true)).FirstOrDefault();
 					Offence offence = null;
 
-					if (String.IsNullOrEmpty(offenceName) == false)
+					if ((String.IsNullOrEmpty(offenceName) == false) && (offences.ContainsKey(offenceName) == true))
 					{
-						offence = offences.Where(m => (m.Name.ToUpper() == offenceName.ToUpper())).FirstOrDefault();
+						offence = offences[offenceName];
 					}
 
-					CrimeRepository.AddCrime(count, localGovernmentArea.ID, dateTime.Month, offence.ID, dateTime.Year);
+					crimes.Add(new Crime(count, localGovernmentArea.ID, dateTime.Month, offence.ID, dateTime.Year));
 				}
 			}
 
