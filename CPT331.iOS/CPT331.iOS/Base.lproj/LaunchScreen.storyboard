@@ -22,18 +22,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtr-vk-nqH">
-                                <rect key="frame" x="207.5" y="217" width="185" height="166"/>
+                                <rect key="frame" x="217" y="229" width="166.5" height="142.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppLogo" translatesAutoresizingMaskIntoConstraints="NO" id="yNe-A3-aU7">
-                                        <rect key="frame" x="42.5" y="14" width="100" height="100"/>
+                                        <rect key="frame" x="43" y="14" width="80" height="80"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="SnA-qW-w4b"/>
+                                            <constraint firstAttribute="width" constant="80" id="SnA-qW-w4b"/>
                                             <constraint firstAttribute="width" secondItem="yNe-A3-aU7" secondAttribute="height" multiplier="1:1" id="wNo-Vj-sck"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EventGuardian" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2k-Fm-Y7L">
-                                        <rect key="frame" x="0.0" y="122" width="185" height="36"/>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
+                                        <rect key="frame" x="0.0" y="102" width="166.5" height="32.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="27"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
