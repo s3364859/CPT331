@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventDataView" customModule="CPT331_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="dataLabel" destination="ydB-LH-aaC" id="mh2-VM-u1r"/>
+                <outlet property="dataMargin" destination="gt4-WO-Mes" id="enh-vt-geN"/>
+                <outlet property="imageMargin" destination="36b-cZ-mnd" id="EEC-Yc-bQ1"/>
+                <outlet property="imageView" destination="dhf-ad-30c" id="OfW-kA-13J"/>
+                <outlet property="imageWidth" destination="nHk-EU-Njc" id="uSj-Hs-22P"/>
+                <outlet property="titleLabel" destination="wYf-OS-qWC" id="T5X-E7-tPa"/>
+                <outlet property="titleMargin" destination="E3T-F8-xhF" id="RRH-VJ-4Yt"/>
+                <outlet property="titleWidth" destination="HJG-58-gcq" id="0UL-V5-Q5h"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="594" height="69"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dhf-ad-30c">
+                    <rect key="frame" x="0.0" y="14" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="dhf-ad-30c" secondAttribute="height" multiplier="1:1" id="FJh-SA-Pmz"/>
+                        <constraint firstAttribute="width" constant="40" id="nHk-EU-Njc"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Attribute" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYf-OS-qWC">
+                    <rect key="frame" x="48" y="25" width="100" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="HJG-58-gcq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ydB-LH-aaC">
+                    <rect key="frame" x="156" y="25.5" width="437.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="dhf-ad-30c" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="36b-cZ-mnd"/>
+                <constraint firstItem="wYf-OS-qWC" firstAttribute="leading" secondItem="dhf-ad-30c" secondAttribute="trailing" constant="8" id="E3T-F8-xhF"/>
+                <constraint firstItem="ydB-LH-aaC" firstAttribute="leading" secondItem="wYf-OS-qWC" secondAttribute="trailing" constant="8" id="ICI-Gf-HFB"/>
+                <constraint firstItem="dhf-ad-30c" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Qnp-9K-aXV"/>
+                <constraint firstItem="wYf-OS-qWC" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Y37-07-jnw"/>
+                <constraint firstAttribute="trailing" secondItem="ydB-LH-aaC" secondAttribute="trailing" id="gt4-WO-Mes"/>
+                <constraint firstItem="ydB-LH-aaC" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="o9g-wH-uLl"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="369" y="343.5"/>
+        </view>
+    </objects>
+</document>

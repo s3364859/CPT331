@@ -14,8 +14,8 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
     
     @IBOutlet weak var tableView: UITableView!
     
-    // Fetched from API
-    var events = [Event]()
+    // Fetched from API - will be nil until loaded
+    var events: [Event]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +28,8 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         self.tableView.backgroundColor = .clearColor()
         self.tableView.tableFooterView = UIView()
         
-        EventManager.getEvents(atCoordinate: self.location.coordinate, withinRadius: 20, days: 7) { (events) in
-            self.events.removeAll(keepCapacity: false)
-            
-            if events != nil {
-                self.events = events!
-            }
+        EventManager.sharedInstance.getEventsFromAPI(atCoordinate: self.location.coordinate, withinRadius: 20) { (events) in
+            self.events = events?.map{$0.1}
             
             // Execute table reload on main thread
             dispatch_async(dispatch_get_main_queue(), { 
@@ -48,14 +44,20 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.events.count
+        if let events = self.events {
+            return events.count
+        } else {
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("eventCell", forIndexPath: indexPath) as! EventsListCell
         
-        cell.event = self.events[indexPath.row]
-        cell.update()
+        if let event = self.events?[indexPath.row]  {
+            cell.event = event
+            cell.update()
+        }
         
         return cell
     }

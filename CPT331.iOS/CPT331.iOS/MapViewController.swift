@@ -30,23 +30,24 @@ func ==<T:Hashable,U:Hashable>(lhs: Pair<T,U>, rhs: Pair<T,U>) -> Bool {
 }
 
 
-class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
+class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDelegate, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
+    
+    // Constants
+    let searchResultsRowHeight = 50
+    let annotationImage = UIImage(named: "Event-Annotation.png")
     
     @IBOutlet weak var mapView: MGLMapView!
-    
     @IBOutlet weak var searchBarView: UIVisualEffectView!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchSubmitButton: UIButton!
-    
     @IBOutlet weak var searchResultsView: UIVisualEffectView!
     @IBOutlet weak var searchResultsTable: UITableView!
     @IBOutlet weak var searchResultsTableHeight: NSLayoutConstraint!
     @IBOutlet weak var searchResultsTableMarginBottom: NSLayoutConstraint!
     
-    let searchResultsRowHeight = 50
-    let annotationImage = UIImage(named: "Event-Annotation.png")
-    
+    // Runtime vars
+    var viewModel:MapViewModel = MapViewModel()
     var searchResults = [GeocodedPlacemark]()
     var searchQuery:String?
     
@@ -78,6 +79,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
         
         // Setup map
         mapView.delegate = self
+        viewModel.delegate = self
         
         // Register double tap recognizer so the single tap knows to ignore them
         let doubleTap = UITapGestureRecognizer(target: self, action: nil)
@@ -118,65 +120,36 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
     /* --------------------------------- *
      *         Map Functionality         *
      * --------------------------------- */
-    func getRadius(fromCoordinateBounds bounds: MGLCoordinateBounds) -> Double {
-        let ne = bounds.ne
-        let sw = bounds.sw
+    
+    // Conform to MapViewModelDelegate
+    // Will be called twice after calling mapView.loadEvents:
+    //      The first will be the cached events in that region
+    //      The second will be fetched events from the API
+    func update(forEvents events:[Int:Event]) {
+        var annotations = [MGLAnnotation]()
         
-        var point1: CLLocationCoordinate2D!
-        var point2: CLLocationCoordinate2D!
-        
-        // Use longitude if in portrait
-        if (sw.longitude - ne.longitude) >= (sw.latitude - ne.latitude) {
-            point1 = CLLocationCoordinate2D(latitude: 0, longitude: sw.longitude)
-            point2 = CLLocationCoordinate2D(latitude: 0, longitude: ne.longitude)
-            
-        // Otherwise, use latitude if in landscape
-        } else {
-            point1 = CLLocationCoordinate2D(latitude: sw.latitude, longitude: 0)
-            point2 = CLLocationCoordinate2D(latitude: ne.latitude, longitude: 0)
+        // Remove existing annotations if they exist
+        if let existing = mapView.annotations {
+            mapView.removeAnnotations(existing)
         }
         
-        // Get diameter in meters
-        let diameter = point1.distanceFrom(point2)
-        let radius = diameter/2
+        // Build annotations array
+        for (_,event) in events {
+            annotations.append(EventPointFeature(event: event))
+        }
         
-        // Return radius in kilometers
-        return radius/1000
+        // Add Markers
+        mapView.addAnnotations(annotations)
     }
-    
     
     // Fires when panning, zooming out or transitioning to a new location
     func mapViewRegionIsChanging(mapView: MGLMapView) {
-        
-        // TODO: This call should be made when the user taps on the map too
         self.dismissKeyboard()
     }
     
-    
     // Update the markers displayed on the map with the region changes
     func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
-        
-        // Calcualte radius
-        let radius = self.getRadius(fromCoordinateBounds: mapView.visibleCoordinateBounds)
-        
-        EventManager.getEvents(atCoordinate: mapView.centerCoordinate, withinRadius: radius, days: 7) { (events) in
-            var annotations = [MGLAnnotation]()
-            
-            // Remove existing annotations if they exist
-            if let existing = mapView.annotations {
-                mapView.removeAnnotations(existing)
-            }
-            
-            // Build annotations array
-            if events != nil {
-                for event in events! {
-                    annotations.append(EventPointFeature(event: event))
-                }
-            }
-            
-            // Add Markers
-            mapView.addAnnotations(annotations)
-        }
+        self.viewModel.loadEvents(forMapView: mapView)
     }
     
     // Returns the image to be displayed for a marker on the map
@@ -259,7 +232,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, UIGestureRecogniz
      * --------------------------------- */
     func searchQueryDidChange(textField:UITextField) {
         if let query = self.searchTextField.text {
-            LocationManager.getSearchPredictions(query, relativeToLocation: self.mapView.userLocation?.location, completion: { (searchResults) in
+            LocationManager.sharedInstance.getSearchPredictions(query, relativeToLocation: self.mapView.userLocation?.location, completion: { (searchResults) in
                 if searchResults != nil {
                     
                     // Sort results by distance from user

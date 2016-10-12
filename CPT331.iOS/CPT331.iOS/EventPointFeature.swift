@@ -16,7 +16,7 @@ class EventPointFeature: MGLPointFeature {
         set {}
         
         get {
-            return self.event.coordinate
+            return self.event.coordinate!
         }
     }
     

@@ -13,11 +13,18 @@ import Mapbox
 import MapboxGeocoder
 
 class LocationManager {
+    static let sharedInstance = LocationManager()
     
-    internal static var lastSearchTask: NSURLSessionDataTask?
+    // Stores a referance to the most recent search task
+    //      To be cancelled if a new task starts
+    private var lastSearchTask: NSURLSessionDataTask?
+    
+    // Prevent external initialization
+    private init() {}
 
+    
     // Forward geocoding
-    class func getSearchPredictions(query:String, autocomplete:Bool=true, relativeToLocation location:CLLocation?=nil, completion: ([GeocodedPlacemark]?) -> ()) {
+    func getSearchPredictions(query:String, autocomplete:Bool=true, relativeToLocation location:CLLocation?=nil, completion: ([GeocodedPlacemark]?) -> ()) {
         // Cancel any tasks if some are already in progress
         if lastSearchTask != nil {
             lastSearchTask!.cancel()
@@ -52,7 +59,7 @@ class LocationManager {
     }
     
     // Reverse geocoding
-    class func getLocationInfo(coordinate: CLLocationCoordinate2D, completion: (GeocodedPlacemark?) -> ()) {
+    func getLocationInfo(coordinate: CLLocationCoordinate2D, completion: (GeocodedPlacemark?) -> ()) {
         let options = ReverseGeocodeOptions(coordinate: coordinate)
         
         Geocoder.sharedGeocoder.geocode(options: options) { (placemarks, attribution, error) in
