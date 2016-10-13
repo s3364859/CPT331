@@ -9,14 +9,31 @@
 import UIKit
 import Charts
 
-class LocationCrimeViewController: LocationViewController {
+class LocationCrimeViewController: LocationViewController, ChartViewDelegate {
     @IBOutlet weak var pieChartView: PieChartView!
     
-    let chartTitleFont       = NSUIFont(name: "HelveticaNeue-Light", size: 15.0)!
-    let chartSubtitleFont    = NSUIFont(name: "HelveticaNeue-Medium", size: 17.0)!
+    // Chart Title
+    let chartTitleFont       = NSUIFont(name: "HelveticaNeue-Light",  size: 15.0)!
     let chartTitleColor      = NSUIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1)
+    
+    // Chart Subtitle
+    let chartSubtitleFont    = NSUIFont(name: "HelveticaNeue-Medium", size: 16.0)!
     let chartSubtitleColor   = NSUIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 0.7)
-    let chartLabelColor      = NSUIColor(red: 0, green: 0, blue: 0, alpha: 0)
+    
+    // Chart Labels
+    let chartLabelFont       = NSUIFont(name: "HelveticaNeue-Medium",  size: 13.0)!
+    let chartLabelColor      = NSUIColor(red: 1, green: 1, blue: 1, alpha: 1)
+    lazy var chartLabelFormatter:NSNumberFormatter = {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.PercentStyle
+        formatter.maximumFractionDigits = 1
+        formatter.multiplier = 100
+        formatter.percentSymbol = "%"
+        
+        return formatter
+    }()
+    
+    // Chart Background colors
     let chartColors = [
         UIColor(red:  86/255, green: 226/255, blue: 207/255, alpha: 1), // Teal
         UIColor(red:  86/255, green: 174/255, blue: 226/255, alpha: 1), // Light Blue
@@ -31,26 +48,27 @@ class LocationCrimeViewController: LocationViewController {
         UIColor(red: 104/255, green: 226/255, blue:  86/255, alpha: 1), // Green
         UIColor(red:  86/255, green: 226/255, blue: 137/255, alpha: 1)  // Sea green
     ]
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationItem.setTitle(self.location.name, subtitle: "Crime Statistics")
-        
         // Hide view and display indicator while loading
         self.pieChartView.hidden = true
         let indicator = self.view.showLoadingIndicator()
         
+        // Fetch data
         CrimeManager.sharedInstance.getCrimeData(atCoordinate: self.location.coordinate) { crimeData in
             
             if let crimeData = crimeData {
                 let labels = crimeData.offences.map({$0.name})
                 let values = crimeData.offences.map({$0.value})
                 
+                // Update view
                 dispatch_async(dispatch_get_main_queue(), { 
                     self.setChartData(labels, values: values)
                     self.setChartTitle("Crime Data", subtitle: "\(crimeData.beginYear)-\(crimeData.endYear)")
                     self.setChartDescription(crimeData.name)
-                    self.pieChartView.updateConstraintsIfNeeded()
                 })
             }
             
@@ -59,6 +77,10 @@ class LocationCrimeViewController: LocationViewController {
             self.pieChartView.hidden = false
         }
     }
+    
+    
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -73,17 +95,21 @@ class LocationCrimeViewController: LocationViewController {
             dataEntries.append(dataEntry)
         }
         
-        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: nil)
-        let pieChartData = PieChartData(xVals: labels, dataSet: pieChartDataSet)
+        // Construct data objects
+        let dataSet = PieChartDataSet(yVals: dataEntries, label: nil)
+        let data = PieChartData(xVals: labels, dataSet: dataSet)
+        
+        // Chart background color styling
+        dataSet.colors = self.chartColors
+
+        // Chart label styling
+        self.pieChartView.drawSliceTextEnabled = false
+        data.setValueFormatter(self.chartLabelFormatter)
+        data.setValueFont(self.chartLabelFont)
+        data.setValueTextColor(self.chartLabelColor)
         
         // Add data to chart
-        self.pieChartView.data = pieChartData
-        
-        // Apply styling
-        pieChartDataSet.colors = self.chartColors
-        
-        // Hide labels
-        pieChartData.setValueTextColor(NSUIColor.clearColor())
+        self.pieChartView.data = data
     }
     
     func setChartTitle(title:String?, subtitle:String?) {

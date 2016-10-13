@@ -22,8 +22,8 @@ class CrimeManager: JSONAPI {
     
     func getCrimeData(atCoordinate coordinate: CLLocationCoordinate2D, completion: (CrimeDataCollection?) -> ()) {
         let parameters:[String:AnyObject] = [
-            "latitude": coordinate.latitude,
-            "longitude": coordinate.longitude
+            "latitude": coordinate.longitude,
+            "longitude": coordinate.latitude
         ]
         
         super.fetchJSON(self.ENDPOINT, parameters: parameters) { json in
@@ -34,8 +34,6 @@ class CrimeManager: JSONAPI {
 
 extension CrimeDataCollection {
     class func fromJSON(json:JSON?) -> CrimeDataCollection? {
-        print(json)
-        
         guard let beginYear = json?["BeginYear"].int else {
             return nil
         }
