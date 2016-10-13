@@ -20,7 +20,7 @@ namespace CPT331.WebAPI.Tests.Controllers
         {
             CrimeController controller = new CrimeController();
 
-			CrimeByCoordinateModel crimeByCoordinateModel = controller.CrimesByCoordinate(-33.9112549, 151.1743105);
+			CrimeByCoordinateModel crimeByCoordinateModel = controller.CrimesByCoordinate(151.1743105, -33.9112549);
    
             Assert.IsNotNull(crimeByCoordinateModel);
         }

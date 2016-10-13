@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
+using CPT331.Core.Logging;
 using CPT331.Core.ObjectModel;
 
 #endregion
@@ -25,7 +26,7 @@ namespace CPT331.Data.Parsers
 
 		private void Commit(List<Crime> crimes)
 		{
-			Console.WriteLine("Beginning commit...");
+			OutputStreams.WriteLine("Beginning commit...");
 
 			//	This takes too long with massive lists
 			//	crimes = crimes.Distinct().ToList();
@@ -47,14 +48,14 @@ namespace CPT331.Data.Parsers
 				stringBuilder.AppendLine("COMMIT");
 				stringBuilder.AppendLine();
 
-				Console.WriteLine($"  Commiting {crimesToCommit.Count} records, {(crimes.Count - crimesToCommit.Count)} left");
+				OutputStreams.WriteLine($"Commiting {crimesToCommit.Count} records, {(crimes.Count - crimesToCommit.Count)} left");
 
 				AdhocScriptRepository.ExecuteScript(stringBuilder.ToString());
 
 				crimes.RemoveRange(0, crimesToCommit.Count);
 			}
 
-			Console.WriteLine("Commit completed");
+			OutputStreams.WriteLine("Commit completed");
 		}
 
 		public void Parse()

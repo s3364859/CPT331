@@ -2,9 +2,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 
+using CPT331.Core.Logging;
 using CPT331.Core.ObjectModel;
+using System.IO;
 
 #endregion
 
@@ -21,7 +24,7 @@ namespace CPT331.Data.Parsers
 
 		protected override void OnParse(string fileName, List<Coordinate> coordinates)
 		{
-			Console.WriteLine($"Parsing {QLD} data...");
+			OutputStreams.WriteLine($"Parsing {QLD} data...");
 
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);
@@ -30,7 +33,7 @@ namespace CPT331.Data.Parsers
 			foreach (XmlNode xmlNode in xmlNodeList)
 			{
 				string name = xmlNode.SelectSingleNode("ExtendedData/Data[@name = 'Region']").InnerText;
-				Console.WriteLine($"{name}");
+				OutputStreams.WriteLine($"Processing {name}...");
 
 				XmlNodeList coordinateXmlNodes = xmlNode.SelectNodes("Polygon/outerBoundaryIs/LinearRing/coordinates | MultiGeometry/Polygon/outerBoundaryIs/LinearRing/coordinates");
 				string coordinateValues = "";
@@ -49,6 +52,9 @@ namespace CPT331.Data.Parsers
 
 					coordinates.Add(new Coordinate(Double.Parse(coordinateParts[1]), Double.Parse(coordinateParts[0])));
 				}
+
+				//	For some unknown reason, QLD coordinates have reversed winding direction, so we need to unreverse it
+				coordinates.Reverse();
 
 				base.Commit(coordinates, name);
 			}

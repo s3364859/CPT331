@@ -37,6 +37,20 @@ namespace CPT331.Data.Migration
 
 		private static readonly Options _options;
 
+		private static void CheckGeography(SqlConnection sqlConnection)
+		{
+			OutputStreams.WriteLine($"Checking geography...");
+
+			StringBuilder stringBuilder = new StringBuilder();
+
+			//	Automatically correct any geography nasties - this could cause some geography to shift slightly
+			stringBuilder.AppendLine("UPDATE Location.LocalGovernmentArea SET Area = Area.MakeValid() WHERE Area.STIsValid() = 0;");
+
+			ExecuteNonQuery(sqlConnection, stringBuilder.ToString());
+
+			OutputStreams.WriteLine("Check completed");
+		}
+
 		private static void CreateDatabase(SqlConnection sqlConnection, string databaseName)
 		{
 			StringBuilder stringBuilder = new StringBuilder();
@@ -122,21 +136,20 @@ namespace CPT331.Data.Migration
 					//	Import KML data if required
 					if (String.IsNullOrEmpty(_options.Kml) == false)
 					{
-						OutputStreams.WriteLine("Processing KML data sources...");
-
 						ProcessKmlDataSources(_options.Kml);
 
-						OutputStreams.WriteLine("Processing complete.");
+						using (SqlConnection sqlConnection = new SqlConnection(sqlConnectionStringBuilder.ConnectionString))
+						{
+							sqlConnection.Open();
+
+							CheckGeography(sqlConnection);
+						}
 					}
 
 					//	Import XML data if required
 					if (String.IsNullOrEmpty(_options.Xml) == false)
 					{
-						OutputStreams.WriteLine("Processing XML data sources...");
-
 						ProcessXmlDataSources(_options.Xml);
-
-						OutputStreams.WriteLine("Processing complete.");
 					}
 				}
 
@@ -163,6 +176,8 @@ namespace CPT331.Data.Migration
 
 		private static void ProcessKmlDataSources(string dataSources)
 		{
+			OutputStreams.WriteLine("Processing KML data sources...");
+
 			List<string> dataSourceNames = new List<string>();
 			List<KmlDataSourceParser> parsers = new List<KmlDataSourceParser>();
 
@@ -179,10 +194,14 @@ namespace CPT331.Data.Migration
 			dataSourceNames.ForEach(m => parsers.Add(ParserFactory.NewKmlParser(Path.Combine(ApplicationConfiguration.Default.MigrationDataSourceDirectory, "KML Data Sources"), m)));
 
 			parsers.ForEach(m => m.Parse());
+
+			OutputStreams.WriteLine("Processing complete.");
 		}
 
 		private static void ProcessXmlDataSources(string dataSources)
 		{
+			OutputStreams.WriteLine("Processing XML data sources...");
+
 			List<string> dataSourceNames = new List<string>();
 			List<XmlDataSourceParser> parsers = new List<XmlDataSourceParser>();
 
@@ -199,6 +218,8 @@ namespace CPT331.Data.Migration
 			dataSourceNames.ForEach(m => parsers.Add(ParserFactory.NewXmlParser(Path.Combine(ApplicationConfiguration.Default.MigrationDataSourceDirectory, "XML Data Sources"), m)));
 
 			parsers.ForEach(m => m.Parse());
+
+			OutputStreams.WriteLine("Processing complete.");
 		}
 
 		private static void RunMigration(SqlConnection sqlConnection)

@@ -54,5 +54,10 @@ namespace CPT331.Core.ObjectModel
 		{
 			return _latitude.GetHashCode() ^ _longitude.GetHashCode();
 		}
+
+		public override string ToString()
+		{
+			return $"Latitude = {_latitude}, Longitude = {_longitude}";
+		}
 	}
 }

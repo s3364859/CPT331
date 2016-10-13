@@ -69,7 +69,6 @@ namespace CPT331.Data.Migration
             }
         }
 
-
 		[ParserState]
 		public IParserState LastParserState
 		{

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 
+using CPT331.Core.Logging;
 using CPT331.Core.ObjectModel;
 
 #endregion
@@ -21,7 +22,7 @@ namespace CPT331.Data.Parsers
 
 		protected override void OnParse(string fileName, List<Coordinate> coordinates)
 		{
-			Console.WriteLine($"Parsing {ACT} data...");
+			OutputStreams.WriteLine($"Parsing {ACT} data...");
 
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);
@@ -30,15 +31,10 @@ namespace CPT331.Data.Parsers
 			foreach (XmlNode xmlNode in xmlNodeList)
 			{
 				string name = xmlNode.SelectSingleNode("name").InnerText;
-				Console.WriteLine($"{name}");
+				OutputStreams.WriteLine($"Processing {name}...");
 
-				XmlNodeList coordinateXmlNodes = xmlNode.SelectNodes("Polygon/outerBoundaryIs/LinearRing/coordinates");
-				string coordinateValues = "";
-
-				foreach (XmlNode coordinateXmlNode in coordinateXmlNodes)
-				{
-					coordinateValues = $"{coordinateValues} {coordinateXmlNode.InnerText}";
-				}
+				XmlNode coordinateXmlNode = xmlNode.SelectSingleNode("Polygon/outerBoundaryIs/LinearRing/coordinates");
+				string coordinateValues = coordinateXmlNode.InnerText;
 
 				coordinates.Clear();
 
