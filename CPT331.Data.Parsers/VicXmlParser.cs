@@ -6,6 +6,7 @@ using System.Linq;
 using System.Xml;
 
 using CPT331.Core.Extensions;
+using CPT331.Core.Logging;
 using CPT331.Core.ObjectModel;
 
 #endregion
@@ -23,7 +24,7 @@ namespace CPT331.Data.Parsers
 
 		protected override void OnParse(string fileName, List<Crime> crimes)
 		{
-			Console.WriteLine($"Parsing {VIC} data...");
+			OutputStreams.WriteLine($"Parsing {VIC} data...");
 
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);

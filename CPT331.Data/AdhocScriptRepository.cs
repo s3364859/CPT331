@@ -6,6 +6,8 @@ using System.Data.SqlClient;
 
 using Dapper;
 
+using CPT331.Core.Logging;
+
 #endregion
 
 namespace CPT331.Data
@@ -25,9 +27,20 @@ namespace CPT331.Data
 
 			if (String.IsNullOrEmpty(sql) == false)
 			{
-				using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+				try
 				{
-					SqlMapper.Execute(sqlConnection, sql, commandType: CommandType.Text, commandTimeout: commandTimeout);
+					using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+					{
+						SqlMapper.Execute(sqlConnection, sql, commandType: CommandType.Text, commandTimeout: commandTimeout);
+					}
+				}
+				catch (Exception exception)
+				{
+					OutputStreams.WriteLine();
+					OutputStreams.WriteLine(exception.Message);
+					OutputStreams.WriteLine();
+					OutputStreams.WriteLine(sql);
+					OutputStreams.WriteLine();
 				}
 			}
 
