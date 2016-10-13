@@ -30,6 +30,8 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>eventguardian.ddns.net</key>
+			<string></string>
 			<key>www.eventfinda.com.au</key>
 			<string></string>
 		</dict>

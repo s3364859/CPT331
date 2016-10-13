@@ -135,7 +135,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
         
         // Build annotations array
         for (_,event) in events {
-            annotations.append(EventPointFeature(event: event))
+            
+            // Ensure event has coordinate before adding
+            if event.coordinate != nil {
+                annotations.append(EventPointFeature(event: event))
+            }
         }
         
         // Add Markers

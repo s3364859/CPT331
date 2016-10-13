@@ -59,6 +59,8 @@
 		D0AD35DE1DA9150100EA3013 /* EventSubcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD35DD1DA9150100EA3013 /* EventSubcategory.swift */; };
 		D0CA270D1DADD60900217875 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA270C1DADD60900217875 /* MapViewModel.swift */; };
 		D0CA27121DADF94300217875 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA27111DADF94300217875 /* Dictionary.swift */; };
+		D0CA271A1DAF4FA700217875 /* CrimeDataCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA27191DAF4FA700217875 /* CrimeDataCollection.swift */; };
+		D0CA271C1DAF548700217875 /* CrimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA271B1DAF548700217875 /* CrimeManager.swift */; };
 		D0FB9F001DA75AD200848C11 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB9EFF1DA75AD200848C11 /* LocationViewController.swift */; };
 		D0FB9F021DA761A400848C11 /* UINavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB9F011DA761A400848C11 /* UINavigationItem.swift */; };
 /* End PBXBuildFile section */
@@ -140,6 +142,8 @@
 		D0AD35DD1DA9150100EA3013 /* EventSubcategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSubcategory.swift; sourceTree = "<group>"; };
 		D0CA270C1DADD60900217875 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		D0CA27111DADF94300217875 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
+		D0CA27191DAF4FA700217875 /* CrimeDataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeDataCollection.swift; sourceTree = "<group>"; };
+		D0CA271B1DAF548700217875 /* CrimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeManager.swift; sourceTree = "<group>"; };
 		D0FB9EFF1DA75AD200848C11 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		D0FB9F011DA761A400848C11 /* UINavigationItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationItem.swift; sourceTree = "<group>"; };
 		E6D3BEBE1A24C65561C4D38C /* Pods-CPT331.iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPT331.iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-CPT331.iOS/Pods-CPT331.iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -287,6 +291,7 @@
 				D08BFF381D90082C001B89B6 /* LocationManager.swift */,
 				D0630E491D92243900200606 /* EventManager.swift */,
 				D04532471DA4904800345DC3 /* WeatherManager.swift */,
+				D0CA271B1DAF548700217875 /* CrimeManager.swift */,
 				D044A0281DAB438000C6717D /* JSONAPI.swift */,
 			);
 			name = "API & Model";
@@ -307,9 +312,11 @@
 		D0630E581D93060400200606 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D0CA27181DAF4F9300217875 /* New Group */,
 				D06740BC1DA4D58800E87E0B /* Event */,
 				D04532511DA4B29800345DC3 /* Weather */,
 				D0630E591D93072A00200606 /* Location.swift */,
+				D0CA27191DAF4FA700217875 /* CrimeDataCollection.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -343,6 +350,13 @@
 				D0CA270C1DADD60900217875 /* MapViewModel.swift */,
 			);
 			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		D0CA27181DAF4F9300217875 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 		D0FB9EFA1DA7502800848C11 /* Modal Views */ = {
@@ -578,6 +592,7 @@
 				D0FB9F021DA761A400848C11 /* UINavigationItem.swift in Sources */,
 				D08BFF3D1D900846001B89B6 /* LocationListCell.swift in Sources */,
 				D0FB9F001DA75AD200848C11 /* LocationViewController.swift in Sources */,
+				D0CA271C1DAF548700217875 /* CrimeManager.swift in Sources */,
 				D0490C401DA7DFA600E05770 /* WeatherPredictionCell.swift in Sources */,
 				D0630E4A1D92243900200606 /* EventManager.swift in Sources */,
 				D04580EA1DAA26CB002DC89F /* CLLocationCoordinate2D.swift in Sources */,
@@ -589,6 +604,7 @@
 				D06740BB1DA4CCB100E87E0B /* WeatherDataPrediction.swift in Sources */,
 				D045324E1DA4B1AF00345DC3 /* PrecipitationType.swift in Sources */,
 				D06EC6061DAC8A9100626F6C /* NSDateComponents.swift in Sources */,
+				D0CA271A1DAF4FA700217875 /* CrimeDataCollection.swift in Sources */,
 				D080C2841D93C3A90071BB43 /* EventViewController.swift in Sources */,
 				D097BDA31DA7747F004B1AB0 /* EventNavigationController.swift in Sources */,
 				D0630E501D92466F00200606 /* NSDate.swift in Sources */,

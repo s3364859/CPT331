@@ -64,6 +64,7 @@ enum EventCategory {
             case .Electronica:          fallthrough
             case .Folk:                 fallthrough
             case .Funk:                 fallthrough
+            case .HardRock:             fallthrough
             case .HipHopAndRap:         fallthrough
             case .House:                fallthrough
             case .Jazz:                 fallthrough

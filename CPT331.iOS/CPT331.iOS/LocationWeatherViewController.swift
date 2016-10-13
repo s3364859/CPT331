@@ -10,6 +10,10 @@ import UIKit
 
 class LocationWeatherViewController: LocationViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    // Constants
+    let predictionColumns = 4
+    
+    @IBOutlet weak var mainStackView: UIStackView!
     @IBOutlet weak var currentTemperatureLabel: UILabel!
     @IBOutlet weak var currentCategoryImageView: UIImageView!
     @IBOutlet weak var currentCategoryNameLabel: UILabel!
@@ -19,8 +23,7 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
     @IBOutlet weak var windBearingView: WeatherStatView!
     
     @IBOutlet weak var predictionCollectionView: UICollectionView!
-    @IBOutlet weak var predictionsHeightConstraint: NSLayoutConstraint!
-    let PREDICTION_COLUMNS = 4
+    @IBOutlet weak var predictionsHeightConstraint: NSLayoutConstraint?
     
     // Loaded from async api call
     var weatherData: WeatherDataCollection?
@@ -40,9 +43,14 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
         self.predictionCollectionView.delegate = self
         self.predictionCollectionView.dataSource = self
         
+        self.mainStackView.hidden = true
+        let indicator = self.view.showLoadingIndicator()
+        
         WeatherManager.sharedInstance.getWeather(atCoordinate: self.location.coordinate) { data in
             self.weatherData = data
             self.update()
+            indicator.removeFromSuperview()
+            self.mainStackView.hidden = false
         }
     }
     
@@ -65,9 +73,9 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
     func updateConstraints() {
         // Hide prediction views when device is in landscape
         if UIDevice.currentDevice().orientation.isLandscape {
-            self.predictionsHeightConstraint.priority = 900
+            self.predictionsHeightConstraint?.priority = 900
         } else {
-            self.predictionsHeightConstraint.priority = 250
+            self.predictionsHeightConstraint?.priority = 250
         }
         
         self.view.updateConstraintsIfNeeded()
@@ -142,7 +150,7 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let width = CGFloat(Int(self.predictionCollectionView.frame.width)/self.PREDICTION_COLUMNS)
+        let width = CGFloat(Int(self.predictionCollectionView.frame.width)/self.predictionColumns)
         let height = self.predictionCollectionView.frame.height
         return CGSize(width: width, height: height)
     }

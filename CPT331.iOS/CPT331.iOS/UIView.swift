@@ -20,4 +20,18 @@ extension UIView {
             NSLayoutConstraint(item: self, attribute: .Leading, relatedBy: .Equal, toItem: parentView, attribute: .Leading, multiplier: 1, constant: 0)
         ])
     }
+    
+    // Returns the activity indicator view so that it can be later hidden
+    //      To remove it, call: indicator.removeFromSuperview()
+    func showLoadingIndicator() -> UIActivityIndicatorView {
+        let indicator = UIActivityIndicatorView(frame: self.bounds)
+        indicator.activityIndicatorViewStyle = .Gray
+        indicator.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        indicator.userInteractionEnabled = false
+        
+        self.addSubview(indicator)
+        indicator.startAnimating()
+        
+        return indicator
+    }
 }

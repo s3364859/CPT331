@@ -16,13 +16,14 @@ class EventManager: JSONAPI {
     static let sharedInstance = EventManager()
     
     // TODO: move domain to info.plist
+//    private let ENDPOINT = "http://eventguardian.ddns.net/api/Event/EventsByCoordinate"
     private let ENDPOINT = "http://ec2-52-32-105-85.us-west-2.compute.amazonaws.com/api/Event/EventsByCoordinate"
-    
-    // Prevent external initialization
-    private override init() {}
     
     // Cache to store all events
     private var eventCache = [Int:Event]()
+    
+    // Prevent external initialization
+    private override init() {}
     
     // Helper function
     internal func coordinate(coordinate: CLLocationCoordinate2D, isInsideBounds bounds: MGLCoordinateBounds) -> Bool {

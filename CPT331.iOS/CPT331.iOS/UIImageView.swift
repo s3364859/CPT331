@@ -17,13 +17,7 @@ extension UIImageView {
         
         if showIndicator {
             self.backgroundColor = UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 0.5)
-            indicator = UIActivityIndicatorView(frame: self.bounds)
-            indicator?.activityIndicatorViewStyle = .Gray
-            indicator?.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-            indicator?.userInteractionEnabled = false
-            
-            self.addSubview(indicator!)
-            indicator?.startAnimating()
+            indicator = self.showLoadingIndicator()
         }
         
         

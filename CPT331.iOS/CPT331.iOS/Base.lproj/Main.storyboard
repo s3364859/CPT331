@@ -869,6 +869,7 @@
                         <outlet property="currentCategoryNameLabel" destination="Ukz-Lz-buY" id="IBZ-gn-5z7"/>
                         <outlet property="currentTemperatureLabel" destination="1YB-zQ-OFJ" id="45t-Fl-fsK"/>
                         <outlet property="humidityView" destination="UaE-Ww-fkJ" id="n0o-mb-1ij"/>
+                        <outlet property="mainStackView" destination="wNz-WB-aDv" id="8vO-YP-mS8"/>
                         <outlet property="predictionCollectionView" destination="fIB-2b-k6J" id="cwu-hm-f1F"/>
                         <outlet property="predictionsHeightConstraint" destination="k5b-qB-r4J" id="30X-BF-Rv3"/>
                         <outlet property="windBearingView" destination="K8c-cX-7NX" id="oS0-yv-9tS"/>
@@ -1012,9 +1013,24 @@
                     <view key="view" contentMode="scaleToFill" id="Nwl-jM-FNA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kJD-cG-f21" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="8" y="52" width="584" height="491"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kJD-cG-f21" firstAttribute="top" secondItem="82f-8f-Xuw" secondAttribute="bottom" constant="8" id="4vu-GW-b29"/>
+                            <constraint firstAttribute="trailing" secondItem="kJD-cG-f21" secondAttribute="trailing" constant="8" id="F17-PH-OHE"/>
+                            <constraint firstItem="kJD-cG-f21" firstAttribute="leading" secondItem="Nwl-jM-FNA" secondAttribute="leading" constant="8" id="ayv-Qu-hHu"/>
+                            <constraint firstItem="kJD-cG-f21" firstAttribute="bottom" secondItem="0v9-Vb-5GW" secondAttribute="top" constant="-8" id="yy6-ms-hdk"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Crime" id="chE-eB-PC0"/>
+                    <connections>
+                        <outlet property="pieChartView" destination="kJD-cG-f21" id="zRb-mR-diA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="II5-F9-BkP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

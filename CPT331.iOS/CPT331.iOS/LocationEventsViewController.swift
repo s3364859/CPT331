@@ -28,6 +28,8 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         self.tableView.backgroundColor = .clearColor()
         self.tableView.tableFooterView = UIView()
         
+        let indicator = self.view.showLoadingIndicator()
+        
         EventManager.sharedInstance.getEventsFromAPI(atCoordinate: self.location.coordinate, withinRadius: 20) { (events) in
             self.events = events?.map{$0.1}
             
@@ -35,6 +37,8 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
             dispatch_async(dispatch_get_main_queue(), { 
                 self.tableView.reloadData()
             })
+            
+            indicator.removeFromSuperview()
         }
     }
 

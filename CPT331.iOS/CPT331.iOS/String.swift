@@ -14,4 +14,10 @@ extension String {
         let data = self.dataUsingEncoding(NSUTF8StringEncoding)
         return data!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
     }
+    
+    var length: Int {
+        get {
+            return self.characters.count
+        }
+    }
 }
