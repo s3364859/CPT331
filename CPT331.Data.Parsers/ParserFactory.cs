@@ -14,6 +14,7 @@ namespace CPT331.Data.Parsers
 			NswKmlParser.NSW,
 			NtKmlParser.NT,
 			QldKmlParser.QLD,
+			SaKmlParser.SA,
 			VicKmlParser.VIC
 		};
 
@@ -23,6 +24,7 @@ namespace CPT331.Data.Parsers
 			NswXmlParser.NSW,
 			NtXmlParser.NT,
 			QldXmlParser.QLD,
+			SaXmlParser.SA,
 			VicXmlParser.VIC
 		};
 
@@ -46,6 +48,10 @@ namespace CPT331.Data.Parsers
 
 				case QldKmlParser.QLD:
 					parser = new QldKmlParser(dataSourceDirectory);
+					break;
+
+				case SaKmlParser.SA:
+					parser = new SaKmlParser(dataSourceDirectory);
 					break;
 
 				case VicKmlParser.VIC:
@@ -76,6 +82,10 @@ namespace CPT331.Data.Parsers
 
 				case QldXmlParser.QLD:
 					parser = new QldXmlParser(dataSourceDirectory);
+					break;
+
+				case SaXmlParser.SA:
+					parser = new SaXmlParser(dataSourceDirectory);
 					break;
 
 				case VicXmlParser.VIC:
