@@ -9,7 +9,7 @@ namespace CPT331.Core.ObjectModel
 {
 	public class EventInfo
 	{
-		public EventInfo(string address, DateTime beginDateTime, string description, DateTime endDateTime, int id, List<EventCategory> eventCategories, List<EventImage> eventImages, string name, string url)
+		public EventInfo(string address, DateTime beginDateTime, string description, DateTime endDateTime, int id, List<EventCategory> eventCategories, List<EventImage> eventImages, double latitude, double longitude, string name, string url)
 		{
 			_address = address;
 			_beginDateTime = beginDateTime;
@@ -18,6 +18,8 @@ namespace CPT331.Core.ObjectModel
 			_eventCategories = eventCategories;
 			_eventImages = eventImages;
 			_id = id;
+			_latitude = latitude;
+			_longitude = longitude;
 			_name = name;
 			_url = url;
 		}
@@ -29,6 +31,8 @@ namespace CPT331.Core.ObjectModel
 		private readonly int _id;
 		private readonly List<EventCategory> _eventCategories;
 		private readonly List<EventImage> _eventImages;
+		private readonly double _latitude;
+		private readonly double _longitude;
 		private readonly string _name;
 		private readonly string _url;
 
@@ -85,6 +89,22 @@ namespace CPT331.Core.ObjectModel
 			get
 			{
 				return _eventImages;
+			}
+		}
+
+		public double Latitude
+		{
+			get
+			{
+				return _latitude;
+			}
+		}
+
+		public double Longitude
+		{
+			get
+			{
+				return _longitude;
 			}
 		}
 

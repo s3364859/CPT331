@@ -16,6 +16,21 @@ namespace CPT331.Data
 {
 	public static class LocalGovernmentAreaRepository
 	{
+		public static int AddLocalGovernmentArea(bool isDeleted, bool isVisible, string name, int stateID)
+		{
+			int id = 0;
+
+			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+			{
+				id = (int)SqlMapper
+					.Query(sqlConnection, "Location.spAddLocalGovernmentArea", new { IsDeleted = isDeleted, IsVisible = isVisible, Name = name, StateID = stateID }, commandType: CommandType.StoredProcedure)
+					.Select(m => m.NewID)
+					.Single();
+			}
+
+			return id;
+		}
+
 		public static LocalGovernmentArea GetLocalGovernmentAreaByID(int id)
 		{
 			LocalGovernmentArea localGovernmentArea = null;
@@ -59,6 +74,14 @@ namespace CPT331.Data
 			}
 
 			return localGovernmentAreas;
+		}
+
+		public static void UpdateLocalGovernmentArea(int id, bool isDeleted, bool isVisible, string name, int stateID)
+		{
+			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+			{
+				SqlMapper.Execute(sqlConnection, "Location.spUpdateLocalGovernmentArea", new { ID = id, IsDeleted = isDeleted, IsVisible = isVisible, Name = name, StateID = stateID }, commandType: CommandType.StoredProcedure);
+			}
 		}
 	}
 }

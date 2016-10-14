@@ -22,7 +22,7 @@ namespace CPT331.Core.Logging
 
 		public static void WriteLine(string value, bool isIncludeTimestamp)
 		{
-			string message = ((isIncludeTimestamp == true) ? $"{DateTime.Now.ToString("yyyy-MMM-dd @ HH:mm")} {value}" : value);
+			string message = ((isIncludeTimestamp == true) ? $"{DateTime.Now.ToString("yyyy-MMM-dd @ HH:mm:ss")} {value}" : value);
 
 			Console.WriteLine(message);
 			Debug.WriteLine(message);

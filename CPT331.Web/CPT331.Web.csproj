@@ -160,7 +160,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Admin\TestModel.cs" />
+    <Compile Include="Models\Admin\AdminModel.cs" />
+    <Compile Include="Models\Admin\StateModel.cs" />
+    <Compile Include="Models\Admin\OffenceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -240,11 +242,16 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
-    <Content Include="Views\Admin\Tests.cshtml" />
-    <Content Include="Views\Admin\Test.cshtml" />
+    <Content Include="Views\Admin\Offences.cshtml" />
+    <Content Include="Views\Admin\Offence.cshtml" />
     <Content Include="Views\Admin\Home.cshtml" />
-    <Content Include="Views\Admin\NewTest.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\OffencesPartial.cshtml" />
+    <Content Include="Views\Admin\NewOffence.cshtml" />
+    <Content Include="Views\Admin\NewState.cshtml" />
+    <Content Include="Views\Admin\State.cshtml" />
+    <Content Include="Views\Admin\States.cshtml" />
+    <Content Include="Views\Admin\StatesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

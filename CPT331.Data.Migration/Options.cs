@@ -12,9 +12,10 @@ namespace CPT331.Data.Migration
 	internal class Options
 	{
 		private string _drop;
+		private string _kml;
+		private string _xml;
+        private bool _simpleRecoveryModel;
 		private IParserState _lastParserState;
-		private string _password;
-		private string _username;
 
 		[Option('d', "drop", Required = false, HelpText = "Drop the database and recreate it. Use this option for the initial database creation.")]
 		public string Drop
@@ -29,31 +30,44 @@ namespace CPT331.Data.Migration
 			}
 		}
 
-		[Option('p', "password", Required = true, HelpText = "The password for the credentials used to create the database.")]
-		public string Password
+		[Option('k', "kml", Required = false, HelpText = "Process the KML data sources. Use this option to hydrate an empty database.")]
+		public string Kml
 		{
 			get
 			{
-				return _password;
+				return _kml;
 			}
 			set
 			{
-				_password = value;
+				_kml = value;
 			}
 		}
 
-		[Option('u', "username", Required = true, HelpText = "The username for the credentials used to create the database.")]
-		public string Username
+		[Option('x', "xml", Required = false, HelpText = "Process the XML data sources. Use this option to hydrate an empty database.")]
+		public string Xml
 		{
 			get
 			{
-				return _username;
+				return _xml;
 			}
 			set
 			{
-				_username = value;
+				_xml = value;
 			}
 		}
+        
+        [Option('s', "simplelog", Required = false, HelpText = "Use simple transaction log when creating database. Use this option for the development databases.")]
+        public bool SimpleRecoveryModel
+        {
+            get
+            {
+                return _simpleRecoveryModel;
+            }
+            set
+            {
+                _simpleRecoveryModel = value;
+            }
+        }
 
 		[ParserState]
 		public IParserState LastParserState

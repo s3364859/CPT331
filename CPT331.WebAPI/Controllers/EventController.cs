@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 
 using CPT331.Core.ObjectModel;
 using CPT331.Data;
+using CPT331.WebAPI.Models;
 
 #endregion
 
@@ -21,40 +22,29 @@ namespace CPT331.WebAPI.Controllers
 
 		[HttpGet]
 		[Route("api/Event/{id}")]
-		public EventInfo Event(int id)
+		public EventModel Event(int id)
 		{
-			return EventRepository.GetEventByID(id);
+			EventInfo eventInfo = EventRepository.GetEventByID(id);
+
+			return ToEventModel(eventInfo);
 		}
 
 		[HttpGet]
 		[Route("api/Event/EventsByCoordinate")]
-		public IEnumerable<EventInfo> EventsByCoordinate(double latitude, double longitude, double radius, string sortBy = "", SortDirection? sortDirection = null)
+		public IEnumerable<EventModel> EventsByCoordinate(double latitude, double longitude, double radius, string sortBy = "", SortDirection? sortDirection = null)
 		{
 			IEnumerable<EventInfo> events = EventRepository.GetEventsByCoordinate(latitude, longitude, radius);
+			IEnumerable<EventModel> eventModels = events.Select(m => ToEventModel(m));
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
 			{
-				events = SortEvents(events, sortBy, sortDirection);
+				eventModels = SortEvents(eventModels, sortBy, sortDirection);
 			}
 
-			return events;
+			return eventModels;
 		}
 
-		[HttpGet]
-		[Route("api/Event/EventsByLocation")]
-		public IEnumerable<EventInfo> EventsByLocation(string name, int postcode, string sortBy = "", SortDirection? sortDirection = null)
-		{
-			IEnumerable<EventInfo> events = EventRepository.GetEventsByLocation(name, postcode);
-
-			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
-			{
-				events = SortEvents(events, sortBy, sortDirection);
-			}
-
-			return events;
-		}
-
-		private static IEnumerable<EventInfo> SortEvents(IEnumerable<EventInfo> events, string sortBy, SortDirection? sortDirection)
+		private static IEnumerable<EventModel> SortEvents(IEnumerable<EventModel> events, string sortBy, SortDirection? sortDirection)
 		{
 			SortDirection direction = ((sortDirection.HasValue == true) ? sortDirection.Value : SortDirection.Ascending);
 
@@ -74,6 +64,24 @@ namespace CPT331.WebAPI.Controllers
 			}
 
 			return events;
+		}
+
+		private static EventModel ToEventModel(EventInfo eventInfo)
+		{
+			return new EventModel
+			(
+				eventInfo.Address,
+				eventInfo.BeginDateTime,
+				eventInfo.Description,
+				eventInfo.EndDateTime,
+				eventInfo.ID,
+				eventInfo.EventCategories.Select(m => new EventCategoryModel(m.ID, m.Name)),
+				eventInfo.EventImages.Select(m => new ImageModel(m.Height, m.Url, m.Width)),
+				eventInfo.Latitude,
+				eventInfo.Longitude,
+				eventInfo.Name,
+				eventInfo.Url
+			);
 		}
 	}
 }

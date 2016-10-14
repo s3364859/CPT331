@@ -6,8 +6,10 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.UI.WebControls;
 
+using CPT331.Core.Extensions;
 using CPT331.Core.ObjectModel;
 using CPT331.Data;
+using CPT331.WebAPI.Models;
 
 #endregion
 
@@ -21,26 +23,59 @@ namespace CPT331.WebAPI.Controllers
 
 		[HttpGet]
 		[Route("api/Crime/{id}")]
-		public Crime Crime(int id)
+		public CrimeModel Crime(int id)
 		{
-			return CrimeRepository.GetCrimeByID(id);
+			Crime crime = CrimeRepository.GetCrimeByID(id);
+
+			return new CrimeModel
+			(
+				crime.Count,
+				crime.DateCreatedUtc,
+				crime.DateUpdatedUtc,
+				crime.ID,
+				crime.IsDeleted,
+				crime.IsVisible,
+				crime.LocalGovernmentAreaID,
+				crime.Month,
+				crime.OffenceID,
+				crime.Year
+			);
 		}
 
 		[HttpGet]
 		[Route("api/Crime/CrimesByCoordinate")]
-		public IEnumerable<Crime> CrimesByCoordinate(double latitude, double longitude, double radius, string sortBy = "", SortDirection? sortDirection = null)
+		public CrimeByCoordinateModel CrimesByCoordinate(double latitude, double longitude, string sortBy = "", SortDirection? sortDirection = null)
 		{
-			IEnumerable<Crime> crimes = CrimeRepository.GetCrimesByCoordinate(latitude, longitude, radius);
+			List<CrimeByCoordinate> crimeByCoordinates = CrimeRepository.GetCrimesByCoordinate(latitude, longitude);
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
 			{
-				crimes = SortCrimes(crimes, sortBy, sortDirection);
+				crimeByCoordinates = SortCrimeByCoordinates(crimeByCoordinates, sortBy, sortDirection).ToList();
 			}
 
-			return crimes;
+			CrimeByCoordinateModel crimeByCoordinateModel = null;
+			Dictionary<string, double> offenceValues = new Dictionary<string, double>();
+
+			crimeByCoordinates.ForEach(m => offenceValues.Add(m.OffenceName, m.OffenceCount));
+
+			int beginYear = crimeByCoordinates.Min(m => (m.BeginYear));
+			int endYear = crimeByCoordinates.Max(m => (m.EndYear));
+			string localGovernmentAreaName = crimeByCoordinates.Select(m => (m.LocalGovernmentAreaName)).FirstOrDefault();
+			double total = offenceValues.Sum(m => (m.Value));
+
+			for (int i = 0; i < offenceValues.Count; i++)
+			{
+				string key = offenceValues.Keys.ElementAt(i);
+
+				offenceValues[key] /= total;
+			}
+
+			crimeByCoordinateModel = new CrimeByCoordinateModel(beginYear, endYear, localGovernmentAreaName, offenceValues.OrderByDescending(m => (m.Value)).Take(6).Select(m => new OffenceModel(m.Key, m.Value)));
+
+			return crimeByCoordinateModel;
 		}
 
-		private static IEnumerable<Crime> SortCrimes(IEnumerable<Crime> events, string sortBy, SortDirection? sortDirection)
+		private static IEnumerable<CrimeByCoordinate> SortCrimeByCoordinates(IEnumerable<CrimeByCoordinate> crimeByCoordinates, string sortBy, SortDirection? sortDirection)
 		{
 			SortDirection direction = ((sortDirection.HasValue == true) ? sortDirection.Value : SortDirection.Ascending);
 
@@ -59,7 +94,7 @@ namespace CPT331.WebAPI.Controllers
 			//			break;
 			//	}
 
-			return events;
+			return crimeByCoordinates;
 		}
 	}
 }
