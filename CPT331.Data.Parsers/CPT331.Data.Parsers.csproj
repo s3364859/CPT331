@@ -47,6 +47,7 @@
     <Compile Include="NtKmlParser.cs" />
     <Compile Include="NtXmlParser.cs" />
     <Compile Include="ActXmlParser.cs" />
+    <Compile Include="VicKmlParser.cs" />
     <Compile Include="QldKmlParser.cs" />
     <Compile Include="QldXmlParser.cs" />
     <Compile Include="NswXmlParser.cs" />

@@ -17,6 +17,8 @@ namespace CPT331.WebAPI.Controllers
 {
 	public class CrimeController : ApiController
 	{
+		private const int DefaultNumberOfCrimeRecords = 6;
+		private const string OtherCrimesName = "Other";
 		private const string SortFieldDateTime = "DATETIME";
 		private const string SortFieldID = "ID";
 		private const string SortFieldName = "NAME";
@@ -44,7 +46,7 @@ namespace CPT331.WebAPI.Controllers
 
 		[HttpGet]
 		[Route("api/Crime/CrimesByCoordinate")]
-		public CrimeByCoordinateModel CrimesByCoordinate(double latitude, double longitude, string sortBy = "", SortDirection? sortDirection = null)
+		public CrimeByCoordinateModel CrimesByCoordinate(double latitude, double longitude, int count = DefaultNumberOfCrimeRecords, string sortBy = "", SortDirection? sortDirection = null)
 		{
 			List<CrimeByCoordinate> crimeByCoordinates = CrimeRepository.GetCrimesByCoordinate(latitude, longitude);
 
@@ -70,7 +72,15 @@ namespace CPT331.WebAPI.Controllers
 				offenceValues[key] /= total;
 			}
 
-			crimeByCoordinateModel = new CrimeByCoordinateModel(beginYear, endYear, localGovernmentAreaName, offenceValues.OrderByDescending(m => (m.Value)).Take(6).Select(m => new OffenceModel(m.Key, m.Value)));
+			List<OffenceModel> offenceModels = offenceValues
+				.OrderByDescending(m => (m.Value))
+				.Take(count)
+				.Select(m => new OffenceModel(m.Key, m.Value)).ToList();
+
+			total = offenceModels.Sum(m => (m.Value));
+			offenceModels.Add(new OffenceModel(OtherCrimesName, (1 - total)));
+
+			crimeByCoordinateModel = new CrimeByCoordinateModel(beginYear, endYear, localGovernmentAreaName, offenceModels);
 
 			return crimeByCoordinateModel;
 		}
