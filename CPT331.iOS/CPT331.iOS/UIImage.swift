@@ -56,30 +56,26 @@ extension UIImage {
         return newImage
     }
     
-    
-    // Source: https://gist.github.com/iamjason/a0a92845094f5b210cf8
+    // Source: http://stackoverflow.com/a/32834059
     func tintWithColor(color:UIColor)->UIImage {
+        let imageSize: CGSize = self.size
+        let imageScale: CGFloat = self.scale
+        let contextBounds: CGRect = CGRectMake(0, 0, imageSize.width, imageSize.height)
         
-        UIGraphicsBeginImageContext(self.size)
-        let context = UIGraphicsGetCurrentContext()
-        
-        // flip the image
-        CGContextScaleCTM(context, 1.0, -1.0)
-        CGContextTranslateCTM(context, 0.0, -self.size.height)
-        
-        // multiply blend mode
-        CGContextSetBlendMode(context, CGBlendMode.Multiply)
-        
-        let rect = CGRectMake(0, 0, self.size.width, self.size.height)
-        CGContextClipToMask(context, rect, self.CGImage)
+        UIGraphicsBeginImageContextWithOptions(imageSize, false, imageScale)
+        UIColor.whiteColor().setFill()
+        UIRectFill(contextBounds)
+        self.drawAtPoint(CGPointZero)
+        let mask: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         color.setFill()
-        CGContextFillRect(context, rect)
+        UIRectFill(contextBounds)
         
-        // create uiimage
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        mask.drawAtPoint(CGPointZero, blendMode: .Screen, alpha: 1)
+        self.drawAtPoint(CGPointZero, blendMode: .DestinationIn, alpha: 1)
+        
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         return newImage
-        
     }
 }

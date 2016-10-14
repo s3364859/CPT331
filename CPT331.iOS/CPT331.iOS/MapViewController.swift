@@ -118,11 +118,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     
     
     /* --------------------------------- *
-     *         Map Functionality         *
+     *            Map Drawing            *
      * --------------------------------- */
     
     // Conform to MapViewModelDelegate
-    // Will be called twice after calling mapView.loadEvents:
+    // Will be called twice after calling viewModel.loadEvents():
     //      The first will be the cached events in that region
     //      The second will be fetched events from the API
     func update(forEvents events:[Int:Event]) {
@@ -146,38 +146,77 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
         mapView.addAnnotations(annotations)
     }
     
-    // Fires when panning, zooming out or transitioning to a new location
-    func mapViewRegionIsChanging(mapView: MGLMapView) {
-        self.dismissKeyboard()
-    }
     
-    // Update the markers displayed on the map with the region changes
+    // When map region changes, load events for visible region
     func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
         self.viewModel.loadEvents(forMapView: mapView)
     }
     
-    // Returns the image to be displayed for a marker on the map
+    
+    // Returns a reusable annotation image which reflects the event category
     func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
-        if let eventFeature = annotation as? EventPointFeature {
-            let category = eventFeature.event.category
-            
-            // TODO: implement anotation dequeueing
-            if let tintedImage = self.annotationImage?.tintWithColor(category.color) {
-                return MGLAnnotationImage(image: tintedImage, reuseIdentifier: category.name)
-            }
+        // Only event features with event categories should have custom images
+        guard let category = (annotation as? EventPointFeature)?.event.category else {
+            return nil
         }
         
-        return nil
+        // Get the resuse identifier for the annotation
+        let reuseIdentifier = category.name
+        
+        // Try to reuse an existing annotation image, if it exists
+        var reusableImage = mapView.dequeueReusableAnnotationImageWithIdentifier(reuseIdentifier)
+        
+        // if the annotation image hasn‘t been used yet, initialize it here with the reuse identifier
+        if reusableImage == nil, var image = self.annotationImage?.tintWithColor(category.color) {
+            
+            // Set the image anchor to the bottom (By default it is center)
+            image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(0, 0, image.size.height/2, 0))
+            
+            reusableImage = MGLAnnotationImage(image: image, reuseIdentifier: reuseIdentifier)
+        }
+        
+        return reusableImage
     }
-
+    
+    
+    
+    
+    /* --------------------------------- *
+     *         Map Interactivity         *
+     * --------------------------------- */
+    
+    // Requests the location view to be shown when called
+    func locationLabelTapped(location:Location) {
+        if location.shouldShowDetails {
+            self.lastLocationTapped = location
+            self.performSegueWithIdentifier("showLocationView", sender: nil)
+        }
+    }
+    
+    // Requests the event view to be shown when called
+    func eventTapped(event:Event) {
+        self.lastEventTapped = event
+        self.performSegueWithIdentifier("showEventView", sender: nil)
+    }
+    
+    // Annotation responder
+    func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
+        if let a = annotation as? EventPointFeature {
+            self.eventTapped(a.event)
+        }
+    }
+    
+    // Checks to see if the tap gesture should be recognized. If there is a marker present at the tap
+    //  location, the gesture will not be recognized. This is necessary, because (by default) a tap
+    //  gesture will intercept all taps and prevent the maps own recognizers from working.
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         if let tap = gestureRecognizer as? UITapGestureRecognizer {
             let pointFeatures = self.mapView.visibleFeatures(at: tap.locationInView(self.mapView)).filter{$0 is MGLPointFeature}
             
-            // Because single tap is being intercepted, it's necessary to manually call didSelectannotation
+            // Iterate over each feature, attempting to find an annotation
             for feature in pointFeatures {
                 
-                // If it doesn't have a name attribute, it's probably a marker?
+                // If it doesn't have a name attribute, it's probably an annotation?
                 if feature.attributeForKey("name") == nil {
                     return false
                 }
@@ -210,23 +249,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
             }
         }
     }
-    
-    // Type = town, village, city
-    func locationLabelTapped(location:Location) {
-        if location.shouldShowDetails {
-            self.lastLocationTapped = location
-            self.performSegueWithIdentifier("showLocationView", sender: nil)
-        }
-    }
-    
-    func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
-        if let a = annotation as? EventPointFeature {
-            self.lastEventTapped = a.event
-            self.performSegueWithIdentifier("showEventView", sender: nil)
-        }
-    }
-    
-    
     
     
     

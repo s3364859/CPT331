@@ -312,7 +312,6 @@
 		D0630E581D93060400200606 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D0CA27181DAF4F9300217875 /* New Group */,
 				D06740BC1DA4D58800E87E0B /* Event */,
 				D04532511DA4B29800345DC3 /* Weather */,
 				D0630E591D93072A00200606 /* Location.swift */,
@@ -350,13 +349,6 @@
 				D0CA270C1DADD60900217875 /* MapViewModel.swift */,
 			);
 			name = ViewModels;
-			sourceTree = "<group>";
-		};
-		D0CA27181DAF4F9300217875 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
 			sourceTree = "<group>";
 		};
 		D0FB9EFA1DA7502800848C11 /* Modal Views */ = {

@@ -34,13 +34,13 @@ enum EventCategory {
     var color:UIColor {
         get {
             switch self {
-            case .None:                     return UIColor(red:  50/255, green:  50/255, blue:  50/255, alpha: 1)
-            case .Concert:                  return UIColor(red: 195/255, green:  83/255, blue:  74/255, alpha: 1)
-            case .WorkshopAndConference:    return UIColor(red: 248/255, green: 182/255, blue:  55/255, alpha: 1)
-            case .SportAndOutdoors:         return UIColor(red: 225/255, green: 128/255, blue:  77/255, alpha: 1)
-            case .Exhibition:               return UIColor(red: 202/255, green: 120/255, blue: 218/255, alpha: 1)
-            case .FestivalsAndLifestyle:    return UIColor(red:  99/255, green: 190/255, blue:  97/255, alpha: 1)
-            case .PerformingArts:           return UIColor(red:  66/255, green: 151/255, blue: 221/255, alpha: 1)
+            case .None:                     return UIColor(red:  50/255, green:  50/255, blue:  50/255, alpha: 1) // Black
+            case .Concert:                  return UIColor(red: 195/255, green:  83/255, blue:  74/255, alpha: 1) // Red
+            case .WorkshopAndConference:    return UIColor(red: 248/255, green: 182/255, blue:  55/255, alpha: 1) // Yellow
+            case .SportAndOutdoors:         return UIColor(red: 225/255, green: 128/255, blue:  77/255, alpha: 1) // Orange
+            case .Exhibition:               return UIColor(red: 202/255, green: 120/255, blue: 218/255, alpha: 1) // Purple
+            case .FestivalsAndLifestyle:    return UIColor(red:  99/255, green: 190/255, blue:  97/255, alpha: 1) // Green
+            case .PerformingArts:           return UIColor(red:  66/255, green: 151/255, blue: 221/255, alpha: 1) // Blue
             }
         }
     }
