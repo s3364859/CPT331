@@ -160,6 +160,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     
     func mapView(mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
         self.mapRegionChanging = true
+        
+        // Dismiss keyboard whenever map region starts changing
+        self.dismissKeyboard()
     }
     
     
@@ -227,19 +230,31 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
         }
     }
     
+    // Note: Animations will not be performed if zoom level has been provided
     func panMapView(toCoordinate coordinate:CLLocationCoordinate2D, zoomLevel:Double?=nil, useOffsets:Bool=true, animated:Bool=true) {
-        
-        // Get offset coordinate if possible
-        var coordinate = coordinate
-        if useOffsets, let offsetCoordinate = self.getOffsetCoordinate(coordinate) {
-            coordinate = offsetCoordinate
-        }
-        
-        self.mapView.setCenterCoordinate(coordinate, animated: animated)
-        
+
         // Use zoom level if provided
         if zoomLevel != nil {
-            // TODO: add support for setting zoom level after center coordinate has changed
+            
+            // First pan to the actual location with zoomlevel
+            self.mapView.setCenterCoordinate(coordinate, zoomLevel: zoomLevel!, direction: self.mapView.direction, animated: false, completionHandler: {
+                
+                // If useOffsets has been requested, pan again to factor in offset
+                // This operation is performed separately because it's difficult to simultanously offset and zoom
+                if useOffsets {
+                    self.panMapView(toCoordinate: coordinate, zoomLevel: nil, useOffsets: useOffsets, animated: false)
+                }
+            })
+        
+        // Else, pan the map without zooming
+        } else {
+            // Get offset coordinate if possible
+            var coordinate = coordinate
+            if useOffsets, let offsetCoordinate = self.getOffsetCoordinate(coordinate) {
+                coordinate = offsetCoordinate
+            }
+            
+            self.mapView.setCenterCoordinate(coordinate, animated: animated)
         }
     }
     
@@ -274,6 +289,10 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     //  location, the gesture will not be recognized. This is necessary, because (by default) a tap
     //  gesture will intercept all taps and prevent the maps own recognizers from working.
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        // Dismiss keyboard whenever the map is tapped
+        self.dismissKeyboard()
+        
         if let tap = gestureRecognizer as? UITapGestureRecognizer {
             let pointFeatures = self.mapView.visibleFeatures(at: tap.locationInView(self.mapView)).filter{$0 is MGLPointFeature}
             
