@@ -16,14 +16,24 @@ namespace CPT331.Data.Parsers
 	{
 		public KmlParser(string dataSourceDirectory, string state)
 		{
+			_dataSourceDirectory = dataSourceDirectory;
 			_fileName = Path.Combine(dataSourceDirectory, $"{state}.kml");
 			_state = state;
 		}
 
 		private const int WGS84Datum = 4326;
 
+		private readonly string _dataSourceDirectory;
 		private readonly string _fileName;
 		private readonly string _state;
+
+		internal string DataSourceDirectory
+		{
+			get
+			{
+				return _dataSourceDirectory;
+			}
+		}
 
 		protected void Commit(List<Coordinate> coordinates, string name)
 		{

@@ -708,3 +708,36 @@ INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Y
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Unincorporated SA')
 
 COMMIT
+
+--	WA Local Government Areas
+
+BEGIN TRAN
+
+SET @@StateID = (SELECT ID FROM [Location].State WHERE AbbreviatedName = 'WA')
+
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Central Metropolitan District')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Goldfields-Esperance District')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Great Southern District')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Kimberley District')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Metropolitan Region')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Mid West-Gascoyne District')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'North West Metropolitan District')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Pilbara District')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Regional Wa Region')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'South East Metropolitan District')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'South Metropolitan District')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'South West District')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Western Australia')
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Wheatbelt District')
+
+COMMIT
+
+--	TAS Local Government Areas
+
+BEGIN TRAN
+
+SET @@StateID = (SELECT ID FROM [Location].State WHERE AbbreviatedName = 'TAS')
+
+INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Tasmania')
+
+COMMIT

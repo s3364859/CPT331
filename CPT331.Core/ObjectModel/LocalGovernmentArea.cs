@@ -88,7 +88,6 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
-
 		public override int GetHashCode()
 		{
 			int getHashCode =
@@ -127,6 +126,11 @@ namespace CPT331.Core.ObjectModel
 			}
 
 			return equals;
+		}
+
+		public override string ToString()
+		{
+			return _name;
 		}
 	}
 }
