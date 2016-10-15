@@ -94,13 +94,17 @@
   <ItemGroup>
     <Compile Include="Controllers\CrimeController.cs" />
     <Compile Include="Controllers\EventController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\TestModel.cs" />
+    <Compile Include="Models\CrimeModel.cs" />
+    <Compile Include="Models\CrimeByCoordinateModel.cs" />
+    <Compile Include="Models\EventCategoryModel.cs" />
+    <Compile Include="Models\ImageModel.cs" />
+    <Compile Include="Models\EventModel.cs" />
+    <Compile Include="Models\OffenceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

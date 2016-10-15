@@ -6,23 +6,25 @@ using System.Linq;
 using System.Xml;
 
 using CPT331.Core.Extensions;
+using CPT331.Core.Logging;
 using CPT331.Core.ObjectModel;
 
 #endregion
 
 namespace CPT331.Data.Parsers
 {
-	public class VicXmlParser : Parser
+	public class VicXmlParser : XmlParser
 	{
-		public VicXmlParser(string fileName)
-			 : base(fileName)
+		public VicXmlParser(string dataSourceDirectory)
+			 : base(dataSourceDirectory, VIC)
 		{
-			//	Number of offences by geographic area and offence type, year ending December 2014									
 		}
+
+		internal const string VIC = "VIC";
 
 		protected override void OnParse(string fileName, List<Crime> crimes)
 		{
-			Console.WriteLine("Parsing VIC data...");
+			OutputStreams.WriteLine($"Parsing {VIC} data...");
 
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);
@@ -32,7 +34,7 @@ namespace CPT331.Data.Parsers
 			//	The dataset I'm working with has a single year - 2014
 			int year = 2014;
 
-			State vicState = StateRepository.GetStateByAbbreviatedName("VIC");
+			State vicState = StateRepository.GetStateByAbbreviatedName(VIC);
 			List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(vicState.ID);
 			Dictionary<string, Offence> offences = new Dictionary<string, Offence>();
 			OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));

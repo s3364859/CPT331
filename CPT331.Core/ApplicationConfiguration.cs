@@ -7,14 +7,28 @@ using System.Configuration;
 
 namespace CPT331.Core
 {
-	public static class ApplicationConfiguration
+	public sealed class ApplicationConfiguration : ApplicationSettingsBase
 	{
 		private const string CPT331ConnectionStringKey = "CPT331ConnectionString";
-		private const string EventFindaPasswordKey = "EventFinda.Password";
-		private const string EventFindaUrlKey = "EventFinda.Url";
-		private const string EventFindaUsernameKey = "EventFinda.Username";
+		private const string DefaultMigrationSize = "100000";
+		private const string EventFindaPasswordKey = "EventFindaPassword";
+		private const string EventFindaUrlKey = "EventFindaUrl";
+		private const string EventFindaUsernameKey = "EventFindaUsername";
+		private const string MigrationCommitSizeKey = "MigrationCommitSize";
+		private const string MigrationDataSourceDirectoryKey = "MigrationDataSourceDirectory";
 
-		public static string CPT331ConnectionString
+		private static ApplicationConfiguration _defaultInstance = ((ApplicationConfiguration)(Synchronized(new ApplicationConfiguration())));
+
+		public static ApplicationConfiguration Default
+		{
+			get
+			{
+				return _defaultInstance;
+			}
+		}
+
+		[ApplicationScopedSetting()]
+		public string CPT331ConnectionString
 		{
 			get
 			{
@@ -22,7 +36,8 @@ namespace CPT331.Core
 			}
 		}
 
-		public static string EventFindaPassword
+		[ApplicationScopedSetting()]
+		public string EventFindaPassword
 		{
 			get
 			{
@@ -30,7 +45,8 @@ namespace CPT331.Core
 			}
 		}
 
-		public static string EventFindaUrl
+		[ApplicationScopedSetting()]
+		public string EventFindaUrl
 		{
 			get
 			{
@@ -38,7 +54,8 @@ namespace CPT331.Core
 			}
 		}
 
-		public static string EventFindaUsername
+		[ApplicationScopedSetting()]
+		public string EventFindaUsername
 		{
 			get
 			{
@@ -46,16 +63,9 @@ namespace CPT331.Core
 			}
 		}
 
-		private static string GetAppSettingsValue(string key)
+		private string GetAppSettingsValue(string key)
 		{
-			string getAppSettingsValue = "";
-
-			if (ConfigurationManager.AppSettings[key] != null)
-			{
-				getAppSettingsValue = ConfigurationManager.AppSettings[key];
-			}
-
-			return getAppSettingsValue;
+			return ((this[key] != null) ? ((string)(this[key])) : "");
 		}
 
 		private static string GetConnectionStringValue(string key)
@@ -68,6 +78,37 @@ namespace CPT331.Core
 			}
 
 			return getConnectionStringValue;
+		}
+
+		[ApplicationScopedSetting()]
+		[DefaultSettingValue(DefaultMigrationSize)]
+		public int MigrationCommitSize
+		{
+			get
+			{
+				int migrationCommitSize = 0;
+				string migrationCommitValue = GetAppSettingsValue(MigrationDataSourceDirectoryKey);
+
+				if (String.IsNullOrEmpty(migrationCommitValue) == false)
+				{
+					if (Int32.TryParse(migrationCommitValue, out migrationCommitSize) == false)
+					{
+						migrationCommitSize = Convert.ToInt32(DefaultMigrationSize);
+					}
+				}
+
+				return migrationCommitSize;
+			}
+		}
+
+		[ApplicationScopedSetting()]
+		[DefaultSettingValue(@"C:\Downloads\Crime Data\")]
+		public string MigrationDataSourceDirectory
+		{
+			get
+			{
+				return GetAppSettingsValue(MigrationDataSourceDirectoryKey);
+			}
 		}
 	}
 }

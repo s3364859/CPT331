@@ -17,6 +17,14 @@ namespace CPT331.Core.Extensions
 			return dateTime;
 		}
 
+		public static double AsDouble(this XmlNode xmlNode)
+		{
+			double value = 0;
+			Double.TryParse(xmlNode.AsString(), out value);
+
+			return value;
+		}
+
 		public static int AsInt32(this XmlNode xmlNode)
 		{
 			int value = 0;
@@ -29,7 +37,7 @@ namespace CPT331.Core.Extensions
 		{
 			string asString = "";
 
-			if (xmlNode != null)
+			if ((xmlNode != null) && (xmlNode.HasChildNodes == true))
 			{
 				asString = xmlNode.SelectSingleNode("text()").InnerText
 					.Replace("<![CDATA[", "")

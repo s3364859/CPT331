@@ -35,30 +35,30 @@ namespace CPT331.Data
 		{
 			Crime crime = null;
 
-			//	using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
-			//	{
-			//		crime = SqlMapper
-			//			.Query(sqlConnection, "dbo.spGetCrimeByID", new { ID = id }, commandType: CommandType.StoredProcedure)
-			//			.Select(m => new Test(m.ID, m.Value0, m.Value1))
-			//			.FirstOrDefault();
-			//	}
+			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+			{
+				crime = SqlMapper
+					.Query(sqlConnection, "Crime.spGetCrimeByID", new { ID = id }, commandType: CommandType.StoredProcedure)
+					.Select(m => new Crime(m.Count, m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsDeleted, m.IsVisible, m.LocalGovernmentAreaID, m.Month, m.OffenceID, m.Year))
+					.FirstOrDefault();
+			}
 
 			return crime;
 		}
 
-		public static List<Crime> GetCrimesByCoordinate(double latitude, double longitude, double radius)
+		public static List<CrimeByCoordinate> GetCrimesByCoordinate(double latitude, double longitude)
 		{
-			List<Crime> crimes = null;
+			List<CrimeByCoordinate> crimeByCoordinates = null;
 
-			//	using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
-			//	{
-			//		crimes = SqlMapper
-			//			.Query(sqlConnection, "dbo.spGetCrimesByCoordinate", commandType: CommandType.StoredProcedure, param: new { Latitude = latitude, Longitude = longitude, Radius = radius })
-			//			.Select(m => new Crime())
-			//			.ToList();
-			//	}
+			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+			{
+				crimeByCoordinates = SqlMapper
+					.Query(sqlConnection, "Crime.spGetCrimesByCoordinate", commandType: CommandType.StoredProcedure, param: new { Latitude = latitude, Longitude = longitude })
+					.Select(m => new CrimeByCoordinate(m.BeginYear, m.EndYear, m.Name, m.OffenceCount, m.OffenceID, m.Offence))
+					.ToList();
+			}
 
-			return crimes;
+			return crimeByCoordinates;
 		}
 	}
 }

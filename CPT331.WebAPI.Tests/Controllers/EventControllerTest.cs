@@ -6,8 +6,8 @@ using System.Linq;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using CPT331.Core.ObjectModel;
 using CPT331.WebAPI.Controllers;
+using CPT331.WebAPI.Models;
 
 #endregion
 
@@ -20,9 +20,9 @@ namespace CPT331.WebAPI.Tests.Controllers
 		public void Event()
 		{
 			EventController eventController = new EventController();
-			EventInfo eventInfo = eventController.Event(0);
+			EventModel eventModel = eventController.Event(0);
 
-			Assert.IsNotNull(eventInfo);
+			Assert.IsNotNull(eventModel);
 		}
 
 		[TestMethod]
@@ -31,10 +31,10 @@ namespace CPT331.WebAPI.Tests.Controllers
 			EventController eventController = new EventController();
 
 			//	-37.8249002,144.9965308 => Richmond, Melbourne
-			IEnumerable<EventInfo> events = eventController.EventsByCoordinate(-37.8249002, 144.9965308, 10);
+			IEnumerable<EventModel> eventModels = eventController.EventsByCoordinate(-37.8249002, 144.9965308, 10);
 
-			Assert.IsNotNull(events);
-			Assert.IsTrue(events.Count() > 0);
+			Assert.IsNotNull(eventModels);
+			Assert.IsTrue(eventModels.Count() > 0);
 		}
 	}
 }
