@@ -46,7 +46,9 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="ObjectModel\Coordinate.cs" />
     <Compile Include="ObjectModel\CrimeByCoordinate.cs" />
+    <Compile Include="ObjectModel\LocalGovernmentAreaState.cs" />
     <Compile Include="ObjectModel\LocalGovernmentArea.cs" />
+    <Compile Include="ObjectModel\OffenceCategory.cs" />
     <Compile Include="ObjectModel\Offence.cs" />
     <Compile Include="Extensions\XmlNodeExtensions.cs" />
     <Compile Include="Logging\OutputStreams.cs" />

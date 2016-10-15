@@ -1,6 +1,7 @@
 ﻿#region Using References
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 #endregion
 
@@ -48,6 +49,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+		[DataType(DataType.Text)]
+		[Display(Name = "Date Created")]
+		[Required(ErrorMessage = "*")]
 		public DateTime DateCreatedUtc
 		{
 			get
@@ -60,6 +64,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+		[DataType(DataType.Text)]
+		[Display(Name = "Date Updated")]
+		[Required(ErrorMessage = "*")]
 		public DateTime DateUpdatedUtc
 		{
 			get
@@ -84,6 +91,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+		[DataType(DataType.Text)]
+		[Display(Name = "Deleted")]
+		[Required(ErrorMessage = "*")]
 		public bool IsDeleted
 		{
 			get
@@ -96,6 +106,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+		[DataType(DataType.Text)]
+		[Display(Name = "Visible")]
+		[Required(ErrorMessage = "*")]
 		public bool IsVisible
 		{
 			get
@@ -108,6 +121,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+		[DataType(DataType.Text)]
+		[Display(Name = "Name")]
+		[Required(ErrorMessage = "*")]
 		public string Name
 		{
 			get
