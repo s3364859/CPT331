@@ -33,7 +33,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     
     // Constants
     let searchResultsRowHeight = 50
+    let searchResultSelectZoom:Double = 12.5
     let annotationImage = UIImage(named: "Event-Annotation.png")
+    let panOffsets:(top:CGFloat, bottom:CGFloat) = (
+        top: 85, // Search bar
+        bottom: 400 // Subview
+    )
     
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var searchBarView: UIVisualEffectView!
@@ -192,15 +197,57 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     
     
     
-    
     /* --------------------------------- *
      *         Map Interactivity         *
      * --------------------------------- */
+    
+    // Returns an offset coordinate, taking into account top and bottom margins
+    func getOffsetCoordinate(coordinate: CLLocationCoordinate2D) -> CLLocationCoordinate2D? {
+        // Height of the map frame (in points)
+        let mapHeight = self.mapView.frame.height
+        
+        // The region which is still visible (in between search bar and subview)
+        let visibleRegion = mapHeight - (self.panOffsets.top + self.panOffsets.bottom)
+        
+        // If there is sufficient vertical space, offset coordinate so that it is centered in the visible region
+        if visibleRegion > 0 {
+            let relativeOffset = (self.panOffsets.top + (visibleRegion/2)) / mapHeight
+            
+            let bounds = self.mapView.visibleCoordinateBounds
+            let northLatitude = bounds.ne.latitude
+            let southLatitude = bounds.sw.latitude
+            
+            let offsetLatitude = coordinate.latitude + ((southLatitude - northLatitude) * Double(relativeOffset))
+            
+            // Update coordinate with the modified object
+            return CLLocationCoordinate2D(latitude: offsetLatitude, longitude: coordinate.longitude)
+            
+        } else {
+            return nil
+        }
+    }
+    
+    func panMapView(toCoordinate coordinate:CLLocationCoordinate2D, zoomLevel:Double?=nil, useOffsets:Bool=true, animated:Bool=true) {
+        
+        // Get offset coordinate if possible
+        var coordinate = coordinate
+        if useOffsets, let offsetCoordinate = self.getOffsetCoordinate(coordinate) {
+            coordinate = offsetCoordinate
+        }
+        
+        self.mapView.setCenterCoordinate(coordinate, animated: animated)
+        
+        // Use zoom level if provided
+        if zoomLevel != nil {
+            // TODO: add support for setting zoom level after center coordinate has changed
+        }
+    }
     
     // Requests the location view to be shown when called
     func locationLabelTapped(location:Location) {
         if location.shouldShowDetails {
             self.lastLocationTapped = location
+            self.panMapView(toCoordinate: location.coordinate)
             self.performSegueWithIdentifier("showLocationView", sender: nil)
         }
     }
@@ -208,6 +255,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     // Requests the event view to be shown when called
     func eventTapped(event:Event) {
         self.lastEventTapped = event
+        
+        if event.coordinate != nil {
+            self.panMapView(toCoordinate: event.coordinate!)
+        }
+        
         self.performSegueWithIdentifier("showEventView", sender: nil)
     }
     
@@ -365,14 +417,22 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
         // Deselect row immediately, selection is only temporarily shown to indicate user touch
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        let location = self.searchResults[indexPath.row]
+        let placemark = self.searchResults[indexPath.row]
         
         // Update search bar text to use suburb names
-        self.searchTextField.text = location.name
+        self.searchTextField.text = placemark.name
         self.searchTextField.resignFirstResponder()
         self.searchQueryDidChange(self.searchTextField)
         
-        // Pan to suburb location
-        self.mapView.setCenterCoordinate(location.location.coordinate, zoomLevel: 12.5, animated: true)
+        self.panMapView(
+            toCoordinate: placemark.location.coordinate,
+            zoomLevel: self.searchResultSelectZoom,
+            useOffsets: true,
+            animated: true
+        )
+        
+        // Show the selected location in subview
+        self.lastLocationTapped = placemark.asLocation
+        self.performSegueWithIdentifier("showLocationView", sender: nil)
     }
 }

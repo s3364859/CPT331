@@ -14,4 +14,10 @@ extension GeocodedPlacemark {
     func distanceFrom(target: CLLocation) -> Double{
         return self.location.coordinate.distanceFrom(target.coordinate)
     }
+    
+    var asLocation:Location {
+        get {
+            return Location(name: self.name, type: "", coordinate: self.location.coordinate)
+        }
+    }
 }
