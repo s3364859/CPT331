@@ -37,6 +37,9 @@ namespace CPT331.Web.Models.Admin
 		private bool _isVisible;
 		private string _name;
 
+		[DataType(DataType.Text)]
+		[Display(Name = "Abbreviated Name")]
+		[Required(ErrorMessage = "*")]
 		public string AbbreviatedName
 		{
 			get
