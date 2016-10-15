@@ -56,6 +56,12 @@ class EventViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showEvent(self.event)
+        
+        var contentRect = CGRectZero
+        for view: UIView in self.scrollView.subviews {
+            contentRect = CGRectUnion(contentRect, view.frame)
+        }
+        self.scrollView.contentSize = contentRect.size
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -84,6 +90,8 @@ class EventViewController: UIViewController {
         
         // Only enable callout button if url exists
         self.calloutButton.enabled = self.event.url != nil ? true : false
+        
+        self.updateScrollView()
     }
     
     func setDataLabel(label:String?, forView view:EventDataView, undefined:String="Not Specified") {
@@ -104,5 +112,14 @@ class EventViewController: UIViewController {
         self.scrollView.parallaxHeader.mode = .Fill
         
         self.bannerView?.imageFromUrl(url, showIndicator: true)
+    }
+    
+    // Updates the scroll view to fit child views
+    func updateScrollView() {
+        var contentRect = CGRectZero
+        for view: UIView in self.scrollView.subviews {
+            contentRect = CGRectUnion(contentRect, view.frame)
+        }
+        self.scrollView.contentSize = contentRect.size
     }
  }
