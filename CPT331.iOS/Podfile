@@ -6,12 +6,9 @@ target 'CPT331.iOS' do
   use_frameworks!
 
   pod 'Mapbox-iOS-SDK', '~> 3.3.4'
-  pod 'CSVImporter', '~> 1.1'
-  pod 'SVProgressHUD'
+  pod 'MapboxGeocoder.swift', :git => 'https://github.com/mapbox/MapboxGeocoder.swift.git', :tag => 'v0.5.0'
   pod 'AlamofireSwiftyJSON'
   pod 'SideMenu'
-  pod 'BGTableViewRowActionWithImage'
-  pod 'MapboxGeocoder.swift', :git => 'https://github.com/mapbox/MapboxGeocoder.swift.git', :tag => 'v0.5.0'
   pod 'MXParallaxHeader'
   pod 'Charts'
 end
