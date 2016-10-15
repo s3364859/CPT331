@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CSVImporter
 import Mapbox
 import MapboxGeocoder
 import SideMenu
@@ -55,6 +54,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     // Used to pass the location to child views
     var lastLocationTapped:Location?
     var lastEventTapped:Event?
+    
+    // Used to prevent map updatesw while panning
+    var mapRegionChanging:Bool=false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,6 +128,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     //      The first will be the cached events in that region
     //      The second will be fetched events from the API
     func update(forEvents events:[Int:Event]) {
+        // Only update map if not already panning
+        guard self.mapRegionChanging == false else {
+            return
+        }
+        
         var annotations = [MGLAnnotation]()
         
         // Remove existing annotations if they exist
@@ -133,7 +140,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
             mapView.removeAnnotations(existing)
         }
         
-        // Build annotations array
+        // Build annotations arrayc
         for (_,event) in events {
             
             // Ensure event has coordinate before adding
@@ -146,9 +153,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
         mapView.addAnnotations(annotations)
     }
     
+    func mapView(mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
+        self.mapRegionChanging = true
+    }
+    
     
     // When map region changes, load events for visible region
     func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+        self.mapRegionChanging = false
         self.viewModel.loadEvents(forMapView: mapView)
     }
     

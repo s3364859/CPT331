@@ -1075,7 +1075,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Event-Annotation" width="25" height="25"/>
+        <image name="Event-Annotation" width="25" height="50"/>
         <image name="Event-Category-Athletics" width="25" height="25"/>
         <image name="Icon-Menu-50" width="50" height="50"/>
         <image name="Icon-Search Filled-50" width="50" height="50"/>
