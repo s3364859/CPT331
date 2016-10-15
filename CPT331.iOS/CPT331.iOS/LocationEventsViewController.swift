@@ -41,11 +41,27 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
             indicator.removeFromSuperview()
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Animate table alpha so it can transition smoothly to subview, this is necessary because a clear color has been specified.
+        // Under normal circumstances, it is expected that the pushed view's background will cover the current view.
+        if animated {
+            UIView.animateWithDuration(0.25, animations: {
+                self.tableView.alpha = 0
+            })
+        }
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Restore the table alpha so that it is visible
+        self.tableView.alpha = 1
+    }
+    
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let events = self.events {

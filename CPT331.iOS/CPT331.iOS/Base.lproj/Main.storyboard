@@ -398,7 +398,7 @@
         <!--Event-->
         <scene sceneID="JeX-Xp-G2s">
             <objects>
-                <viewController storyboardIdentifier="eventViewController" id="cBY-oU-HiQ" customClass="EventViewController" customModule="CPT331_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="eventViewController" extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="cBY-oU-HiQ" customClass="EventViewController" customModule="CPT331_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pxL-c5-mhP"/>
                         <viewControllerLayoutGuide type="bottom" id="ISP-nP-3bu"/>
@@ -407,7 +407,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ti-Mf-pyI" customClass="MXScrollView">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ti-Mf-pyI" customClass="MXScrollView">
                                 <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="46o-vM-P4K">
@@ -609,6 +609,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Event" id="LUa-eJ-Otp"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="calloutButton" destination="dgX-i4-Wg5" id="MYs-eH-Zlm"/>
                         <outlet property="dateView" destination="TX6-1c-tA5" id="h7M-8I-V2w"/>
@@ -1089,6 +1090,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="gV5-8L-EfB"/>
-        <segue reference="bkC-Ni-Ot8"/>
+        <segue reference="OqS-vC-heI"/>
     </inferredMetricsTieBreakers>
 </document>
