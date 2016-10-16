@@ -1,1 +1,1 @@
-﻿../CPT331.Data.Migration.exe -k "ACT,NSW,QLD,NT" -x "ACT,NT,VIC,NSW," 
+"../CPT331.Data.Migration.exe" -k "ACT,NSW,NT,QLD,SA,TAS" -x "ACT,NSW,NT,QLD,SA,TAS,VIC,WA"
