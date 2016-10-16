@@ -7,18 +7,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CPT331.Web.Models.Admin
 {
-	public class OffenceModel : AdminModel
-    {
-        public OffenceModel()
-        {
-        }
+	public class OffenceCategoryModel : AdminModel
+	{
+		public OffenceCategoryModel()
+		{
+		}
 
-		public OffenceModel(string name)
+		public OffenceCategoryModel(string name)
 			: this(DateTime.UtcNow, DateTime.UtcNow, -1, false, true, name)
 		{
 		}
 
-		public OffenceModel(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name)
+		public OffenceCategoryModel(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name)
 		{
 			_dateCreatedUtc = dateCreatedUtc;
 			_dateUpdatedUtc = dateUpdatedUtc;

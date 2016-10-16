@@ -23,6 +23,327 @@ namespace CPT331.Web.Controllers
         }
 
 		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult Crime(int id)
+		{
+			CrimeModel crimeModel = null;
+			Crime crime = CrimeRepository.GetCrimeByID(id);
+
+			if (crime != null)
+			{
+				crimeModel = new CrimeModel
+				(
+					crime.Count,
+					crime.DateCreatedUtc,
+					crime.DateUpdatedUtc,
+					crime.ID,
+					crime.IsDeleted,
+					crime.IsVisible,
+					crime.LocalGovernmentAreaID,
+					crime.Month,
+					crime.OffenceID,
+					crime.Year
+				);
+			}
+
+			return View(crimeModel);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult Crime(CrimeModel crimeModel)
+		{
+			ActionResult actionResult = null;
+
+			if (ModelState.IsValid == true)
+			{
+				if (crimeModel.IsDelete == true)
+				{
+					//	Can't delete them at this time
+				}
+				else
+				{
+					CrimeRepository.UpdateCrime
+					(
+						crimeModel.ID,
+						crimeModel.LocalGovernmentAreaID,
+						crimeModel.OffenceID,
+						crimeModel.Count,
+						crimeModel.Month,
+						crimeModel.Year,
+						crimeModel.IsDeleted,
+						crimeModel.IsVisible
+					);
+				}
+
+				actionResult = RedirectToAction("Offences", "Admin");
+			}
+			else
+			{
+				actionResult = View(crimeModel);
+			}
+
+			return actionResult;
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult Crimes(string sortBy, SortDirection? sortDirection, int? page)
+		{
+			IEnumerable<Crime> crimes = CrimeRepository.GetCrimes();
+
+			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
+			{
+				SortDirection sort = sortDirection.Value;
+
+				switch (sortBy)
+				{
+					case "Date":
+						if (sort == SortDirection.Ascending)
+						{
+							crimes = crimes.OrderBy(m => (m.DateCreatedUtc));	//	.ThenBy(m => (m.Name));
+						}
+						else
+						{
+							crimes = crimes.OrderByDescending(m => (m.DateCreatedUtc));	//	.ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "ID":
+						if (sort == SortDirection.Ascending)
+						{
+							crimes = crimes.OrderBy(m => (m.ID));
+						}
+						else
+						{
+							crimes = crimes.OrderByDescending(m => (m.ID));
+						}
+						break;
+
+					case "IsDeleted":
+						if (sort == SortDirection.Ascending)
+						{
+							crimes = crimes.OrderBy(m => (m.IsDeleted));	//	.ThenBy(m => (m.Name));
+						}
+						else
+						{
+							crimes = crimes.OrderByDescending(m => (m.IsDeleted));	//	.ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "IsVisible":
+						if (sort == SortDirection.Ascending)
+						{
+							crimes = crimes.OrderBy(m => (m.IsVisible));	//	.ThenBy(m => (m.Name));
+						}
+						else
+						{
+							crimes = crimes.OrderByDescending(m => (m.IsVisible));	//	.ThenBy(m => (m.Name));
+						}
+						break;
+
+					//	case "Name":
+					//		if (sort == SortDirection.Ascending)
+					//		{
+					//			crimes = crimes.OrderBy(m => (m.Name));
+					//		}
+					//		else
+					//		{
+					//			crimes = crimes.OrderByDescending(m => (m.Name));
+					//		}
+					//		break;
+				}
+			}
+
+			return View(crimes);
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult LocalGovernmentArea(int id)
+		{
+			LocalGovernmentAreaModel localGovernmentAreaModel = null;
+			LocalGovernmentArea localGovernmentArea = LocalGovernmentAreaRepository.GetLocalGovernmentAreaByID(id);
+
+			if (localGovernmentArea != null)
+			{
+				localGovernmentAreaModel = new LocalGovernmentAreaModel
+				(
+					localGovernmentArea.DateCreatedUtc,
+					localGovernmentArea.DateUpdatedUtc,
+					localGovernmentArea.ID,
+					localGovernmentArea.IsDeleted,
+					localGovernmentArea.IsVisible,
+					localGovernmentArea.Name,
+					localGovernmentArea.StateID
+				);
+			}
+
+			return View(localGovernmentAreaModel);
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult LocalGovernmentArea(LocalGovernmentAreaModel localGovernmentAreaModel)
+		{
+			ActionResult actionResult = null;
+
+			if (ModelState.IsValid == true)
+			{
+				if (localGovernmentAreaModel.IsDelete == true)
+				{
+					//	Can't delete them at this time
+				}
+				else
+				{
+					LocalGovernmentAreaRepository.UpdateLocalGovernmentArea
+					(
+						localGovernmentAreaModel.ID,
+						localGovernmentAreaModel.IsDeleted,
+						localGovernmentAreaModel.IsVisible,
+						localGovernmentAreaModel.Name,
+						localGovernmentAreaModel.StateID
+					);
+				}
+
+				actionResult = RedirectToAction("LocalGovernmentAreas", "Admin");
+			}
+			else
+			{
+				actionResult = View(localGovernmentAreaModel);
+			}
+
+			return actionResult;
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult LocalGovernmentAreas(string sortBy, SortDirection? sortDirection, int? page)
+		{
+			IEnumerable<LocalGovernmentAreaState> localGovernmentAreaStates = LocalGovernmentAreaStateRepository.GetLocalGovernmentAreaStates();
+
+			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
+			{
+				SortDirection sort = sortDirection.Value;
+
+				switch (sortBy)
+				{
+					case "Date":
+						if (sort == SortDirection.Ascending)
+						{
+							localGovernmentAreaStates = localGovernmentAreaStates.OrderBy(m => (m.DateCreatedUtc)).ThenBy(m => (m.StateName)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							localGovernmentAreaStates = localGovernmentAreaStates.OrderByDescending(m => (m.DateCreatedUtc)).ThenBy(m => (m.StateName)).ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "ID":
+						if (sort == SortDirection.Ascending)
+						{
+							localGovernmentAreaStates = localGovernmentAreaStates.OrderBy(m => (m.ID));
+						}
+						else
+						{
+							localGovernmentAreaStates = localGovernmentAreaStates.OrderByDescending(m => (m.ID));
+						}
+						break;
+
+					case "IsDeleted":
+						if (sort == SortDirection.Ascending)
+						{
+							localGovernmentAreaStates = localGovernmentAreaStates.OrderBy(m => (m.IsDeleted)).ThenBy(m => (m.StateName)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							localGovernmentAreaStates = localGovernmentAreaStates.OrderByDescending(m => (m.IsDeleted)).ThenBy(m => (m.StateName)).ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "IsVisible":
+						if (sort == SortDirection.Ascending)
+						{
+							localGovernmentAreaStates = localGovernmentAreaStates.OrderBy(m => (m.IsVisible)).ThenBy(m => (m.StateName)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							localGovernmentAreaStates = localGovernmentAreaStates.OrderByDescending(m => (m.IsVisible)).ThenBy(m => (m.StateName)).ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "Name":
+						if (sort == SortDirection.Ascending)
+						{
+							localGovernmentAreaStates = localGovernmentAreaStates.OrderBy(m => (m.Name)).ThenBy(m => (m.StateName));
+						}
+						else
+						{
+							localGovernmentAreaStates = localGovernmentAreaStates.OrderByDescending(m => (m.Name)).ThenBy(m => (m.StateName));
+						}
+						break;
+
+					case "StateName":
+						if (sort == SortDirection.Ascending)
+						{
+							localGovernmentAreaStates = localGovernmentAreaStates.OrderBy(m => (m.StateName)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							localGovernmentAreaStates = localGovernmentAreaStates.OrderByDescending(m => (m.StateName)).ThenBy(m => (m.Name));
+						}
+						break;
+				}
+			}
+
+			return View(localGovernmentAreaStates);
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult NewCrime()
+		{
+			return View(new CrimeModel());
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult NewCrime(CrimeModel crimeModel)
+		{
+			ActionResult actionResult = null;
+
+			if (ModelState.IsValid == true)
+			{
+				CrimeRepository.AddCrime(crimeModel.Count, crimeModel.LocalGovernmentAreaID, crimeModel.Month, crimeModel.OffenceID, crimeModel.Year);
+
+				actionResult = RedirectToAction("Crimes", "Admin");
+			}
+			else
+			{
+				actionResult = View(crimeModel);
+			}
+
+			return actionResult;
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult NewLocalGovernmentArea()
+		{
+			return View(new LocalGovernmentAreaModel());
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult NewLocalGovernmentArea(LocalGovernmentAreaModel localGovernmentAreaModel)
+		{
+			ActionResult actionResult = null;
+
+			if (ModelState.IsValid == true)
+			{
+				LocalGovernmentAreaRepository.AddLocalGovernmentArea(localGovernmentAreaModel.IsDeleted, localGovernmentAreaModel.IsVisible, localGovernmentAreaModel.Name, localGovernmentAreaModel.StateID);
+
+				actionResult = RedirectToAction("LocalGovernmentAreas", "Admin");
+			}
+			else
+			{
+				actionResult = View(localGovernmentAreaModel);
+			}
+
+			return actionResult;
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
 		public ActionResult NewOffence()
 		{
 			return View(new OffenceModel());
@@ -48,8 +369,58 @@ namespace CPT331.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Offence(int id)
-        {
+		public ActionResult NewOffenceCategory()
+		{
+			return View(new OffenceCategoryModel());
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult NewOffenceCategory(OffenceCategoryModel offenceCategoryModel)
+		{
+			ActionResult actionResult = null;
+
+			if (ModelState.IsValid == true)
+			{
+				OffenceCategoryRepository.AddOffenceCategory(offenceCategoryModel.IsDeleted, offenceCategoryModel.IsVisible, offenceCategoryModel.Name);
+
+				actionResult = RedirectToAction("OffenceCategories", "Admin");
+			}
+			else
+			{
+				actionResult = View(offenceCategoryModel);
+			}
+
+			return actionResult;
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult NewState()
+		{
+			return View(new StateModel());
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult NewState(StateModel stateModel)
+		{
+			ActionResult actionResult = null;
+
+			if (ModelState.IsValid == true)
+			{
+				StateRepository.AddState(stateModel.AbbreviatedName, stateModel.IsDeleted, stateModel.IsVisible, stateModel.Name);
+
+				actionResult = RedirectToAction("States", "Admin");
+			}
+			else
+			{
+				actionResult = View(stateModel);
+			}
+
+			return actionResult;
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult Offence(int id)
+		{
 			OffenceModel offenceModel = null;
 			Offence offence = OffenceRepository.GetOffenceByID(id);
 
@@ -59,33 +430,33 @@ namespace CPT331.Web.Controllers
 			}
 
 			return View(offenceModel);
-        }
+		}
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Offence(OffenceModel offenceModel)
-        {
-            ActionResult actionResult = null;
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult Offence(OffenceModel offenceModel)
+		{
+			ActionResult actionResult = null;
 
-            if (ModelState.IsValid == true)
-            {
-                if (offenceModel.IsDelete == true)
+			if (ModelState.IsValid == true)
+			{
+				if (offenceModel.IsDelete == true)
 				{
 					//	Can't delete them at this time
-                }
-                else
-                {
+				}
+				else
+				{
 					OffenceRepository.UpdateOffence(offenceModel.ID, offenceModel.IsDeleted, offenceModel.IsVisible, offenceModel.Name);
-                }
+				}
 
-                actionResult = RedirectToAction("Offences", "Admin");
-            }
-            else
-            {
-                actionResult = View(offenceModel);
-            }
+				actionResult = RedirectToAction("Offences", "Admin");
+			}
+			else
+			{
+				actionResult = View(offenceModel);
+			}
 
-            return actionResult;
-        }
+			return actionResult;
+		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
 		public ActionResult Offences(string sortBy, SortDirection? sortDirection, int? page)
@@ -159,28 +530,114 @@ namespace CPT331.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult NewState()
+		public ActionResult OffenceCategory(int id)
 		{
-			return View(new StateModel());
+			OffenceCategoryModel offenceCategoryModel = null;
+			OffenceCategory offenceCategory = OffenceCategoryRepository.GetOffenceCategoryByID(id);
+
+			if (offenceCategory != null)
+			{
+				offenceCategoryModel = new OffenceCategoryModel(offenceCategory.DateCreatedUtc, offenceCategory.DateUpdatedUtc, offenceCategory.ID, offenceCategory.IsDeleted, offenceCategory.IsVisible, offenceCategory.Name);
+			}
+
+			return View(offenceCategoryModel);
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult NewState(StateModel stateModel)
+		public ActionResult OffenceCategory(OffenceCategoryModel offenceCategoryModel)
 		{
 			ActionResult actionResult = null;
 
 			if (ModelState.IsValid == true)
 			{
-				StateRepository.AddState(stateModel.AbbreviatedName, stateModel.IsDeleted, stateModel.IsVisible, stateModel.Name);
+				if (offenceCategoryModel.IsDelete == true)
+				{
+					//	Can't delete them at this time
+				}
+				else
+				{
+					OffenceCategoryRepository.UpdateOffenceCategory(offenceCategoryModel.ID, offenceCategoryModel.IsDeleted, offenceCategoryModel.IsVisible, offenceCategoryModel.Name);
+				}
 
-				actionResult = RedirectToAction("States", "Admin");
+				actionResult = RedirectToAction("OffenceCategories", "Admin");
 			}
 			else
 			{
-				actionResult = View(stateModel);
+				actionResult = View(offenceCategoryModel);
 			}
 
 			return actionResult;
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult OffenceCategories(string sortBy, SortDirection? sortDirection, int? page)
+		{
+			IEnumerable<OffenceCategory> offenceCategories = OffenceCategoryRepository.GetOffenceCategories();
+
+			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
+			{
+				SortDirection sort = sortDirection.Value;
+
+				switch (sortBy)
+				{
+					case "Date":
+						if (sort == SortDirection.Ascending)
+						{
+							offenceCategories = offenceCategories.OrderBy(m => (m.DateCreatedUtc)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							offenceCategories = offenceCategories.OrderByDescending(m => (m.DateCreatedUtc)).ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "ID":
+						if (sort == SortDirection.Ascending)
+						{
+							offenceCategories = offenceCategories.OrderBy(m => (m.ID));
+						}
+						else
+						{
+							offenceCategories = offenceCategories.OrderByDescending(m => (m.ID));
+						}
+						break;
+
+					case "IsDeleted":
+						if (sort == SortDirection.Ascending)
+						{
+							offenceCategories = offenceCategories.OrderBy(m => (m.IsDeleted)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							offenceCategories = offenceCategories.OrderByDescending(m => (m.IsDeleted)).ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "IsVisible":
+						if (sort == SortDirection.Ascending)
+						{
+							offenceCategories = offenceCategories.OrderBy(m => (m.IsVisible)).ThenBy(m => (m.Name));
+						}
+						else
+						{
+							offenceCategories = offenceCategories.OrderByDescending(m => (m.IsVisible)).ThenBy(m => (m.Name));
+						}
+						break;
+
+					case "Name":
+						if (sort == SortDirection.Ascending)
+						{
+							offenceCategories = offenceCategories.OrderBy(m => (m.Name));
+						}
+						else
+						{
+							offenceCategories = offenceCategories.OrderByDescending(m => (m.Name));
+						}
+						break;
+				}
+			}
+
+			return View(offenceCategories);
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
