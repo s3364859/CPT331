@@ -438,8 +438,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
         
         let placemark = self.searchResults[indexPath.row]
         
-        // Update search bar text to use suburb names
-        self.searchTextField.text = placemark.name
+        // Clear search bar text
+        self.searchTextField.text = ""
         self.searchTextField.resignFirstResponder()
         self.searchQueryDidChange(self.searchTextField)
         
