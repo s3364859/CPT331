@@ -4,11 +4,13 @@
 @model IEnumerable<State>
 
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "States | Admin";
 }
 
+<br />
 <h1>@Html.ActionLink("Home", "Home", "Admin") | States</h1>
+<hr /><br />
 
 <p>@Html.ActionLink("New State", "NewState", "Admin")</p>
 

@@ -155,11 +155,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account\UserModel.cs" />
     <Compile Include="Models\Admin\AdminModel.cs" />
     <Compile Include="Models\Admin\StateModel.cs" />
     <Compile Include="Models\Admin\OffenceModel.cs" />
@@ -172,6 +174,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\Event.png" />
+    <Content Include="Content\Images\Icon-App.png" />
+    <Content Include="Content\Images\key.png" />
+    <Content Include="Content\Images\Logo.png" />
+    <Content Include="Content\Images\Map.png" />
+    <Content Include="Content\Images\states.png" />
+    <Content Include="Content\Images\Weather Forecast.png" />
     <Content Include="Content\Version1.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

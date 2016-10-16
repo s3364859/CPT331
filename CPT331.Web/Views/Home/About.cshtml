@@ -1,7 +1,17 @@
 ﻿@{
-    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
+<br/>
 <h3>@ViewBag.Message</h3>
+<br />
+<hr/>
+<br/><br/><br/>
+<img id="map" alt="interactive_map" src="@Url.Content("~/Content/Images/Map.png")"/>
+<h3>The markers on the interactive map indicate known events in the area.</h3>
+<br/><br/>
+<img id="map" alt="interactive_map" src="@Url.Content("~/Content/Images/states.png")"/>
+<h3>The user can toggle a visual representation of a state's crime data.</h3>
+<br/><br/>
+<img id="map" alt="interactive_map" src="@Url.Content("~/Content/Images/Weather Forecast.png")" />
+<h3>Weather forecasts are provided for the events.</h3>
 
-<p>Use this area to provide additional information.</p>

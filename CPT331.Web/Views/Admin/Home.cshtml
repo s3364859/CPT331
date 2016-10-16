@@ -1,11 +1,12 @@
 ﻿@{
-	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 	ViewBag.Title = "CPT331 Administation | Home";
 }
 
-<h1>Administration</h1>
-
+<br/>
+<h1>CPT331 Database Administration</h1>
+<hr/><br/>
 <ul>
-<li>@Html.ActionLink("Offences", "Offences")</li>
-<li>@Html.ActionLink("States", "States")</li>
+    <li><h4>@Html.ActionLink("Edit/Add/Delete from the Offences table", "Offences")</h4></li>
+    <li><h4>@Html.ActionLink("Edit/Add/Delete from the States table", "States")</h4></li>
 </ul>

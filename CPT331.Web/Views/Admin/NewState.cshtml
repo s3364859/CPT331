@@ -3,11 +3,13 @@
 @model StateModel
 
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "States | New State";
 }
 
+<br />
 <h1>@Html.ActionLink("Home", "Home", "Admin") | New State</h1>
+<hr /><br />
 
 @using (Html.BeginForm())
 {

@@ -10,20 +10,21 @@ namespace CPT331.Web.Controllers
 	{
 		public ActionResult Home()
 		{
-			return View();
+            ViewBag.Title = "Home";
+            return View();
 		}
 
 		public ActionResult About()
 		{
-			ViewBag.Message = "Your application description page.";
-
+            ViewBag.Title = "About";
+            ViewBag.Message = "(Additional information...)";
 			return View();
 		}
 
 		public ActionResult Contact()
 		{
-			ViewBag.Message = "Your contact page.";
-
+            ViewBag.Title = "Contact";
+			ViewBag.Message = "Contact information of one of our group members here?";
 			return View();
 		}
 	}
