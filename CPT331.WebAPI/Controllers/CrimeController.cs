@@ -10,6 +10,8 @@ using CPT331.Core.Extensions;
 using CPT331.Core.ObjectModel;
 using CPT331.Data;
 using CPT331.WebAPI.Models;
+using System.Net.Http;
+using System.Net;
 
 #endregion
 
@@ -48,41 +50,50 @@ namespace CPT331.WebAPI.Controllers
 		[Route("api/Crime/CrimesByCoordinate")]
 		public CrimeByCoordinateModel CrimesByCoordinate(double latitude, double longitude, int count = DefaultNumberOfCrimeRecords, string sortBy = "", SortDirection? sortDirection = null)
 		{
-			List<CrimeByCoordinate> crimeByCoordinates = CrimeRepository.GetCrimesByCoordinate(latitude, longitude);
+            CrimeByCoordinateModel crimeByCoordinateModel = null;
+            Coordinate coord;
+            if (!Coordinate.TryCoordinate(latitude, longitude, out coord))
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest)
+                    {
+                        Content = new StringContent("Invalid Coordindates"),
+                    });
+            }
+            List<CrimeByCoordinate> crimeByCoordinates = CrimeRepository.GetCrimesByCoordinate(latitude, longitude);
 
-			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
-			{
-				crimeByCoordinates = SortCrimeByCoordinates(crimeByCoordinates, sortBy, sortDirection).ToList();
-			}
+            if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
+            {
+                crimeByCoordinates = SortCrimeByCoordinates(crimeByCoordinates, sortBy, sortDirection).ToList();
+            }
 
-			CrimeByCoordinateModel crimeByCoordinateModel = null;
-			Dictionary<string, double> offenceValues = new Dictionary<string, double>();
+            Dictionary<string, double> offenceValues = new Dictionary<string, double>();
+            if(crimeByCoordinates.Count > 0)
+            { 
+                crimeByCoordinates.ForEach(m => offenceValues.Add(m.OffenceName, m.OffenceCount));
 
-			crimeByCoordinates.ForEach(m => offenceValues.Add(m.OffenceName, m.OffenceCount));
+                int beginYear = crimeByCoordinates.Min(m => (m.BeginYear));
+                int endYear = crimeByCoordinates.Max(m => (m.EndYear));
+                string localGovernmentAreaName = crimeByCoordinates.Select(m => (m.LocalGovernmentAreaName)).FirstOrDefault();
+                double total = offenceValues.Sum(m => (m.Value));
 
-			int beginYear = crimeByCoordinates.Min(m => (m.BeginYear));
-			int endYear = crimeByCoordinates.Max(m => (m.EndYear));
-			string localGovernmentAreaName = crimeByCoordinates.Select(m => (m.LocalGovernmentAreaName)).FirstOrDefault();
-			double total = offenceValues.Sum(m => (m.Value));
+                for (int i = 0; i < offenceValues.Count; i++)
+                {
+                    string key = offenceValues.Keys.ElementAt(i);
 
-			for (int i = 0; i < offenceValues.Count; i++)
-			{
-				string key = offenceValues.Keys.ElementAt(i);
+                    offenceValues[key] /= total;
+                }
 
-				offenceValues[key] /= total;
-			}
+                List<OffenceModel> offenceModels = offenceValues
+                    .OrderByDescending(m => (m.Value))
+                    .Take(count)
+                    .Select(m => new OffenceModel(m.Key, m.Value)).ToList();
 
-			List<OffenceModel> offenceModels = offenceValues
-				.OrderByDescending(m => (m.Value))
-				.Take(count)
-				.Select(m => new OffenceModel(m.Key, m.Value)).ToList();
+                total = offenceModels.Sum(m => (m.Value));
+                offenceModels.Add(new OffenceModel(OtherCrimesName, (1 - total)));
 
-			total = offenceModels.Sum(m => (m.Value));
-			offenceModels.Add(new OffenceModel(OtherCrimesName, (1 - total)));
-
-			crimeByCoordinateModel = new CrimeByCoordinateModel(beginYear, endYear, localGovernmentAreaName, offenceModels);
-
-			return crimeByCoordinateModel;
+                crimeByCoordinateModel = new CrimeByCoordinateModel(beginYear, endYear, localGovernmentAreaName, offenceModels);
+            }
+            return crimeByCoordinateModel;
 		}
 
 		private static IEnumerable<CrimeByCoordinate> SortCrimeByCoordinates(IEnumerable<CrimeByCoordinate> crimeByCoordinates, string sortBy, SortDirection? sortDirection)

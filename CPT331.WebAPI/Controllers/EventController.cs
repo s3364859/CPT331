@@ -9,6 +9,8 @@ using System.Web.UI.WebControls;
 using CPT331.Core.ObjectModel;
 using CPT331.Data;
 using CPT331.WebAPI.Models;
+using System.Net.Http;
+using System.Net;
 
 #endregion
 
@@ -33,7 +35,16 @@ namespace CPT331.WebAPI.Controllers
 		[Route("api/Event/EventsByCoordinate")]
 		public IEnumerable<EventModel> EventsByCoordinate(double latitude, double longitude, double radius, string sortBy = "", SortDirection? sortDirection = null)
 		{
-			IEnumerable<EventInfo> events = EventRepository.GetEventsByCoordinate(latitude, longitude, radius);
+            // TODO: Sort out code clone between Event and Crime controller.
+            Coordinate coord;
+            if (!Coordinate.TryCoordinate(latitude, longitude, out coord))
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("Invalid Coordindates"),
+                });
+            }
+            IEnumerable<EventInfo> events = EventRepository.GetEventsByCoordinate(latitude, longitude, radius);
 			IEnumerable<EventModel> eventModels = events.Select(m => ToEventModel(m));
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
