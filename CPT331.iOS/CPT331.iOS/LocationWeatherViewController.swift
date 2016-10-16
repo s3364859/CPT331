@@ -24,6 +24,13 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
     
     @IBOutlet weak var predictionCollectionView: UICollectionView!
     @IBOutlet weak var predictionsHeightConstraint: NSLayoutConstraint?
+    @IBOutlet weak var attributionButton: UIButton!
+    @IBAction func attributionButtonTapped(sender: AnyObject) {
+        if let url = NSURL(string: "https://darksky.net/poweredby/") {
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
     
     // Loaded from async api call
     var weatherData: WeatherDataCollection?
