@@ -163,6 +163,10 @@
     </Compile>
     <Compile Include="Models\Account\UserModel.cs" />
     <Compile Include="Models\Admin\AdminModel.cs" />
+    <Compile Include="Models\Admin\CrimeModel.cs" />
+    <Compile Include="Models\Admin\LocalGovernmentAreaModel.cs" />
+    <Compile Include="Models\Admin\LocalGovernmentAreaStateModel.cs" />
+    <Compile Include="Models\Admin\OffenceCategoryModel.cs" />
     <Compile Include="Models\Admin\StateModel.cs" />
     <Compile Include="Models\Admin\OffenceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -261,6 +265,14 @@
     <Content Include="Views\Admin\State.cshtml" />
     <Content Include="Views\Admin\States.cshtml" />
     <Content Include="Views\Admin\StatesPartial.cshtml" />
+    <Content Include="Views\Admin\LocalGovernmentAreas.cshtml" />
+    <Content Include="Views\Admin\LocalGovernmentAreasPartial.cshtml" />
+    <Content Include="Views\Admin\LocalGovernmentArea.cshtml" />
+    <Content Include="Views\Admin\NewLocalGovernmentArea.cshtml" />
+    <Content Include="Views\Admin\NewOffenceCategory.cshtml" />
+    <Content Include="Views\Admin\OffenceCategory.cshtml" />
+    <Content Include="Views\Admin\OffenceCategories.cshtml" />
+    <Content Include="Views\Admin\OffenceCategoriesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

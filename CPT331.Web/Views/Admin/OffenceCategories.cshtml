@@ -1,0 +1,16 @@
+﻿@using CPT331.Core.ObjectModel
+
+@model IEnumerable<OffenceCategory>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "OffenceCategories | Admin";
+}
+
+<br />
+<h1>@Html.ActionLink("Home", "Home", "Admin") | Offences</h1>
+<hr /><br />
+
+<p>@Html.ActionLink("New Offence Category", "NewOffenceCategory", "Admin")</p>
+
+@Html.Partial("OffenceCategoriesPartial", Model)

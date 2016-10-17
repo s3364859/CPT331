@@ -6,14 +6,14 @@ using System;
 
 namespace CPT331.Core.ObjectModel
 {
-	public class Offence
+	public class OffenceCategory
 	{
-		public Offence(int id, string name)
+		public OffenceCategory(int id, string name)
 			: this(DateTime.UtcNow, DateTime.UtcNow, id, false, true, name)
 		{
 		}
 
-		public Offence(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name)
+		public OffenceCategory(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name)
 		{
 			_dateCreatedUtc = dateCreatedUtc;
 			_dateUpdatedUtc = dateUpdatedUtc;
@@ -98,18 +98,18 @@ namespace CPT331.Core.ObjectModel
 		public override bool Equals(object value)
 		{
 			bool equals = false;
-			Offence offence = value as Offence;
+			OffenceCategory offenceCategory = value as OffenceCategory;
 
-			if (offence != null)
+			if (offenceCategory != null)
 			{
 				equals =
 				(
-					(_dateCreatedUtc == offence._dateCreatedUtc) &&
-					(_dateUpdatedUtc == offence._dateUpdatedUtc) &&
-					(_id == offence._id) &&
-					(_isDeleted == offence._isDeleted) &&
-					(_isVisible == offence._isDeleted) &&
-					(_name == offence._name)
+					(_dateCreatedUtc == offenceCategory._dateCreatedUtc) &&
+					(_dateUpdatedUtc == offenceCategory._dateUpdatedUtc) &&
+					(_id == offenceCategory._id) &&
+					(_isDeleted == offenceCategory._isDeleted) &&
+					(_isVisible == offenceCategory._isDeleted) &&
+					(_name == offenceCategory._name)
 				);
 			}
 

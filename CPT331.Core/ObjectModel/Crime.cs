@@ -1,6 +1,7 @@
 ﻿#region Using References
 
 using System;
+using System.Text;
 
 #endregion
 
@@ -161,6 +162,22 @@ namespace CPT331.Core.ObjectModel
 			}
 
 			return equals;
+		}
+
+		public override string ToString()
+		{
+			StringBuilder stringBuilder = new StringBuilder();
+
+			stringBuilder.Append($"{_count}");
+
+			if ((_year > 0) && (_month > 0))
+			{
+				DateTime dateTime = new DateTime(_year, _month, 1);
+
+				stringBuilder.Append($" ({dateTime.ToString("MMM yyyy")})");
+			}
+
+			return stringBuilder.ToString();
 		}
 	}
 }

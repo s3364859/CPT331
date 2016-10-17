@@ -60,5 +60,49 @@ namespace CPT331.Data
 
 			return crimeByCoordinates;
 		}
+
+		public static List<Crime> GetCrimes()
+		{
+			List<Crime> crimes = null;
+
+			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+			{
+				crimes = SqlMapper
+					.Query(sqlConnection, "Crime.spGetCrime", commandType: CommandType.StoredProcedure)
+					.Select(m => new Crime
+					(
+						m.Count,
+						m.DdateCreatedUtc,
+						m.DateUpdatedUtc,
+						m.Id,
+						m.IsDeleted,
+						m.IsVisible,
+						m.LocalGovernmentAreaID,
+						m.Month,
+						m.OffenceID,
+						m.Year
+					))
+					.ToList();
+			}
+
+			return crimes;
+		}
+
+		public static void UpdateCrime(int id, int localGovernmentAreaID, int offenceID, int count, int month, int year, bool isDeleted, bool isVisible)
+		{
+			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
+			{
+				SqlMapper.Execute(sqlConnection, "Crime.spUpdateCrime", new
+				{
+					ID = id,
+					Count = count,
+					Month = month,
+					Year = year,
+					IsDeleted = isDeleted,
+					IsVisible = isVisible,
+				},
+				commandType: CommandType.StoredProcedure);
+			}
+		}
 	}
 }

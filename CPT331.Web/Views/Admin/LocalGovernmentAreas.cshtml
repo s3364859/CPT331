@@ -1,0 +1,16 @@
+﻿@using CPT331.Core.ObjectModel
+
+@model IEnumerable<LocalGovernmentAreaState>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Local Government Areas | Admin";
+}
+
+<br/>
+<h1>@Html.ActionLink("Home", "Home", "Admin") | Local Government Areas</h1>
+<hr /><br />
+
+<p>@Html.ActionLink("New Local Government Area", "NewLocalGovernmentArea", "Admin")</p>
+
+@Html.Partial("LocalGovernmentAreasPartial", Model)

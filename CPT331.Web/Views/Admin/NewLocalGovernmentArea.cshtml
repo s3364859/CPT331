@@ -1,0 +1,47 @@
+﻿@using CPT331.Web.Models.Admin
+
+@model LocalGovernmentAreaModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Local Government Areas | New Local Government Area";
+}
+
+<br/>
+<h1>@Html.ActionLink("Home", "Home", "Admin") | New Local Government Areas</h1>
+<hr /><br />
+
+@using (Html.BeginForm())
+{
+<table cellpadding="3" cellspacing="0" border="0" width="100%">
+
+<tr>
+<td width="100">* @Html.LabelFor(m => m.Name)</td>
+<td>
+@Html.TextBoxFor(m => m.Name, new { size = 50 })
+@Html.ValidationMessageFor(m => m.Name)
+</td>
+</tr>
+
+<tr>
+<td width="100">* @Html.LabelFor(m => m.StateID)</td>
+<td>
+@Html.DropDownListFor(m => m.StateID, Model.States)
+@Html.ValidationMessageFor(m => m.StateID)
+</td>
+</tr>
+
+<tr>
+<td width="150">* @Html.LabelFor(m => m.IsVisible)</td>
+<td>@Html.CheckBoxFor(m => m.IsVisible)</td>
+</tr>
+
+<tr>
+<td width="100">&nbsp;</td>
+<td><input type="submit" value="Save" /></td>
+</tr>
+
+</table>
+}
+
+<p>&nbsp;</p>

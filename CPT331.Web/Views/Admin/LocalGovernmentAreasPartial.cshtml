@@ -1,0 +1,64 @@
+﻿@using CPT331.Core.ObjectModel
+
+@model IEnumerable<LocalGovernmentAreaState>
+
+@{
+    SortDirection sortDirection = ((Request.QueryString["SortDirection"] == "Ascending") ? SortDirection.Descending : SortDirection.Ascending);
+    string sortBy = "";
+
+    if (Request.QueryString["SortBy"] != null)
+    {
+        sortBy = Request.QueryString["SortBy"];
+    }
+
+    int pageSize = 50;
+    int currentPage = 0, pages = 0, previousPage = 0, nextPage = 0, startIndex = 0;
+
+    if (Model != null)
+    {
+        pages = (Model.Count() / pageSize) + 1;
+        currentPage = ((Request.QueryString["Page"] != null) ? Convert.ToInt32(Request.QueryString["Page"]) : 1);
+        previousPage = ((currentPage - 1) > 1) ? (currentPage - 1) : 1;
+        nextPage = ((currentPage + 1) <= pages) ? (currentPage + 1) : pages;
+        startIndex = (currentPage * pageSize) - pageSize;
+    }
+}
+
+<br />
+
+<table cellpadding="3" cellspacing="0" border="0" width="100%" class="AdminTable">
+
+<tr>
+<td>@Html.ActionLink("<< Previous", "LocalGovernmentAreas", "Admin", new { Page = previousPage }, null)</td>
+<td colspan="4">&nbsp;</td>
+<td align="right">@Html.ActionLink("Next >>", "LocalGovernmentAreas", "Admin", new { Page = nextPage }, null)</td>
+</tr>
+
+<tr>
+<td colspan="6">&nbsp;</td>
+</tr>
+
+<tr>
+<td><strong>@Html.ActionLink("ID", "LocalGovernmentAreas", "Admin", new { @SortBy = "ID", @SortDirection = sortDirection }, new { @class = (sortBy == "ID" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Name", "LocalGovernmentAreas", "Admin", new { @SortBy = "Name", @SortDirection = sortDirection }, new { @class = (sortBy == "Name" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("State", "LocalGovernmentAreas", "Admin", new { @SortBy = "StateName", @SortDirection = sortDirection }, new { @class = (sortBy == "StateName" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Date", "LocalGovernmentAreas", "Admin", new { @SortBy = "Date", @SortDirection = sortDirection }, new { @class = (sortBy == "Date" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Visible", "LocalGovernmentAreas", "Admin", new { @SortBy = "Visible", @SortDirection = sortDirection }, new { @class = (sortBy == "Visible" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Deleted", "LocalGovernmentAreas", "Admin", new { @SortBy = "Deleted", @SortDirection = sortDirection }, new { @class = (sortBy == "Deleted" ? "Orange" : "BoneD") })</strong></td>
+</tr>
+
+@{
+    foreach (LocalGovernmentAreaState localGovernmentAreaState in Model.Skip(startIndex).Take(pageSize))
+    {
+<tr>
+<td>@localGovernmentAreaState.ID</td>
+<td>@Html.ActionLink(localGovernmentAreaState.Name, "LocalGovernmentArea", "Admin", new { ID = localGovernmentAreaState.ID }, null)&nbsp;</td>
+<td>@Html.ActionLink(localGovernmentAreaState.StateName, "State", "Admin", new { ID = localGovernmentAreaState.StateID }, null)&nbsp;</td>
+<td>@localGovernmentAreaState.DateUpdatedUtc.ToString("dd MMM yyyy HH:mm")</td>
+<td>@localGovernmentAreaState.IsVisible</td>
+<td>@localGovernmentAreaState.IsDeleted</td>
+</tr>
+    }
+}
+
+</table>
