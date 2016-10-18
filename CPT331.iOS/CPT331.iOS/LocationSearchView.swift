@@ -15,23 +15,25 @@ protocol LocationSearchDelegate {
     func getUserLocation() -> CLLocation?
 }
 
-@IBDesignable class LocationSearchView: UIView, UITableViewDataSource, UITableViewDelegate {
+@IBDesignable class LocationSearchView: UIView, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
     // -----------------------------
     // MARK: Constants
     // -----------------------------
     internal var NIB_NAME = "LocationSearchView"
     internal var DEFAULT_RESULT_HEIGHT:CGFloat = 50
+    internal var BUTTON_COLOR = UIColor(red: 164/255, green: 164/255, blue: 164/255, alpha: 1)
+    internal var BUTTON_COLOR_SELECTED = UIColor(red: 66/255, green: 151/255, blue: 221/255, alpha: 1)
     
     
     
     // -----------------------------
     // MARK: Runtime Variables
     // -----------------------------
+    internal var _resultHeight:CGFloat!
     var delegate:LocationSearchDelegate?
     var searchResults = [GeocodedPlacemark]()
     var searchQuery:String?
-    internal var _resultHeight:CGFloat!
     
     
     
@@ -45,7 +47,7 @@ protocol LocationSearchDelegate {
     
     // Search Bar
     @IBOutlet weak var menuButton: UIButton!
-    @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var textField: UITextField!
     
     // Search Results
@@ -63,6 +65,17 @@ protocol LocationSearchDelegate {
     @IBAction func menuButtonTapped(sender: AnyObject) {
         self.delegate?.menuButtonTapped(self.menuButton)
     }
+    
+    @IBAction func searchButtonTapped(sender: AnyObject) {
+        if self.textField.isFirstResponder() {
+            self.textField.resignFirstResponder()
+        } else {
+            self.textField.becomeFirstResponder()
+        }
+    }
+    
+    
+    
     
     
     // -----------------------------
@@ -139,6 +152,10 @@ protocol LocationSearchDelegate {
         self.view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         super.addSubview(self.view)
         
+        // Setup search field
+        self.textField.delegate = self
+        self.searchButton.tintColor = self.BUTTON_COLOR
+        
         // Setup serach results table
         self.searchResultsView.hidden = true
         self.tableView.backgroundColor = .clearColor()
@@ -180,6 +197,14 @@ protocol LocationSearchDelegate {
     // -----------------------------
     // MARK: Search Functionality
     // -----------------------------
+    func textFieldDidBeginEditing(textField: UITextField) {
+        self.searchButton.tintColor = self.BUTTON_COLOR_SELECTED
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        self.searchButton.tintColor = self.BUTTON_COLOR
+    }
+    
     func searchQueryDidChange(textField:UITextField) {
         if let query = textField.text {
             let userLocation = self.delegate?.getUserLocation()

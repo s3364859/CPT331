@@ -14,11 +14,11 @@
                 <outlet property="searchBarRightMargin" destination="oL7-Ns-qKC" id="XVV-gW-3L0"/>
                 <outlet property="searchBarTopMargin" destination="aZH-Rf-xPD" id="Snr-oo-vSi"/>
                 <outlet property="searchBarView" destination="mQ4-kA-XG6" id="yv2-Pb-0L1"/>
+                <outlet property="searchButton" destination="6Ag-Re-UC5" id="6js-Bx-KiR"/>
                 <outlet property="searchResultsHeight" destination="AY4-z7-ekU" id="GYS-8H-Ru5"/>
                 <outlet property="searchResultsMarginBottom" destination="NGw-an-RC6" id="w6M-1z-F2b"/>
                 <outlet property="searchResultsMarginTop" destination="1I2-EX-iY0" id="3mV-fb-6SR"/>
                 <outlet property="searchResultsView" destination="tos-Cy-FKE" id="tTo-QZ-Ycg"/>
-                <outlet property="submitButton" destination="6Ag-Re-UC5" id="d1g-7X-YCj"/>
                 <outlet property="tableView" destination="vWM-5X-NMF" id="6CS-co-Dhb"/>
                 <outlet property="textField" destination="OS1-Ic-tUa" id="eqm-es-V8R"/>
                 <outlet property="view" destination="iN0-l3-epB" id="feE-zb-0aW"/>
@@ -35,11 +35,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="580" height="45"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZo-fC-JPX">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZo-fC-JPX">
                                 <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="SZo-fC-JPX" secondAttribute="height" multiplier="1:1" id="kT6-dp-DG8"/>
                                 </constraints>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                                 <inset key="titleEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                                 <state key="normal" title="Menu" image="Icon-Menu-50"/>
@@ -59,14 +60,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                             </textField>
-                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ag-Re-UC5">
-                                <rect key="frame" x="535" y="0.0" width="45" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ag-Re-UC5">
+                                <rect key="frame" x="535" y="-0.5" width="45" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="6Ag-Re-UC5" secondAttribute="height" multiplier="1:1" id="CYq-bg-Luh"/>
                                 </constraints>
-                                <color key="tintColor" red="0.25699629709999999" green="0.59367995389999995" blue="0.86666667460000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="contentEdgeInsets" minX="12" minY="12" maxX="12" maxY="12"/>
-                                <state key="normal" title="Go" image="Icon-Search Filled-50"/>
+                                <state key="normal" image="Icon-Search Filled-50"/>
+                                <connections>
+                                    <action selector="searchButtonTapped:" destination="-1" eventType="touchUpInside" id="0im-1r-hIe"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
