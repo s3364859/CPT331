@@ -7,18 +7,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CPT331.Web.Models.Admin
 {
-	public class OffenceModel : AdminModel
-    {
-        public OffenceModel()
-        {
-        }
-
-		public OffenceModel(string name)
-			: this(DateTime.UtcNow, DateTime.UtcNow, -1, false, true, name)
+	public class LocalGovernmentAreaModel : AdminModel
+	{
+		public LocalGovernmentAreaModel()
 		{
 		}
 
-		public OffenceModel(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name)
+		public LocalGovernmentAreaModel(int id, string name, int stateID)
+			: this(DateTime.UtcNow, DateTime.UtcNow, id, false, true, name, stateID)
+		{
+		}
+
+		public LocalGovernmentAreaModel(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name, int stateID)
 		{
 			_dateCreatedUtc = dateCreatedUtc;
 			_dateUpdatedUtc = dateUpdatedUtc;
@@ -26,6 +26,7 @@ namespace CPT331.Web.Models.Admin
 			_isDeleted = isDeleted;
 			_isVisible = isVisible;
 			_name = name;
+			_stateID = stateID;
 		}
 
 		private DateTime _dateCreatedUtc;
@@ -34,6 +35,7 @@ namespace CPT331.Web.Models.Admin
 		private bool _isDeleted;
 		private bool _isVisible;
 		private string _name;
+		private int _stateID;
 
 		[DataType(DataType.Text)]
 		[Display(Name = "Date Created")]
@@ -119,6 +121,21 @@ namespace CPT331.Web.Models.Admin
 			set
 			{
 				_name = value;
+			}
+		}
+
+		[DataType(DataType.Text)]
+		[Display(Name = "State")]
+		[Required(ErrorMessage = "*")]
+		public int StateID
+		{
+			get
+			{
+				return _stateID;
+			}
+			set
+			{
+				_stateID = value;
 			}
 		}
 	}

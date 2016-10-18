@@ -1,0 +1,44 @@
+﻿@using CPT331.Web.Models.Admin
+
+@model OffenceCategoryModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Offence Categories | Offence Category";
+}
+
+<h1>@Html.ActionLink("Home", "Home", "Admin") | Offence Category</h1>
+
+@using (Html.BeginForm())
+{
+<table cellpadding="3" cellspacing="0" border="0" width="100%">
+
+<tr>
+<td width="100">* @Html.LabelFor(m => m.Name)</td>
+<td>
+@Html.TextBoxFor(m => m.Name, new { size = 50 })
+@Html.ValidationMessageFor(m => m.Name)
+</td>
+</tr>
+
+<tr>
+<td width="150">* @Html.LabelFor(m => m.IsDeleted)</td>
+<td>@Html.CheckBoxFor(m => m.IsDeleted)</td>
+</tr>
+
+<tr>
+<td width="150">* @Html.LabelFor(m => m.IsVisible)</td>
+<td>@Html.CheckBoxFor(m => m.IsVisible)</td>
+</tr>
+
+@Html.HiddenFor(m => m.ID)
+
+<tr>
+<td width="100">&nbsp;</td>
+<td><input type="submit" value="Save" /></td>
+</tr>
+
+</table>
+}
+
+<p>&nbsp;</p>

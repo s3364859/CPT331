@@ -5,7 +5,7 @@
 
 AS
 
-DECLARE @@Location GEOGRAPHY = (geography::Point(@Longitude, @Latitude, 4326))
+DECLARE @@Location GEOGRAPHY = (geography::Point(@Latitude, @Longitude, 4326))
 
 SELECT
 	Crime.Crime.OffenceID,
