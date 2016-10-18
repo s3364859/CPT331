@@ -68,4 +68,13 @@ extension MGLMapView {
             self.setCenterCoordinate(coordinate, animated: animated)
         }
     }
+    
+    
+    func visiblePointFeatures(atGestureLocation gesture:UIGestureRecognizer) -> [MGLPointFeature] {
+        if let pointFeatures = (self.visibleFeatures(at: gesture.locationInView(self)).filter{$0 is MGLPointFeature}) as? [MGLPointFeature] {
+            return pointFeatures
+        } else {
+            return [MGLPointFeature]()
+        }
+    }
 }

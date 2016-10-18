@@ -10,7 +10,7 @@ import UIKit
 import Mapbox
 
 protocol MapViewModelDelegate {
-    func update(forEvents events:[Int:Event])
+    func showAnnotations(forEvents events:[Int:Event])
 }
 
 class MapViewModel {
@@ -21,7 +21,7 @@ class MapViewModel {
     func loadEvents(forMapView mapView: MGLMapView) {
         
         // Trigger map update for current cached events
-        self.delegate?.update(forEvents: EventManager.sharedInstance.getEventsFromCache(withinBounds: mapView.visibleCoordinateBounds))
+        self.delegate?.showAnnotations(forEvents: EventManager.sharedInstance.getEventsFromCache(withinBounds: mapView.visibleCoordinateBounds))
         
         // Calcualte radius
         let radius = self.getRadius(fromCoordinateBounds: mapView.visibleCoordinateBounds)
@@ -37,7 +37,7 @@ class MapViewModel {
                 fetchedEvents += cachedEvents
                 
                 // Trigger map update for cached events
-                self.delegate?.update(forEvents: fetchedEvents)
+                self.delegate?.showAnnotations(forEvents: fetchedEvents)
             }
         }
     }
