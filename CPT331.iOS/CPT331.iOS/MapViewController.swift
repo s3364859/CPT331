@@ -8,6 +8,7 @@
 
 import UIKit
 import Mapbox
+import SideMenu
 
 class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDelegate, UIGestureRecognizerDelegate, LocationSearchDelegate {
     
@@ -54,6 +55,12 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Setup the sidebar menu
+        let menu = UISideMenuNavigationController()
+        menu.leftSide = true
+        SideMenuManager.menuFadeStatusBar = false
+        SideMenuManager.menuLeftNavigationController = menu
+        
         // Setup map
         self.mapView.delegate = self
         self.viewModel.delegate = self
@@ -80,7 +87,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     }
     
     func menuButtonTapped(button: UIButton) {
-        print("Menu button tapped!")
+        self.performSegueWithIdentifier("showMenu", sender: nil)
     }
     
     func getUserLocation() -> CLLocation? {

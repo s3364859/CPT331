@@ -8,7 +8,6 @@
 
 import UIKit
 import MapboxGeocoder
-import SideMenu
 
 protocol LocationSearchDelegate {
     func menuButtonTapped(button:UIButton)
@@ -61,6 +60,9 @@ protocol LocationSearchDelegate {
     @IBOutlet weak var searchResultsMarginTop: NSLayoutConstraint!
     @IBOutlet weak var searchResultsMarginBottom: NSLayoutConstraint!
     
+    @IBAction func menuButtonTapped(sender: AnyObject) {
+        self.delegate?.menuButtonTapped(self.menuButton)
+    }
     
     
     // -----------------------------
@@ -136,12 +138,6 @@ protocol LocationSearchDelegate {
         self.view.frame = bounds
         self.view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         super.addSubview(self.view)
-        
-        // Setup the sidebar menu
-        let menu = UISideMenuNavigationController()
-        menu.leftSide = true
-        SideMenuManager.menuFadeStatusBar = false
-        SideMenuManager.menuLeftNavigationController = menu
         
         // Setup serach results table
         self.searchResultsView.hidden = true
