@@ -35,9 +35,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     // -----------------------------
     let searchResultSelectZoom:Double = 12.5
     let annotationImage = UIImage(named: "Event-Annotation.png")
-    let panOffsets:(top:CGFloat, bottom:CGFloat) = (
+    let centerOffsets:CoordinateOffset = (
         top: 85, // Search bar
-        bottom: 400 // Subview
+        right: 0,
+        bottom: 400, // Subview
+        left: 0
     )
     
     
@@ -117,12 +119,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     }
     
     func locationSelected(location:Location) {
-        self.panMapView(
-            toCoordinate: location.coordinate,
-            zoomLevel: self.searchResultSelectZoom,
-            useOffsets: true,
-            animated: true
-        )
+        self.mapView.setCenterCoordinate(location.coordinate, zoomLevel: self.searchResultSelectZoom, animated: true, withOffset: self.centerOffsets)
         
         // Show the selected location in subview
         self.lastLocationTapped = location
@@ -220,65 +217,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
      *         Map Interactivity         *
      * --------------------------------- */
     
-    // Returns an offset coordinate, taking into account top and bottom margins
-    func getOffsetCoordinate(coordinate: CLLocationCoordinate2D) -> CLLocationCoordinate2D? {
-        // Height of the map frame (in points)
-        let mapHeight = self.mapView.frame.height
-        
-        // The region which is still visible (in between search bar and subview)
-        let visibleRegion = mapHeight - (self.panOffsets.top + self.panOffsets.bottom)
-        
-        // If there is sufficient vertical space, offset coordinate so that it is centered in the visible region
-        if visibleRegion > 0 {
-            let relativeOffset = (self.panOffsets.top + (visibleRegion/2)) / mapHeight
-            
-            let bounds = self.mapView.visibleCoordinateBounds
-            let northLatitude = bounds.ne.latitude
-            let southLatitude = bounds.sw.latitude
-            
-            let offsetLatitude = coordinate.latitude + ((southLatitude - northLatitude) * Double(relativeOffset))
-            
-            // Update coordinate with the modified object
-            return CLLocationCoordinate2D(latitude: offsetLatitude, longitude: coordinate.longitude)
-            
-        } else {
-            return nil
-        }
-    }
-    
-    // Note: Animations will not be performed if zoom level has been provided
-    func panMapView(toCoordinate coordinate:CLLocationCoordinate2D, zoomLevel:Double?=nil, useOffsets:Bool=true, animated:Bool=true) {
-
-        // Use zoom level if provided
-        if zoomLevel != nil {
-            
-            // First pan to the actual location with zoomlevel
-            self.mapView.setCenterCoordinate(coordinate, zoomLevel: zoomLevel!, direction: self.mapView.direction, animated: false, completionHandler: {
-                
-                // If useOffsets has been requested, pan again to factor in offset
-                // This operation is performed separately because it's difficult to simultanously offset and zoom
-                if useOffsets {
-                    self.panMapView(toCoordinate: coordinate, zoomLevel: nil, useOffsets: useOffsets, animated: false)
-                }
-            })
-        
-        // Else, pan the map without zooming
-        } else {
-            // Get offset coordinate if possible
-            var coordinate = coordinate
-            if useOffsets, let offsetCoordinate = self.getOffsetCoordinate(coordinate) {
-                coordinate = offsetCoordinate
-            }
-            
-            self.mapView.setCenterCoordinate(coordinate, animated: animated)
-        }
-    }
-    
     // Requests the location view to be shown when called
     func locationLabelTapped(location:Location) {
         if location.shouldShowDetails {
             self.lastLocationTapped = location
-            self.panMapView(toCoordinate: location.coordinate)
+            
+            
+            self.mapView.setCenterCoordinate(location.coordinate, animated: true, withOffset: self.centerOffsets)
             self.performSegueWithIdentifier("showLocationView", sender: nil)
         }
     }
@@ -288,7 +233,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
         self.lastEventTapped = event
         
         if event.coordinate != nil {
-            self.panMapView(toCoordinate: event.coordinate!)
+            self.mapView.setCenterCoordinate(event.coordinate!, animated: true, withOffset: self.centerOffsets)
         }
         
         self.performSegueWithIdentifier("showEventView", sender: nil)

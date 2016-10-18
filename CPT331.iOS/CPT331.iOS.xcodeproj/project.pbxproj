@@ -26,6 +26,7 @@
 		D0628AEA1DB5B78000334E1A /* LocationSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0628AE91DB5B78000334E1A /* LocationSearchView.swift */; };
 		D0628AEC1DB5B7A000334E1A /* LocationSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0628AEB1DB5B7A000334E1A /* LocationSearchView.xib */; };
 		D0628AF21DB5D41600334E1A /* LocationListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0628AF11DB5D41600334E1A /* LocationListCell.xib */; };
+		D0628AF41DB5EDF500334E1A /* MGLMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0628AF31DB5EDF500334E1A /* MGLMapView.swift */; };
 		D0630E4A1D92243900200606 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E491D92243900200606 /* EventManager.swift */; };
 		D0630E4C1D92243D00200606 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E4B1D92243D00200606 /* String.swift */; };
 		D0630E501D92466F00200606 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E4F1D92466F00200606 /* NSDate.swift */; };
@@ -112,6 +113,7 @@
 		D0628AE91DB5B78000334E1A /* LocationSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchView.swift; sourceTree = "<group>"; };
 		D0628AEB1DB5B7A000334E1A /* LocationSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationSearchView.xib; sourceTree = "<group>"; };
 		D0628AF11DB5D41600334E1A /* LocationListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationListCell.xib; sourceTree = "<group>"; };
+		D0628AF31DB5EDF500334E1A /* MGLMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGLMapView.swift; sourceTree = "<group>"; };
 		D0630E491D92243900200606 /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		D0630E4B1D92243D00200606 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D0630E4F1D92466F00200606 /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				D0CA27111DADF94300217875 /* Dictionary.swift */,
 				D08BFF321D900810001B89B6 /* Double.swift */,
 				D04580EB1DAA2AD8002DC89F /* GeocodedPlacemark.swift */,
+				D0628AF31DB5EDF500334E1A /* MGLMapView.swift */,
 				D0630E4F1D92466F00200606 /* NSDate.swift */,
 				D06EC6051DAC8A9100626F6C /* NSDateComponents.swift */,
 				D0630E4B1D92243D00200606 /* String.swift */,
@@ -623,6 +626,7 @@
 				D04532501DA4B26800345DC3 /* WeatherData.swift in Sources */,
 				D06740B91DA4CC8B00E87E0B /* WeatherDataCurrent.swift in Sources */,
 				D0CA270D1DADD60900217875 /* MapViewModel.swift in Sources */,
+				D0628AF41DB5EDF500334E1A /* MGLMapView.swift in Sources */,
 				D0630E4C1D92243D00200606 /* String.swift in Sources */,
 				D04259A91DA627B70019103E /* WeatherStatView.swift in Sources */,
 				D0AD35DE1DA9150100EA3013 /* EventSubcategory.swift in Sources */,
