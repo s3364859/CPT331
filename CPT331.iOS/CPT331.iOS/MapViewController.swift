@@ -14,7 +14,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     // -----------------------------
     // MARK: Constants
     // -----------------------------
-    let searchResultSelectZoom:Double = 12.5
+    let selectionZoomLevel:Double = 12.5
     let annotationImage = UIImage(named: "Event-Annotation.png")
     let centerOffsets:CoordinateOffset = (
         top: 85, // Search bar
@@ -79,11 +79,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
-    // -----------------------------
-    // MARK: LocationSearchDelegate
-    // -----------------------------
     func menuButtonTapped(button: UIButton) {
         print("Menu button tapped!")
     }
@@ -92,19 +87,32 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
         return self.mapView.userLocation?.location
     }
     
-    func locationSelected(location:Location) {
+    func selectLocation(location:Location, pan:Bool=true, zoom:Bool=true) {
+        if pan && zoom {
+            self.mapView.setCenterCoordinate(location.coordinate, zoomLevel: self.selectionZoomLevel, animated: true, withOffset: self.centerOffsets)
+        } else if pan {
+            self.mapView.setCenterCoordinate(location.coordinate, zoomLevel: nil, animated: true, withOffset: self.centerOffsets)
+        }
+        
         self.lastLocationTapped = location
-        self.mapView.setCenterCoordinate(location.coordinate, zoomLevel: self.searchResultSelectZoom, animated: true, withOffset: self.centerOffsets)
         self.performSegueWithIdentifier("showLocationView", sender: nil)
     }
     
-    func eventSelected(event:Event) {
+    func selectEvent(event:Event, pan:Bool=true, zoom:Bool=true) {
         guard let coordinate = event.coordinate else {
             return
         }
         
-        self.lastEventTapped = event
+        if pan && zoom {
+            self.mapView.setCenterCoordinate(coordinate, zoomLevel: self.selectionZoomLevel, animated: true, withOffset: self.centerOffsets)
+        } else if pan {
+            self.mapView.setCenterCoordinate(coordinate, zoomLevel: nil, animated: true, withOffset: self.centerOffsets)
+        }
+        
         self.mapView.setCenterCoordinate(coordinate, animated: true, withOffset: self.centerOffsets)
+        
+        
+        self.lastEventTapped = event
         self.performSegueWithIdentifier("showEventView", sender: nil)
     }
     
@@ -188,7 +196,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     // Annotation responder
     func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
         if let event = (annotation as? EventPointFeature)?.event {
-            self.eventSelected(event)
+            self.selectEvent(event, zoom:false)
         }
     }
     
@@ -225,7 +233,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
             if let type = feature.attributeForKey("type") as? String {
                 // Convert object to make it easier to work with
                 let location = Location(name: name, type: type, coordinate: feature.coordinate)
-                self.locationSelected(location)
+                self.selectLocation(location, zoom:false)
             }
         }
     }

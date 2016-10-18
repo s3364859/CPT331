@@ -44,8 +44,8 @@ extension MGLMapView {
     // Note: Animations will not be performed if zoom level has been provided
     func setCenterCoordinate(centerCoordiante:CLLocationCoordinate2D, zoomLevel:Double?=nil, animated:Bool, withOffset offset:CoordinateOffset?) {
 
-        // Use zoom level if provided
-        if zoomLevel != nil {
+        // Use zoom level if provided and is different
+        if zoomLevel != nil && zoomLevel != self.zoomLevel {
             
             // First pan to the actual location with zoomlevel
             self.setCenterCoordinate(centerCoordiante, zoomLevel: zoomLevel!, direction: self.direction, animated: false, completionHandler: {
@@ -53,7 +53,7 @@ extension MGLMapView {
                 // If useOffsets has been requested, pan again to factor in offset
                 // This operation is performed separately because it's difficult to simultanously offset and zoom
                 if offset != nil {
-                    self.setCenterCoordinate(centerCoordiante, zoomLevel: nil, animated: animated, withOffset: offset)
+                    self.setCenterCoordinate(centerCoordiante, zoomLevel: nil, animated: false, withOffset: offset)
                 }
             })
             

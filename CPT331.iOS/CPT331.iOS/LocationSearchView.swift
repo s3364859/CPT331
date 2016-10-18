@@ -12,7 +12,7 @@ import SideMenu
 
 protocol LocationSearchDelegate {
     func menuButtonTapped(button:UIButton)
-    func locationSelected(location:Location)
+    func selectLocation(location:Location, pan:Bool, zoom:Bool)
     func getUserLocation() -> CLLocation?
 }
 
@@ -295,6 +295,6 @@ protocol LocationSearchDelegate {
         self.searchQueryDidChange(self.textField)
         
         // Pass data back to parent view
-        self.delegate?.locationSelected(placemark.asLocation)
+        self.delegate?.selectLocation(placemark.asLocation, pan: true, zoom: true)
     }
 }

@@ -22,8 +22,8 @@ class CrimeManager: JSONAPI {
     
     func getCrimeData(atCoordinate coordinate: CLLocationCoordinate2D, completion: (CrimeDataCollection?) -> ()) {
         let parameters:[String:AnyObject] = [
-            "latitude": coordinate.longitude,
-            "longitude": coordinate.latitude
+            "latitude": coordinate.latitude,
+            "longitude": coordinate.longitude
         ]
         
         super.fetchJSON(self.ENDPOINT, parameters: parameters) { json in
