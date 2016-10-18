@@ -31,8 +31,8 @@ namespace CPT331.Data.Parsers
 
 			XmlNode qldXmlNode = xmlDocument.SelectSingleNode("/Workbook/Worksheet/Table/Row[position() = 1]");
 
-			State qldState = StateRepository.GetStateByAbbreviatedName(QLD);
-			List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(qldState.ID);
+			State state = StateRepository.GetStateByAbbreviatedName(QLD);
+			List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(state.ID);
 			Dictionary<string, Offence> offences = new Dictionary<string, Offence>();
 			OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));
 

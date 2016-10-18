@@ -60,6 +60,33 @@ namespace CPT331.Data.Migration.Migrations
 						.NotNullable()
 						.WithDefault(SystemMethods.CurrentUTCDateTime);
 
+			Create.Table("OffenceCategory")
+				.InSchema("Crime")
+					.WithColumn("ID")
+						.AsInt32()
+						.NotNullable()
+						.Identity()
+						.PrimaryKey()
+					.WithColumn("Name")
+						.AsAnsiString(100)
+						.NotNullable()
+					.WithColumn("IsDeleted")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(false)
+					.WithColumn("IsVisible")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(true)
+					.WithColumn("DateCreatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime)
+					.WithColumn("DateUpdatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime);
+
 			Create.Table("Offence")
 				.InSchema("Crime")
 					.WithColumn("ID")
@@ -120,20 +147,29 @@ namespace CPT331.Data.Migration.Migrations
 			//	Tables
 			Execute.EmbeddedScript("Location.LocalGovernmentArea.sql");
 
+			//	Views
+			Execute.EmbeddedScript("Location.LocalGovernmentAreaState.sql");
+
 			//	Indicies
 			Execute.EmbeddedScript("Crime.Crime.Indicies.sql");
 
 			//	Stored Procedures
 			Execute.EmbeddedScript("Crime.spAddCrime.sql");
 			Execute.EmbeddedScript("Crime.spAddOffence.sql");
+			Execute.EmbeddedScript("Crime.spAddOffenceCategory.sql");
 			Execute.EmbeddedScript("Crime.spGetCrimeByID.sql");
 			Execute.EmbeddedScript("Crime.spGetCrimesByCoordinate.sql");
 			Execute.EmbeddedScript("Crime.spGetOffence.sql");
 			Execute.EmbeddedScript("Crime.spGetOffenceByID.sql");
+			Execute.EmbeddedScript("Crime.spGetOffenceCategory.sql");
+			Execute.EmbeddedScript("Crime.spGetOffenceCategoryByID.sql");
+			Execute.EmbeddedScript("Crime.spUpdateCrime.sql");
 			Execute.EmbeddedScript("Crime.spUpdateOffence.sql");
+			Execute.EmbeddedScript("Crime.spUpdateOffenceCategory.sql");
 			Execute.EmbeddedScript("Location.spAddLocalGovernmentArea.sql");
 			Execute.EmbeddedScript("Location.spAddState.sql");
 			Execute.EmbeddedScript("Location.spGetLocalGovernmentArea.sql");
+			Execute.EmbeddedScript("Location.spGetLocalGovernmentAreaState.sql");
 			Execute.EmbeddedScript("Location.spGetLocalGovernmentAreaByID.sql");
 			Execute.EmbeddedScript("Location.spGetLocalGovernmentAreasByStateID.sql");
 			Execute.EmbeddedScript("Location.spGetState.sql");

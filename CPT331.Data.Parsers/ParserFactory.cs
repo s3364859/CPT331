@@ -13,7 +13,10 @@ namespace CPT331.Data.Parsers
 			ActKmlParser.ACT,
 			NswKmlParser.NSW,
 			NtKmlParser.NT,
-			QldKmlParser.QLD
+			QldKmlParser.QLD,
+			SaKmlParser.SA,
+			TasKmlParser.TAS,
+			VicKmlParser.VIC
 		};
 
 		public static string[] SupportedXmlParserNames =
@@ -22,7 +25,10 @@ namespace CPT331.Data.Parsers
 			NswXmlParser.NSW,
 			NtXmlParser.NT,
 			QldXmlParser.QLD,
-			VicXmlParser.VIC
+			SaXmlParser.SA,
+			TasXmlParser.TAS,
+			VicXmlParser.VIC,
+			WaXmlParser.WA
 		};
 
 		public static KmlParser NewKmlParser(string dataSourceDirectory, string name)
@@ -45,6 +51,18 @@ namespace CPT331.Data.Parsers
 
 				case QldKmlParser.QLD:
 					parser = new QldKmlParser(dataSourceDirectory);
+					break;
+
+				case SaKmlParser.SA:
+					parser = new SaKmlParser(dataSourceDirectory);
+					break;
+
+				case TasKmlParser.TAS:
+					parser = new TasKmlParser(dataSourceDirectory);
+					break;
+
+				case VicKmlParser.VIC:
+					parser = new VicKmlParser(dataSourceDirectory);
 					break;
 			}
 
@@ -73,8 +91,20 @@ namespace CPT331.Data.Parsers
 					parser = new QldXmlParser(dataSourceDirectory);
 					break;
 
+				case SaXmlParser.SA:
+					parser = new SaXmlParser(dataSourceDirectory);
+					break;
+
+				case TasXmlParser.TAS:
+					parser = new TasXmlParser(dataSourceDirectory);
+					break;
+
 				case VicXmlParser.VIC:
 					parser = new VicXmlParser(dataSourceDirectory);
+					break;
+
+				case WaXmlParser.WA:
+					parser = new WaXmlParser(dataSourceDirectory);
 					break;
 			}
 

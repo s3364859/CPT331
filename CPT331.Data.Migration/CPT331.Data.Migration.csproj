@@ -66,6 +66,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\Crime.spUpdateOffenceCategory.sql" />
+    <EmbeddedResource Include="Migrations\Crime.spGetOffenceCategoryByID.sql" />
+    <EmbeddedResource Include="Migrations\Crime.spGetOffenceCategory.sql" />
+    <EmbeddedResource Include="Migrations\Crime.spAddOffenceCategory.sql" />
+    <EmbeddedResource Include="Migrations\Location.spGetLocalGovernmentAreaState.sql" />
+    <EmbeddedResource Include="Migrations\Location.LocalGovernmentAreaState.sql" />
+    <EmbeddedResource Include="Migrations\Crime.spGetCrime.sql" />
+    <EmbeddedResource Include="Migrations\Crime.spUpdateCrime.sql" />
     <EmbeddedResource Include="Migrations\Location.LocalGovernmentArea.sql" />
     <None Include="App.config">
       <SubType>Designer</SubType>
