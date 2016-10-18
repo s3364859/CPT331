@@ -23,6 +23,9 @@
 		D04F33A91D8E619500103669 /* CPT331_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33A81D8E619500103669 /* CPT331_iOSTests.swift */; };
 		D04F33B41D8E619500103669 /* CPT331_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33B31D8E619500103669 /* CPT331_iOSUITests.swift */; };
 		D04F33E91D8E65E700103669 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F33E81D8E65E700103669 /* AppDelegate.swift */; };
+		D0628AEA1DB5B78000334E1A /* LocationSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0628AE91DB5B78000334E1A /* LocationSearchView.swift */; };
+		D0628AEC1DB5B7A000334E1A /* LocationSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0628AEB1DB5B7A000334E1A /* LocationSearchView.xib */; };
+		D0628AF21DB5D41600334E1A /* LocationListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0628AF11DB5D41600334E1A /* LocationListCell.xib */; };
 		D0630E4A1D92243900200606 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E491D92243900200606 /* EventManager.swift */; };
 		D0630E4C1D92243D00200606 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E4B1D92243D00200606 /* String.swift */; };
 		D0630E501D92466F00200606 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0630E4F1D92466F00200606 /* NSDate.swift */; };
@@ -106,6 +109,9 @@
 		D04F33B51D8E619500103669 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D04F33E81D8E65E700103669 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D04F33EA1D8E65EE00103669 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0628AE91DB5B78000334E1A /* LocationSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchView.swift; sourceTree = "<group>"; };
+		D0628AEB1DB5B7A000334E1A /* LocationSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationSearchView.xib; sourceTree = "<group>"; };
+		D0628AF11DB5D41600334E1A /* LocationListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationListCell.xib; sourceTree = "<group>"; };
 		D0630E491D92243900200606 /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		D0630E4B1D92243D00200606 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D0630E4F1D92466F00200606 /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
@@ -186,7 +192,6 @@
 		D04259A11DA624500019103E /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				D08BFF3A1D900846001B89B6 /* LocationListCell.swift */,
 				D04259A61DA627950019103E /* WeatherStatView.xib */,
 				D04259A81DA627B70019103E /* WeatherStatView.swift */,
 				D09BB52F1DA6694500438289 /* WeatherPredictionView.xib */,
@@ -300,6 +305,7 @@
 		D04F33D51D8E641900103669 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D0628AE81DB5B72700334E1A /* Components */,
 				D0FB9EFA1DA7502800848C11 /* Modal Views */,
 				D080C2851D93C8110071BB43 /* EventPointFeature.swift */,
 				D08BFF3C1D900846001B89B6 /* MenuViewController.swift */,
@@ -307,6 +313,17 @@
 				D08857881D90E62600790857 /* ModalViewController.swift */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D0628AE81DB5B72700334E1A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D0628AF11DB5D41600334E1A /* LocationListCell.xib */,
+				D08BFF3A1D900846001B89B6 /* LocationListCell.swift */,
+				D0628AEB1DB5B7A000334E1A /* LocationSearchView.xib */,
+				D0628AE91DB5B78000334E1A /* LocationSearchView.swift */,
+			);
+			name = Components;
 			sourceTree = "<group>";
 		};
 		D0630E581D93060400200606 /* Model */ = {
@@ -499,8 +516,10 @@
 			files = (
 				D08BFF411D900851001B89B6 /* Assets.xcassets in Resources */,
 				D06EC6021DAC6FDE00626F6C /* EventDataView.xib in Resources */,
+				D0628AF21DB5D41600334E1A /* LocationListCell.xib in Resources */,
 				D08BFF471D900899001B89B6 /* LaunchScreen.storyboard in Resources */,
 				D08BFF441D900893001B89B6 /* Main.storyboard in Resources */,
+				D0628AEC1DB5B7A000334E1A /* LocationSearchView.xib in Resources */,
 				D09BB5301DA6694500438289 /* WeatherPredictionView.xib in Resources */,
 				D04259A71DA627950019103E /* WeatherStatView.xib in Resources */,
 			);
@@ -577,6 +596,7 @@
 			files = (
 				D097BDA11DA76E4F004B1AB0 /* UIView.swift in Sources */,
 				D088578B1D91106100790857 /* LocationEventsViewController.swift in Sources */,
+				D0628AEA1DB5B78000334E1A /* LocationSearchView.swift in Sources */,
 				D09BB5321DA6699400438289 /* WeatherPredictionView.swift in Sources */,
 				D0630E5A1D93072A00200606 /* Location.swift in Sources */,
 				D08BFF3F1D900846001B89B6 /* MenuViewController.swift in Sources */,
