@@ -8,18 +8,22 @@
 
 import UIKit
 
-class LocationEventsViewController: LocationViewController, UITableViewDataSource, UITableViewDelegate {
+class LocationEventsViewController: LocationViewController, UITableViewDataSource, UITableViewDelegate, EventsViewModelDelegate {
 
     let ROW_HEIGHT:CGFloat = 54
+    let SEARCH_RADIUS:Double = 10
     
     @IBOutlet weak var tableView: UITableView!
     
-    // Fetched from API - will be nil until loaded
+    var viewModel:LocationViewModel!
+    
+    // Fetched from LocationViewModel
     var events: [Event]?
+    
+    var indicator:UIActivityIndicatorView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationItem.setTitle(self.location.name, subtitle: "Nearby Events - X (Y km)")
 
         // Do any additional setup after loading the view.
         self.tableView.dataSource = self
@@ -28,18 +32,11 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         self.tableView.backgroundColor = .clearColor()
         self.tableView.tableFooterView = UIView()
         
-        let indicator = self.view.showLoadingIndicator()
+        self.indicator = self.view.showLoadingIndicator()
         
-        EventManager.sharedInstance.getEventsFromAPI(atCoordinate: self.location.coordinate, withinRadius: 20) { (events) in
-            self.events = events?.map{$0.1}
-            
-            // Execute table reload on main thread
-            dispatch_async(dispatch_get_main_queue(), { 
-                self.tableView.reloadData()
-            })
-            
-            indicator.removeFromSuperview()
-        }
+        self.viewModel = LocationViewModel(location: self.location)
+        self.viewModel.delegate = self
+        self.viewModel.loadEvents(withinRadius: self.SEARCH_RADIUS, useCache:true)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -60,6 +57,19 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         // Restore the table alpha so that it is visible
         self.tableView.alpha = 1
     }
+    
+    
+    func showEvents(events: [Int : Event]) {
+        
+        // Execute table reload on main thread
+        dispatch_async(dispatch_get_main_queue(), {
+            self.events = events.map{$0.1}
+            self.tableView.reloadData()
+        })
+        
+        self.indicator?.removeFromSuperview()
+    }
+    
     
     
     

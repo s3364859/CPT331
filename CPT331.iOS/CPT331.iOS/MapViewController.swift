@@ -29,7 +29,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     // -----------------------------
     // MARK: Runtime Variables
     // -----------------------------
-    var viewModel:EventsViewModel = EventsViewModel()
+    var viewModel:MapViewModel!
     
     // Stores the most recently tapped location label
     // Used to pass the location to child views
@@ -63,6 +63,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
         
         // Setup map
         self.mapView.delegate = self
+        self.viewModel = MapViewModel(mapView: self.mapView)
         self.viewModel.delegate = self
         
         // Setup search
@@ -124,13 +125,24 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showLocationView", let location = self.lastLocationTapped {
-            let vc = segue.destinationViewController as! ModalViewController
-            vc.location = location
+        if let vc = segue.destinationViewController as? ModalViewController, let identifier = segue.identifier {
             
-        } else if segue.identifier == "showEventView", let event = self.lastEventTapped {
-            let vc = segue.destinationViewController as! ModalViewController
-            vc.event = event
+            switch identifier {
+            case "showLocationView":
+                vc.location = self.lastLocationTapped
+            case "showEventView":
+                vc.event = self.lastEventTapped
+            default:
+                ()
+            }
+            
+            // Prevent map from updating while ModalViewController is visible
+            // Updating map markers is expensive, it will cause event list view to stutter if not disabled
+            self.viewModel.delegate = nil
+            vc.onDisappear = {
+                self.viewModel.delegate = self
+                self.viewModel.loadEvents(useCache: true, useAPI: false)
+            }
         }
     }
     
@@ -197,7 +209,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     // When map region changes, load events for visible region
     func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
         self.mapRegionIsChanging = false
-        self.viewModel.loadEvents(forMapView: mapView)
+        self.viewModel.loadEvents(useCache:true)
     }
     
     // Annotation responder

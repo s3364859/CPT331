@@ -18,46 +18,13 @@ class EventsViewModel {
     
     init() {}
     
-    func loadEvents(forMapView mapView: MGLMapView, withWhitelist whitelist:[EventCategory]?=nil, useCache:Bool=true, useAPI:Bool=true) {
-        if useCache {
-            // Trigger map update for current cached events
-            var cachedEvents = EventManager.sharedInstance.getEventsFromCache(withinBounds: mapView.visibleCoordinateBounds)
-            if whitelist != nil {
-                self.filterEvents(&cachedEvents, withWhitelist: whitelist!)
-            }
-            
-            self.delegate?.showEvents(cachedEvents)
+    internal func filterEvents(inout events:[Int:Event], withWhitelist whitelist:[EventCategory]?) {
+        guard whitelist != nil else {
+            return
         }
         
-        
-        if useAPI {
-            // Fetch events from API
-            let radius = self.getRadius(fromCoordinateBounds: mapView.visibleCoordinateBounds)
-            EventManager.sharedInstance.getEventsFromAPI(atCoordinate: mapView.centerCoordinate, withinRadius: radius) { events in
-                guard var events = events else {
-                    return
-                }
-                
-                if useCache {
-                    // Fetch current events from cache
-                    let cachedEvents = EventManager.sharedInstance.getEventsFromCache(withinBounds: mapView.visibleCoordinateBounds)
-                    
-                    // Merge cached events into events dictionary
-                    events += cachedEvents
-                }
-                
-                if whitelist != nil {
-                    self.filterEvents(&events, withWhitelist: whitelist!)
-                }
-                
-                self.delegate?.showEvents(events)
-            }
-        }
-    }
-    
-    internal func filterEvents(inout events:[Int:Event], withWhitelist whitelist:[EventCategory]) {
         for (id,event) in events {
-            if !whitelist.contains(event.category) {
+            if whitelist!.contains(event.category) == false {
                 events.removeValueForKey(id)
             }
         }

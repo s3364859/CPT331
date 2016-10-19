@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		12820A3CE771C3A4F7A0AF35 /* Pods_CPT331_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D85FF1DE398821AC03BBCA /* Pods_CPT331_iOS.framework */; };
+		D037F2931DB72B74008B512D /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D037F2921DB72B74008B512D /* MapViewModel.swift */; };
+		D037F2951DB72B85008B512D /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D037F2941DB72B85008B512D /* LocationViewModel.swift */; };
 		D04259A71DA627950019103E /* WeatherStatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04259A61DA627950019103E /* WeatherStatView.xib */; };
 		D04259A91DA627B70019103E /* WeatherStatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04259A81DA627B70019103E /* WeatherStatView.swift */; };
 		D04259AB1DA6416F0019103E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04259AA1DA6416F0019103E /* UIImage.swift */; };
@@ -89,6 +91,8 @@
 /* Begin PBXFileReference section */
 		48D85FF1DE398821AC03BBCA /* Pods_CPT331_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPT331_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE2ACB0AEC3BCDD3ECBCC99C /* Pods-CPT331.iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPT331.iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CPT331.iOS/Pods-CPT331.iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		D037F2921DB72B74008B512D /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		D037F2941DB72B85008B512D /* LocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		D04259A61DA627950019103E /* WeatherStatView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherStatView.xib; sourceTree = "<group>"; };
 		D04259A81DA627B70019103E /* WeatherStatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherStatView.swift; sourceTree = "<group>"; };
 		D04259AA1DA6416F0019103E /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -367,6 +371,8 @@
 			isa = PBXGroup;
 			children = (
 				D0CA270C1DADD60900217875 /* EventsViewModel.swift */,
+				D037F2921DB72B74008B512D /* MapViewModel.swift */,
+				D037F2941DB72B85008B512D /* LocationViewModel.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -622,12 +628,14 @@
 				D0CA271A1DAF4FA700217875 /* CrimeDataCollection.swift in Sources */,
 				D080C2841D93C3A90071BB43 /* EventViewController.swift in Sources */,
 				D097BDA31DA7747F004B1AB0 /* EventNavigationController.swift in Sources */,
+				D037F2951DB72B85008B512D /* LocationViewModel.swift in Sources */,
 				D0630E501D92466F00200606 /* NSDate.swift in Sources */,
 				D04532501DA4B26800345DC3 /* WeatherData.swift in Sources */,
 				D06740B91DA4CC8B00E87E0B /* WeatherDataCurrent.swift in Sources */,
 				D0CA270D1DADD60900217875 /* EventsViewModel.swift in Sources */,
 				D0628AF41DB5EDF500334E1A /* MGLMapView.swift in Sources */,
 				D0630E4C1D92243D00200606 /* String.swift in Sources */,
+				D037F2931DB72B74008B512D /* MapViewModel.swift in Sources */,
 				D04259A91DA627B70019103E /* WeatherStatView.swift in Sources */,
 				D0AD35DE1DA9150100EA3013 /* EventSubcategory.swift in Sources */,
 				D045324C1DA4A45400345DC3 /* WeatherCategory.swift in Sources */,

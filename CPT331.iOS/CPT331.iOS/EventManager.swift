@@ -33,10 +33,8 @@ class EventManager: JSONAPI {
     
     
     
-    // Synchronously fetch events from cache
+    // Synchronously fetch events from cache using map bounds
     func getEventsFromCache(withinBounds bounds: MGLCoordinateBounds) -> [Int:Event] {
-        let startTime:CFTimeInterval = CACurrentMediaTime();
-        // Benchmark: START ---------------------------------
         
         var filtered = [Int:Event]()
         for (_,cachedEvent) in self.eventCache {
@@ -45,8 +43,21 @@ class EventManager: JSONAPI {
             }
         }
         
-        // Benchmark: END -----------------------------------
-        print(String(format: "Cache Request: %g ms", (CACurrentMediaTime() - startTime)*1000));
+        return filtered
+    }
+    
+    // Synchronously fetch events from cache using coordiante
+    // Radius units: kilometers
+    func getEventsFromCache(atCoordinate coordinate:CLLocationCoordinate2D, withinRadius radius:Double) -> [Int:Event] {
+        // convert to meters
+        let radius = radius * 1000
+        
+        var filtered = [Int:Event]()
+        for (_,cachedEvent) in self.eventCache {
+            if cachedEvent.coordinate?.distanceFrom(coordinate) <= radius {
+                filtered[cachedEvent.id] = cachedEvent
+            }
+        }
         
         return filtered
     }
@@ -54,6 +65,7 @@ class EventManager: JSONAPI {
     
     
     // Asynchronously fetch events from API
+    // Radius units: kilometers
     func getEventsFromAPI(atCoordinate coordinate: CLLocationCoordinate2D, withinRadius radius:Double, completion: ([Int:Event]?) -> ()) {
         let startTime:CFTimeInterval = CACurrentMediaTime();
         // Benchmark: START ---------------------------------

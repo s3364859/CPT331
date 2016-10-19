@@ -32,6 +32,9 @@ class ModalViewController: UIViewController, UIGestureRecognizerDelegate {
     var location:Location?
     var event:Event?
     
+    // Completion handler to be executed when the view hides
+    var onDisappear: (() -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,6 +64,12 @@ class ModalViewController: UIViewController, UIGestureRecognizerDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("Invoking onDisappear")
+        self.onDisappear?()
     }
     
     func toggleSubview(type:ModalViewType) {
