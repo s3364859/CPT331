@@ -13,12 +13,12 @@
                 <outlet property="searchBarLeftMargin" destination="MnX-4U-9tg" id="HBm-eu-VZE"/>
                 <outlet property="searchBarRightMargin" destination="oL7-Ns-qKC" id="XVV-gW-3L0"/>
                 <outlet property="searchBarTopMargin" destination="aZH-Rf-xPD" id="Snr-oo-vSi"/>
-                <outlet property="searchBarView" destination="mQ4-kA-XG6" id="yv2-Pb-0L1"/>
+                <outlet property="searchBarView" destination="mQ4-kA-XG6" id="uSa-Vv-0yO"/>
                 <outlet property="searchButton" destination="6Ag-Re-UC5" id="6js-Bx-KiR"/>
                 <outlet property="searchResultsHeight" destination="AY4-z7-ekU" id="GYS-8H-Ru5"/>
                 <outlet property="searchResultsMarginBottom" destination="NGw-an-RC6" id="w6M-1z-F2b"/>
                 <outlet property="searchResultsMarginTop" destination="1I2-EX-iY0" id="3mV-fb-6SR"/>
-                <outlet property="searchResultsView" destination="tos-Cy-FKE" id="tTo-QZ-Ycg"/>
+                <outlet property="searchResultsView" destination="tos-Cy-FKE" id="KYi-VV-QJu"/>
                 <outlet property="tableView" destination="vWM-5X-NMF" id="6CS-co-Dhb"/>
                 <outlet property="textField" destination="OS1-Ic-tUa" id="eqm-es-V8R"/>
                 <outlet property="view" destination="iN0-l3-epB" id="feE-zb-0aW"/>
@@ -55,11 +55,6 @@
                                     <constraint firstAttribute="width" constant="1" id="lYu-P9-DmB"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="OS1-Ic-tUa">
-                                <rect key="frame" x="54" y="2" width="481" height="43"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" spellCheckingType="no"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ag-Re-UC5">
                                 <rect key="frame" x="535" y="-0.5" width="45" height="45"/>
                                 <constraints>
@@ -72,6 +67,11 @@
                                     <action selector="searchButtonTapped:" destination="-1" eventType="touchUpInside" id="0im-1r-hIe"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="OS1-Ic-tUa">
+                                <rect key="frame" x="54" y="2" width="481" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="no"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.4549019608" green="0.62745098040000002" blue="0.79607843140000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -97,7 +97,7 @@
                     </constraints>
                     <blurEffect style="extraLight"/>
                 </visualEffectView>
-                <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tos-Cy-FKE" userLabel="Search Results">
+                <visualEffectView hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tos-Cy-FKE" userLabel="Search Results">
                     <rect key="frame" x="10" y="65" width="580" height="128"/>
                     <view key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="zxt-KR-3bB">
                         <rect key="frame" x="0.0" y="0.0" width="580" height="128"/>

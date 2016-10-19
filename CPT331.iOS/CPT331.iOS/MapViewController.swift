@@ -211,6 +211,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     //  location, the gesture will not be recognized. This is necessary, because (by default) a tap
     //  gesture will intercept all taps and prevent the maps own recognizers from working.
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        print("gestureRecognizerShouldBegin")
         
         // Dismiss keyboard whenever the map is tapped
         self.dismissKeyboard()
@@ -231,6 +232,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     }
     
     func gestureRecognizerBegan(gestureRecognizer: UIGestureRecognizer) {
+        print("gestureRecognizerBegan")
+        
         let pointFeatures = self.mapView.visiblePointFeatures(atGestureLocation: gestureRecognizer)
         
         // If it has a name attribute, assume it's a location label

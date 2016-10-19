@@ -157,7 +157,7 @@ protocol LocationSearchDelegate {
         self.searchButton.tintColor = self.BUTTON_COLOR
         
         // Setup serach results table
-        self.searchResultsView.hidden = true
+        self.hideTableView()
         self.tableView.backgroundColor = .clearColor()
         self.tableView.tableFooterView = UIView()
         self.tableView.delegate = self
@@ -230,19 +230,16 @@ protocol LocationSearchDelegate {
                     // Hide table if no results, otherwise show
                     if !self.textField.isFirstResponder() || self.searchResults.count == 0 {
                         self.searchResultsView.hidden = true
+                        self.hideTableView()
+                        
                     } else {
-                        self.searchResultsView.hidden = false
-                    }
-                    
-                    // Request table update
-                    self.tableView.reloadData()
-                    
-                    // Update search results table to fit all cells
-                    UIView.animateWithDuration(0.5, animations: {
-                        let height = Int(self._resultHeight) * self.searchResults.count
+                        // Request table update
+                        self.tableView.reloadData()
+                        
+                        let height = CGFloat(Int(self._resultHeight) * self.searchResults.count)
                         self.searchResultsHeight.constant = CGFloat(height)
-                        self.setNeedsUpdateConstraints()
-                    })
+                        self.showTableView(withHeight: height)
+                    }
                 })
             })
         }
@@ -275,6 +272,26 @@ protocol LocationSearchDelegate {
     // -----------------------------
     // MARK: Search Results
     // -----------------------------
+    func hideTableView() {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.searchResultsView.hidden = true
+            self.searchResultsHeight.constant = 0
+            self.layoutIfNeeded()
+        })
+    }
+    
+    func showTableView(withHeight height:CGFloat) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.searchResultsView.hidden = false
+            
+            // Update search results table to fit all cells
+            UIView.animateWithDuration(0.5, animations: {
+                self.searchResultsHeight.constant = height
+                self.setNeedsUpdateConstraints()
+            })
+        })
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
