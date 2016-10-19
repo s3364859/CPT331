@@ -10,7 +10,7 @@ import UIKit
 import Mapbox
 import SideMenu
 
-class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDelegate, UIGestureRecognizerDelegate, LocationSearchDelegate {
+class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDelegate, UIGestureRecognizerDelegate, LocationSearchDelegate {
     
     // -----------------------------
     // MARK: Constants
@@ -29,7 +29,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     // -----------------------------
     // MARK: Runtime Variables
     // -----------------------------
-    var viewModel:MapViewModel = MapViewModel()
+    var viewModel:EventsViewModel = EventsViewModel()
     
     // Stores the most recently tapped location label
     // Used to pass the location to child views
@@ -139,7 +139,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     // -----------------------------
     // MARK: Map Drawing
     // -----------------------------
-    func showAnnotations(forEvents events:[Int:Event]) {
+    func showEvents(events:[Int:Event]) {
         // Only update map if not already panning
         guard self.mapRegionIsChanging == false else {
             return
@@ -211,8 +211,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     //  location, the gesture will not be recognized. This is necessary, because (by default) a tap
     //  gesture will intercept all taps and prevent the maps own recognizers from working.
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        print("gestureRecognizerShouldBegin")
-        
         // Dismiss keyboard whenever the map is tapped
         self.dismissKeyboard()
         
@@ -232,8 +230,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     }
     
     func gestureRecognizerBegan(gestureRecognizer: UIGestureRecognizer) {
-        print("gestureRecognizerBegan")
-        
         let pointFeatures = self.mapView.visiblePointFeatures(atGestureLocation: gestureRecognizer)
         
         // If it has a name attribute, assume it's a location label
