@@ -181,7 +181,6 @@
     <Content Include="Content\Images\Event.png" />
     <Content Include="Content\Images\Icon-App.png" />
     <Content Include="Content\Images\key.png" />
-    <Content Include="Content\Images\Logo.png" />
     <Content Include="Content\Images\Map.png" />
     <Content Include="Content\Images\states.png" />
     <Content Include="Content\Images\Weather Forecast.png" />
