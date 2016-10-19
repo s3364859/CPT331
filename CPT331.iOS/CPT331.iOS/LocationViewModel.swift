@@ -16,7 +16,7 @@ class LocationViewModel:EventsViewModel {
         self.location = location
     }
     
-    func loadEvents(withinRadius radius:Double, withWhitelist whitelist:[EventCategory]?=nil, useCache:Bool=true, useAPI:Bool=true) {
+    func loadEvents(withinRadius radius:Double, withWhitelist whitelist:EventCategoryWhitelist?=nil, useCache:Bool=true, useAPI:Bool=true) {
         let coordinate = self.location.coordinate
         
         if useCache {

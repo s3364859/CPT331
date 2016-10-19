@@ -11,19 +11,32 @@ import Mapbox
 
 class MapViewModel:EventsViewModel {
     let mapView:MGLMapView
+    var whitelist:EventCategoryWhitelist?
     
     init(mapView:MGLMapView) {
         self.mapView = mapView
+        self.whitelist = SettingsManager.sharedInstance.whitelist
+        
+        super.init()
+        
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: #selector(MapViewModel.respondToWhitelistChanged(_:)),
+            name:"WhitelistUpdated",
+            object: nil
+        )
     }
     
-    func loadEvents(withWhitelist whitelist:[EventCategory]?=nil, useCache:Bool=true, useAPI:Bool=true) {
+    
+    
+    func loadEvents(useCache useCache:Bool=true, useAPI:Bool=true) {
         let bounds = self.mapView.visibleCoordinateBounds
         let center = self.mapView.centerCoordinate
         
         if useCache {
             // Trigger map update for current cached events
             var cachedEvents = EventManager.sharedInstance.getEventsFromCache(withinBounds: bounds)
-            self.filterEvents(&cachedEvents, withWhitelist: whitelist)
+            self.filterEvents(&cachedEvents, withWhitelist: self.whitelist)
             self.delegate?.showEvents(cachedEvents)
         }
         
@@ -43,9 +56,20 @@ class MapViewModel:EventsViewModel {
                     events += cachedEvents
                 }
                 
-                self.filterEvents(&events, withWhitelist: whitelist)
+                self.filterEvents(&events, withWhitelist: self.whitelist)
                 self.delegate?.showEvents(events)
             }
         }
+    }
+    
+    
+    
+    // -----------------------------
+    // MARK: Notification responders
+    // -----------------------------
+    @objc func respondToWhitelistChanged(notification: NSNotification) {
+        print("Updating map")
+        self.whitelist = SettingsManager.sharedInstance.whitelist
+        self.loadEvents(useCache:true, useAPI:false)
     }
 }

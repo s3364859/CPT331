@@ -68,7 +68,6 @@ class ModalViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        print("Invoking onDisappear")
         self.onDisappear?()
     }
     

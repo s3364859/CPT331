@@ -18,7 +18,7 @@ class EventsViewModel {
     
     init() {}
     
-    internal func filterEvents(inout events:[Int:Event], withWhitelist whitelist:[EventCategory]?) {
+    internal func filterEvents(inout events:[Int:Event], withWhitelist whitelist:EventCategoryWhitelist?) {
         guard whitelist != nil else {
             return
         }

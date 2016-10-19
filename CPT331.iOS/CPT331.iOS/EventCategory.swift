@@ -8,21 +8,15 @@
 
 import UIKit
 
-enum EventCategory {
-    case None
-    case Concert
-    case WorkshopAndConference
-    case SportAndOutdoors
-    case Exhibition
-    case FestivalsAndLifestyle
-    case PerformingArts
+enum EventCategory:Int {
+    case None = 0, Concert, WorkshopAndConference, SportAndOutdoors, Exhibition, FestivalsAndLifestyle, PerformingArts
     
     var name:String {
         get {
             switch self {
             case .None:                     return "No Category"
             case .Concert:                  return "Concerts & Gig Guide"
-            case .WorkshopAndConference:    return "Workshops, Conferences & Classes"
+            case .WorkshopAndConference:    return "Workshops & Conferences"
             case .SportAndOutdoors:         return "Sport & Outdoors"
             case .Exhibition:               return "Exhibitions"
             case .FestivalsAndLifestyle:    return "Festivals & Lifestyle"
@@ -42,6 +36,12 @@ enum EventCategory {
             case .FestivalsAndLifestyle:    return UIColor(red:  99/255, green: 190/255, blue:  97/255, alpha: 1) // Green
             case .PerformingArts:           return UIColor(red:  66/255, green: 151/255, blue: 221/255, alpha: 1) // Blue
             }
+        }
+    }
+    
+    static var allCategories:[EventCategory] {
+        get {
+            return [.Concert, .WorkshopAndConference, .SportAndOutdoors, .Exhibition, .FestivalsAndLifestyle, .PerformingArts]
         }
     }
     
