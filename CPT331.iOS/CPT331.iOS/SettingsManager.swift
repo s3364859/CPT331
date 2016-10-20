@@ -24,18 +24,21 @@ class SettingsManager {
     }
     
     var whitelist:EventCategoryWhitelist? {
-        var stored = EventCategoryWhitelist()
         
         if let rawValues = defaults.arrayForKey(whitelistKey) as? [Int] {
+            var categories = EventCategoryWhitelist()
+            
             for rawValue in rawValues {
-                
                 if let category = EventCategory(rawValue: rawValue) {
-                    stored.append(category)
+                    categories.append(category)
                 }
             }
+            
+            return categories
+            
+        } else {
+            return nil
         }
-        
-        return stored
     }
     
     func addWhitelistCategory(category:EventCategory) {

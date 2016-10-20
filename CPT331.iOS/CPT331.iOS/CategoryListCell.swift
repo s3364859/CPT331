@@ -25,9 +25,19 @@ class CategoryListCell: UITableViewCell {
         self.nameLabel.text = self.category?.name
         
         if self.selected {
-            self.selectionImage.image = imageState.selected
+            
+            if category != nil {
+                self.selectionImage.image = imageState.selected?.tintWithColor(category!.color)
+            } else {
+                self.selectionImage.image = imageState.selected
+            }
+            
         } else {
-            self.selectionImage.image = imageState.deslected
+            if category != nil {
+                self.selectionImage.image = imageState.deslected?.tintWithColor(category!.color)
+            } else {
+                self.selectionImage.image = imageState.deslected
+            }
         }
     }
     

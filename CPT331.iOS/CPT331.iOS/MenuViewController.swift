@@ -11,7 +11,7 @@ import UIKit
 class MenuViewController: UITableViewController {
 
     let categories = EventCategory.allCategories.sort{ $0.name < $1.name }
-    var whitelist:[EventCategory]?
+    var whitelist:EventCategoryWhitelist?
     
     override func viewDidLoad() {
         super.viewDidLoad()
