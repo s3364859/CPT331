@@ -28,7 +28,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="allowsRotating" value="NO"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="allowsTilting" value="NO"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showsUserLocation" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/peterweller/cit063d5g001y2yoa14mt4i0u"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/peterweller/ciuhzfgqn001f2irrjosfmz9w"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="latitude">
                                         <real key="value" value="-26.774341489299399"/>
                                     </userDefinedRuntimeAttribute>
@@ -102,11 +102,11 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N3G-8a-QsB" id="l07-KU-2T3">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJh-3A-VvI">
-                                            <rect key="frame" x="12" y="12" width="546" height="19.5"/>
+                                            <rect key="frame" x="12" y="12" width="546" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -516,7 +516,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="153"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ege-iJ-8uI" userLabel="Container">
-                                                <rect key="frame" x="254" y="42.5" width="93" height="68"/>
+                                                <rect key="frame" x="254" y="43" width="93" height="68"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uiu-O8-1vz">
                                                         <rect key="frame" x="53" y="10" width="40" height="40"/>
@@ -658,10 +658,10 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="weatherPredictionCell" id="K8r-Pa-ZKm" customClass="WeatherPredictionCell" customModule="CPT331_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="11" width="111" height="136.5"/>
+                                                        <rect key="frame" x="0.0" y="11" width="111" height="137"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                            <rect key="frame" x="0.0" y="0.0" width="111" height="136.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="111" height="137"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ewR-6n-xEc" customClass="WeatherPredictionView" customModule="CPT331_iOS" customModuleProvider="target">
@@ -774,7 +774,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oak-40-0CE" id="t1Y-TM-nbt">
-                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Event Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x4k-eu-LHp">
