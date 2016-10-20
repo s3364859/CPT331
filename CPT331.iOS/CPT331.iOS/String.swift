@@ -20,4 +20,22 @@ extension String {
             return self.characters.count
         }
     }
+    
+    // Third party code: http://stackoverflow.com/a/34522960
+    func matchPattern(patStr:String)->Bool {
+        var isMatch:Bool = false
+        do {
+            let regex = try NSRegularExpression(pattern: patStr, options: [.CaseInsensitive])
+            let result = regex.firstMatchInString(self, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, characters.count))
+            
+            if (result != nil)
+            {
+                isMatch = true
+            }
+        }
+        catch {
+            isMatch = false
+        }
+        return isMatch
+    }
 }

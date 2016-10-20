@@ -22,22 +22,18 @@ class CategoryListCell: UITableViewCell {
     }
     
     func update() {
-        self.nameLabel.text = self.category?.name
+        guard let category = self.category else {
+            self.nameLabel.text = ""
+            self.selectionImage.image = imageState.deslected
+            return
+        }
+        
+        self.nameLabel.text = category.name
         
         if self.selected {
-            
-            if category != nil {
-                self.selectionImage.image = imageState.selected?.tintWithColor(category!.color)
-            } else {
-                self.selectionImage.image = imageState.selected
-            }
-            
+            self.selectionImage.image = imageState.selected?.tintWithColor(category.color)
         } else {
-            if category != nil {
-                self.selectionImage.image = imageState.deslected?.tintWithColor(category!.color)
-            } else {
-                self.selectionImage.image = imageState.deslected
-            }
+            self.selectionImage.image = imageState.deslected?.tintWithColor(category.color)
         }
     }
     
@@ -45,5 +41,4 @@ class CategoryListCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         self.update()
     }
-
 }

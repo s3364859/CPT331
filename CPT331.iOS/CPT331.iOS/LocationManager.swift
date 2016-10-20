@@ -36,6 +36,12 @@ class LocationManager {
             return
         }
         
+        // Input validation, string must only containca: a-z A-Z 0-9 - . , \s
+        guard query.matchPattern("^[a-zA-Z0-9\\-\\.,\\s']*$") else {
+            completion(nil)
+            return
+        }
+        
         let options = ForwardGeocodeOptions(query: query)
         options.allowedScopes = [.Locality]
         options.autocompletesQuery = autocomplete

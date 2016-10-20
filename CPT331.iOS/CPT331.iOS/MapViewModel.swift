@@ -68,7 +68,6 @@ class MapViewModel:EventsViewModel {
     // MARK: Notification responders
     // -----------------------------
     @objc func respondToWhitelistChanged(notification: NSNotification) {
-        print("Updating map")
         self.whitelist = SettingsManager.sharedInstance.whitelist
         self.loadEvents(useCache:true, useAPI:false)
     }
