@@ -59,8 +59,6 @@ namespace CPT331.Data.Parsers
 					}
 				}
 
-				coordinates.Reverse();
-
 				base.Commit(coordinates, name);
 			}
 
