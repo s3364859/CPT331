@@ -68,19 +68,20 @@ The very first step is to clone this repo. From gitbash:
 8. Right click on Sites -> Add Website
  - Site name: CPT331 Web
  - Application pool: .NET v4.5
- - Physical path: {WhereverTheRepoIs}\CPT331\CPT331.Web
+ - Physical path: \CPT331\CPT331.Web
  - Host name: cpt331.web.internal
  - Click OK
 9. Right click on Sites -> Add Website
  - Site name: CPT331 Web API
  - Application pool: .NET v4.5
- - Physical path: {WhereverTheRepoIs}\CPT331\CPT331. WebAPI
+ - Physical path: \CPT331\CPT331.WebAPI
  - Host name: cpt331.api.internal
  - Click OK
 10. The two sites are now setup
 11. Verify your sites are working:
  - http://cpt331.api.internal/swagger/ - you should see a page with a green header
  - http://cpt331.web.internal/ - you should see a page about ASP.NET
+ - You may need to adjust each site's connection string values to point to your SQL Server instance
 
 ## Database Setup
 1. Make sure SQL Server is installed
@@ -88,8 +89,8 @@ The very first step is to clone this repo. From gitbash:
 2. Make sure you’ve cloned the git repo and have the latest code
 3. Build the project
 4. Ensure that you have located and extracted all the data sources to the following location:
- - XML: "C:\Downloads\Crime Data\XML Data Sources"
- - KML: "C:\Downloads\Crime Data\KML Data Sources"
+ - XML: 'C:\Downloads\Crime Data\XML Data Sources'
+ - KML: 'C:\Downloads\Crime Data\KML Data Sources'
  - The directory here should match the MigrationDataSourceDirectory value in the configuration settings of the migrator app
 4. Open a command prompt, and change directory to the migration project directory
  - The path will be something like \CPT331\CPT331.Data.Migration\bin\Debug
@@ -98,6 +99,25 @@ The very first step is to clone this repo. From gitbash:
  - The -d switch drops and recreates the database
  - The -x switch imports the data inside all the XML documents
  - The -k switch imports the data inside all the KML documents
+ - More information is available on this below
 6. Go and make a sanger - the import will take a while (15-30 minutes)
-
+ - You may need to adjust the app's connection string values to point to your SQL Server instance
+ 
 You should now be good to go!
+
+## Migrator Console App - Importing Data
+The migrator console app can be used to drop or create the database, run migrations, and also to import KML and XML data sources.
+
+The migrator console app supports the following switches:
+ - -d: drop and create the Database
+ - -k: import KML Data
+ - -s: use simple transaction log when creating the database. Recommended for development databases
+ - -x: import XML Data
+
+Examples:
+ - Create a fresh database: CPT331.Data.Migration -d True
+ - Load all KML files into an existing database: CPT331.Data.Migration -d False -k ALL
+ - Load NSW XML data into an existing database: CPT331.Data.Migration -d False -x NSW
+ - Load NSW and VIC XML data into an existing database: CPT331.Data.Migration -d False -x NSW,VIC
+
+Note that using the 'ALL' value with the -k and -x switches is rewritten to a list of supported parsers of the appropriate type as defined by ParserFactory.SupportedKmlParserNames and ParserFactory.SupportedXmlParserNames.
