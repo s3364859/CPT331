@@ -43,7 +43,7 @@ namespace CPT331.WebAPI.Parsers
 		{
 			Dictionary<string, string> queryString = new Dictionary<string, string>();
 			queryString.Add("offset", Offset.ToString());
-			queryString.Add("point", $"{longitude},{latitude}");
+			queryString.Add("point", $"{latitude},{longitude}");
 			queryString.Add("radius", $"{radius}");
 			queryString.Add("rows", Rows.ToString());
 
