@@ -23,7 +23,7 @@ iOS app implementation.
 ASP.NET MVC website used to administer the database.
 
 ### CPT331.Web.Tests
-Contains tests.
+Visual Studio unit tests for the administration website.
 
 ### CPT331.WebAPI
 ASP.NET Web API website used to serve data to a client.
@@ -32,7 +32,7 @@ ASP.NET Web API website used to serve data to a client.
 Contains parser types used to convert various web data sources into a common object model.
 
 ### CPT331.WebAPI.Tests
-Contains tests.
+Visual Studio  unit tests for the RESTful API.
 
 ## GIT Setup
 The very first step is to clone this repo. From gitbash:
@@ -121,3 +121,15 @@ Examples:
  - Load NSW and VIC XML data into an existing database: CPT331.Data.Migration -d False -x NSW,VIC
 
 Note that using the 'ALL' value with the -k and -x switches is rewritten to a list of supported parsers of the appropriate type as defined by ParserFactory.SupportedKmlParserNames and ParserFactory.SupportedXmlParserNames.
+
+## Project Contributions
+Follow the steps below to contribute towards the EventGuardian app:
+
+1. Make code changes to your local branch
+2. Commit your code with a meaningful message using Git Bash.
+3. Push changes to the origin remote. This will be fork described above.
+   Do not push directly to the upstream remote.
+4. Open GitHub and navigate to your fork.
+5. Create a Pull Request from your current branch to the base fork s3364859/CPT331.
+ - The code changes will be discussed and reviewed within the pull request.
+ - On completion your changes may either be merged or rejected by another contributer.
