@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-struct Location {
+class Location:NSObject {
     let name:String
     let type:String
     let coordinate:CLLocationCoordinate2D

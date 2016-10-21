@@ -25,10 +25,7 @@ class LocationViewModel:EventsViewModel {
             var cachedEvents = EventManager.sharedInstance.getEventsFromCache(atCoordinate: coordinate, withinRadius: radius)
             self.filterEvents(&cachedEvents, withWhitelist: whitelist)
             
-            // Only update view if cached events were found
-            if cachedEvents.count > 0 {
-                self.delegate?.showEvents(cachedEvents)
-            }
+            self.delegate?.showEvents(cachedEvents)
         }
         
         if useAPI {

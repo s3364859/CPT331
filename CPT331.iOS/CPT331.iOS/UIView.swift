@@ -23,9 +23,9 @@ extension UIView {
     
     // Returns the activity indicator view so that it can be later hidden
     //      To remove it, call: indicator.removeFromSuperview()
-    func showLoadingIndicator() -> UIActivityIndicatorView {
+    func showLoadingIndicator(style style:UIActivityIndicatorViewStyle = .Gray) -> UIActivityIndicatorView {
         let indicator = UIActivityIndicatorView(frame: self.bounds)
-        indicator.activityIndicatorViewStyle = .Gray
+        indicator.activityIndicatorViewStyle = style
         indicator.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         indicator.userInteractionEnabled = false
         

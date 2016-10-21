@@ -11,7 +11,7 @@ import MapboxGeocoder
 
 protocol LocationSearchDelegate {
     func menuButtonTapped(button:UIButton)
-    func selectLocation(location:Location, pan:Bool, zoom:Bool)
+    func locationSelected(location:Location, pan:Bool, zoom:Bool)
     func getUserLocation() -> CLLocation?
 }
 
@@ -333,6 +333,6 @@ protocol LocationSearchDelegate {
         self.searchQueryDidChange(self.textField)
         
         // Pass data back to parent view
-        self.delegate?.selectLocation(placemark.asLocation, pan: true, zoom: true)
+        self.delegate?.locationSelected(placemark.asLocation, pan: true, zoom: true)
     }
 }

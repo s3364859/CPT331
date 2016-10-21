@@ -11,6 +11,9 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 
+
+
+/// Handles retrieval and parsing of weather prediction data from the Dark Sky API
 class WeatherManager: JSONAPI {
     static let sharedInstance = WeatherManager()
     
@@ -20,8 +23,18 @@ class WeatherManager: JSONAPI {
     // Prevent external initialization
     private override init() {}
     
+    /**
+        Asynchronously retrieves weather data from Dark Sky API, parsing it and returning via completion handler
+     
+        - Parameters:
+            - coordiante: the location to request data for
+            - date (optional): the date to retrieve prediction for - defaults to current date/time
+            - completion: completion handler to be executed once the data has been retrieved and parsed
+    */
     func getWeather(atCoordinate coordinate: CLLocationCoordinate2D, date:NSDate?=nil, completion: (WeatherDataCollection?) -> ()) {
         let endpoint = self.ENDPOINT + "/\(coordinate.latitude),\(coordinate.longitude)"
+        
+        // TODO: implement date support
         var parameters:[String:AnyObject] = [
             "exclude": "hourly,minutely,flags",
             "units": "ca"
@@ -37,7 +50,31 @@ class WeatherManager: JSONAPI {
     }
 }
 
+
+
+/// Adds support to WeatherDataCollection for parsing JSON from the Dark Sky API
 extension WeatherDataCollection {
+    
+    /**
+        Parses current weather/prediction data
+     
+            - Parameters:
+                - JSON: {
+                    latitude: double,
+                    longitude: double,
+                    currently: {
+                        ...
+                    },
+                    daily: {
+                        summary: string,
+                        data: [
+                            ...
+                        ]
+                    }
+                }
+     
+        - Returns: WeatherDataCollection
+    */
     class func fromJSON(json:JSON?) -> WeatherDataCollection? {
         
         if let latitude = json?["latitude"].double, let longitude = json?["longitude"].double  {
@@ -67,7 +104,31 @@ extension WeatherDataCollection {
     }
 }
 
+/// Adds support to WeatherDataCurrent for parsing JSON from the Dark Sky API
 extension WeatherDataCurrent {
+    
+    /**
+        Parses current weather data
+     
+            - Parameters:
+                - JSON: {
+                    time: double,
+                    icon: string,
+                    precipType: string,
+                    summary: string,
+                    dewPoint: string,
+                    humidity: double,
+                    cloudCover: double,
+                    pressure: double,
+                    visibility: double,
+                    windSpeed: double,
+                    windBearing: int,
+                    temperature: double,
+                    precipIntensity: double,
+                    precipProbability: double
+                }
+            - Returns: WeatherDataCurrent
+     */
     class func fromJSON(json:JSON?) -> WeatherDataCurrent? {
         
         if let current = json, let unixTime = json?["time"].double {
@@ -98,7 +159,36 @@ extension WeatherDataCurrent {
     }
 }
 
+
+
+/// Adds support to WeatherDataPrediction for parsing JSON from the Dark Sky API
 extension WeatherDataPrediction {
+    
+    
+    /**
+        Parses weather prediction data
+     
+            - Parameters:
+                - JSON: {
+                    time: double,
+                    icon: string,
+                    summary: string,
+                    dewPoint: string,
+                    humidity: double,
+                    cloudCover: double,
+                    pressure: double,
+                    visibility: double,
+                    windSpeed: double,
+                    windBearing: int,
+                    tempMin: double,
+                    tempMax: double,
+                    precipIntensity: double,
+                    precipProbability: double,
+                    precipType: string,
+                    precipAccumulation: double
+                }
+            - Returns: WeatherDataPrediction
+     */
     class func fromJSON(json:JSON?) -> WeatherDataPrediction? {
         
         if let prediction = json, let unixTime = json?["time"].double {

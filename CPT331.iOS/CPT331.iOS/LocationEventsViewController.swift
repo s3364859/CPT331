@@ -21,6 +21,7 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
     var events: [Event]?
     
     var indicator:UIActivityIndicatorView?
+    var navIndicator:UIBarButtonItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,13 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         self.tableView.backgroundColor = .clearColor()
         self.tableView.tableFooterView = UIView()
         
+        // Automatically added
         self.indicator = self.view.showLoadingIndicator()
+        
+        // Added by showEvents()
+        self.navIndicator = UIBarButtonItem(customView:
+            UIView(frame: CGRectMake(0, 0, 30, 30)).showLoadingIndicator(style: .White)
+        )
         
         self.viewModel = LocationViewModel(location: self.location)
         self.viewModel.delegate = self
@@ -59,7 +66,7 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
     }
     
     
-    func showEvents(events: [Int : Event]) {
+    func showEvents(events:[Int:Event]) {
         
         // Execute table reload on main thread
         dispatch_async(dispatch_get_main_queue(), {
@@ -67,11 +74,27 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
             self.tableView.reloadData()
         })
         
-        self.indicator?.removeFromSuperview()
+        
+        // First call
+        // Assumption: 2 calls will be made
+        // TODO: make this logic more robust
+        if self.indicator != nil && self.navIndicator != nil {
+            
+            if events.count > 0 {
+                self.indicator?.removeFromSuperview()
+                self.indicator = nil
+                self.navigationItem.rightBarButtonItem = self.navIndicator
+            } else {
+                self.navIndicator = nil
+            }
+        
+        // Remove all indicators on subsequent calls
+        } else {
+            self.indicator?.removeFromSuperview()
+            self.navIndicator = nil
+            self.navigationItem.rightBarButtonItem = nil
+        }
     }
-    
-    
-    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let events = self.events {

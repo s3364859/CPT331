@@ -15,8 +15,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     // -----------------------------
     // MARK: Constants
     // -----------------------------
-    let selectionZoomLevel:Double = 12.5
+    
+    // Base image to be used for representing event locations on the map
     let annotationImage = UIImage(named: "Event-Annotation.png")
+    
+    // The zoom level to be used when selecting a event from the LocationSearchView
+    let selectionZoomLevel:Double = 12.5
+    
+    // Offsets used to center a selected suburb/annotation, relative to the visible region between search bar and subview
     let centerOffsets:CoordinateOffset = (
         top: 85, // Search bar
         right: 0,
@@ -30,11 +36,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     // MARK: Runtime Variables
     // -----------------------------
     var viewModel:MapViewModel!
-    
-    // Stores the most recently tapped location label
-    // Used to pass the location to child views
-    var lastLocationTapped:Location?
-    var lastEventTapped:Event?
     
     // Used to prevent map updatesw while panning
     var mapRegionIsChanging:Bool=false
@@ -82,31 +83,60 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
         self.mapView.addGestureRecognizer(singleTap)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func menuButtonTapped(button: UIButton) {
-        self.performSegueWithIdentifier("showMenu", sender: nil)
-    }
-    
+    /**
+        Retrieves the current user location
+     
+        - Returns: User Location
+    */
     func getUserLocation() -> CLLocation? {
         return self.mapView.userLocation?.location
     }
     
-    func selectLocation(location:Location, pan:Bool=true, zoom:Bool=true) {
+    
+    
+    // -----------------------------
+    // MARK: Subviews
+    // -----------------------------
+    
+    /**
+        Called in response to the menu button being tapped
+     
+        - Parameters:
+            - button: the tapped button
+     */
+    func menuButtonTapped(button: UIButton) {
+        self.performSegueWithIdentifier("showMenu", sender: nil)
+    }
+    
+    
+    /**
+        Called in response to a location map label or search result being selected. This function will handle transitioning the map visible region and displaying the Location subview.
+     
+        - Parameters:
+            - location: the Location that was selected
+            - pan: determines if the map should pan to the Location
+            - zoom: determines if the map should zoom in on the Location. Panning must be enabled if zooming.
+     */
+    func locationSelected(location:Location, pan:Bool=true, zoom:Bool=true) {
         if pan && zoom {
             self.mapView.setCenterCoordinate(location.coordinate, zoomLevel: self.selectionZoomLevel, animated: true, withOffset: self.centerOffsets)
         } else if pan {
             self.mapView.setCenterCoordinate(location.coordinate, zoomLevel: nil, animated: true, withOffset: self.centerOffsets)
         }
         
-        self.lastLocationTapped = location
-        self.performSegueWithIdentifier("showLocationView", sender: nil)
+        self.performSegueWithIdentifier("showLocationView", sender: location)
     }
     
-    func selectEvent(event:Event, pan:Bool=true, zoom:Bool=true) {
+    
+    /**
+        Called in response to a event map marker being selected. This function will handle transitioning the map visible region and displaying the Event subview.
+     
+        - Parameters:
+            - event: the Event that was selected
+            - pan: determines if the map should pan to the Event
+            - zoom: determines if the map should zoom in on the Event. Panning must be enabled if zooming.
+     */
+    func eventSelected(event:Event, pan:Bool=true, zoom:Bool=true) {
         guard let coordinate = event.coordinate else {
             return
         }
@@ -117,21 +147,24 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
             self.mapView.setCenterCoordinate(coordinate, zoomLevel: nil, animated: true, withOffset: self.centerOffsets)
         }
         
-        self.mapView.setCenterCoordinate(coordinate, animated: true, withOffset: self.centerOffsets)
-        
-        
-        self.lastEventTapped = event
-        self.performSegueWithIdentifier("showEventView", sender: nil)
+        self.performSegueWithIdentifier("showEventView", sender: event)
     }
     
+    
+    /**
+        Handles passing data to the view which is about to be displayed. If the requested view is a ModalViewController, map updates will be disabled until the modal view has disappeared.
+     
+        - Parameters:
+            - segue: the segue object containing information about view controllers involved in segue
+            - pan: the object that initiated the segue
+     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? ModalViewController, let identifier = segue.identifier {
-            
             switch identifier {
             case "showLocationView":
-                vc.location = self.lastLocationTapped
+                vc.location = sender as? Location
             case "showEventView":
-                vc.event = self.lastEventTapped
+                vc.event = sender as? Event
             default:
                 ()
             }
@@ -151,6 +184,15 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     // -----------------------------
     // MARK: Map Drawing
     // -----------------------------
+    
+    /**
+        EventsViewModelDelegate function. Handles displaying event annotation markers on the map. To minimise redraw latency, the map will not be updated while panning.
+        
+        - Parameters:
+            - Event dictionary: event ID / event pairs
+     
+        - Returns: TRUE: if the map markers were updated. FALSE: if the map markers weren't updated.
+     */
     func showEvents(events:[Int:Event]) {
         // Only update map if not already panning
         guard self.mapRegionIsChanging == false else {
@@ -172,6 +214,17 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
         self.mapView.addAnnotations(annotations)
     }
 
+    
+    /**
+        MGLMapViewDelegate function. Responsible for instantiating or reusing a MGLAnnotationImage, to be displayed in place of a marker on the map. It is expected that the annotation object passed in is an instance of EventPointFeature.
+     
+        - Parameters:
+            - mapView: the map view which the annotation will be displayed on
+            - annotation: the annotation object for which an image should be generated
+     
+        - Returns:
+            - annotation image: color-coded marker which reflects the events category. Refer to enum EventCategory for colors.
+    */
     // Returns a reusable annotation image which reflects the event category
     func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
         // Only event features with event categories should have custom images
@@ -201,27 +254,38 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     // -----------------------------
     // MARK: Map event responders
     // -----------------------------
+    
+    /// Keeps track of when the map region is changing
     func mapView(mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
         self.mapRegionIsChanging = true
         self.dismissKeyboard()
     }
     
-    // When map region changes, load events for visible region
+    
+    /// Updates the map view to display event markers within the visible region
     func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
         self.mapRegionIsChanging = false
         self.viewModel.loadEvents(useCache:true)
     }
     
-    // Annotation responder
+    
+    /// Responds to annotations being selected
     func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
         if let event = (annotation as? EventPointFeature)?.event {
-            self.selectEvent(event, zoom:false)
+            self.eventSelected(event, pan: true, zoom:false)
         }
     }
     
-    // Checks to see if the tap gesture should be recognized. If there is a marker present at the tap
-    //  location, the gesture will not be recognized. This is necessary, because (by default) a tap
-    //  gesture will intercept all taps and prevent the maps own recognizers from working.
+    
+    /**
+        Checks to see if the tap gesture should be recognized. If there is a marker present at the tapped location, the gesture will not be recognized. This is necessary because a tap gesture by default will intercept all taps and prevent the maps own gestures from working.
+     
+        - Parameters:
+            - gestureRecognizer: the touch gesture object to be tested
+     
+        - Returns:
+            - TRUE: to proceed with processing touch event. FALSE: to prevent the gesture from being recognized.
+    */
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         // Dismiss keyboard whenever the map is tapped
         self.dismissKeyboard()
@@ -241,6 +305,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
         return true
     }
     
+    
+    /**
+        Called in response to user touching map. Scans the touched area for location labels; if found, a location subview will be requested.
+     
+        - Parameters:
+            - gestureRecognizer: the touch gesture object to be tested
+     */
     func gestureRecognizerBegan(gestureRecognizer: UIGestureRecognizer) {
         let pointFeatures = self.mapView.visiblePointFeatures(atGestureLocation: gestureRecognizer)
         
@@ -251,7 +322,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
             if let type = feature.attributeForKey("type") as? String {
                 // Convert object to make it easier to work with
                 let location = Location(name: name, type: type, coordinate: feature.coordinate)
-                self.selectLocation(location, zoom:false)
+                self.locationSelected(location, zoom:false)
             }
         }
     }
