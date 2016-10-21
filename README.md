@@ -47,7 +47,7 @@ The very first step is to clone this repo. From gitbash:
 8. In git bash: git remote add origin: https://github.com/YOURUSERNAME/CPT331.git
 9. Finally, run git remote -v, and you should see something like this:
  - origin      https://github.com/YOURUSERNAME/CPT331.git (fetch)
- - origin      https://github.com/YOURUSERNAME /CPT331.git (push)
+ - origin      https://github.com/YOURUSERNAME/CPT331.git (push)
  - upstream    https://github.com/s3364859/CPT331.git (fetch)
  - upstream    https://github.com/s3364859/CPT331.git (push)
 10. All done, bam!
@@ -99,3 +99,5 @@ The very first step is to clone this repo. From gitbash:
  - The -x switch imports the data inside all the XML documents
  - The -k switch imports the data inside all the KML documents
 6. Go and make a sanger - the import will take a while (15-30 minutes)
+
+You should now be good to go!
