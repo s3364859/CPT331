@@ -13,6 +13,10 @@ namespace CPT331.Web.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Login()
         {
+            if (Session["user"] != null)
+            {                
+                return RedirectToAction("Home", "Admin");
+            }
             ViewBag.Title = "Admin";
             return View();
         }
@@ -26,6 +30,15 @@ namespace CPT331.Web.Controllers
                 return RedirectToAction("Home", "Admin");
             }
             return View();
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult SignOut()
+        {
+            ViewBag.Message = "Logging off...";
+            ModelState.Clear();
+            Session.Clear();
+            return RedirectToAction("Login", "Account");
         }
     }
 }

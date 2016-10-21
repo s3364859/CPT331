@@ -17,7 +17,6 @@ namespace CPT331.Web.Controllers
 		public ActionResult About()
 		{
             ViewBag.Title = "About";
-            ViewBag.Message = "(Additional information...)";
 			return View();
 		}
 
