@@ -45,11 +45,13 @@ The very first step is to clone this repo. From gitbash:
 7. Note the URL of your fork’s repo – it should be something like this: https://github.com/YOURUSERNAME/CPT331.git
 8. In git bash: git remote add origin: https://github.com/YOURUSERNAME/CPT331.git
 9. Finally, run git remote -v, and you should see something like this:
-- origin      https://github.com/YOURUSERNAME/CPT331.git (fetch)
-- origin      https://github.com/YOURUSERNAME /CPT331.git (push)
-- upstream    https://github.com/s3364859/CPT331.git (fetch)
-- upstream    https://github.com/s3364859/CPT331.git (push)
-11. All done, bam!
+
+origin      https://github.com/YOURUSERNAME/CPT331.git (fetch)
+origin      https://github.com/YOURUSERNAME /CPT331.git (push)
+upstream    https://github.com/s3364859/CPT331.git (fetch)
+upstream    https://github.com/s3364859/CPT331.git (push)
+
+10. All done, bam!
 
 ## Local Website Projects Setup
 1. Make sure IIS is installed
