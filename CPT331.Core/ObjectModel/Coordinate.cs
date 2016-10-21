@@ -116,12 +116,12 @@ namespace CPT331.Core.ObjectModel
 			{
 				StringBuilder stringBuilder = new StringBuilder(); ;
 
-				if ((latitude < LatitudeMinValue) || (latitude > LatitudeMaxValue))
+				if (IsLatitudeValid(latitude) == false)
 				{
 					stringBuilder.AppendLine($"Invalid latitude, must be between {LatitudeMinValue} and {LatitudeMaxValue}.");
 				}
 
-				if ((longitude < LongitudeMinValue) || (longitude > LongitudeMaxValue))
+				if (IsLongitudeValid(longitude) == false)
 				{
 					stringBuilder.AppendLine($"Invalid longitude, must be between {LongitudeMinValue} and {LongitudeMaxValue}.");
 				}
