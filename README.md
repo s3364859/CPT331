@@ -36,6 +36,7 @@ Contains tests.
 
 ## GIT Setup
 The very first step is to clone this repo. From gitbash:
+
 1. Get git installed on your machine. It is recommended that you get familiar working with git bash, it is popular and doesn’t shield you from what git is actually doing (important)
 2. Set up a directory on your machine for development work – e.g, 'C:\Development' is suitably creative
 3. Open git bash, and CD into your development directory
@@ -45,12 +46,10 @@ The very first step is to clone this repo. From gitbash:
 7. Note the URL of your fork’s repo – it should be something like this: https://github.com/YOURUSERNAME/CPT331.git
 8. In git bash: git remote add origin: https://github.com/YOURUSERNAME/CPT331.git
 9. Finally, run git remote -v, and you should see something like this:
-
-origin      https://github.com/YOURUSERNAME/CPT331.git (fetch)
-origin      https://github.com/YOURUSERNAME /CPT331.git (push)
-upstream    https://github.com/s3364859/CPT331.git (fetch)
-upstream    https://github.com/s3364859/CPT331.git (push)
-
+ - origin      https://github.com/YOURUSERNAME/CPT331.git (fetch)
+ - origin      https://github.com/YOURUSERNAME /CPT331.git (push)
+ - upstream    https://github.com/s3364859/CPT331.git (fetch)
+ - upstream    https://github.com/s3364859/CPT331.git (push)
 10. All done, bam!
 
 ## Local Website Projects Setup
