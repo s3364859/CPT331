@@ -8,37 +8,49 @@
 
 import UIKit
 
+/// Responsible for translating event subcategory id's into human-readable names and images to be used in the view
 enum EventSubcategry {
     
-    // In case an unknown event identifier is provided
+    // -----------------------------
+    // MARK: Subcategory cases
+    // -----------------------------
+    
+    /// Unknown event category
     case Generic
     
-    // Concerts & Gig Guide
+    /// Subcategory for "Concerts & Gig Guide"
     case Acoustic, AvantGarde, BarDJs, Blues, Breaks, ChamberMusic, Country, Cover, DrumAndBass, DubRoots, Dubstep, Electro, Electronica, Folk, Funk, HardRock, HipHopAndRap, House, Jazz, Latin, MetalAndHardcore, MusicFestival, OpenMic, Pop, Punk, Karaoke, RnB, Reggae, RockAndPop, Soul, Swing, Techno, Trance, VarietyConert, World
     
-    // Workshops, Convefences & Classes
+    /// Subcategory for "Workshops, Convefences & Classes"
     case Professional, Creative, DanceClass, Education, FamilyAndLifestyle, MindAndBody
     
-    // Sports & Outdoors
+    /// Subcategory for "Sports & Outdoors"
     case Adventure, Atheltics, AustralianRules, Aviation, Basketball, Boating, Boxing, Cricket, Cycling, Dancesport, Diving, Equestrian, FishingTournament, Walking, Carnival, Golf, Gridiron, HikingAndCamping, HorseRacing, LawnBowls, Marathon, MartialArts, Motorsport, MountainBiking, Multisport, Netball, Orienteering, RodeoSports, Rowing, RugbyUnion, Sailing, Skating, Soccer, Sports, SurfingAndWaterSports, Swimming, Tennis, Triathlon, WindAndKiteSurfing, Wrestling, Yoga
     
-    // Exhibitions
+    /// Subcategory for "Exhibitions"
     case Contemporary, Craft, Expos, FineArt, Museum, NaturalHistory, Photography, Sculpture, PoliticalHistory
     
-    // Festivals & Lifestyle
+    /// Subcategory for "Festivals & Lifestyle"
     case FieldDay, Association, Commemorations, Charity, Children, Environment, Multicultural, FamilyEntertainment, Fashion, Festival, FoodGourmetAndWine, FoodMarket, Hobby, LifestyleShow, MarketsAndFairs, PublicMeeting, Ball, SpringRacing
     
-    // Performing Arts
+    /// Subcategory for "Performing Arts"
     case Ballet, Cabaret, Choir, ClassicalMusic, Comedy, Dance, Film, Lecture, Literary, Magic, Musical, Opera, Theatre
     
+    
+    
+    // -----------------------------
+    // MARK: Computed properties
+    // -----------------------------
+    
+    /// Returns the parent category for which a subcategory belongs to.
     var parentCategory:EventCategory {
         get {
             return EventCategory.fromSubcategory(self)
         }
     }
     
-    // Most of these values are the same as the original,
-    // However, they can be customized if desired
+    
+    /// The name of the Event Subcategory.
     var name:String {
         get {
             switch self {
@@ -182,6 +194,8 @@ enum EventSubcategry {
         }
     }
     
+    
+    /// Image to be used for visually representing the event subcategory in the view
     var image:UIImage? {
         switch self {
             
@@ -324,8 +338,15 @@ enum EventSubcategry {
         }
     }
     
-    // Convert incoming event category id into an EventSubcategory
+    // -----------------------------
+    // MARK: Functions
+    // -----------------------------
+    
+    /// Parses a string identifier (from API) into a EventSubcategory value
     static func fromString(string:String) -> EventSubcategry {
+        
+        // TODO: switch over to integers when the backend supports it
+        
         switch string {
         // Concerts & Gig Guide
         case "Acoustic, Instrumental": return .Acoustic

@@ -8,9 +8,23 @@
 
 import UIKit
 
+/// Responsible for mapping event subcategories to categories and providing providing human-readable names and colors for categories.
 enum EventCategory:Int {
+    
+    // -----------------------------
+    // MARK: Category cases
+    // -----------------------------
+    
+    /// Category
     case None = 0, Concert, WorkshopAndConference, SportAndOutdoors, Exhibition, FestivalsAndLifestyle, PerformingArts
     
+    
+    
+    // -----------------------------
+    // MARK: Computed properties
+    // -----------------------------
+    
+    /// The name of the Event Category.
     var name:String {
         get {
             switch self {
@@ -25,6 +39,7 @@ enum EventCategory:Int {
         }
     }
     
+    /// The color for representing a category in the view
     var color:UIColor {
         get {
             switch self {
@@ -39,13 +54,21 @@ enum EventCategory:Int {
         }
     }
     
+    
+    
+    // -----------------------------
+    // MARK: Functions
+    // -----------------------------
+    
+    /// A list of all the categories in the EventCategory enum
     static var allCategories:[EventCategory] {
         get {
             return [.Concert, .WorkshopAndConference, .SportAndOutdoors, .Exhibition, .FestivalsAndLifestyle, .PerformingArts]
         }
     }
     
-    // subcategory > category mappings
+    
+    /// Parses a string identifier (from API) into a EventCategory value
     static func fromSubcategory(category: EventSubcategry) -> EventCategory {
         switch category {
             // Concerts & Gig Guide

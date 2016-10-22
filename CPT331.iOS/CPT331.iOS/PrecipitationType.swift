@@ -8,9 +8,11 @@
 
 import UIKit
 
+/// Conveniently stores formatted names and images for each precipitation type
 enum PrecipitationType:Int {
     case None=1, Rain, Snow, Sleet
     
+    /// The formatted name of the Precipitation type
     var name:String {
         get {
             switch self {
@@ -22,6 +24,7 @@ enum PrecipitationType:Int {
         }
     }
     
+    /// Image to be used for visually representing the precipitation in the view
     var image:UIImage? {
         get {
             switch self {
@@ -33,6 +36,7 @@ enum PrecipitationType:Int {
         }
     }
     
+    /// Parses a string identifier (from API) into a PrecipitationType value
     static func fromString(string:String) -> PrecipitationType {
         switch string {
         case "rain": return .Rain

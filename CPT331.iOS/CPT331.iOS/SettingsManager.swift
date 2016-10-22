@@ -13,8 +13,13 @@ typealias EventCategoryWhitelist = [EventCategory]
 /// Manages the persistence and retrieval of user settings
 class SettingsManager {
     static let sharedInstance = SettingsManager()
+    
+    /// Shared defaults object
     private let defaults = NSUserDefaults.standardUserDefaults()
+    
+    /// The key used to store whitelist data in NSUserDefaults (read-only)
     private let whitelistKey = "eventCategoryWhitelist"
+    
     
     
     /// Singleton Initializer. Initializes settings with default values if not already defined.

@@ -16,7 +16,7 @@ class WeatherManager: JSONAPI {
     static let sharedInstance = WeatherManager()
     
     // TODO: move domain and API key to info.plist
-    /// DarkSky API endpoint for weather data
+    /// DarkSky API endpoint for weather data (read-only)
     private let ENDPOINT = "https://api.darksky.net/forecast/5136e36ec5498cfd8c583e3f580d3060"
     
     /// Singleton initializer
@@ -28,7 +28,7 @@ class WeatherManager: JSONAPI {
      
         - Parameters:
             - coordiante: the geographical location to request data for
-            - date (optional): the date to retrieve prediction for - defaults to current date/time
+            - date (optional): the date to retrieve prediction for (defaults to current date/time)
             - completion: completion handler to be executed once the data has been retrieved and parsed
     */
     func getWeather(atCoordinate coordinate: CLLocationCoordinate2D, date:NSDate?=nil, completion: (WeatherDataCollection?) -> ()) {

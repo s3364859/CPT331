@@ -16,7 +16,7 @@ class EventManager: JSONAPI {
     static let sharedInstance = EventManager()
     
     // TODO: move domain to info.plist
-    /// EventGuardian API endpoint for event data
+    /// EventGuardian API endpoint for event data (read-only)
     private let ENDPOINT = "http://ec2-52-32-105-85.us-west-2.compute.amazonaws.com/api/Event/EventsByCoordinate"
     
     /// Stores all cached events
@@ -245,7 +245,7 @@ class EventManager: JSONAPI {
             - name: event title
             - desc: a short description
             - address: human-readable street address
-            - coordinate: geographical coordinate using latitude & longitude
+            - coordinate: geographical coordinate (lat/lng pair)
             - beginDateTime: the date/time of when the event starts
             - endDateTime: the date/time of when the event ends
             - url: webpage link for the event on Eventfinda

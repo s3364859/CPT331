@@ -16,13 +16,13 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     // MARK: Constants
     // -----------------------------
     
-    // Base image to be used for representing event locations on the map
+    /// The base image to be used for representing event locations on the map
     let annotationImage = UIImage(named: "Event-Annotation.png")
     
-    // The zoom level to be used when selecting a event from the LocationSearchView
+    /// The zoom level to be used when selecting a event from the LocationSearchView
     let selectionZoomLevel:Double = 12.5
     
-    // Offsets used to center a selected suburb/annotation, relative to the visible region between search bar and subview
+    /// Offsets used to center a selected suburb/annotation, relative to the visible region between search bar and subview
     let centerOffsets:CoordinateOffset = (
         top: 85, // Search bar
         right: 0,
@@ -37,7 +37,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     // -----------------------------
     var viewModel:MapViewModel!
     
-    // Used to prevent map updatesw while panning
+    /// Used to keep track of when the map region is changing
     var mapRegionIsChanging:Bool=false
     
     
@@ -53,9 +53,11 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     // -----------------------------
     // MARK: Main Logic
     // -----------------------------
+    
+    /// Responsible for initializing: the sidebar menu, map, search box and gesture recognizers
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Setup the sidebar menu
         let menu = UISideMenuNavigationController()
         menu.leftSide = true

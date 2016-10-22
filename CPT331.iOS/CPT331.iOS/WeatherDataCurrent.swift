@@ -7,23 +7,22 @@
 //
 
 import Foundation
-import SwiftyJSON
 
-class WeatherDataCurrent: WeatherData {
+/// Stores data for weather data at a specific point in time. Extends WeatherData to add support for storing a temperature value and precipitation data.
+class WeatherDataCurrent:WeatherData {
     
-    // The air temperature in degrees Celcius
+    /// The current air temperature in degrees Celcius
     let temperature: Double?
     
-    let precipitation:(
-    // The intensity (in millimeters of liquid water per hour) of precipitation occurring at the given time.
-    intensity:Double?,
-    
-    // The probability of precipitation occurring, between 0 and 1, inclusive.
-    probability:Double?,
-    
-    // The type of precipitation occurring at the given time.
-    type:PrecipitationType?
-    )
+    /**
+        Current precipitation data (read-only)
+     
+        - Parameters:
+            - intensity: the intensity (in millimeters of liquid water per hour) of precipitation occurring at the given time.
+            - probaility: the probability of precipitation occurring, between 0 and 1, inclusive.
+            - type: the type of precipitation occurring at the given time.
+    */
+    let precipitation:(intensity:Double?, probability:Double?, type:PrecipitationType?)
     
     init(datetime:NSDate, category:WeatherCategory?, summary:String?, dewPoint:Double?, humidity: Double?, cloudCover: Double?, pressure: Double?, visibility: Double?, windSpeed:Double?, windBearing:Int?, temperature:Double?, precipIntensity:Double?, precipProbability:Double?, precipType: PrecipitationType?) {
         

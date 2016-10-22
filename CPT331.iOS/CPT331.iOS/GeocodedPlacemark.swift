@@ -17,7 +17,7 @@ extension GeocodedPlacemark {
     
     var asLocation:Location {
         get {
-            return Location(name: self.name, type: "", coordinate: self.location.coordinate)
+            return Location(name: self.name, type: "suburb", coordinate: self.location.coordinate)
         }
     }
 }
