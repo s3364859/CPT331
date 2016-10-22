@@ -7,27 +7,28 @@
 //
 
 import Foundation
-import CoreData
-import CoreLocation
 import Mapbox
 import MapboxGeocoder
 
+/// Wrapper for the  Mapbox Geocoding API, enables searching for locatons (forward geocoding), and getting location info for a specific coordinate (reverse geocoding).
 class LocationManager {
     static let sharedInstance = LocationManager()
     
-    // Stores a referance to the most recent search task. To be cancelled if a new task starts.
+    /// Stores a referance to the most recent search task. To be cancelled if a new task starts.
     private var lastSearchTask: NSURLSessionDataTask?
     
-    // Prevent external initialization
+    /// Singleton initializer
     private init() {}
 
     
     /**
-        Performs forward geocoding to retrieve location search predictions from Mapbox Geocoding API.
+        Performs forward geocoding to retrieve location search predictions from Mapbox Geocoding API. The search query must only consist of the following characters, otherwise it will be ignored:
+     
+            a-z A-Z 0-9 - . , \s
      
         - Parameters:
             - query: the location string to search for
-            - autocomplete: TRUE: if partial matching should be enabled. FALSE: if matching full words
+            - autocomplete: TRUE: if partial matching should be enabled. FALSE: if matching full query
             - relativeToLocation: locations around the provided location will be prioritized
             - completion: the completion handler to be executed once the location data has been retrieved
     */
@@ -43,7 +44,7 @@ class LocationManager {
             return
         }
         
-        // Input validation, string must only containca: a-z A-Z 0-9 - . , \s
+        // Input validation, string must only contain: a-z A-Z 0-9 - . , \s
         guard query.matchPattern("^[a-zA-Z0-9\\-\\.,\\s']*$") else {
             completion(nil)
             return

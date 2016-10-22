@@ -11,23 +11,23 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 
-
-
-/// Handles retrieval and parsing of weather prediction data from the Dark Sky API
+/// Handles retrieval and parsing of weather prediction data from the Dark Sky JSON API
 class WeatherManager: JSONAPI {
     static let sharedInstance = WeatherManager()
     
     // TODO: move domain and API key to info.plist
+    /// DarkSky API endpoint for weather data
     private let ENDPOINT = "https://api.darksky.net/forecast/5136e36ec5498cfd8c583e3f580d3060"
     
-    // Prevent external initialization
+    /// Singleton initializer
     private override init() {}
+    
     
     /**
         Asynchronously retrieves weather data from Dark Sky API, parsing it and returning via completion handler
      
         - Parameters:
-            - coordiante: the location to request data for
+            - coordiante: the geographical location to request data for
             - date (optional): the date to retrieve prediction for - defaults to current date/time
             - completion: completion handler to be executed once the data has been retrieved and parsed
     */
@@ -58,20 +58,23 @@ extension WeatherDataCollection {
     /**
         Parses current weather/prediction data
      
-            - Parameters:
-                - JSON: {
-                    latitude: double,
-                    longitude: double,
-                    currently: {
+            Expected JSON Format:
+            {
+                latitude: double,
+                longitude: double,
+                currently: {
+                    ...
+                },
+                daily: {
+                    summary: string,
+                    data: [
                         ...
-                    },
-                    daily: {
-                        summary: string,
-                        data: [
-                            ...
-                        ]
-                    }
+                    ]
                 }
+            }
+     
+        - Parameters:
+            - JSON: json object containing current/prediction weather data
      
         - Returns: WeatherDataCollection
     */
@@ -109,25 +112,29 @@ extension WeatherDataCurrent {
     
     /**
         Parses current weather data
+            
+            Expected JSON Format:
+            {
+                time: double,
+                icon: string,
+                precipType: string,
+                summary: string,
+                dewPoint: string,
+                humidity: double,
+                cloudCover: double,
+                pressure: double,
+                visibility: double,
+                windSpeed: double,
+                windBearing: int,
+                temperature: double,
+                precipIntensity: double,
+                precipProbability: double
+            }
      
-            - Parameters:
-                - JSON: {
-                    time: double,
-                    icon: string,
-                    precipType: string,
-                    summary: string,
-                    dewPoint: string,
-                    humidity: double,
-                    cloudCover: double,
-                    pressure: double,
-                    visibility: double,
-                    windSpeed: double,
-                    windBearing: int,
-                    temperature: double,
-                    precipIntensity: double,
-                    precipProbability: double
-                }
-            - Returns: WeatherDataCurrent
+        - Parameters:
+            - JSON: json object containing current weather data
+     
+        - Returns: WeatherDataCurrent
      */
     class func fromJSON(json:JSON?) -> WeatherDataCurrent? {
         
@@ -164,30 +171,33 @@ extension WeatherDataCurrent {
 /// Adds support to WeatherDataPrediction for parsing JSON from the Dark Sky API
 extension WeatherDataPrediction {
     
-    
     /**
         Parses weather prediction data
+
+            Expected JSON format:
+            {
+                time: double,
+                icon: string,
+                summary: string,
+                dewPoint: string,
+                humidity: double,
+                cloudCover: double,
+                pressure: double,
+                visibility: double,
+                windSpeed: double,
+                windBearing: int,
+                tempMin: double,
+                tempMax: double,
+                precipIntensity: double,
+                precipProbability: double,
+                precipType: string,
+                precipAccumulation: double
+            }
      
-            - Parameters:
-                - JSON: {
-                    time: double,
-                    icon: string,
-                    summary: string,
-                    dewPoint: string,
-                    humidity: double,
-                    cloudCover: double,
-                    pressure: double,
-                    visibility: double,
-                    windSpeed: double,
-                    windBearing: int,
-                    tempMin: double,
-                    tempMax: double,
-                    precipIntensity: double,
-                    precipProbability: double,
-                    precipType: string,
-                    precipAccumulation: double
-                }
-            - Returns: WeatherDataPrediction
+        - Parameters:
+            - JSON: json object containing weather prediction data
+     
+        - Returns: WeatherDataPrediction
      */
     class func fromJSON(json:JSON?) -> WeatherDataPrediction? {
         

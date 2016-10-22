@@ -10,7 +10,6 @@ import Foundation
 
 typealias EventCategoryWhitelist = [EventCategory]
 
-
 /// Manages the persistence and retrieval of user settings
 class SettingsManager {
     static let sharedInstance = SettingsManager()
@@ -18,8 +17,7 @@ class SettingsManager {
     private let whitelistKey = "eventCategoryWhitelist"
     
     
-    
-    /// Initializes settings with default values if not already defined.
+    /// Singleton Initializer. Initializes settings with default values if not already defined.
     private init() {
         if self.whitelist == nil {
             self.updateWhitelistCategories(EventCategory.allCategories)
