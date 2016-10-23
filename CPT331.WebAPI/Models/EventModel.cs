@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 #endregion
@@ -11,7 +12,7 @@ namespace CPT331.WebAPI.Models
 	[DataContract(Name = "Event")]
 	public class EventModel
 	{
-		public EventModel(string address, DateTime beginDateTime, string description, DateTime endDateTime, int id, IEnumerable<EventCategoryModel> eventCategoryModels, IEnumerable<ImageModel> eventImageModels, double latitude, double longitude, string name, string url)
+		public EventModel(string address, DateTime beginDateTime, string description, DateTime endDateTime, int id, List<EventCategoryModel> eventCategoryModels, List<ImageModel> eventImageModels, double latitude, double longitude, string name, string url)
 		{
 			_address = address;
 			_beginDateTime = beginDateTime;
@@ -24,18 +25,41 @@ namespace CPT331.WebAPI.Models
 			_longitude = longitude;
 			_name = name;
 			_url = url;
+
+			if ((_eventCategoryModels != null) && (_eventCategoryModels.Count > 0))
+			{
+				_category = _eventCategoryModels[0].Name;
+			}
+
+			if ((_eventImageModels != null) && (_eventImageModels.Count > 0))
+			{
+				ImageModel bannerImageModel = _eventImageModels.Where(m => ((m.Height == 0) && (m.Width == 0))).FirstOrDefault();
+				if (bannerImageModel != null)
+				{
+					_bannerUrl = bannerImageModel.Url;
+				}
+
+				ImageModel thumbnailImageModel = _eventImageModels.Where(m => ((m.Height == 0) && (m.Width == 0))).FirstOrDefault();
+				if (thumbnailImageModel != null)
+				{
+					_thumbnailUrl = thumbnailImageModel.Url;
+				}
+			}
 		}
 
 		private string _address;
+		private string _bannerUrl;
 		private DateTime _beginDateTime;
+		private string _category;
 		private string _description;
 		private DateTime _endDateTime;
 		private int _id;
-		private IEnumerable<EventCategoryModel> _eventCategoryModels;
-		private IEnumerable<ImageModel> _eventImageModels;
+		private List<EventCategoryModel> _eventCategoryModels;
+		private List<ImageModel> _eventImageModels;
 		private double _latitude;
 		private double _longitude;
 		private string _name;
+		private string _thumbnailUrl;
 		private string _url;
 
 		[DataMember]
@@ -52,6 +76,19 @@ namespace CPT331.WebAPI.Models
 		}
 
 		[DataMember]
+		public string BannerUrl
+		{
+			get
+			{
+				return _bannerUrl;
+			}
+			set
+			{
+				//	Required by the silly framework
+			}
+		}
+
+		[DataMember]
 		public DateTime BeginDateTime
 		{
 			get
@@ -61,6 +98,19 @@ namespace CPT331.WebAPI.Models
 			set
 			{
 				_beginDateTime = value;
+			}
+		}
+
+		[DataMember]
+		public string Category
+		{
+			get
+			{
+				return _category;
+			}
+			set
+			{
+				//	Required by the silly framework
 			}
 		}
 
@@ -103,32 +153,6 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
-		[DataMember(Name = "Categories")]
-		public IEnumerable<EventCategoryModel> EventCategoryModels
-		{
-			get
-			{
-				return _eventCategoryModels;
-			}
-			set
-			{
-				_eventCategoryModels = value;
-			}
-		}
-
-		[DataMember(Name = "Images")]
-		public IEnumerable<ImageModel> EventImageModels
-		{
-			get
-			{
-				return _eventImageModels;
-			}
-			set
-			{
-				_eventImageModels = value;
-			}
-		}
-
 		[DataMember]
 		public double Latitude
 		{
@@ -165,6 +189,19 @@ namespace CPT331.WebAPI.Models
 			set
 			{
 				_name = value;
+			}
+		}
+
+		[DataMember]
+		public string ThumbnailUrl
+		{
+			get
+			{
+				return _thumbnailUrl;
+			}
+			set
+			{
+				//	Required by the silly framework
 			}
 		}
 

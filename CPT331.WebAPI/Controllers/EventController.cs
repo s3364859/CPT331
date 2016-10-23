@@ -3,6 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.UI.WebControls;
 
@@ -23,11 +25,19 @@ namespace CPT331.WebAPI.Controllers
 
 		[HttpGet]
 		[Route("api/Event/{id}")]
-		public EventModel Event(int id)
+		public EventModel Event(uint id)
 		{
-			EventInfo eventInfo = EventRepository.GetEventByID(id);
+			EventModel eventModel = ToEventModel(EventRepository.GetEventByID((int)(id)));
 
-			return ToEventModel(eventInfo);
+			if (eventModel == null)
+			{
+				throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+				{
+					Content = new StringContent("Data not found.")
+				});
+			}
+
+			return eventModel;
 		}
 
 		[HttpGet]
@@ -70,20 +80,27 @@ namespace CPT331.WebAPI.Controllers
 
 		private static EventModel ToEventModel(EventInfo eventInfo)
 		{
-			return new EventModel
-			(
-				eventInfo.Address,
-				eventInfo.BeginDateTime,
-				eventInfo.Description,
-				eventInfo.EndDateTime,
-				eventInfo.ID,
-				eventInfo.EventCategories.Select(m => new EventCategoryModel(m.ID, m.Name)),
-				eventInfo.EventImages.Select(m => new ImageModel(m.Height, m.Url, m.Width)),
-				eventInfo.Latitude,
-				eventInfo.Longitude,
-				eventInfo.Name,
-				eventInfo.Url
-			);
+			EventModel eventModel = null;
+
+			if (eventInfo != null)
+			{
+				eventModel = new EventModel
+				(
+					eventInfo.Address,
+					eventInfo.BeginDateTime,
+					eventInfo.Description,
+					eventInfo.EndDateTime,
+					eventInfo.ID,
+					eventInfo.EventCategories.Select(m => new EventCategoryModel(m.ID, m.Name)).ToList(),
+					eventInfo.EventImages.Select(m => new ImageModel(m.Height, m.Url, m.Width)).ToList(),
+					eventInfo.Latitude,
+					eventInfo.Longitude,
+					eventInfo.Name,
+					eventInfo.Url
+				);
+			}
+
+			return eventModel;
 		}
 	}
 }
