@@ -6,12 +6,10 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.UI.WebControls;
 
-using CPT331.Core.Extensions;
 using CPT331.Core.ObjectModel;
 using CPT331.Data;
 using CPT331.WebAPI.Models;
-using System.Net.Http;
-using System.Net;
+using CPT331.WebAPI.Validation;
 
 #endregion
 
@@ -48,18 +46,11 @@ namespace CPT331.WebAPI.Controllers
 
 		[HttpGet]
 		[Route("api/Crime/CrimesByCoordinate")]
+		[ValidateCoordinates]
 		public CrimeByCoordinateModel CrimesByCoordinate(double latitude, double longitude, int count = DefaultNumberOfCrimeRecords, string sortBy = "", SortDirection? sortDirection = null)
 		{
-            CrimeByCoordinateModel crimeByCoordinateModel = null;
-            Coordinate coord;
-            if (!Coordinate.TryCoordinate(latitude, longitude, out coord))
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest)
-                    {
-                        Content = new StringContent("Invalid Coordindates"),
-                    });
-            }
-            List<CrimeByCoordinate> crimeByCoordinates = CrimeRepository.GetCrimesByCoordinate(latitude, longitude);
+			CrimeByCoordinateModel crimeByCoordinateModel = null;
+			List<CrimeByCoordinate> crimeByCoordinates = CrimeRepository.GetCrimesByCoordinate(latitude, longitude);
 
             if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
             {
