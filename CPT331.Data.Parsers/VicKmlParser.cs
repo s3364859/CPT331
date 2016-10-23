@@ -22,48 +22,24 @@ namespace CPT331.Data.Parsers
 
 		internal const string VIC = "VIC";
 
-		private static Dictionary<string, string> CreateMappingDictionary(string fileName)
-		{
-			Dictionary<string, string> mappingDictionary = new Dictionary<string, string>();
-
-			string mappingFileName = fileName.Replace($"{VIC}.kml", $"{VIC}-Mapping.xml");
-			if (File.Exists(mappingFileName) == true)
-			{
-				XmlDocument xmlDocument = new XmlDocument();
-				xmlDocument.Load(mappingFileName);
-
-				XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/Workbook/Worksheet/Table/Row[position() > 1]");
-				foreach (XmlNode xmlNode in xmlNodeList)
-				{
-					mappingDictionary.Add(xmlNode.ChildNodes[0].InnerText.Trim(), xmlNode.ChildNodes[1].InnerText.Trim());
-				}
-			}
-
-			return mappingDictionary;
-		}
-
 		protected override void OnParse(string fileName, List<Coordinate> coordinates)
 		{
 			OutputStreams.WriteLine($"Parsing {VIC} data...");
 
-			Dictionary<string, string> mappingDictionary = CreateMappingDictionary(fileName);
-
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);
+
+			string[] reverseLocalGovernmentAreaNames = new string[]
+			{
+				"Alpine",
+				"Baw Baw",
+				"Mansfield"
+			};
 
 			XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/Document/Placemark");
 			foreach (XmlNode xmlNode in xmlNodeList)
 			{
 				string name = xmlNode.SelectSingleNode("name").InnerText;
-
-				if (mappingDictionary.ContainsKey(name) == true)
-				{
-					string newName = mappingDictionary[name];
-
-					OutputStreams.WriteLine($"Translating {name} to {newName}...");
-
-					name = newName;
-				}
 
 				OutputStreams.WriteLine($"Processing {name}...");
 				
@@ -84,7 +60,12 @@ namespace CPT331.Data.Parsers
 				
 					coordinates.Add(new Coordinate(Double.Parse(coordinateParts[1]), Double.Parse(coordinateParts[0])));
 				}
-				
+
+				if (reverseLocalGovernmentAreaNames.Contains(name) == false)
+				{
+					coordinates.Reverse();
+				}
+
 				base.Commit(coordinates, name);
 			}
 

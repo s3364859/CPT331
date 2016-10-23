@@ -60,11 +60,12 @@ namespace CPT331.Data.Migration
 			stringBuilder.AppendLine($"\tCREATE DATABASE [{databaseName}]");
             stringBuilder.AppendLine("END");
 
-            if (_options.SimpleRecoveryModel)
+            if (_options.SimpleRecoveryModel == true)
             {
                 stringBuilder.AppendLine($"ALTER DATABASE [{databaseName}] SET RECOVERY SIMPLE;");
             }
-            ExecuteNonQuery(sqlConnection, stringBuilder.ToString());
+
+			ExecuteNonQuery(sqlConnection, stringBuilder.ToString());
         }
 
 		private static void DropDatabase(SqlConnection sqlConnection, string databaseName)
