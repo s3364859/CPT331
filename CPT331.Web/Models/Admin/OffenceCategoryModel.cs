@@ -3,6 +3,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
+using CPT331.Web.Validation;
+
 #endregion
 
 namespace CPT331.Web.Models.Admin
@@ -35,7 +37,7 @@ namespace CPT331.Web.Models.Admin
 		private bool _isVisible;
 		private string _name;
 
-		[DataType(DataType.Text)]
+		[DataType(DataType.DateTime)]
 		[Display(Name = "Date Created")]
 		[Required(ErrorMessage = "*")]
 		public DateTime DateCreatedUtc
@@ -50,7 +52,7 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
-		[DataType(DataType.Text)]
+		[DataType(DataType.DateTime)]
 		[Display(Name = "Date Updated")]
 		[Required(ErrorMessage = "*")]
 		public DateTime DateUpdatedUtc
@@ -65,6 +67,7 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+		[Integer(ErrorMessage = "*")]
 		public int ID
 		{
 			get
@@ -110,6 +113,7 @@ namespace CPT331.Web.Models.Admin
 		[DataType(DataType.Text)]
 		[Display(Name = "Name")]
 		[Required(ErrorMessage = "*")]
+		[StringLength(100, ErrorMessage = "*")]
 		public string Name
 		{
 			get

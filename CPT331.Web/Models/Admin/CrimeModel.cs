@@ -1,9 +1,9 @@
 ﻿#region Using References
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+
+using CPT331.Web.Validation;
 
 #endregion
 
@@ -52,6 +52,7 @@ namespace CPT331.Web.Models.Admin
 
 		[DataType(DataType.Text)]
 		[Display(Name = "Count")]
+		[Integer(ErrorMessage = "*")]
 		[Required(ErrorMessage = "*")]
 		public int Count
 		{
@@ -95,6 +96,7 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+		[Integer(ErrorMessage = "*")]
 		public int ID
 		{
 			get
@@ -137,6 +139,11 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+		[DataType(DataType.Text)]
+		[Display(Name = "Local Government Area")]
+		[Integer(ErrorMessage = "*")]
+		[Required(ErrorMessage = "*")]
+		[LocalGovernmentArea(ErrorMessage = "*")]
 		public int LocalGovernmentAreaID
 		{
 			get
@@ -151,6 +158,8 @@ namespace CPT331.Web.Models.Admin
 
 		[DataType(DataType.Text)]
 		[Display(Name = "Month")]
+		[Integer(ErrorMessage = "*")]
+		[Month(ErrorMessage = "*")]
 		[Required(ErrorMessage = "*")]
 		public int Month
 		{
@@ -166,6 +175,8 @@ namespace CPT331.Web.Models.Admin
 
 		[DataType(DataType.Text)]
 		[Display(Name = "Offence")]
+		[Integer(ErrorMessage = "*")]
+		[Offence(ErrorMessage = "*")]
 		[Required(ErrorMessage = "*")]
 		public int OffenceID
 		{
@@ -181,7 +192,9 @@ namespace CPT331.Web.Models.Admin
 
 		[DataType(DataType.Text)]
 		[Display(Name = "Year")]
+		[Integer(ErrorMessage = "*")]
 		[Required(ErrorMessage = "*")]
+		[Year(ErrorMessage = "*")]
 		public int Year
 		{
 			get
