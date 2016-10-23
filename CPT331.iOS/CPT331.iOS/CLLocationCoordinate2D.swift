@@ -10,23 +10,30 @@ import CoreLocation
 
 extension CLLocationCoordinate2D {
     
-    // Returns distance (in meters) between two coordinate pairs
-    func distanceFrom(target: CLLocationCoordinate2D) -> Double{
+    /**
+        Calculates the distance the distance between two geographical coordinates using the Haversine formula.
+     
+        - Parameters:
+            - coordinate: the second geographical coordinate (lat/lng pair) to calculate distance between
+        
+        - Returns: the distance in Meters
+    */
+    func distanceFrom(coordinate: CLLocationCoordinate2D) -> Double{
         
         // Earth's radius in Kilometers
         let earthRadius: Double = 6371.01
         let kDegreesToRadians: Double = M_PI / 180
         
         // Get the difference between our two points then convert the difference into radians
-        let nDLat: Double = (target.latitude - self.latitude) * kDegreesToRadians
-        let nDLon: Double = (target.longitude - self.longitude) * kDegreesToRadians
+        let nDLat: Double = (coordinate.latitude - self.latitude) * kDegreesToRadians
+        let nDLon: Double = (coordinate.longitude - self.longitude) * kDegreesToRadians
         let fromLat: Double = self.latitude * kDegreesToRadians
-        let toLat: Double = target.latitude * kDegreesToRadians
+        let toLat: Double = coordinate.latitude * kDegreesToRadians
         let nA: Double = pow(sin(nDLat / 2), 2) + cos(fromLat) * cos(toLat) * pow(sin(nDLon / 2), 2)
         let nC: Double = 2 * atan2(sqrt(nA), sqrt(1 - nA))
         let nD: Double = earthRadius * nC
         
-        // Return our calculated distance in meters
+        // Return the calculated distance in meters
         return nD * 1000
     }
 }

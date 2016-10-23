@@ -10,10 +10,12 @@ import Foundation
 
 extension NSDateComponents {
     
+    /// Constructs a NSDateCompontents object using date range
     class func fromRange(startDate: NSDate, _ endDate: NSDate) -> NSDateComponents {
         return NSCalendar.currentCalendar().components([.Day, .Hour, .Minute], fromDate: startDate, toDate: endDate, options: NSCalendarOptions.init(rawValue: 0))
     }
     
+    /// String representation: "_ days, _ hours, _ min". Each component is only displayed if necessary.
     var string:String {
         let (days, hours, minutes) = (self.day, self.hour, self.minute)
         

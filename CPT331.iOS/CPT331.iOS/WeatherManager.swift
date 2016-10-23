@@ -107,6 +107,8 @@ extension WeatherDataCollection {
     }
 }
 
+
+
 /// Adds support to WeatherDataCurrent for parsing JSON from the Dark Sky API
 extension WeatherDataCurrent {
     

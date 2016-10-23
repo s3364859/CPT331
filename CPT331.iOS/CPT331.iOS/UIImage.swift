@@ -8,16 +8,20 @@
 
 import UIKit
 
-extension UIImageView {
-    public func rotateImage(degrees: CGFloat, flip: Bool) {
-        let rotatedImage = self.image?.imageRotatedByDegrees(degrees, flip: flip)
-        self.image = rotatedImage
-    }
-}
-
 extension UIImage {
-    // Source: https://ruigomes.me/blog/how-to-rotate-an-uiimage-using-swift/
-    public func imageRotatedByDegrees(degrees: CGFloat, flip: Bool) -> UIImage {
+    
+    /**
+        Uses the current image to generate a rotated version without modifying the original.
+     
+        [Third party code](https://ruigomes.me/blog/how-to-rotate-an-uiimage-using-swift/) by: Rui Gomes, 2015.
+     
+        - Parameters:
+            - degrees: the amount which the image should be rotated
+            - flip: whether or not the image should be flipped (Optional, false by default)
+     
+        - Returns: a rotated image
+    */
+    public func imageRotatedByDegrees(degrees: CGFloat, flip: Bool=false) -> UIImage {
         let degreesToRadians: (CGFloat) -> CGFloat = {
             return $0 / 180.0 * CGFloat(M_PI)
         }
@@ -56,7 +60,17 @@ extension UIImage {
         return newImage
     }
     
-    // Source: http://stackoverflow.com/a/32834059
+    
+    /**
+        Generates a tinted image, replacing the black color channel with the specified color. The original image is not modified.
+     
+        [Third party code](http://stackoverflow.com/a/32834059) by Stack Overflow user: Noah Witherspoon, 2015.
+     
+        - Note: it is intended that the white color channel be left unchanged.
+     
+        - Parameters: 
+            - color: the color which should replace the black color channel.
+    */
     func tintWithColor(color:UIColor)->UIImage {
         let imageSize: CGSize = self.size
         let imageScale: CGFloat = self.scale

@@ -154,7 +154,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     
     
     /**
-        Handles passing data to the view which is about to be displayed. If the requested view is a ModalViewController, map updates will be disabled until the modal view has disappeared.
+        Handles passing data to the view which is about to be displayed.
+     
+        - Note: If the requested view is a ModalViewController, map updates will be disabled until the modal view has disappeared.
      
         - Parameters:
             - segue: the segue object containing information about view controllers involved in segue
@@ -188,7 +190,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     // -----------------------------
     
     /**
-        EventsViewModelDelegate function. Handles displaying event annotation markers on the map. To minimise redraw latency, the map will not be updated while panning.
+        EventsViewModelDelegate function. Handles displaying event annotation markers on the map.
+     
+        - Note: To minimise redraw latency, the map will not be updated while panning.
         
         - Parameters:
             - Event dictionary: event ID / event pairs
@@ -218,7 +222,9 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
 
     
     /**
-        MGLMapViewDelegate function. Responsible for instantiating or reusing a MGLAnnotationImage, to be displayed in place of a marker on the map. It is expected that the annotation object passed in is an instance of EventPointFeature.
+        MGLMapViewDelegate function. Responsible for instantiating or reusing a MGLAnnotationImage, to be displayed in place of a marker on the map. 
+     
+        - Note: It is expected that the annotation object passed in is an instance of EventPointFeature.
      
         - Parameters:
             - mapView: the map view which the annotation will be displayed on

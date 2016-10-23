@@ -332,7 +332,10 @@ protocol LocationSearchDelegate {
         self.textField.resignFirstResponder()
         self.searchQueryDidChange(self.textField)
         
-        // Pass data back to parent view
-        self.delegate?.locationSelected(placemark.asLocation, pan: true, zoom: true)
+        // Pass data back to parent view (as a location)
+        self.delegate?.locationSelected(
+            Location(name: placemark.name, type: "suburb", coordinate: placemark.location.coordinate),
+            pan: true, zoom: true
+        )
     }
 }

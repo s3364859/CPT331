@@ -70,7 +70,6 @@
 		D0CA271A1DAF4FA700217875 /* CrimeDataCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA27191DAF4FA700217875 /* CrimeDataCollection.swift */; };
 		D0CA271C1DAF548700217875 /* CrimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA271B1DAF548700217875 /* CrimeManager.swift */; };
 		D0FB9F001DA75AD200848C11 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB9EFF1DA75AD200848C11 /* LocationViewController.swift */; };
-		D0FB9F021DA761A400848C11 /* UINavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB9F011DA761A400848C11 /* UINavigationItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,7 +160,6 @@
 		D0CA27191DAF4FA700217875 /* CrimeDataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeDataCollection.swift; sourceTree = "<group>"; };
 		D0CA271B1DAF548700217875 /* CrimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeManager.swift; sourceTree = "<group>"; };
 		D0FB9EFF1DA75AD200848C11 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
-		D0FB9F011DA761A400848C11 /* UINavigationItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationItem.swift; sourceTree = "<group>"; };
 		E6D3BEBE1A24C65561C4D38C /* Pods-CPT331.iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPT331.iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-CPT331.iOS/Pods-CPT331.iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -293,7 +291,6 @@
 				D0630E4B1D92243D00200606 /* String.swift */,
 				D04259AA1DA6416F0019103E /* UIImage.swift */,
 				D06EC5FF1DAC40DC00626F6C /* UIImageView.swift */,
-				D0FB9F011DA761A400848C11 /* UINavigationItem.swift */,
 				D097BDA01DA76E4F004B1AB0 /* UIView.swift */,
 				D08BFF2E1D9007FC001B89B6 /* UIViewController.swift */,
 			);
@@ -617,7 +614,6 @@
 				D0A32F101DB7B5B700DF8623 /* CategoryListCell.swift in Sources */,
 				D08BFF3F1D900846001B89B6 /* MenuViewController.swift in Sources */,
 				D04F33E91D8E65E700103669 /* AppDelegate.swift in Sources */,
-				D0FB9F021DA761A400848C11 /* UINavigationItem.swift in Sources */,
 				D08BFF3D1D900846001B89B6 /* LocationListCell.swift in Sources */,
 				D0FB9F001DA75AD200848C11 /* LocationViewController.swift in Sources */,
 				D0CA271C1DAF548700217875 /* CrimeManager.swift in Sources */,

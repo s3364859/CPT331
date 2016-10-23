@@ -10,14 +10,16 @@ import Foundation
 import MapboxGeocoder
 
 extension GeocodedPlacemark {
-    // Convenience function
+    
+    /**
+        Convenience function for calculating the distance the distance to a CLLocation using the Haversine formula.
+     
+        - Parameters:
+            - location: the core location object to calculate distance between
+     
+        - Returns: the distance in Meters
+     */
     func distanceFrom(target: CLLocation) -> Double{
         return self.location.coordinate.distanceFrom(target.coordinate)
-    }
-    
-    var asLocation:Location {
-        get {
-            return Location(name: self.name, type: "suburb", coordinate: self.location.coordinate)
-        }
     }
 }

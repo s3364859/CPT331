@@ -42,6 +42,8 @@ class CrimeManager: JSONAPI {
     }
 }
 
+
+
 /// Adds support to CrimeDataCollection for parsing JSON from the EventGuardian event API
 extension CrimeDataCollection {
     
