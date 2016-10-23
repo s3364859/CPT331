@@ -3,11 +3,13 @@
 @model OffenceModel
 
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Offences | New Offence";
 }
 
+<br />
 <h1>@Html.ActionLink("Home", "Home", "Admin") | New Offence</h1>
+<hr/><br />
 
 @using (Html.BeginForm())
 {

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>CPT331 Administation - </title>
+<title>CPT331 Administation - EventGuardian</title>
 <meta charset="utf-8" />
 <meta name="description" content="@ViewBag.Description" />
 <meta name="keywords" content="@ViewBag.Keywords" />
@@ -19,7 +19,7 @@
 <div class="Header">
 <div class="HeaderImage"><a href="/" title="Home - {Name}"><!--INSERT LOGO HERE<img src="/images/logo.jpg" alt="Home - {Name}" title="Home - {Name}" /></a>--></div>
 <div class="HeaderLinks">
-@Html.ActionLink("Home", "Home", "Home", null, new { @title = "Home" }) &raquo;
+@Html.ActionLink("Main Site", "Home", "Home", null, new { @title = "Home" }) &raquo;
 @Html.ActionLink("Admin", "Home", "Admin", null, new { @title = "Home" })
 </div>
 </div>
@@ -40,7 +40,7 @@
 <div class="HorizontalSpacer"></div>
 <div class="HorizontalSolidLine"></div>
 
-<p align="center">Copyright &copy; @DateTime.Now.Year.ToString() @Html.ActionLink("CPT331 Administation", "Home", "Home", null, new { @title = "CPT331 Administation" })</p>
+<p align="center">Copyright &copy; @DateTime.Now.Year.ToString() EventGuardian (CPT331 Administration)</p>
 
 <div class="HorizontalSpacer"></div>
 

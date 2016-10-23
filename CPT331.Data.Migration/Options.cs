@@ -13,9 +13,9 @@ namespace CPT331.Data.Migration
 	{
 		private string _drop;
 		private string _kml;
-		private string _xml;
-        private bool _simpleRecoveryModel;
 		private IParserState _lastParserState;
+		private bool _simpleRecoveryModel;
+		private string _xml;
 
 		[Option('d', "drop", Required = false, HelpText = "Drop the database and recreate it. Use this option for the initial database creation.")]
 		public string Drop
@@ -43,32 +43,6 @@ namespace CPT331.Data.Migration
 			}
 		}
 
-		[Option('x', "xml", Required = false, HelpText = "Process the XML data sources. Use this option to hydrate an empty database.")]
-		public string Xml
-		{
-			get
-			{
-				return _xml;
-			}
-			set
-			{
-				_xml = value;
-			}
-		}
-        
-        [Option('s', "simplelog", Required = false, HelpText = "Use simple transaction log when creating database. Use this option for the development databases.")]
-        public bool SimpleRecoveryModel
-        {
-            get
-            {
-                return _simpleRecoveryModel;
-            }
-            set
-            {
-                _simpleRecoveryModel = value;
-            }
-        }
-
 		[ParserState]
 		public IParserState LastParserState
 		{
@@ -79,6 +53,32 @@ namespace CPT331.Data.Migration
 			set
 			{
 				_lastParserState = value;
+			}
+		}
+
+		[Option('s', "simplelog", Required = false, HelpText = "Use simple transaction log when creating database. Use this option for the development databases.")]
+		public bool SimpleRecoveryModel
+		{
+			get
+			{
+				return _simpleRecoveryModel;
+			}
+			set
+			{
+				_simpleRecoveryModel = value;
+			}
+		}
+
+		[Option('x', "xml", Required = false, HelpText = "Process the XML data sources. Use this option to hydrate an empty database.")]
+		public string Xml
+		{
+			get
+			{
+				return _xml;
+			}
+			set
+			{
+				_xml = value;
 			}
 		}
 

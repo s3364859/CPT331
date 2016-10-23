@@ -3,12 +3,14 @@
 @model IEnumerable<OffenceCategory>
 
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "OffenceCategories | Admin";
 }
 
+<br />
 <h1>@Html.ActionLink("Home", "Home", "Admin") | Offences</h1>
+<hr /><br />
 
-<p>@Html.ActionLink("New Offence Category", "NewOffenceCategory", "Admin")</p>
+<p><h3>@Html.ActionLink("New Offence Category", "NewOffenceCategory", "Admin")</h3></p>
 
 @Html.Partial("OffenceCategoriesPartial", Model)

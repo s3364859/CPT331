@@ -3,12 +3,15 @@
 @model IEnumerable<LocalGovernmentAreaState>
 
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Local Government Areas | Admin";
 }
 
+<br/>
 <h1>@Html.ActionLink("Home", "Home", "Admin") | Local Government Areas</h1>
+<hr /><br />
 
-<p>@Html.ActionLink("New Local Government Area", "NewLocalGovernmentArea", "Admin")</p>
+<p><h3>@Html.ActionLink("New Local Government Area", "NewLocalGovernmentArea", "Admin")</h3></p>
+<br/>
 
 @Html.Partial("LocalGovernmentAreasPartial", Model)
