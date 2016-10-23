@@ -3,11 +3,13 @@
 @model LocalGovernmentAreaModel
 
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Local Government Areas | Local Government Area";
 }
 
+<br/>
 <h1>@Html.ActionLink("Home", "Home", "Admin") | Local Government Area</h1>
+<hr /><br />
 
 @using (Html.BeginForm())
 {

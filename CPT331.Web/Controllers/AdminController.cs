@@ -15,10 +15,15 @@ using CPT331.Web.Models.Admin;
 namespace CPT331.Web.Controllers
 {
     public class AdminController : Controller
-    {		
-		[AcceptVerbs(HttpVerbs.Get)]
+    {
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Home()
         {
+            // User isn't logged in. 
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
 

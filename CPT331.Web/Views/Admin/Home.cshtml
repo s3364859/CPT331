@@ -1,13 +1,18 @@
 ﻿@{
-	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 	ViewBag.Title = "CPT331 Administation | Home";
 }
 
-<h1>Administration</h1>
-
+<br/>
+<h1>CPT331 Database Administration</h1>
+<hr/><br/>
 <ul>
-<li>@Html.ActionLink("Local Government Areas", "LocalGovernmentAreas")</li>
-<li>@Html.ActionLink("Offence Categories", "OffenceCategories")</li>
-<li>@Html.ActionLink("Offences", "Offences")</li>
-<li>@Html.ActionLink("States", "States")</li>
+    <li><h4>@Html.ActionLink("Local Government Areas", "LocalGovernmentAreas")</h4></li>
+    <li><h4>@Html.ActionLink("Offence Categories", "OffenceCategories")</h4></li>
+    <li><h4>@Html.ActionLink("Offences", "Offences")</h4></li>
+    <li><h4>@Html.ActionLink("States", "States")</h4></li>
 </ul>
+<br/>
+<div align="center">
+    <a href="@Url.Action("SignOut", "Account")" class="btn btn-primary btn-lg"><span>Sign out</span></a>
+</div>
