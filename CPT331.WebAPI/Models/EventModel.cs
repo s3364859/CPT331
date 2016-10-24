@@ -47,7 +47,7 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
-		private const int BannerImageTransformationID = 15;
+		private const int BannerImageTransformationID = 7;
 		private const int ThumbnaiImageTransformationID = 15;
 
 		private string _address;
