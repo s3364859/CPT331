@@ -16,22 +16,11 @@ namespace CPT331.Web.Controllers
 {
     public class AdminController : Controller
     {
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Home()
-        {
-            // User isn't logged in. 
-            if (Session["user"] == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            return View();
-        }
-
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult Crime(int id)
+		public ActionResult Crime(uint id)
 		{
 			CrimeModel crimeModel = null;
-			Crime crime = CrimeRepository.GetCrimeByID(id);
+			Crime crime = CrimeRepository.GetCrimeByID((int)(id));
 
 			if (crime != null)
 			{
@@ -90,7 +79,7 @@ namespace CPT331.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult Crimes(string sortBy, SortDirection? sortDirection, int? page)
+		public ActionResult Crimes(string sortBy, SortDirection? sortDirection, uint? page)
 		{
 			IEnumerable<Crime> crimes = CrimeRepository.GetCrimes();
 
@@ -161,10 +150,21 @@ namespace CPT331.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult LocalGovernmentArea(int id)
+		public ActionResult Home()
+		{
+			// User isn't logged in. 
+			if (Session["user"] == null)
+			{
+				return RedirectToAction("Login", "Account");
+			}
+			return View();
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult LocalGovernmentArea(uint id)
 		{
 			LocalGovernmentAreaModel localGovernmentAreaModel = null;
-			LocalGovernmentArea localGovernmentArea = LocalGovernmentAreaRepository.GetLocalGovernmentAreaByID(id);
+			LocalGovernmentArea localGovernmentArea = LocalGovernmentAreaRepository.GetLocalGovernmentAreaByID((int)(id));
 
 			if (localGovernmentArea != null)
 			{
@@ -217,7 +217,7 @@ namespace CPT331.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult LocalGovernmentAreas(string sortBy, SortDirection? sortDirection, int? page)
+		public ActionResult LocalGovernmentAreas(string sortBy, SortDirection? sortDirection, uint? page)
 		{
 			IEnumerable<LocalGovernmentAreaState> localGovernmentAreaStates = LocalGovernmentAreaStateRepository.GetLocalGovernmentAreaStates();
 
@@ -424,10 +424,10 @@ namespace CPT331.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult Offence(int id)
+		public ActionResult Offence(uint id)
 		{
 			OffenceModel offenceModel = null;
-			Offence offence = OffenceRepository.GetOffenceByID(id);
+			Offence offence = OffenceRepository.GetOffenceByID((int)(id));
 
 			if (offence != null)
 			{
@@ -464,7 +464,7 @@ namespace CPT331.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult Offences(string sortBy, SortDirection? sortDirection, int? page)
+		public ActionResult Offences(string sortBy, SortDirection? sortDirection, uint? page)
 		{
 			IEnumerable<Offence> offences = OffenceRepository.GetOffences();
 
@@ -535,10 +535,10 @@ namespace CPT331.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult OffenceCategory(int id)
+		public ActionResult OffenceCategory(uint id)
 		{
 			OffenceCategoryModel offenceCategoryModel = null;
-			OffenceCategory offenceCategory = OffenceCategoryRepository.GetOffenceCategoryByID(id);
+			OffenceCategory offenceCategory = OffenceCategoryRepository.GetOffenceCategoryByID((int)(id));
 
 			if (offenceCategory != null)
 			{
@@ -575,7 +575,7 @@ namespace CPT331.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult OffenceCategories(string sortBy, SortDirection? sortDirection, int? page)
+		public ActionResult OffenceCategories(string sortBy, SortDirection? sortDirection, uint? page)
 		{
 			IEnumerable<OffenceCategory> offenceCategories = OffenceCategoryRepository.GetOffenceCategories();
 
@@ -646,10 +646,10 @@ namespace CPT331.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult State(int id)
+		public ActionResult State(uint id)
 		{
 			StateModel stateModel = null;
-			State state = StateRepository.GetStateByID(id);
+			State state = StateRepository.GetStateByID((int)(id));
 
 			if (state != null)
 			{
@@ -686,7 +686,7 @@ namespace CPT331.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult States(string sortBy, SortDirection? sortDirection, int? page)
+		public ActionResult States(string sortBy, SortDirection? sortDirection, uint? page)
 		{
 			IEnumerable<State> states = StateRepository.GetStates();
 
