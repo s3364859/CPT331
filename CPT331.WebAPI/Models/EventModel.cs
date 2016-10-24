@@ -33,19 +33,22 @@ namespace CPT331.WebAPI.Models
 
 			if ((_eventImageModels != null) && (_eventImageModels.Count > 0))
 			{
-				ImageModel bannerImageModel = _eventImageModels.Where(m => ((m.Height == 0) && (m.Width == 0))).FirstOrDefault();
+				ImageModel bannerImageModel = _eventImageModels.Where(m => (m.TransformationID == BannerImageTransformationID)).FirstOrDefault();
 				if (bannerImageModel != null)
 				{
 					_bannerUrl = bannerImageModel.Url;
 				}
 
-				ImageModel thumbnailImageModel = _eventImageModels.Where(m => ((m.Height == 0) && (m.Width == 0))).FirstOrDefault();
+				ImageModel thumbnailImageModel = _eventImageModels.Where(m => (m.TransformationID == ThumbnaiImageTransformationID)).FirstOrDefault();
 				if (thumbnailImageModel != null)
 				{
 					_thumbnailUrl = thumbnailImageModel.Url;
 				}
 			}
 		}
+
+		private const int BannerImageTransformationID = 15;
+		private const int ThumbnaiImageTransformationID = 15;
 
 		private string _address;
 		private string _bannerUrl;

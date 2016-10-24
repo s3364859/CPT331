@@ -10,14 +10,16 @@ namespace CPT331.WebAPI.Models
 	[DataContract(Name = "Image")]
 	public class ImageModel
 	{
-		public ImageModel(int height, string url, int width)
+		public ImageModel(int height, int transformationID, string url, int width)
 		{
 			_height = height;
+			_transformationID = transformationID;
 			_url = url;
 			_width = width;
 		}
 
 		private int _height;
+		private readonly int _transformationID;
 		private string _url;
 		private int _width;
 
@@ -31,6 +33,14 @@ namespace CPT331.WebAPI.Models
 			set
 			{
 				_height = value;
+			}
+		}
+
+		internal int TransformationID
+		{
+			get
+			{
+				return _transformationID;
 			}
 		}
 

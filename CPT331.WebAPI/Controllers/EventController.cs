@@ -92,7 +92,7 @@ namespace CPT331.WebAPI.Controllers
 					eventInfo.EndDateTime,
 					eventInfo.ID,
 					eventInfo.EventCategories.Select(m => new EventCategoryModel(m.ID, m.Name)).ToList(),
-					eventInfo.EventImages.Select(m => new ImageModel(m.Height, m.Url, m.Width)).ToList(),
+					eventInfo.EventImages.Select(m => new ImageModel(m.Height, m.TransformationID, m.Url, m.Width)).ToList(),
 					eventInfo.Latitude,
 					eventInfo.Longitude,
 					eventInfo.Name,
