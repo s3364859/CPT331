@@ -9,10 +9,8 @@ namespace CPT331.Core.ObjectModel
 {
 	public class Coordinate
 	{
-		public Coordinate(double latitude, double longitude)
+		private Coordinate(double latitude, double longitude)
 		{
-            ValidateCordinate(latitude, longitude);
-
 			_latitude = latitude;
 			_longitude = longitude;
 		}
@@ -91,27 +89,10 @@ namespace CPT331.Core.ObjectModel
 			return (IsLatitudeValid(latitude) && IsLongitudeValid(longitude));
 		}
 
-		public override string ToString()
+		public static Coordinate FromValues(double latitude, double longitude)
 		{
-			return $"Latitude = {_latitude}, Longitude = {_longitude}";
-		}
+			Coordinate coordinate = null;
 
-        public static bool TryCoordinate(double latitude, double longitude, out Coordinate output)
-        {
-			if (IsValid(latitude, longitude) == true)
-			{
-				output = new Coordinate(latitude, longitude);
-			}
-			else
-			{
-				output = null;
-			}
-
-			return (output != null);
-        }
-
-        private void ValidateCordinate(double latitude, double longitude)
-        {
 			if (IsValid(latitude, longitude) == false)
 			{
 				StringBuilder stringBuilder = new StringBuilder(); ;
@@ -131,6 +112,17 @@ namespace CPT331.Core.ObjectModel
 					throw new ArgumentException($"Invalid coordinates: {stringBuilder.ToString()}");
 				}
 			}
-        }
+			else
+			{
+				coordinate = new Coordinate(latitude, longitude);	
+			}
+
+			return coordinate;
+		}
+
+		public override string ToString()
+		{
+			return $"Latitude = {_latitude}, Longitude = {_longitude}";
+		}
     }
 }

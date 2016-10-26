@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CPT331.WebAPI.Parsers")]
+[assembly: AssemblyTitle("CPT331.Core.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("RMIT University")]
-[assembly: AssemblyProduct("CPT331.WebAPI.Parsers")]
+[assembly: AssemblyProduct("CPT331.Core.Tests")]
 [assembly: AssemblyCopyright("Copyright © RMIT University 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d2c6da46-e582-4ded-9c17-8e3a940a9920")]
+[assembly: Guid("76adc18a-ba2a-4ff5-9248-eb44aeb1d27c")]
 
 // Version information for an assembly consists of the following four values:
 //

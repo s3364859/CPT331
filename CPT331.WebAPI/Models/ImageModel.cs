@@ -1,5 +1,6 @@
 ﻿#region Using References
 
+using CPT331.Core.ObjectModel;
 using System;
 using System.Runtime.Serialization;
 
@@ -10,14 +11,16 @@ namespace CPT331.WebAPI.Models
 	[DataContract(Name = "Image")]
 	public class ImageModel
 	{
-		public ImageModel(int height, string url, int width)
+		public ImageModel(int height, EventFinderImageFormat transformationID, string url, int width)
 		{
 			_height = height;
+			_transformationID = transformationID;
 			_url = url;
 			_width = width;
 		}
 
 		private int _height;
+		private readonly EventFinderImageFormat _transformationID;
 		private string _url;
 		private int _width;
 
@@ -31,6 +34,14 @@ namespace CPT331.WebAPI.Models
 			set
 			{
 				_height = value;
+			}
+		}
+
+		internal EventFinderImageFormat TransformationID
+		{
+			get
+			{
+				return _transformationID;
 			}
 		}
 
