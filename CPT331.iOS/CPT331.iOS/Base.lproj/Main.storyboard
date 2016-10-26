@@ -108,7 +108,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJh-3A-VvI">
                                             <rect key="frame" x="12" y="12" width="546" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" image="Icon-Deselected" highlightedImage="Icon-Selected" translatesAutoresizingMaskIntoConstraints="NO" id="Hbj-v7-MM8">
@@ -777,14 +777,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Event Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x4k-eu-LHp">
-                                                    <rect key="frame" x="46" y="4" width="513" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" misplaced="YES" text="Event Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4k-eu-LHp">
+                                                    <rect key="frame" x="46" y="4" width="464" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DX9-kM-O4x">
-                                                    <rect key="frame" x="46" y="22" width="513" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Event Categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DX9-kM-O4x">
+                                                    <rect key="frame" x="46" y="23" width="465" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
                                                     <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -796,21 +796,39 @@
                                                         <constraint firstAttribute="width" secondItem="Ao6-Cy-hfx" secondAttribute="height" multiplier="1:1" id="tuo-96-cJm"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Relative" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wag-mC-JyD">
+                                                    <rect key="frame" x="505" y="5" width="54" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Fixed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdb-0Z-CkA">
+                                                    <rect key="frame" x="523" y="23" width="36" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="x4k-eu-LHp" secondAttribute="trailing" id="0J3-Zw-03f"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="DX9-kM-O4x" secondAttribute="trailing" id="5zR-eU-DH7"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hdb-0Z-CkA" secondAttribute="trailing" id="98f-8V-ApK"/>
                                                 <constraint firstItem="x4k-eu-LHp" firstAttribute="centerY" secondItem="t1Y-TM-nbt" secondAttribute="centerY" constant="-9" id="HRS-f4-1jq"/>
                                                 <constraint firstItem="DX9-kM-O4x" firstAttribute="leading" secondItem="Ao6-Cy-hfx" secondAttribute="trailing" constant="8" id="MGk-bQ-EdN"/>
                                                 <constraint firstItem="Ao6-Cy-hfx" firstAttribute="centerY" secondItem="t1Y-TM-nbt" secondAttribute="centerY" id="NV8-7m-IZd"/>
+                                                <constraint firstItem="wag-mC-JyD" firstAttribute="leading" secondItem="x4k-eu-LHp" secondAttribute="trailing" constant="12" id="NWI-mg-Hg5"/>
                                                 <constraint firstItem="DX9-kM-O4x" firstAttribute="centerY" secondItem="t1Y-TM-nbt" secondAttribute="centerY" constant="9" id="PL3-eB-vkA"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="wag-mC-JyD" secondAttribute="trailing" id="Zb5-wr-ujj"/>
                                                 <constraint firstItem="x4k-eu-LHp" firstAttribute="leading" secondItem="Ao6-Cy-hfx" secondAttribute="trailing" constant="8" id="aRw-6o-gRr"/>
+                                                <constraint firstItem="hdb-0Z-CkA" firstAttribute="top" secondItem="DX9-kM-O4x" secondAttribute="top" id="qet-Np-rho"/>
+                                                <constraint firstItem="hdb-0Z-CkA" firstAttribute="leading" secondItem="DX9-kM-O4x" secondAttribute="trailing" constant="12" id="vZh-Yf-Uey"/>
                                                 <constraint firstAttribute="leadingMargin" secondItem="Ao6-Cy-hfx" secondAttribute="leading" id="yna-fF-3ln"/>
+                                                <constraint firstItem="wag-mC-JyD" firstAttribute="bottom" secondItem="x4k-eu-LHp" secondAttribute="bottom" id="yw3-Sm-MTx"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="fixedTimeLabel" destination="hdb-0Z-CkA" id="hRx-dn-Pnt"/>
                                             <outlet property="primaryLabel" destination="x4k-eu-LHp" id="Ldm-me-Lyp"/>
+                                            <outlet property="relativeTimeLabel" destination="wag-mC-JyD" id="Olj-jI-uku"/>
                                             <outlet property="secondaryLabel" destination="DX9-kM-O4x" id="aNH-Nd-aPS"/>
                                             <outlet property="thumbnailView" destination="Ao6-Cy-hfx" id="U9D-NT-7wj"/>
                                         </connections>

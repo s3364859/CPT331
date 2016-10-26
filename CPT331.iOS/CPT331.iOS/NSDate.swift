@@ -74,6 +74,7 @@ extension NSDate {
     func secondsFrom(date:NSDate) -> Double {
         return (self.timeIntervalSinceReferenceDate - date.timeIntervalSinceReferenceDate)
     }
+    
     func isToday() -> Bool {
         let calendar = NSCalendar.currentCalendar()
         return calendar.components(.Day, fromDate: self).day == calendar.components(.Day, fromDate: NSDate()).day
@@ -82,6 +83,11 @@ extension NSDate {
     func isYesterday() -> Bool {
         let calendar = NSCalendar.currentCalendar()
         return calendar.components(.Day, fromDate: self).day == calendar.components(.Day, fromDate: NSDate()).day - 1
+    }
+
+    func isTomorrow() -> Bool {
+        let calendar = NSCalendar.currentCalendar()
+        return calendar.components(.Day, fromDate: self).day == calendar.components(.Day, fromDate: NSDate()).day + 1
     }
 
     func isPast() -> Bool {

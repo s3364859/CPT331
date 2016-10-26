@@ -204,6 +204,7 @@
 		D04259A11DA624500019103E /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D080C2811D937F020071BB43 /* EventsListCell.swift */,
 				D04259A61DA627950019103E /* WeatherStatView.xib */,
 				D04259A81DA627B70019103E /* WeatherStatView.swift */,
 				D09BB52F1DA6694500438289 /* WeatherPredictionView.xib */,
@@ -416,7 +417,6 @@
 		D0FB9EFC1DA750E700848C11 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				D080C2811D937F020071BB43 /* EventsListCell.swift */,
 				D06EC6011DAC6FDE00626F6C /* EventDataView.xib */,
 				D06EC6031DAC707700626F6C /* EventDataView.swift */,
 			);

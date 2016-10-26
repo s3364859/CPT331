@@ -15,28 +15,20 @@ extension NSDateComponents {
         return NSCalendar.currentCalendar().components([.Day, .Hour, .Minute], fromDate: startDate, toDate: endDate, options: NSCalendarOptions.init(rawValue: 0))
     }
     
-    /// String representation: "_ days, _ hours, _ min". Each component is only displayed if necessary.
     var string:String {
         let (days, hours, minutes) = (self.day, self.hour, self.minute)
         
-        var components = [String]()
-        
         if days > 0 {
-            components.append("\(days) day\(days > 1 ? "s" : "")")
-        }
-        
-        if hours > 0 {
-            components.append(hours > 0 ? "\(hours) hour\(hours > 1 ? "s" : "")" : "")
-        }
-        
-        if minutes > 0 {
-            components.append("\(minutes) min")
-        }
-        
-        if components.count > 0 {
-            return components.joinWithSeparator(", ")
+            return "\(days) day\(days > 1 ? "s" : "")"
+
+        } else if hours > 0 {
+            return hours > 0 ? "\(hours) hour\(hours > 1 ? "s" : "")" : ""
+
+        } else if  minutes > 0 {
+            return "\(minutes) min"
+
         } else {
-            return "None"
+            return ""
         }
     }
 }
