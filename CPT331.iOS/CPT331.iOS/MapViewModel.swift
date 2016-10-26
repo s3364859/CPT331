@@ -12,6 +12,8 @@ import Mapbox
 class MapViewModel:EventsViewModel {
     let mapView:MGLMapView
     var whitelist:EventCategoryWhitelist?
+
+    var events:[Int:Event]?
     
     init(mapView:MGLMapView) {
         self.mapView = mapView
@@ -37,14 +39,16 @@ class MapViewModel:EventsViewModel {
             // Trigger map update for current cached events
             var cachedEvents = EventManager.sharedInstance.getEventsFromCache(withinBounds: bounds)
             self.filterEvents(&cachedEvents, withWhitelist: self.whitelist)
-            self.delegate?.showEvents(cachedEvents)
+
+            self.events = cachedEvents
+            self.delegate?.update()
         }
         
         if useAPI {
             // Fetch events from API
             let radius = self.getRadius(fromCoordinateBounds: bounds)
             EventManager.sharedInstance.getEventsFromAPI(atCoordinate: center, withinRadius: radius) { events in
-                guard var events = events else {
+                guard var fetchedEvents = events else {
                     return
                 }
                 
@@ -53,11 +57,13 @@ class MapViewModel:EventsViewModel {
                     let cachedEvents = EventManager.sharedInstance.getEventsFromCache(withinBounds: bounds)
                     
                     // Merge cached events into events dictionary
-                    events += cachedEvents
+                    fetchedEvents += cachedEvents
                 }
+
+                self.filterEvents(&fetchedEvents, withWhitelist: self.whitelist)
                 
-                self.filterEvents(&events, withWhitelist: self.whitelist)
-                self.delegate?.showEvents(events)
+                self.events = fetchedEvents
+                self.delegate?.update()
             }
         }
     }

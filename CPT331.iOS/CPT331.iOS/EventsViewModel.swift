@@ -9,11 +9,14 @@
 import UIKit
 import Mapbox
 
+
 protocol EventsViewModelDelegate {
-    func showEvents(events:[Int:Event])
+    func update()
 }
 
+
 class EventsViewModel {
+
     var delegate:EventsViewModelDelegate?
     
     init() {}

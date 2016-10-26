@@ -69,6 +69,8 @@
 		D0CA27121DADF94300217875 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA27111DADF94300217875 /* Dictionary.swift */; };
 		D0CA271A1DAF4FA700217875 /* CrimeDataCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA27191DAF4FA700217875 /* CrimeDataCollection.swift */; };
 		D0CA271C1DAF548700217875 /* CrimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA271B1DAF548700217875 /* CrimeManager.swift */; };
+		D0EFB9C31DC02F2A0029FEF3 /* EventSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EFB9C21DC02F2A0029FEF3 /* EventSection.swift */; };
+		D0EFB9C51DC02F6D0029FEF3 /* EventSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EFB9C41DC02F6D0029FEF3 /* EventSectionType.swift */; };
 		D0FB9F001DA75AD200848C11 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB9EFF1DA75AD200848C11 /* LocationViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -159,6 +161,8 @@
 		D0CA27111DADF94300217875 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		D0CA27191DAF4FA700217875 /* CrimeDataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeDataCollection.swift; sourceTree = "<group>"; };
 		D0CA271B1DAF548700217875 /* CrimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeManager.swift; sourceTree = "<group>"; };
+		D0EFB9C21DC02F2A0029FEF3 /* EventSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSection.swift; sourceTree = "<group>"; };
+		D0EFB9C41DC02F6D0029FEF3 /* EventSectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSectionType.swift; sourceTree = "<group>"; };
 		D0FB9EFF1DA75AD200848C11 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		E6D3BEBE1A24C65561C4D38C /* Pods-CPT331.iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPT331.iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-CPT331.iOS/Pods-CPT331.iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -373,11 +377,21 @@
 		D0CA270B1DADD55400217875 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				D0EFB9C61DC03EBF0029FEF3 /* Model */,
 				D0CA270C1DADD60900217875 /* EventsViewModel.swift */,
 				D037F2921DB72B74008B512D /* MapViewModel.swift */,
 				D037F2941DB72B85008B512D /* LocationViewModel.swift */,
 			);
 			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		D0EFB9C61DC03EBF0029FEF3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D0EFB9C21DC02F2A0029FEF3 /* EventSection.swift */,
+				D0EFB9C41DC02F6D0029FEF3 /* EventSectionType.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		D0FB9EFA1DA7502800848C11 /* Modal Views */ = {
@@ -636,6 +650,7 @@
 				D0630E501D92466F00200606 /* NSDate.swift in Sources */,
 				D04532501DA4B26800345DC3 /* WeatherData.swift in Sources */,
 				D06740B91DA4CC8B00E87E0B /* WeatherDataCurrent.swift in Sources */,
+				D0EFB9C51DC02F6D0029FEF3 /* EventSectionType.swift in Sources */,
 				D0CA270D1DADD60900217875 /* EventsViewModel.swift in Sources */,
 				D0628AF41DB5EDF500334E1A /* MGLMapView.swift in Sources */,
 				D0630E4C1D92243D00200606 /* String.swift in Sources */,
@@ -650,6 +665,7 @@
 				D0CA27121DADF94300217875 /* Dictionary.swift in Sources */,
 				D08BFF391D90082C001B89B6 /* LocationManager.swift in Sources */,
 				D0AD35DB1DA913EC00EA3013 /* EventCategory.swift in Sources */,
+				D0EFB9C31DC02F2A0029FEF3 /* EventSection.swift in Sources */,
 				D080C2801D937AA20071BB43 /* LocationTabBarController.swift in Sources */,
 				D044A0291DAB438000C6717D /* JSONAPI.swift in Sources */,
 				D088578F1D9110C600790857 /* LocationWeatherViewController.swift in Sources */,

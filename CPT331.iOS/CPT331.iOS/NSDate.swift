@@ -57,4 +57,48 @@ extension NSDate {
     class func fromISO8601(dateString:String) -> NSDate? {
         return NSDate.fromString(dateString, format: "yyyy-MM-dd'T'HH:mm:ss")
     }
+
+
+    func daysFrom(date:NSDate) -> Double {
+        return (self.timeIntervalSinceReferenceDate - date.timeIntervalSinceReferenceDate)/86400
+    }
+
+    func hoursFrom(date:NSDate) -> Double {
+        return (self.timeIntervalSinceReferenceDate - date.timeIntervalSinceReferenceDate)/3600
+    }
+
+    func minutesFrom(date:NSDate) -> Double {
+        return (self.timeIntervalSinceReferenceDate - date.timeIntervalSinceReferenceDate)/60
+    }
+
+    func secondsFrom(date:NSDate) -> Double {
+        return (self.timeIntervalSinceReferenceDate - date.timeIntervalSinceReferenceDate)
+    }
+    func isToday() -> Bool {
+        let calendar = NSCalendar.currentCalendar()
+        return calendar.components(.Day, fromDate: self).day == calendar.components(.Day, fromDate: NSDate()).day
+    }
+
+    func isYesterday() -> Bool {
+        let calendar = NSCalendar.currentCalendar()
+        return calendar.components(.Day, fromDate: self).day == calendar.components(.Day, fromDate: NSDate()).day - 1
+    }
+
+    func isPast() -> Bool {
+        return self.compare(NSDate()) == NSComparisonResult.OrderedAscending
+    }
+
+    func isFuture() -> Bool {
+        return self.compare(NSDate()) == NSComparisonResult.OrderedDescending
+    }
+}
+
+
+// Third Party code: http://stackoverflow.com/a/27347777
+func > (lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.timeIntervalSinceReferenceDate > rhs.timeIntervalSinceReferenceDate
+}
+
+func < (lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.timeIntervalSinceReferenceDate < rhs.timeIntervalSinceReferenceDate
 }

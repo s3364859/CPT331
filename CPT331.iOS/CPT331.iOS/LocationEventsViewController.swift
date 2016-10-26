@@ -16,33 +16,30 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
     @IBOutlet weak var tableView: UITableView!
     
     var viewModel:LocationViewModel!
-    
-    // Fetched from LocationViewModel
-    var events: [Event]?
-    
+
     var indicator:UIActivityIndicatorView?
     var navIndicator:UIBarButtonItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // View Model
+        self.viewModel = LocationViewModel(location: self.location)
+        self.viewModel.delegate = self
+
+        // Table View
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        
         self.tableView.backgroundColor = .clearColor()
         self.tableView.tableFooterView = UIView()
         
-        // Automatically added
+        // Loading Indicators
         self.indicator = self.view.showLoadingIndicator()
-        
-        // Added by showEvents()
         self.navIndicator = UIBarButtonItem(customView:
             UIView(frame: CGRectMake(0, 0, 30, 30)).showLoadingIndicator(style: .White)
         )
-        
-        self.viewModel = LocationViewModel(location: self.location)
-        self.viewModel.delegate = self
+
+        // Populate table with data
         self.viewModel.loadEvents(withinRadius: self.SEARCH_RADIUS, useCache:true)
     }
     
@@ -64,23 +61,21 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         // Restore the table alpha so that it is visible
         self.tableView.alpha = 1
     }
+
+
     
-    
-    func showEvents(events:[Int:Event]) {
-        
+    func update() {
         // Execute table reload on main thread
         dispatch_async(dispatch_get_main_queue(), {
-            self.events = events.map{$0.1}
             self.tableView.reloadData()
         })
-        
-        
+
         // First call
         // Assumption: 2 calls will be made
         // TODO: make this logic more robust
         if self.indicator != nil && self.navIndicator != nil {
             
-            if events.count > 0 {
+            if self.viewModel.sections?.count > 0 {
                 self.indicator?.removeFromSuperview()
                 self.indicator = nil
                 self.navigationItem.rightBarButtonItem = self.navIndicator
@@ -95,10 +90,23 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
             self.navigationItem.rightBarButtonItem = nil
         }
     }
-    
+
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if let sections = self.viewModel.sections {
+            return sections.count
+        } else {
+            return 0
+        }
+    }
+
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.viewModel.sections?[section].type.name
+    }
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let events = self.events {
-            return events.count
+        if let section = self.viewModel.sections?[section] {
+            return section.events.count
         } else {
             return 0
         }
@@ -107,7 +115,7 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("eventCell", forIndexPath: indexPath) as! EventsListCell
         
-        if let event = self.events?[indexPath.row]  {
+        if let event = self.viewModel.sections?[indexPath.section].events[indexPath.row]  {
             cell.event = event
             cell.update()
         }

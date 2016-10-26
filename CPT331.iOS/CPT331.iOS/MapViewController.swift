@@ -199,7 +199,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
      
         - Returns: TRUE: if the map markers were updated. FALSE: if the map markers weren't updated.
      */
-    func showEvents(events:[Int:Event]) {
+    func update() {
         // Only update map if not already panning
         guard self.mapRegionIsChanging == false else {
             return
@@ -211,13 +211,14 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
         }
         
         // Filter events without coordinates
-        let filteredEvents = events.filter{$0.1.coordinate != nil}
-        
-        // Build annotations array
-        let annotations = filteredEvents.map{(_,event) in EventPointFeature(event: event)}
-        
-        // Add annotations
-        self.mapView.addAnnotations(annotations)
+        if let filteredEvents = self.viewModel.events?.filter({$0.1.coordinate != nil}) {
+
+            // Build annotations array
+            let annotations = filteredEvents.map{(_,event) in EventPointFeature(event: event)}
+
+            // Add annotations
+            self.mapView.addAnnotations(annotations)
+        }
     }
 
     
