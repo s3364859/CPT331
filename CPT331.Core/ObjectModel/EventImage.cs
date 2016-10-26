@@ -8,7 +8,7 @@ namespace CPT331.Core.ObjectModel
 {
 	public class EventImage
 	{
-		public EventImage(int height, int transformationID, string url, int width)
+		public EventImage(int height, EventFinderImageFormat transformationID, string url, int width)
 		{
 			_height = height;
 			_transformationID = transformationID;
@@ -17,7 +17,7 @@ namespace CPT331.Core.ObjectModel
 		}
 
 		private readonly int _height;
-		private readonly int _transformationID;
+		private readonly EventFinderImageFormat _transformationID;
 		private readonly string _url;
 		private readonly int _width;
 
@@ -29,7 +29,7 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
-		public int TransformationID
+		public EventFinderImageFormat TransformationID
 		{
 			get
 			{
