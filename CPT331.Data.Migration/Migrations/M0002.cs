@@ -292,6 +292,10 @@ namespace CPT331.Data.Migration.Migrations
 				.Row(new { Name = "Weapons And Explosives Offences" });
 
 			Execute.EmbeddedScript("M0002.sql");
+
+			//	Users
+			Insert.IntoTable("User").InSchema("Registration")
+				.Row(new { Username = "administrator", Password= "x1S+01RDkGHOwvC76bC2VESfZ8w=" });
 		}
 	}
 }

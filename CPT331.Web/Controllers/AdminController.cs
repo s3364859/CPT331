@@ -9,14 +9,16 @@ using System.Web.Helpers;
 using CPT331.Core.ObjectModel;
 using CPT331.Data;
 using CPT331.Web.Models.Admin;
+using CPT331.Web.Attributes;
 
 #endregion
 
 namespace CPT331.Web.Controllers
 {
+    [AdminAuthorize]
     public class AdminController : Controller
     {
-		[AcceptVerbs(HttpVerbs.Get)]
+		[HttpGet]
 		public ActionResult Crime(uint id)
 		{
 			CrimeModel crimeModel = null;
@@ -42,8 +44,8 @@ namespace CPT331.Web.Controllers
 			return View(crimeModel);
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult Crime(CrimeModel crimeModel)
+        [HttpPost]
+        public ActionResult Crime(CrimeModel crimeModel)
 		{
 			ActionResult actionResult = null;
 
@@ -78,8 +80,8 @@ namespace CPT331.Web.Controllers
 			return actionResult;
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult Crimes(string sortBy, SortDirection? sortDirection, uint? page)
+        [HttpGet]
+        public ActionResult Crimes(string sortBy, SortDirection? sortDirection, uint? page)
 		{
 			IEnumerable<Crime> crimes = CrimeRepository.GetCrimes();
 
@@ -149,19 +151,14 @@ namespace CPT331.Web.Controllers
 			return View(crimes);
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult Home()
+        [HttpGet]
+        public ActionResult Home()
 		{
-			// User isn't logged in. 
-			if (Session["user"] == null)
-			{
-				return RedirectToAction("Login", "Account");
-			}
 			return View();
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult LocalGovernmentArea(uint id)
+        [HttpGet]
+        public ActionResult LocalGovernmentArea(uint id)
 		{
 			LocalGovernmentAreaModel localGovernmentAreaModel = null;
 			LocalGovernmentArea localGovernmentArea = LocalGovernmentAreaRepository.GetLocalGovernmentAreaByID((int)(id));
@@ -183,8 +180,8 @@ namespace CPT331.Web.Controllers
 			return View(localGovernmentAreaModel);
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult LocalGovernmentArea(LocalGovernmentAreaModel localGovernmentAreaModel)
+        [HttpPost]
+        public ActionResult LocalGovernmentArea(LocalGovernmentAreaModel localGovernmentAreaModel)
 		{
 			ActionResult actionResult = null;
 
@@ -216,8 +213,8 @@ namespace CPT331.Web.Controllers
 			return actionResult;
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult LocalGovernmentAreas(string sortBy, SortDirection? sortDirection, uint? page)
+        [HttpGet]
+        public ActionResult LocalGovernmentAreas(string sortBy, SortDirection? sortDirection, uint? page)
 		{
 			IEnumerable<LocalGovernmentAreaState> localGovernmentAreaStates = LocalGovernmentAreaStateRepository.GetLocalGovernmentAreaStates();
 
@@ -298,14 +295,14 @@ namespace CPT331.Web.Controllers
 			return View(localGovernmentAreaStates);
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult NewCrime()
+        [HttpGet]
+        public ActionResult NewCrime()
 		{
 			return View(new CrimeModel());
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult NewCrime(CrimeModel crimeModel)
+        [HttpPost]
+        public ActionResult NewCrime(CrimeModel crimeModel)
 		{
 			ActionResult actionResult = null;
 
@@ -323,14 +320,14 @@ namespace CPT331.Web.Controllers
 			return actionResult;
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult NewLocalGovernmentArea()
+        [HttpGet]
+        public ActionResult NewLocalGovernmentArea()
 		{
 			return View(new LocalGovernmentAreaModel());
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult NewLocalGovernmentArea(LocalGovernmentAreaModel localGovernmentAreaModel)
+        [HttpPost]
+        public ActionResult NewLocalGovernmentArea(LocalGovernmentAreaModel localGovernmentAreaModel)
 		{
 			ActionResult actionResult = null;
 
@@ -348,14 +345,14 @@ namespace CPT331.Web.Controllers
 			return actionResult;
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult NewOffence()
+        [HttpGet]
+        public ActionResult NewOffence()
 		{
 			return View(new OffenceModel());
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult NewOffence(OffenceModel offenceModel)
+        [HttpPost]
+        public ActionResult NewOffence(OffenceModel offenceModel)
 		{
 			ActionResult actionResult = null;
 
@@ -373,14 +370,14 @@ namespace CPT331.Web.Controllers
 			return actionResult;
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult NewOffenceCategory()
+        [HttpGet]
+        public ActionResult NewOffenceCategory()
 		{
 			return View(new OffenceCategoryModel());
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult NewOffenceCategory(OffenceCategoryModel offenceCategoryModel)
+        [HttpPost]
+        public ActionResult NewOffenceCategory(OffenceCategoryModel offenceCategoryModel)
 		{
 			ActionResult actionResult = null;
 
@@ -398,14 +395,14 @@ namespace CPT331.Web.Controllers
 			return actionResult;
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult NewState()
+        [HttpGet]
+        public ActionResult NewState()
 		{
 			return View(new StateModel());
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult NewState(StateModel stateModel)
+        [HttpPost]
+        public ActionResult NewState(StateModel stateModel)
 		{
 			ActionResult actionResult = null;
 
@@ -423,8 +420,8 @@ namespace CPT331.Web.Controllers
 			return actionResult;
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult Offence(uint id)
+        [HttpGet]
+        public ActionResult Offence(uint id)
 		{
 			OffenceModel offenceModel = null;
 			Offence offence = OffenceRepository.GetOffenceByID((int)(id));
@@ -437,8 +434,8 @@ namespace CPT331.Web.Controllers
 			return View(offenceModel);
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult Offence(OffenceModel offenceModel)
+        [HttpPost]
+        public ActionResult Offence(OffenceModel offenceModel)
 		{
 			ActionResult actionResult = null;
 
@@ -463,8 +460,8 @@ namespace CPT331.Web.Controllers
 			return actionResult;
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult Offences(string sortBy, SortDirection? sortDirection, uint? page)
+        [HttpGet]
+        public ActionResult Offences(string sortBy, SortDirection? sortDirection, uint? page)
 		{
 			IEnumerable<Offence> offences = OffenceRepository.GetOffences();
 
@@ -534,8 +531,8 @@ namespace CPT331.Web.Controllers
 			return View(offences);
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult OffenceCategory(uint id)
+        [HttpGet]
+        public ActionResult OffenceCategory(uint id)
 		{
 			OffenceCategoryModel offenceCategoryModel = null;
 			OffenceCategory offenceCategory = OffenceCategoryRepository.GetOffenceCategoryByID((int)(id));
@@ -548,8 +545,8 @@ namespace CPT331.Web.Controllers
 			return View(offenceCategoryModel);
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult OffenceCategory(OffenceCategoryModel offenceCategoryModel)
+        [HttpPost]
+        public ActionResult OffenceCategory(OffenceCategoryModel offenceCategoryModel)
 		{
 			ActionResult actionResult = null;
 
@@ -574,8 +571,8 @@ namespace CPT331.Web.Controllers
 			return actionResult;
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult OffenceCategories(string sortBy, SortDirection? sortDirection, uint? page)
+        [HttpGet]
+        public ActionResult OffenceCategories(string sortBy, SortDirection? sortDirection, uint? page)
 		{
 			IEnumerable<OffenceCategory> offenceCategories = OffenceCategoryRepository.GetOffenceCategories();
 
@@ -645,8 +642,8 @@ namespace CPT331.Web.Controllers
 			return View(offenceCategories);
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult State(uint id)
+        [HttpGet]
+        public ActionResult State(uint id)
 		{
 			StateModel stateModel = null;
 			State state = StateRepository.GetStateByID((int)(id));
@@ -659,8 +656,8 @@ namespace CPT331.Web.Controllers
 			return View(stateModel);
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult State(StateModel stateModel)
+        [HttpPost]
+        public ActionResult State(StateModel stateModel)
 		{
 			ActionResult actionResult = null;
 
@@ -685,8 +682,8 @@ namespace CPT331.Web.Controllers
 			return actionResult;
 		}
 
-		[AcceptVerbs(HttpVerbs.Get)]
-		public ActionResult States(string sortBy, SortDirection? sortDirection, uint? page)
+        [HttpGet]
+        public ActionResult States(string sortBy, SortDirection? sortDirection, uint? page)
 		{
 			IEnumerable<State> states = StateRepository.GetStates();
 

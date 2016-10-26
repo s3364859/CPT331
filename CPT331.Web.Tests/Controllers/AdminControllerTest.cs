@@ -152,5 +152,5 @@ namespace CPT331.Web.Tests.Controllers
 
 			Assert.IsNotNull(viewResult);
 		}
-	}
+    }
 }

@@ -4,24 +4,24 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CPT331.Web.Models.Account;
+using CPT331.Web.Attributes;
 
 namespace CPT331.Web.Controllers
 {
+    [AdminAuthorize]
     public class AccountController : Controller
     {
         // GET: Login
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AllowAnonymous]
+        [HttpGet]
         public ActionResult Login()
         {
-            if (Session["user"] != null)
-            {                
-                return RedirectToAction("Home", "Admin");
-            }
             ViewBag.Title = "Admin";
             return View();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AllowAnonymous]
+        [HttpPost]
         public ActionResult Login(string loginName, string password)
         {
             if ("administrator".Equals(loginName) && "Rgx53r$t5r".Equals(password))
@@ -32,7 +32,7 @@ namespace CPT331.Web.Controllers
             return View();
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [HttpGet]
         public ActionResult SignOut()
         {
             ViewBag.Message = "Logging off...";
