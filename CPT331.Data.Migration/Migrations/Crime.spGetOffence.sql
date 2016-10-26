@@ -4,6 +4,7 @@ AS
 
 SELECT
 	ID,
+	OffenceCategoryID,
 	Name,
 	IsDeleted,
 	IsVisible,

@@ -431,7 +431,7 @@ namespace CPT331.Web.Controllers
 
 			if (offence != null)
 			{
-				offenceModel = new OffenceModel(offence.DateCreatedUtc, offence.DateUpdatedUtc, offence.ID, offence.IsDeleted, offence.IsVisible, offence.Name);
+				offenceModel = new OffenceModel(offence.DateCreatedUtc, offence.DateUpdatedUtc, offence.ID, offence.IsDeleted, offence.IsVisible, offence.Name, offence.OffenceCategoryID);
 			}
 
 			return View(offenceModel);
@@ -450,7 +450,7 @@ namespace CPT331.Web.Controllers
 				}
 				else
 				{
-					OffenceRepository.UpdateOffence(offenceModel.ID, offenceModel.IsDeleted, offenceModel.IsVisible, offenceModel.Name);
+					OffenceRepository.UpdateOffence(offenceModel.ID, offenceModel.IsDeleted, offenceModel.IsVisible, offenceModel.Name, offenceModel.OffenceCategoryID);
 				}
 
 				actionResult = RedirectToAction("Offences", "Admin");
