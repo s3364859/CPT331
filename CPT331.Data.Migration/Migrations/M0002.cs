@@ -29,8 +29,12 @@ namespace CPT331.Data.Migration.Migrations
 				.Row(new { Name = "Victoria", AbbreviatedName = "VIC" })
 				.Row(new { Name = "Western Australia", AbbreviatedName = "WA" });
 
-			//	Offences
-			Insert.IntoTable("Offence").InSchema("Crime")
+            // Offence Categories
+            // TODO: Add Insert.IntoTable("OffenceCategory").InSchema("Crime")
+
+            //	Offences
+            // TODO: Add OffenceCategoryID to rows
+            Insert.IntoTable("Offence").InSchema("Crime")
 				.Row(new { Name = "Abduction And Kidnapping" })
 				.Row(new { Name = "Abduction And Related Offences" })
 				.Row(new { Name = "Abduction, Harassment And Other Offences" })

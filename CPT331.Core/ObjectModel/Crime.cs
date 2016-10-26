@@ -9,17 +9,39 @@ namespace CPT331.Core.ObjectModel
 {
 	public class Crime
 	{
+        /// <summary>
+        /// Instantiate a Crime object using the values provided.
+        /// </summary>
+        /// <param name="count">The number of crimes recorded in a given area, time and category.</param>
+        /// <param name="localGovernmentAreaID">An ID number that represents the local goverment area.</param>
+        /// <param name="month">The month the crimes were commited.</param>
+        /// <param name="offenceID">An ID number representing the type of crime.</param>
+        /// <param name="year">The year the crimes were commited</param>
+        /// <seealso cref="Crime(int count, int id, int localGovernmentAreaID, int month, int offenceID, int year)"/>
 		public Crime(int count, int localGovernmentAreaID, int month, int offenceID, int year)
 			: this(count, DateTime.UtcNow, DateTime.UtcNow, -1, false, true, localGovernmentAreaID, month, offenceID, year)
 		{
 		}
-
+        
 		public Crime(int count, int id, int localGovernmentAreaID, int month, int offenceID, int year)
 			 : this(count, DateTime.UtcNow, DateTime.UtcNow, id, false, true, localGovernmentAreaID, month, offenceID, year)
 		{
 		}
 
-		public Crime(int count, DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, int localGovernmentAreaID, int month, int offenceID, int year)
+        /// <summary>
+        /// Instantiate a Crime object using the values provided.
+        /// </summary>
+        /// <param name="count">The number of crimes recorded in a given area, time and category.</param>
+        /// <param name="dateCreatedUtc">The date when the Crime record was created.</param>
+        /// <param name="dateUpdatedUtc">The date when the Crime record was last updated.</param>
+        /// <param name="id">An ID number that represents the Crime record.</param>
+        /// <param name="isDeleted">A boolean value indicating a deleted record.</param>
+        /// <param name="isVisible">A boolean value indicating a hidden record.</param>
+        /// <param name="localGovernmentAreaID">An ID number that represents the local goverment area.</param>
+        /// <param name="month">The month the crimes were commited.</param>
+        /// <param name="offenceID">An ID number representing the type of crime.</param>
+        /// <param name="year">The year the crimes were commited</param>
+        public Crime(int count, DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, int localGovernmentAreaID, int month, int offenceID, int year)
 		{
 			_count = count;
 			_dateCreatedUtc = dateCreatedUtc;
@@ -124,7 +146,12 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
-		public override int GetHashCode()
+
+        /// <summary>
+        /// Returns a Hashcode for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
 		{
 			return
 				_count.GetHashCode() ^
@@ -138,11 +165,16 @@ namespace CPT331.Core.ObjectModel
 				_offenceID.GetHashCode() ^
 				_year.GetHashCode();
 		}
-
-		public override bool Equals(object value)
+        
+        /// <summary>
+        /// Returns a value indicating whether this instance is equal to a specified CPT331.Core.ObjectModel.Crime.
+        /// </summary>
+        /// <param name="obj">A CPT331.Core.ObjectModel.Crime value to compare to this instance.</param>
+        /// <returns>True if obj has the same value as this instance; otherwise, false.</returns>
+        public override bool Equals(object obj)
 		{
 			bool equals = false;
-			Crime crime = value as Crime;
+			Crime crime = obj as Crime;
 
 			if (crime != null)
 			{
@@ -163,8 +195,12 @@ namespace CPT331.Core.ObjectModel
 
 			return equals;
 		}
-
-		public override string ToString()
+        
+        /// <summary>
+        /// Converts the Crime instance to an equivalent string representation.
+        /// </summary>
+        /// <returns>The string representation of the value of this instance.</returns>
+        public override string ToString()
 		{
 			StringBuilder stringBuilder = new StringBuilder();
 

@@ -15,34 +15,27 @@ namespace CPT331.Data.Migration.Migrations
 		{
 			//	Nothing to see here
 		}
-
+        
 		public override void Up()
 		{
+			// Database Schemas
 			Create.Schema("Crime");
 			Create.Schema("Location");
 			Create.Schema("Registration");
 
-			Create.Table("Crime")
-				.InSchema("Crime")
+			//	Tables
+			Create.Table("State")
+				.InSchema("Location")
 					.WithColumn("ID")
 						.AsInt32()
 						.NotNullable()
 						.Identity()
 						.PrimaryKey()
-					.WithColumn("LocalGovernmentAreaID")
-						.AsInt32()
+					.WithColumn("Name")
+						.AsAnsiString(100)
 						.NotNullable()
-					.WithColumn("OffenceID")
-						.AsInt32()
-						.NotNullable()
-					.WithColumn("Count")
-						.AsInt32()
-						.NotNullable()
-					.WithColumn("Month")
-						.AsInt32()
-						.NotNullable()
-					.WithColumn("Year")
-						.AsInt32()
+					.WithColumn("AbbreviatedName")
+						.AsAnsiString(3)
 						.NotNullable()
 					.WithColumn("IsDeleted")
 						.AsBoolean()
@@ -60,6 +53,8 @@ namespace CPT331.Data.Migration.Migrations
 						.AsDateTime()
 						.NotNullable()
 						.WithDefault(SystemMethods.CurrentUTCDateTime);
+
+			Execute.EmbeddedScript("Location.LocalGovernmentArea.sql");
 
 			Create.Table("OffenceCategory")
 				.InSchema("Crime")
@@ -95,6 +90,10 @@ namespace CPT331.Data.Migration.Migrations
 						.NotNullable()
 						.Identity()
 						.PrimaryKey()
+					.WithColumn("OffenceCategoryID")
+						.AsInt32()
+						.Nullable()
+						.ForeignKey("FK_Offence_OffenceCategory", "Crime", "OffenceCategory", "ID")
 					.WithColumn("Name")
 						.AsAnsiString(100)
 						.NotNullable()
@@ -115,18 +114,29 @@ namespace CPT331.Data.Migration.Migrations
 						.NotNullable()
 						.WithDefault(SystemMethods.CurrentUTCDateTime);
 
-			Create.Table("State")
-				.InSchema("Location")
+			Create.Table("Crime")
+				.InSchema("Crime")
 					.WithColumn("ID")
 						.AsInt32()
 						.NotNullable()
 						.Identity()
 						.PrimaryKey()
-					.WithColumn("Name")
-						.AsAnsiString(100)
+					.WithColumn("LocalGovernmentAreaID")
+						.AsInt32()
 						.NotNullable()
-					.WithColumn("AbbreviatedName")
-						.AsAnsiString(3)
+						.ForeignKey("FK_Crime_LocalGovernmentArea", "Location", "LocalGovernmentArea", "ID")
+					.WithColumn("OffenceID")
+						.AsInt32()
+						.NotNullable()
+						.ForeignKey("FK_Crime_Offence", "Crime", "Offence", "ID")
+					.WithColumn("Count")
+						.AsInt32()
+						.NotNullable()
+					.WithColumn("Month")
+						.AsInt32()
+						.NotNullable()
+					.WithColumn("Year")
+						.AsInt32()
 						.NotNullable()
 					.WithColumn("IsDeleted")
 						.AsBoolean()
@@ -145,7 +155,7 @@ namespace CPT331.Data.Migration.Migrations
 						.NotNullable()
 						.WithDefault(SystemMethods.CurrentUTCDateTime);
 
-			Create.Table("User")
+		Create.Table("User")
 				.InSchema("Registration")
 					.WithColumn("ID")
 						.AsInt32()
@@ -174,9 +184,6 @@ namespace CPT331.Data.Migration.Migrations
 						.AsDateTime()
 						.NotNullable()
 						.WithDefault(SystemMethods.CurrentUTCDateTime);
-
-			//	Tables
-			Execute.EmbeddedScript("Location.LocalGovernmentArea.sql");
 
 			//	Views
 			Execute.EmbeddedScript("Location.LocalGovernmentAreaState.sql");

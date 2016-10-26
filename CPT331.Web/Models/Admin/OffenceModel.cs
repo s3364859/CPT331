@@ -16,11 +16,11 @@ namespace CPT331.Web.Models.Admin
         }
 
 		public OffenceModel(string name)
-			: this(DateTime.UtcNow, DateTime.UtcNow, -1, false, true, name)
+			: this(DateTime.UtcNow, DateTime.UtcNow, -1, false, true, name, null)
 		{
 		}
 
-		public OffenceModel(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name)
+		public OffenceModel(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name, int? offenceCategoryID)
 		{
 			_dateCreatedUtc = dateCreatedUtc;
 			_dateUpdatedUtc = dateUpdatedUtc;
@@ -28,6 +28,7 @@ namespace CPT331.Web.Models.Admin
 			_isDeleted = isDeleted;
 			_isVisible = isVisible;
 			_name = name;
+            _offenceCategoryID = offenceCategoryID;
 		}
 
 		private DateTime _dateCreatedUtc;
@@ -36,8 +37,9 @@ namespace CPT331.Web.Models.Admin
 		private bool _isDeleted;
 		private bool _isVisible;
 		private string _name;
+        private int? _offenceCategoryID;
 
-		[DataType(DataType.DateTime)]
+        [DataType(DataType.DateTime)]
 		[Display(Name = "Date Created")]
 		[Required(ErrorMessage = "*")]
 		public DateTime DateCreatedUtc
@@ -124,6 +126,20 @@ namespace CPT331.Web.Models.Admin
 			{
 				_name = value;
 			}
-		}
-	}
+        }
+        
+        [Display(Name = "Offence Category")]
+        [Integer(ErrorMessage = "*")]
+        public int? OffenceCategoryID
+        {
+            get
+            {
+                return _offenceCategoryID;
+            }
+            set
+            {
+                _offenceCategoryID = value;
+            }
+        }
+    }
 }
