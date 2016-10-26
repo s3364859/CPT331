@@ -148,16 +148,22 @@ namespace CPT331.WebAPI.Parsers
 			if (xmlNode != null)
 			{
 				XmlNode heightXmlNode = xmlNode.SelectSingleNode("height");
+				XmlNode transformXmlNode = xmlNode.SelectSingleNode("transformation_id");
 				XmlNode urlXmlNode = xmlNode.SelectSingleNode("url");
 				XmlNode widthXmlNode = xmlNode.SelectSingleNode("width");
 
 				int height = heightXmlNode.AsInt32();
+                EventFinderImageFormat transformationID = EventFinderImageFormat.None;
+
+                Enum.TryParse(transformXmlNode.InnerText, out transformationID);
+
 				string url = urlXmlNode.AsString();
 				int width = widthXmlNode.AsInt32();
 
 				eventImage = new EventImage
 				(
 					height,
+					transformationID,
 					url,
 					width
 				);

@@ -16,7 +16,7 @@ namespace CPT331.WebAPI.Tests.Controllers
     public class CrimeControllerTest
     {
         [TestMethod]
-        public void CrimesByCoordinate()
+        public void CrimeControllerTest_CrimesByCoordinate()
         {
             CrimeController controller = new CrimeController();
 
@@ -24,5 +24,5 @@ namespace CPT331.WebAPI.Tests.Controllers
    
             Assert.IsNotNull(crimeByCoordinateModel);
         }
-    }
+	}
 }

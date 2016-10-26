@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CPT331.Web.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Xero")]
+[assembly: AssemblyCompany("RMIT University")]
 [assembly: AssemblyProduct("CPT331.Web.Tests")]
-[assembly: AssemblyCopyright("Copyright © Xero 2016")]
+[assembly: AssemblyCopyright("Copyright © RMIT University 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

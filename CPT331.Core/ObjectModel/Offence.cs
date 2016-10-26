@@ -8,12 +8,27 @@ namespace CPT331.Core.ObjectModel
 {
 	public class Offence
 	{
+        /// <summary>
+        /// Initialises a new instance of the Offence class to the values provided.
+        /// </summary>
+        /// <param name="id">Identification number for the Offence record</param>
+        /// <param name="name">The name of the Offence</param>
 		public Offence(int id, string name)
-			: this(DateTime.UtcNow, DateTime.UtcNow, id, false, true, name)
+			: this(DateTime.UtcNow, DateTime.UtcNow, id, false, true, name, null)
 		{
 		}
 
-		public Offence(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name)
+        /// <summary>
+        /// Initialises a new instance of the Offence class to the values provided.
+        /// </summary>
+        /// <param name="dateCreatedUtc">A time stamp indicating when the Offence was created.</param>
+        /// <param name="dateUpdatedUtc">A time stamp indicating when the Offence was last updated.</param>
+        /// <param name="id">Identification number for the Offence record</param>
+        /// <param name="isDeleted">Indicates whether or not the record is deleted</param>
+        /// <param name="isVisible">Indicates whether or not the record should be shown in the user interfaces</param>
+        /// <param name="name">The name of the Offence</param>
+        /// <param name="offenceCategoryID">An identification number for parent offence category</param>
+        public Offence(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name, int? offenceCategoryID)
 		{
 			_dateCreatedUtc = dateCreatedUtc;
 			_dateUpdatedUtc = dateUpdatedUtc;
@@ -29,8 +44,9 @@ namespace CPT331.Core.ObjectModel
 		private readonly bool _isDeleted;
 		private readonly bool _isVisible;
 		private readonly string _name;
+        private readonly int? _offenceCategoryID;
 
-		public DateTime DateCreatedUtc
+        public DateTime DateCreatedUtc
 		{
 			get
 			{
@@ -76,9 +92,16 @@ namespace CPT331.Core.ObjectModel
 			{
 				return _name;
 			}
-		}
+        }
+        public int? OffenceCategoryID
+        {
+            get
+            {
+                return _offenceCategoryID;
+            }
+        }
 
-		public override int GetHashCode()
+        public override int GetHashCode()
 		{
 			int getHashCode =
 				_dateCreatedUtc.GetHashCode() ^
@@ -109,8 +132,9 @@ namespace CPT331.Core.ObjectModel
 					(_id == offence._id) &&
 					(_isDeleted == offence._isDeleted) &&
 					(_isVisible == offence._isDeleted) &&
-					(_name == offence._name)
-				);
+					(_name == offence._name) &&
+                    (_offenceCategoryID == offence._offenceCategoryID)
+                );
 			}
 
 			return equals;
