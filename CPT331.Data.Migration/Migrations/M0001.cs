@@ -20,6 +20,7 @@ namespace CPT331.Data.Migration.Migrations
 		{
 			Create.Schema("Crime");
 			Create.Schema("Location");
+			Create.Schema("Registration");
 
 			Create.Table("Crime")
 				.InSchema("Crime")
@@ -144,6 +145,36 @@ namespace CPT331.Data.Migration.Migrations
 						.NotNullable()
 						.WithDefault(SystemMethods.CurrentUTCDateTime);
 
+			Create.Table("User")
+				.InSchema("Registration")
+					.WithColumn("ID")
+						.AsInt32()
+						.NotNullable()
+						.Identity()
+						.PrimaryKey()
+					.WithColumn("Username")
+						.AsAnsiString(150)
+						.NotNullable()
+					.WithColumn("Password")
+						.AsAnsiString(50)
+						.NotNullable()
+					.WithColumn("IsDeleted")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(false)
+					.WithColumn("IsActive")
+						.AsBoolean()
+						.NotNullable()
+						.WithDefaultValue(true)
+					.WithColumn("DateCreatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime)
+					.WithColumn("DateUpdatedUtc")
+						.AsDateTime()
+						.NotNullable()
+						.WithDefault(SystemMethods.CurrentUTCDateTime);
+
 			//	Tables
 			Execute.EmbeddedScript("Location.LocalGovernmentArea.sql");
 
@@ -178,6 +209,9 @@ namespace CPT331.Data.Migration.Migrations
 			Execute.EmbeddedScript("Location.spGetStateByID.sql");
 			Execute.EmbeddedScript("Location.spUpdateLocalGovernmentArea.sql");
 			Execute.EmbeddedScript("Location.spUpdateState.sql");
+			Execute.EmbeddedScript("Registration.spGetUser.sql");
+			Execute.EmbeddedScript("Registration.spGetUserByID.sql");
+			Execute.EmbeddedScript("Registration.spGetUserByUsername.sql");
 		}
 	}
 }

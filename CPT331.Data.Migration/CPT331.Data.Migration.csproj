@@ -84,6 +84,9 @@
     <Content Include="CmdHelpers\dbdev.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Migrations\Registration.spGetUserByID.sql" />
+    <EmbeddedResource Include="Migrations\Registration.spGetUserByUsername.sql" />
+    <EmbeddedResource Include="Migrations\Registration.spGetUser.sql" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

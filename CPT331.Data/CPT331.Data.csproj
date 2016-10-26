@@ -49,6 +49,7 @@
     <Compile Include="LocalGovernmentAreaStateRepository.cs" />
     <Compile Include="OffenceCategoryRepository.cs" />
     <Compile Include="OffenceRepository.cs" />
+    <Compile Include="UserRepository.cs" />
     <Compile Include="StateRepository.cs" />
     <Compile Include="LocalGovernmentAreaRepository.cs" />
     <Compile Include="CrimeRepository.cs" />
