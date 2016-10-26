@@ -164,6 +164,7 @@ namespace CPT331.Data.Migration.Migrations
 			Execute.EmbeddedScript("Crime.spAddCrime.sql");
 			Execute.EmbeddedScript("Crime.spAddOffence.sql");
 			Execute.EmbeddedScript("Crime.spAddOffenceCategory.sql");
+			Execute.EmbeddedScript("Crime.spGetCrime.sql");
 			Execute.EmbeddedScript("Crime.spGetCrimeByID.sql");
 			Execute.EmbeddedScript("Crime.spGetCrimesByCoordinate.sql");
 			Execute.EmbeddedScript("Crime.spGetOffence.sql");

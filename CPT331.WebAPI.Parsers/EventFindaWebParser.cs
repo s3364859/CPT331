@@ -153,8 +153,9 @@ namespace CPT331.WebAPI.Parsers
 				XmlNode widthXmlNode = xmlNode.SelectSingleNode("width");
 
 				int height = heightXmlNode.AsInt32();
-				int transformationID = 0;
-				Int32.TryParse(transformXmlNode.InnerText, out transformationID);
+                EventFinderImageFormat transformationID = EventFinderImageFormat.None;
+
+                Enum.TryParse(transformXmlNode.InnerText, out transformationID);
 
 				string url = urlXmlNode.AsString();
 				int width = widthXmlNode.AsInt32();
