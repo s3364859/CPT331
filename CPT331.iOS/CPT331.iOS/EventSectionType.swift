@@ -9,6 +9,7 @@
 import Foundation
 
 enum EventSectionType {
+    
     case Current
     case Soon
     case NearFuture

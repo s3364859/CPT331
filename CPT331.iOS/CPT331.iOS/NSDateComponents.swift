@@ -15,6 +15,11 @@ extension NSDateComponents {
         return NSCalendar.currentCalendar().components([.Day, .Hour, .Minute], fromDate: startDate, toDate: endDate, options: NSCalendarOptions.init(rawValue: 0))
     }
     
+    /**
+        String representation of NSDateComponents
+     
+        - Returns: the amount of days if >= 1, hours if >= 1 or minutes >= 1. The largest unit is always preferred.
+    */
     var string:String {
         let (days, hours, minutes) = (self.day, self.hour, self.minute)
         

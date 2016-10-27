@@ -58,53 +58,71 @@ extension NSDate {
         return NSDate.fromString(dateString, format: "yyyy-MM-dd'T'HH:mm:ss")
     }
 
-
+    /// Returns the number of days from the provided date
     func daysFrom(date:NSDate) -> Double {
         return (self.timeIntervalSinceReferenceDate - date.timeIntervalSinceReferenceDate)/86400
     }
-
+    
+    /// Returns the number of hours from the provided date
     func hoursFrom(date:NSDate) -> Double {
         return (self.timeIntervalSinceReferenceDate - date.timeIntervalSinceReferenceDate)/3600
     }
-
+    
+    /// Returns the number of minutes from the provided date
     func minutesFrom(date:NSDate) -> Double {
         return (self.timeIntervalSinceReferenceDate - date.timeIntervalSinceReferenceDate)/60
     }
-
+    
+    /// Returns the number of seconds from the provided date
     func secondsFrom(date:NSDate) -> Double {
         return (self.timeIntervalSinceReferenceDate - date.timeIntervalSinceReferenceDate)
     }
     
+    /// Returns TRUE if the date is the same as the devices current date
     func isToday() -> Bool {
         let calendar = NSCalendar.currentCalendar()
         return calendar.components(.Day, fromDate: self).day == calendar.components(.Day, fromDate: NSDate()).day
     }
-
+    
+    /// Returns TRUE if the date is the day before the devices current date
     func isYesterday() -> Bool {
         let calendar = NSCalendar.currentCalendar()
         return calendar.components(.Day, fromDate: self).day == calendar.components(.Day, fromDate: NSDate()).day - 1
     }
-
+    
+    /// Returns TRUE if the date is the day after the devices current date
     func isTomorrow() -> Bool {
         let calendar = NSCalendar.currentCalendar()
         return calendar.components(.Day, fromDate: self).day == calendar.components(.Day, fromDate: NSDate()).day + 1
     }
-
+    
+    /// Returns TRUE if the date is before the devices current date
     func isPast() -> Bool {
         return self.compare(NSDate()) == NSComparisonResult.OrderedAscending
     }
-
+    
+    /// Returns TRUE if the date is after the devices current date
     func isFuture() -> Bool {
         return self.compare(NSDate()) == NSComparisonResult.OrderedDescending
     }
 }
 
 
-// Third Party code: http://stackoverflow.com/a/27347777
+/**
+    Returns true if the LHS date occurs after the RHS date
+ 
+    [Third party code](http://stackoverflow.com/a/27347777) by Stack Overflow user: Andrew.
+ */
 func > (lhs: NSDate, rhs: NSDate) -> Bool {
     return lhs.timeIntervalSinceReferenceDate > rhs.timeIntervalSinceReferenceDate
 }
 
+
+/**
+    Returns true if the LHS date occurs before the RHS date
+ 
+    [Third party code](http://stackoverflow.com/a/27347777) by Stack Overflow user: Andrew.
+ */
 func < (lhs: NSDate, rhs: NSDate) -> Bool {
     return lhs.timeIntervalSinceReferenceDate < rhs.timeIntervalSinceReferenceDate
 }
