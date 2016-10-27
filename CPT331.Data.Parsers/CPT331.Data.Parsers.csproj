@@ -30,6 +30,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AWS|AnyCPU'">
+    <OutputPath>bin\AWS\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,6 +58,7 @@
     <Compile Include="ActXmlParser.cs" />
     <Compile Include="TasKmlParser.cs" />
     <Compile Include="SaKmlParser.cs" />
+    <Compile Include="WaKmlParser.cs" />
     <Compile Include="VicKmlParser.cs" />
     <Compile Include="QldKmlParser.cs" />
     <Compile Include="QldXmlParser.cs" />

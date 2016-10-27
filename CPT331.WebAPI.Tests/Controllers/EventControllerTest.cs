@@ -17,7 +17,7 @@ namespace CPT331.WebAPI.Tests.Controllers
     public class EventControllerTest
     {
 		[TestMethod]
-		public void Event()
+		public void EventControllerTest_Event()
 		{
 			EventController eventController = new EventController();
 			EventModel eventModel = eventController.Event(0);
@@ -26,7 +26,7 @@ namespace CPT331.WebAPI.Tests.Controllers
 		}
 
 		[TestMethod]
-        public void EventsByCoordinate()
+        public void EventControllerTest_EventsByCoordinate()
         {
 			EventController eventController = new EventController();
 

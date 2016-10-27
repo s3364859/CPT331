@@ -4,15 +4,16 @@ AS
 
 SELECT
 	ID,
-	LocalGovernment
-	Name,
+	LocalGovernmentAreaID,
+	OffenceID,
+	[Count],
+	[Month],
+	[Year]
 	IsDeleted,
 	IsVisible,
 	DateCreatedUtc,
 	DateUpdatedUtc
 FROM
-	Crime.Offence
-ORDER BY
-	Name
+	Crime.Crime
 
 GO

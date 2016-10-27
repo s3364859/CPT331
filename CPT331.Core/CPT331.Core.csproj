@@ -30,6 +30,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AWS|AnyCPU'">
+    <OutputPath>bin\AWS\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -46,6 +55,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="ObjectModel\Coordinate.cs" />
     <Compile Include="ObjectModel\CrimeByCoordinate.cs" />
+    <Compile Include="ObjectModel\EventFinderTransform.cs" />
     <Compile Include="ObjectModel\LocalGovernmentAreaState.cs" />
     <Compile Include="ObjectModel\LocalGovernmentArea.cs" />
     <Compile Include="ObjectModel\OffenceCategory.cs" />
@@ -56,6 +66,7 @@
     <Compile Include="ObjectModel\EventCategory.cs" />
     <Compile Include="ObjectModel\EventImage.cs" />
     <Compile Include="ObjectModel\EventInfo.cs" />
+    <Compile Include="ObjectModel\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ObjectModel\State.cs" />
   </ItemGroup>

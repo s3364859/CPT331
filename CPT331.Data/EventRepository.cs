@@ -28,10 +28,5 @@ namespace CPT331.Data
 		{
 			return _eventFindaWebParser.GetEventsByCoordinate(latitude, longitude, radius);
 		}
-
-		public static List<EventInfo> GetEventsByLocation(string name, int postcode)
-		{
-			return _eventFindaWebParser.GetEventsByLocation(name, postcode);
-		}
 	}
 }

@@ -1,54 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Using References
+
+using System;
 using System.Web.Mvc;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CPT331.Web;
+
 using CPT331.Web.Controllers;
+
+#endregion
 
 namespace CPT331.Web.Tests.Controllers
 {
 	[TestClass]
 	public class HomeControllerTest
 	{
-		[TestMethod]
-		public void Index()
+		public HomeControllerTest()
 		{
-			// Arrange
-			HomeController controller = new HomeController();
+			_homeController = new HomeController();
+		}
 
-			// Act
-			ViewResult result = controller.Home() as ViewResult;
+		private HomeController _homeController;
 
-			// Assert
-			Assert.IsNotNull(result);
+		[TestMethod]
+		public void HomeControllerTest_About_Get()
+		{
+			ViewResult viewResult = _homeController.About() as ViewResult;
+
+			Assert.IsNotNull(viewResult);
 		}
 
 		[TestMethod]
-		public void About()
+		public void HomeControllerTest_Contact_Get()
 		{
-			// Arrange
-			HomeController controller = new HomeController();
+			ViewResult viewResult = _homeController.Contact() as ViewResult;
 
-			// Act
-			ViewResult result = controller.About() as ViewResult;
-
-			// Assert
-			Assert.AreEqual("Your application description page.", result.ViewBag.Message);
+			Assert.IsNotNull(viewResult);
 		}
 
 		[TestMethod]
-		public void Contact()
+		public void HomeControllerTest_Home_Get()
 		{
-			// Arrange
-			HomeController controller = new HomeController();
+			ViewResult viewResult = _homeController.Home() as ViewResult;
 
-			// Act
-			ViewResult result = controller.Contact() as ViewResult;
-
-			// Assert
-			Assert.IsNotNull(result);
+			Assert.IsNotNull(viewResult);
 		}
 	}
 }

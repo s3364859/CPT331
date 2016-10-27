@@ -58,7 +58,7 @@ namespace CPT331.Data.Parsers
 				{
 					string[] coordinateParts = coordinateLine.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 				
-					coordinates.Add(new Coordinate(Double.Parse(coordinateParts[1]), Double.Parse(coordinateParts[0])));
+					coordinates.Add(Coordinate.FromValues(Double.Parse(coordinateParts[1]), Double.Parse(coordinateParts[0])));
 				}
 
 				if (reverseLocalGovernmentAreaNames.Contains(name) == false)
