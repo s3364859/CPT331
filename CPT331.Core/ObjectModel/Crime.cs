@@ -7,6 +7,9 @@ using System.Text;
 
 namespace CPT331.Core.ObjectModel
 {
+	/// <summary>
+	/// Represents a Crime type, used to describe information about a crime.
+	/// </summary>
 	public class Crime
 	{
         /// <summary>
@@ -22,7 +25,16 @@ namespace CPT331.Core.ObjectModel
 			: this(count, DateTime.UtcNow, DateTime.UtcNow, -1, false, true, localGovernmentAreaID, month, offenceID, year)
 		{
 		}
-        
+
+		/// <summary>
+		/// Instantiate a Crime object using the values provided.
+		/// </summary>
+		/// <param name="count">The number of crimes recorded in a given area, time and category.</param>
+		/// <param name="id">The unique ID value.</param>
+		/// <param name="localGovernmentAreaID">An ID number that represents the local goverment area.</param>
+		/// <param name="month">The month the crimes were commited.</param>
+		/// <param name="offenceID">An ID number representing the type of crime.</param>
+		/// <param name="year">The year the crimes were commited</param>
 		public Crime(int count, int id, int localGovernmentAreaID, int month, int offenceID, int year)
 			 : this(count, DateTime.UtcNow, DateTime.UtcNow, id, false, true, localGovernmentAreaID, month, offenceID, year)
 		{
@@ -66,6 +78,9 @@ namespace CPT331.Core.ObjectModel
 		private readonly int _offenceID;
 		private readonly int _year;
 
+		/// <summary>
+		/// Gets the crime count value.
+		/// </summary>
 		public int Count
 		{
 			get
@@ -74,6 +89,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the date the record was created.
+		/// </summary>
 		public DateTime DateCreatedUtc
 		{
 			get
@@ -82,6 +100,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the date the record was updated.
+		/// </summary>
 		public DateTime DateUpdatedUtc
 		{
 			get
@@ -90,6 +111,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the unique ID value of the crime.
+		/// </summary>
 		public int ID
 		{
 			get
@@ -98,6 +122,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets a boolean value indicating whether this record has been soft-deleted.
+		/// </summary>
 		public bool IsDeleted
 		{
 			get
@@ -106,6 +133,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets a boolean value indicating whether this record should be visible.
+		/// </summary>
 		public bool IsVisible
 		{
 			get
@@ -114,6 +144,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the ID of the related local government area.
+		/// </summary>
 		public int LocalGovernmentAreaID
 		{
 			get
@@ -122,6 +155,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the month of the crime data.
+		/// </summary>
 		public int Month
 		{
 			get
@@ -130,6 +166,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the ID of the related offence.
+		/// </summary>
 		public int OffenceID
 		{
 			get
@@ -138,6 +177,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the year of the crime data.
+		/// </summary>
 		public int Year
 		{
 			get
@@ -145,7 +187,6 @@ namespace CPT331.Core.ObjectModel
 				return _year;
 			}
 		}
-
 
         /// <summary>
         /// Returns a Hashcode for this instance.
