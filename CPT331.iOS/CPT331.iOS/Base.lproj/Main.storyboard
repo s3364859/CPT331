@@ -58,23 +58,42 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-Eventfinda" translatesAutoresizingMaskIntoConstraints="NO" id="PyE-2v-gWe">
-                                <rect key="frame" x="214" y="564" width="173" height="36"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-Mapbox" translatesAutoresizingMaskIntoConstraints="NO" id="qUy-Fd-bRh">
+                                <rect key="frame" x="0.0" y="570" width="84" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="hmD-PE-00y"/>
+                                    <constraint firstAttribute="width" secondItem="qUy-Fd-bRh" secondAttribute="height" multiplier="3:1" id="thZ-Gd-Kyq"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-Eventfinda" translatesAutoresizingMaskIntoConstraints="NO" id="PyE-2v-gWe">
+                                <rect key="frame" x="484" y="571" width="78" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="PyE-2v-gWe" secondAttribute="height" multiplier="3:1" id="cuf-Ts-wab"/>
+                                    <constraint firstAttribute="height" constant="26" id="txl-QX-Hcm"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PyE-2v-gWe" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6hA-nf-MHH"/>
-                            <constraint firstItem="0rH-nn-xRF" firstAttribute="centerX" secondItem="PyE-2v-gWe" secondAttribute="centerX" id="9ov-Dh-blF"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PyE-2v-gWe" secondAttribute="bottom" id="Gva-e7-Qom"/>
+                            <constraint firstItem="PyE-2v-gWe" firstAttribute="height" secondItem="qUy-Fd-bRh" secondAttribute="height" id="9c4-Oi-DJB"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PyE-2v-gWe" secondAttribute="bottom" constant="3" id="Gva-e7-Qom"/>
                             <constraint firstItem="0rH-nn-xRF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NEe-dY-fsK"/>
                             <constraint firstItem="fLI-tG-O9g" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="OG7-vw-m6W"/>
                             <constraint firstAttribute="leading" secondItem="fLI-tG-O9g" secondAttribute="leading" id="Pxz-bV-n2W"/>
                             <constraint firstItem="0rH-nn-xRF" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="PzS-xy-ZBI"/>
                             <constraint firstItem="0rH-nn-xRF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="RYy-3G-8Hf"/>
+                            <constraint firstItem="qUy-Fd-bRh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ScH-IB-gDc"/>
                             <constraint firstAttribute="trailing" secondItem="fLI-tG-O9g" secondAttribute="trailing" id="Van-gQ-ZLx"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="qUy-Fd-bRh" secondAttribute="bottom" constant="2" id="aii-Qt-JMt"/>
+                            <constraint firstAttribute="trailing" secondItem="0rH-nn-xRF" secondAttribute="trailing" id="cea-kD-Xtt"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fLI-tG-O9g" secondAttribute="bottom" id="sAE-XC-RAd"/>
+                            <constraint firstAttribute="trailing" secondItem="PyE-2v-gWe" secondAttribute="trailing" constant="38" id="xSE-oT-UaR"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="qUy-Fd-bRh"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="locationSearchView" destination="fLI-tG-O9g" id="Tbo-LB-vcG"/>
@@ -976,7 +995,8 @@
         <image name="Icon-Tab-Events-Selected" width="25" height="25"/>
         <image name="Icon-Tab-Weather" width="25" height="25"/>
         <image name="Icon-Tab-Weather-Selected" width="25" height="25"/>
-        <image name="Logo-Eventfinda" width="173" height="36"/>
+        <image name="Logo-Eventfinda" width="438" height="146"/>
+        <image name="Logo-Mapbox" width="438" height="146"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="gV5-8L-EfB"/>
