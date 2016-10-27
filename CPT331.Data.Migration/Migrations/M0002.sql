@@ -719,15 +719,15 @@ INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'C
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Goldfields-Esperance District')
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Great Southern District')
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Kimberley District')
-INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Metropolitan Region')
+--	INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Metropolitan Region')	--	This looks like totals, leaving commented for the moment
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Mid West-Gascoyne District')
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'North West Metropolitan District')
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Pilbara District')
-INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Regional Wa Region')
+--	INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Regional Wa Region')		--	Also looks like totals
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'South East Metropolitan District')
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'South Metropolitan District')
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'South West District')
-INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Western Australia')
+--	INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Western Australia')		--	I doubt this is actually required - there's no associated crime data
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Wheatbelt District')
 
 COMMIT

@@ -16,7 +16,8 @@ namespace CPT331.Data.Parsers
 			QldKmlParser.QLD,
 			SaKmlParser.SA,
 			TasKmlParser.TAS,
-			VicKmlParser.VIC
+			VicKmlParser.VIC,
+			WaKmlParser.WA
 		};
 
 		public static string[] SupportedXmlParserNames =
@@ -63,6 +64,10 @@ namespace CPT331.Data.Parsers
 
 				case VicKmlParser.VIC:
 					parser = new VicKmlParser(dataSourceDirectory);
+					break;
+
+				case WaKmlParser.WA:
+					parser = new WaKmlParser(dataSourceDirectory);
 					break;
 			}
 
