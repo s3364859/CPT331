@@ -29,13 +29,6 @@ namespace CPT331.Data.Parsers
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);
 
-			//	string[] reverseLocalGovernmentAreaNames = new string[]
-			//	{
-			//		"Alpine",
-			//		"Baw Baw",
-			//		"Mansfield"
-			//	};
-
 			XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/Document/Placemark");
 			foreach (XmlNode xmlNode in xmlNodeList)
 			{
@@ -60,11 +53,6 @@ namespace CPT331.Data.Parsers
 				
 					coordinates.Add(Coordinate.FromValues(Double.Parse(coordinateParts[1]), Double.Parse(coordinateParts[0])));
 				}
-
-				//	if (reverseLocalGovernmentAreaNames.Contains(name) == false)
-				//	{
-				//		coordinates.Reverse();
-				//	}
 
 				base.Commit(coordinates, name);
 			}
