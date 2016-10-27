@@ -9,13 +9,16 @@
 import Foundation
 
 class LocationViewModel:EventsViewModel {
-
-    // Set by LocationEventViewConroller
+    
     let location:Location
 
-    // Section sort order
+    /// Sort order to be used if custom sort order has not been set
     static let defaultSortOrder:[EventSectionType] = [.Current, .Soon, .NearFuture, .Future, .DistantFuture, .NearPast, .Past]
+    
+    /// Non-default sort order
     private var customSortOrder:[EventSectionType]?
+    
+    /// Custom sort order if set, otherwise default sort order
     var sortOrder:[EventSectionType]? {
         get {
             if customSortOrder != nil {
@@ -30,22 +33,39 @@ class LocationViewModel:EventsViewModel {
         }
     }
 
-    // Set by loadEvents()
+    /// The most recently sorted events
     var sections: [EventSection]?
 
-
     
+    
+    /**
+        Initializes a LocationViewModel using the provided location
+     
+        - Parameters:
+            - location: the location to be used as the centerpoint when loading nearby events
+    */
     init(location:Location) {
         self.location = location
     }
 
 
-
-    func loadEvents(withinRadius radius:Double, useCache:Bool=true, useAPI:Bool=true) {
+    /**
+        Load events surrounding the stored location that are within the specified radius. Once events have been loaded from a source, a delegate update call will be fired.
+     
+        - Parameters:
+            - use cache: whether or not events should be loaded from the cache (fast)
+            - use API: whether or not events should be loaded from the API (slow)
+     
+        - Note: if sourcing from both cache and API, the delegate update function will be fired twice.
+     
+        - TODO: search radius should be fetched from SettingsManager once implemented
+    */
+    func loadEvents(fromCache fromCache:Bool=true, fromAPI:Bool=true) {
+        let radius:Double = 20
         let coordinate = self.location.coordinate
         let whitelist = SettingsManager.sharedInstance.whitelist
         
-        if useCache {
+        if fromCache {
             // Trigger map update for current cached events
             var cachedEvents = EventManager.sharedInstance.getEventsFromCache(atCoordinate: coordinate, withinRadius: radius)
             self.filterEvents(&cachedEvents, withWhitelist: whitelist)
@@ -54,14 +74,14 @@ class LocationViewModel:EventsViewModel {
             self.delegate?.update()
         }
         
-        if useAPI {
+        if fromAPI {
             // Fetch events from API
             EventManager.sharedInstance.getEventsFromAPI(atCoordinate: coordinate, withinRadius: radius) { events in
                 guard var fetchedEvents = events else {
                     return
                 }
                 
-                if useCache {
+                if fromCache {
                     // Fetch current events from cache
                     let cachedEvents = EventManager.sharedInstance.getEventsFromCache(atCoordinate: coordinate, withinRadius: radius)
                     
@@ -78,7 +98,17 @@ class LocationViewModel:EventsViewModel {
     }
 
     
-
+    /**
+        Groups events into sections using the provided sort order.
+     
+        - Note: EventSectionType.type(forEvent:_) determines which section an event belongs to
+     
+        - Parameters:
+            - events: the events to be sorted
+            - sort order: the order in which the event sections should be returned
+     
+        - TODO: section sort order should be fetched from SettingsManager once implemented
+    */
     private func sections(forEvents events:[Int:Event], withSortOrder sortOrder:[EventSectionType]) -> [EventSection] {
 
         // Sort events into sections

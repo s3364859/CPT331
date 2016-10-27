@@ -138,8 +138,8 @@ class EventManager: JSONAPI {
                     Latitude: double,
                     Longitude: double,
                     Category: int,
-                    thumbnailURL: string,
-                    bannerURL: string
+                    ThumbnailURL: string,
+                    BannerURL: string
                 },
                 ...
             ]
@@ -182,7 +182,7 @@ class EventManager: JSONAPI {
                 coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
             }
             
-            if let subcategoryName = event["Categories"].array?[0]["Name"].string {
+            if let subcategoryName = event["Category"].string {
                 subcategory = EventSubcategry.fromString(subcategoryName)
             } else {
                 subcategory = EventSubcategry.Generic
@@ -192,29 +192,12 @@ class EventManager: JSONAPI {
                 url = NSURL(string: urlString)
             }
             
-            // Find banner and thumbnail images
-            // TODO: Should this be done on serverside??
-            if let images = event["Images"].array {
-                for image in images {
-                    // Skip images that don't have a url (This probably will never happen)
-                    guard let urlString = image["Url"].string, let url = NSURL(string: urlString) else {
-                        continue
-                    }
-                    
-                    let width = image["Width"].int
-                    let height = image["Height"].int
-                    
-                    if width == 75 && height == 75 {
-                        thumbnailURL = url
-                    } else if width == 650 && height == 280 {
-                        bannerURL = url
-                    }
-                    
-                    // Break out of loop early if both images have been found
-                    if thumbnailURL != nil && bannerURL != nil {
-                        break
-                    }
-                }
+            if let urlString = event["BannerUrl"].string {
+                bannerURL = NSURL(string: urlString)
+            }
+            
+            if let urlString = event["ThumbnailUrl"].string {
+                thumbnailURL = NSURL(string: urlString)
             }
             
             parsedEvents[id] = self.createOrUpdateEvent(

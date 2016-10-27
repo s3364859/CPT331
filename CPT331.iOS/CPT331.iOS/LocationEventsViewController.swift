@@ -11,7 +11,6 @@ import UIKit
 class LocationEventsViewController: LocationViewController, UITableViewDataSource, UITableViewDelegate, EventsViewModelDelegate {
 
     let ROW_HEIGHT:CGFloat = 54
-    let SEARCH_RADIUS:Double = 10
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -40,7 +39,7 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         )
 
         // Populate table with data
-        self.viewModel.loadEvents(withinRadius: self.SEARCH_RADIUS, useCache:true)
+        self.viewModel.loadEvents(fromCache: true, fromAPI: true)
     }
     
     override func viewWillDisappear(animated: Bool) {

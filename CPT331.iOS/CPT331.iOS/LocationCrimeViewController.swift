@@ -67,7 +67,19 @@ class LocationCrimeViewController: LocationViewController, ChartViewDelegate {
                 // Update view
                 dispatch_async(dispatch_get_main_queue(), { 
                     self.setChartData(labels, values: values)
-                    self.setChartTitle("Crime Data", subtitle: "\(crimeData.beginYear)-\(crimeData.endYear)")
+                    
+                    var subtitle:String
+                    
+                    // Show year range if dataset is for multiple years
+                    if crimeData.beginYear < crimeData.endYear {
+                        subtitle = "\(crimeData.beginYear)-\(crimeData.endYear)"
+                        
+                    // Otherwise, just show a single year
+                    } else {
+                        subtitle = "\(crimeData.beginYear)"
+                    }
+                    
+                    self.setChartTitle("Crime Data", subtitle: subtitle)
                     self.setChartDescription(crimeData.name)
                 })
             }

@@ -9,18 +9,26 @@
 import UIKit
 import Mapbox
 
-
+/// Delegate to be used to trigger UIView updates
 protocol EventsViewModelDelegate {
     func update()
 }
 
-
+/// Abstract class for retrieving data from event API and updating UIView. This class should be subclassed to utilize its functionality.
 class EventsViewModel {
 
+    /// The view which should be updated once data has been loaded
     var delegate:EventsViewModelDelegate?
     
-    init() {}
+    internal init() {}
     
+    /**
+        Mutates the events dictionary, filtering out any events which have categories that are not whitelisted.
+     
+        - Parameters:
+            - events: dictionary of events (event id / event pairs) to be filtered
+            - whitelist: list of event categories which should not be hidden
+    */
     internal func filterEvents(inout events:[Int:Event], withWhitelist whitelist:EventCategoryWhitelist?) {
         guard whitelist != nil else {
             return
@@ -31,31 +39,5 @@ class EventsViewModel {
                 events.removeValueForKey(id)
             }
         }
-    }
-    
-    internal func getRadius(fromCoordinateBounds bounds: MGLCoordinateBounds) -> Double {
-        let ne = bounds.ne
-        let sw = bounds.sw
-        
-        var point1: CLLocationCoordinate2D!
-        var point2: CLLocationCoordinate2D!
-        
-        // Use longitude if in portrait
-        if (sw.longitude - ne.longitude) >= (sw.latitude - ne.latitude) {
-            point1 = CLLocationCoordinate2D(latitude: 0, longitude: sw.longitude)
-            point2 = CLLocationCoordinate2D(latitude: 0, longitude: ne.longitude)
-            
-            // Otherwise, use latitude if in landscape
-        } else {
-            point1 = CLLocationCoordinate2D(latitude: sw.latitude, longitude: 0)
-            point2 = CLLocationCoordinate2D(latitude: ne.latitude, longitude: 0)
-        }
-        
-        // Get diameter in meters
-        let diameter = point1.distanceFrom(point2)
-        let radius = diameter/2
-        
-        // Return radius in kilometers
-        return radius/1000
     }
 }

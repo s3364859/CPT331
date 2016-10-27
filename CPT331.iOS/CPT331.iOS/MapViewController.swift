@@ -178,7 +178,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
             self.viewModel.delegate = nil
             vc.onDisappear = {
                 self.viewModel.delegate = self
-                self.viewModel.loadEvents(useCache: true, useAPI: false)
+                self.viewModel.loadEvents(fromCache: true, fromAPI: false)
             }
         }
     }
@@ -200,6 +200,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
         - Returns: TRUE: if the map markers were updated. FALSE: if the map markers weren't updated.
      */
     func update() {
+        
         // Only update map if not already panning
         guard self.mapRegionIsChanging == false else {
             return
@@ -274,7 +275,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     /// Updates the map view to display event markers within the visible region
     func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
         self.mapRegionIsChanging = false
-        self.viewModel.loadEvents(useCache:true)
+        self.viewModel.loadEvents(fromCache: true, fromAPI: true)
     }
     
     
