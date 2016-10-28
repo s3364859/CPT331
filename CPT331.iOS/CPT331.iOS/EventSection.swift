@@ -28,10 +28,10 @@ class EventSection {
 
 
     func sort() {
-        if self.type == .Current {
-            self._events.sortInPlace({ $0.endDateTime! < $1.endDateTime! })
-        } else if self.type == .NearPast || self.type == .Past {
+        if self.type == .NearPast || self.type == .Past {
             self._events.sortInPlace({ $0.beginDateTime! > $1.beginDateTime! })
+        } else if self.type == .Current {
+            self._events.sortInPlace({ $0.endDateTime! < $1.endDateTime! })
         } else {
             self._events.sortInPlace({ $0.beginDateTime! < $1.beginDateTime! })
         }

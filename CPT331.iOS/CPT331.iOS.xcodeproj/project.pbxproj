@@ -506,7 +506,7 @@
 				TargetAttributes = {
 					D04F338C1D8E619500103669 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = W7F2H272FL;
+						DevelopmentTeam = XP3CUQ2P8R;
 					};
 					D04F33A31D8E619500103669 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -826,7 +826,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CPT331.iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.peterweller.CPT331-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.peterweller.eventguardian;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -841,7 +841,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CPT331.iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.peterweller.CPT331-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.peterweller.eventguardian;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
