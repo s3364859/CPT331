@@ -45,12 +45,15 @@ namespace CPT331.Data.Parsers
 				}
 				
 				coordinates.Clear();
-				
-				string[] coordinateLines = coordinateValues.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+				string[] coordinateLines = coordinateValues
+					.Replace(Environment.NewLine, "")
+					.Replace("\t", "")
+					.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 				foreach (string coordinateLine in coordinateLines)
 				{
 					string[] coordinateParts = coordinateLine.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-				
+
 					coordinates.Add(Coordinate.FromValues(Double.Parse(coordinateParts[1]), Double.Parse(coordinateParts[0])));
 				}
 
@@ -61,3 +64,4 @@ namespace CPT331.Data.Parsers
 		}
 	}
 }
+ 
