@@ -13,8 +13,15 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data.Parsers
 {
+	/// <summary>
+	/// Represents an NswXmlParser type, used to manipulate XML data from a file.
+	/// </summary>
 	public class NswXmlParser : XmlParser
 	{
+		/// <summary>
+		/// Constructs a new NswXmlParser object.
+		/// </summary>
+		/// <param name="dataSourceDirectory">The path to the directory containing the XML data sources.</param>
 		public NswXmlParser(string dataSourceDirectory)
 			: base(dataSourceDirectory, NSW)
 		{
@@ -22,6 +29,11 @@ namespace CPT331.Data.Parsers
 
 		internal const string NSW = "NSW";
 
+		/// <summary>
+		/// Performs parsing operations and constructs a list of Coordinate objects as the result.
+		/// </summary>
+		/// <param name="fileName">The path to the file containing the XML information to parse.</param>
+		/// <param name="crimes">The list of Crime objects to serialise the XML information into.</param>
 		protected override void OnParse(string fileName, List<Crime> crimes)
 		{
 			OutputStreams.WriteLine($"Parsing {NSW} data...");

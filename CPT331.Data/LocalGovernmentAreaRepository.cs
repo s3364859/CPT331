@@ -127,7 +127,7 @@ namespace CPT331.Data
 		}
 
 		/// <summary>
-		/// Updates local government area information into the underlying data source.
+		/// Updates local government area information in the underlying data source.
 		/// </summary>
 		/// <param name="id">The ID of the associated local government area.</param>
 		/// <param name="isDeleted">Specifies whether the local government area is flagged as deleted.</param>

@@ -141,7 +141,7 @@ namespace CPT331.Data
 		}
 
 		/// <summary>
-		/// Updates crime information into the underlying data source.
+		/// Updates crime information in the underlying data source.
 		/// </summary>
 		/// <param name="id">The ID of the associated crime.</param>
 		/// <param name="localGovernmentAreaID">Specified the ID of the associated local government area.</param>

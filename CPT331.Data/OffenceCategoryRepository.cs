@@ -101,7 +101,7 @@ namespace CPT331.Data
 		}
 
 		/// <summary>
-		/// Updates offence category information into the underlying data source.
+		/// Updates offence category information in the underlying data source.
 		/// </summary>
 		/// <param name="id">The ID of the associated offence category.</param>
 		/// <param name="isDeleted">Specifies whether the offence category is flagged as deleted.</param>
