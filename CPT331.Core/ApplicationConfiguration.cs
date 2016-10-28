@@ -7,6 +7,9 @@ using System.Configuration;
 
 namespace CPT331.Core
 {
+	/// <summary>
+	/// Represents an ApplicationConfiguration type, used to describe settings required for the application to function.
+	/// </summary>
 	public sealed class ApplicationConfiguration : ApplicationSettingsBase
 	{
 		private const string CPT331ConnectionStringKey = "CPT331ConnectionString";
@@ -19,6 +22,9 @@ namespace CPT331.Core
 
 		private static ApplicationConfiguration _defaultInstance = ((ApplicationConfiguration)(Synchronized(new ApplicationConfiguration())));
 
+		/// <summary>
+		/// Returns the Default instance.
+		/// </summary>
 		public static ApplicationConfiguration Default
 		{
 			get
@@ -27,7 +33,10 @@ namespace CPT331.Core
 			}
 		}
 
-		[ApplicationScopedSetting()]
+		/// <summary>
+		/// Gets the connection string to the database.
+		/// </summary>
+		[ApplicationScopedSetting]
 		public string CPT331ConnectionString
 		{
 			get
@@ -36,7 +45,10 @@ namespace CPT331.Core
 			}
 		}
 
-		[ApplicationScopedSetting()]
+		/// <summary>
+		/// Gets the password required to connect to the EventFinda web service.
+		/// </summary>
+		[ApplicationScopedSetting]
 		public string EventFindaPassword
 		{
 			get
@@ -45,7 +57,10 @@ namespace CPT331.Core
 			}
 		}
 
-		[ApplicationScopedSetting()]
+		/// <summary>
+		/// Gets the URL of the EventFinda web service.
+		/// </summary>
+		[ApplicationScopedSetting]
 		public string EventFindaUrl
 		{
 			get
@@ -54,7 +69,10 @@ namespace CPT331.Core
 			}
 		}
 
-		[ApplicationScopedSetting()]
+		/// <summary>
+		/// Gets the username required to connect to the EventFinda web service.
+		/// </summary>
+		[ApplicationScopedSetting]
 		public string EventFindaUsername
 		{
 			get
@@ -80,7 +98,10 @@ namespace CPT331.Core
 			return getConnectionStringValue;
 		}
 
-		[ApplicationScopedSetting()]
+		/// <summary>
+		/// Gets the size of the number of statements to include in a transaction.
+		/// </summary>
+		[ApplicationScopedSetting]
 		[DefaultSettingValue(DefaultMigrationSize)]
 		public int MigrationCommitSize
 		{
@@ -101,7 +122,10 @@ namespace CPT331.Core
 			}
 		}
 
-		[ApplicationScopedSetting()]
+		/// <summary>
+		/// Gets the path to the directory containing KML and XML data sources.
+		/// </summary>
+		[ApplicationScopedSetting]
 		[DefaultSettingValue(@"C:\Downloads\Crime Data\")]
 		public string MigrationDataSourceDirectory
 		{

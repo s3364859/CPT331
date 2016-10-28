@@ -44,8 +44,8 @@ namespace CPT331.Core.ObjectModel
         /// Instantiate a Crime object using the values provided.
         /// </summary>
         /// <param name="count">The number of crimes recorded in a given area, time and category.</param>
-        /// <param name="dateCreatedUtc">The date when the Crime record was created.</param>
-        /// <param name="dateUpdatedUtc">The date when the Crime record was last updated.</param>
+        /// <param name="dateCreatedUtc">The date when the record was created.</param>
+        /// <param name="dateUpdatedUtc">The date when the record was last updated.</param>
         /// <param name="id">An ID number that represents the Crime record.</param>
         /// <param name="isDeleted">A boolean value indicating a deleted record.</param>
         /// <param name="isVisible">A boolean value indicating a hidden record.</param>
