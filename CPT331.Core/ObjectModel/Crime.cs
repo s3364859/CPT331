@@ -10,7 +10,7 @@ namespace CPT331.Core.ObjectModel
 	/// <summary>
 	/// Represents a Crime type, used to describe information about a crime.
 	/// </summary>
-	public class Crime
+	public class Crime : ReadOnlyDataObject
 	{
         /// <summary>
         /// Instantiate a Crime object using the values provided.
@@ -54,13 +54,9 @@ namespace CPT331.Core.ObjectModel
         /// <param name="offenceID">An ID number representing the type of crime.</param>
         /// <param name="year">The year the crimes were commited</param>
         public Crime(int count, DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, int localGovernmentAreaID, int month, int offenceID, int year)
+			: base(dateCreatedUtc, dateUpdatedUtc, id, isDeleted, isVisible)
 		{
 			_count = count;
-			_dateCreatedUtc = dateCreatedUtc;
-			_dateUpdatedUtc = dateUpdatedUtc;
-			_id = id;
-			_isDeleted = isDeleted;
-			_isVisible = isVisible;
 			_localGovernmentAreaID = localGovernmentAreaID;
 			_month = month;
 			_offenceID = offenceID;
@@ -68,11 +64,6 @@ namespace CPT331.Core.ObjectModel
 		}
 
 		private readonly int _count;
-		private readonly DateTime _dateCreatedUtc;
-		private readonly DateTime _dateUpdatedUtc;
-		private readonly int _id;
-		private readonly bool _isDeleted;
-		private readonly bool _isVisible;
 		private readonly int _localGovernmentAreaID;
 		private readonly int _month;
 		private readonly int _offenceID;
@@ -86,61 +77,6 @@ namespace CPT331.Core.ObjectModel
 			get
 			{
 				return _count;
-			}
-		}
-
-		/// <summary>
-		/// Gets the date the record was created.
-		/// </summary>
-		public DateTime DateCreatedUtc
-		{
-			get
-			{
-				return _dateCreatedUtc;
-			}
-		}
-
-		/// <summary>
-		/// Gets the date the record was updated.
-		/// </summary>
-		public DateTime DateUpdatedUtc
-		{
-			get
-			{
-				return _dateUpdatedUtc;
-			}
-		}
-
-		/// <summary>
-		/// Gets the unique ID value of the crime.
-		/// </summary>
-		public int ID
-		{
-			get
-			{
-				return _id;
-			}
-		}
-
-		/// <summary>
-		/// Gets a boolean value indicating whether this record has been soft-deleted.
-		/// </summary>
-		public bool IsDeleted
-		{
-			get
-			{
-				return _isDeleted;
-			}
-		}
-
-		/// <summary>
-		/// Gets a boolean value indicating whether this record should be visible.
-		/// </summary>
-		public bool IsVisible
-		{
-			get
-			{
-				return _isVisible;
 			}
 		}
 
@@ -195,12 +131,8 @@ namespace CPT331.Core.ObjectModel
         public override int GetHashCode()
 		{
 			return
+				base.GetHashCode() ^
 				_count.GetHashCode() ^
-				_dateCreatedUtc.GetHashCode() ^
-				_dateUpdatedUtc.GetHashCode() ^
-				_id.GetHashCode() ^
-				_isDeleted.GetHashCode() ^
-				_isVisible.GetHashCode() ^
 				_localGovernmentAreaID.GetHashCode() ^
 				_month.GetHashCode() ^
 				_offenceID.GetHashCode() ^
@@ -221,12 +153,8 @@ namespace CPT331.Core.ObjectModel
 			{
 				equals =
 				(
+					(base.Equals(crime)) &&
 					(_count == crime._count) &&
-					(_dateCreatedUtc == crime._dateCreatedUtc) &&
-					(_dateUpdatedUtc == crime._dateUpdatedUtc) &&
-					(_id == crime._id) &&
-					(_isDeleted == crime._isDeleted) &&
-					(_isVisible == crime._isDeleted) &&
 					(_localGovernmentAreaID == crime._localGovernmentAreaID) &&
 					(_month == crime._month) &&
 					(_offenceID == crime._offenceID) &&

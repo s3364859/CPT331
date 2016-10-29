@@ -27,7 +27,7 @@ namespace CPT331.WebAPI.Controllers
 		[Route("api/Event/{id}")]
 		public EventModel Event(uint id)
 		{
-			EventModel eventModel = ToEventModel(EventInfoRepository.GetEventByID((int)(id)));
+			EventModel eventModel = ToEventModel(DataProvider.EventInfoRepository.GetEventByID((int)(id)));
 
 			if (eventModel == null)
 			{
@@ -45,7 +45,7 @@ namespace CPT331.WebAPI.Controllers
 		[ValidateCoordinates]
 		public IEnumerable<EventModel> EventsByCoordinate(double latitude, double longitude, double radius, string sortBy = "", SortDirection? sortDirection = null)
 		{
-            IEnumerable<EventInfo> events = EventInfoRepository.GetEventsByCoordinate(latitude, longitude, radius);
+            IEnumerable<EventInfo> events = DataProvider.EventInfoRepository.GetEventsByCoordinate(latitude, longitude, radius);
 			IEnumerable<EventModel> eventModels = events.Select(m => ToEventModel(m));
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))

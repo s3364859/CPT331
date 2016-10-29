@@ -32,7 +32,7 @@ namespace CPT331.Web.Models.Admin
 			get
 			{
 				List<SelectListItem> localGovernmentAreaList = new List<SelectListItem>();
-				List<LocalGovernmentAreaState> localGovernmentAreaStates = LocalGovernmentAreaStateRepository.GetLocalGovernmentAreaStates();
+				List<LocalGovernmentAreaState> localGovernmentAreaStates = DataProvider.LocalGovernmentAreaStateRepository.GetLocalGovernmentAreaStates();
 
 				localGovernmentAreaStates.ForEach(m => localGovernmentAreaList.Add(new SelectListItem() { Text = $"{m.Name} ({m.AbbreviatedName})", Value = m.ID.ToString() }));
 
@@ -45,7 +45,7 @@ namespace CPT331.Web.Models.Admin
 			get
 			{
 				List<SelectListItem> stateList = new List<SelectListItem>();
-				List<State> states = StateRepository.GetStates();
+				List<State> states = DataProvider.StateRepository.GetStates();
 
 				states.ForEach(m => stateList.Add(new SelectListItem() { Text = $"{m.Name} ({m.AbbreviatedName})", Value = m.ID.ToString() }));
 

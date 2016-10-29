@@ -10,6 +10,7 @@ using CPT331.Core.ObjectModel;
 using CPT331.Data;
 using CPT331.Web.Models.Admin;
 using CPT331.Web.Attributes;
+using CPT331.Web.Actions;
 
 #endregion
 
@@ -22,7 +23,7 @@ namespace CPT331.Web.Controllers
 		public ActionResult Crime(uint id)
 		{
 			CrimeModel crimeModel = null;
-			Crime crime = CrimeRepository.GetCrimeByID((int)(id));
+			Crime crime = DataProvider.CrimeRepository.GetCrimeByID((int)(id));
 
 			if (crime != null)
 			{
@@ -57,7 +58,7 @@ namespace CPT331.Web.Controllers
 				}
 				else
 				{
-					CrimeRepository.UpdateCrime
+					DataProvider.CrimeRepository.UpdateCrime
 					(
 						crimeModel.ID,
 						crimeModel.LocalGovernmentAreaID,
@@ -83,7 +84,7 @@ namespace CPT331.Web.Controllers
         [HttpGet]
         public ActionResult Crimes(string sortBy, SortDirection? sortDirection, uint? page)
 		{
-			IEnumerable<Crime> crimes = CrimeRepository.GetCrimes();
+			IEnumerable<Crime> crimes = DataProvider.CrimeRepository.GetCrimes();
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
 			{
@@ -151,7 +152,31 @@ namespace CPT331.Web.Controllers
 			return View(crimes);
 		}
 
-        [HttpGet]
+		[HttpGet]
+		public ActionResult ExportLocalGovernmentAreas()
+		{
+			return new ExportDataActionResult("LocalGovernmentAreas.csv", DataProvider.LocalGovernmentAreaRepository);
+		}
+
+		[HttpGet]
+		public ActionResult ExportOffenceCategories()
+		{
+			return new ExportDataActionResult("OffenceCateogories.csv", DataProvider.OffenceCategoryRepository);
+		}
+
+		[HttpGet]
+		public ActionResult ExportOffences()
+		{
+			return new ExportDataActionResult("Offences.csv", DataProvider.OffenceRepository);
+		}
+
+		[HttpGet]
+		public ActionResult ExportStates()
+		{
+			return new ExportDataActionResult("States.csv", DataProvider.StateRepository);
+		}
+
+		[HttpGet]
         public ActionResult Home()
 		{
 			return View();
@@ -161,7 +186,7 @@ namespace CPT331.Web.Controllers
         public ActionResult LocalGovernmentArea(uint id)
 		{
 			LocalGovernmentAreaModel localGovernmentAreaModel = null;
-			LocalGovernmentArea localGovernmentArea = LocalGovernmentAreaRepository.GetLocalGovernmentAreaByID((int)(id));
+			LocalGovernmentArea localGovernmentArea = DataProvider.LocalGovernmentAreaRepository.GetLocalGovernmentAreaByID((int)(id));
 
 			if (localGovernmentArea != null)
 			{
@@ -193,7 +218,7 @@ namespace CPT331.Web.Controllers
 				}
 				else
 				{
-					LocalGovernmentAreaRepository.UpdateLocalGovernmentArea
+					DataProvider.LocalGovernmentAreaRepository.UpdateLocalGovernmentArea
 					(
 						localGovernmentAreaModel.ID,
 						localGovernmentAreaModel.IsDeleted,
@@ -216,7 +241,7 @@ namespace CPT331.Web.Controllers
         [HttpGet]
         public ActionResult LocalGovernmentAreas(string sortBy, SortDirection? sortDirection, uint? page)
 		{
-			IEnumerable<LocalGovernmentAreaState> localGovernmentAreaStates = LocalGovernmentAreaStateRepository.GetLocalGovernmentAreaStates();
+			IEnumerable<LocalGovernmentAreaState> localGovernmentAreaStates = DataProvider.LocalGovernmentAreaStateRepository.GetLocalGovernmentAreaStates();
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
 			{
@@ -308,7 +333,7 @@ namespace CPT331.Web.Controllers
 
 			if (ModelState.IsValid == true)
 			{
-				CrimeRepository.AddCrime(crimeModel.Count, crimeModel.LocalGovernmentAreaID, crimeModel.Month, crimeModel.OffenceID, crimeModel.Year);
+				DataProvider.CrimeRepository.AddCrime(crimeModel.Count, crimeModel.LocalGovernmentAreaID, crimeModel.Month, crimeModel.OffenceID, crimeModel.Year);
 
 				actionResult = RedirectToAction("Crimes", "Admin");
 			}
@@ -333,7 +358,7 @@ namespace CPT331.Web.Controllers
 
 			if (ModelState.IsValid == true)
 			{
-				LocalGovernmentAreaRepository.AddLocalGovernmentArea(localGovernmentAreaModel.IsDeleted, localGovernmentAreaModel.IsVisible, localGovernmentAreaModel.Name, localGovernmentAreaModel.StateID);
+				DataProvider.LocalGovernmentAreaRepository.AddLocalGovernmentArea(localGovernmentAreaModel.IsDeleted, localGovernmentAreaModel.IsVisible, localGovernmentAreaModel.Name, localGovernmentAreaModel.StateID);
 
 				actionResult = RedirectToAction("LocalGovernmentAreas", "Admin");
 			}
@@ -358,7 +383,7 @@ namespace CPT331.Web.Controllers
 
 			if (ModelState.IsValid == true)
 			{
-				OffenceRepository.AddOffence(offenceModel.IsDeleted, offenceModel.IsVisible, offenceModel.Name);
+				DataProvider.OffenceRepository.AddOffence(offenceModel.IsDeleted, offenceModel.IsVisible, offenceModel.Name);
 
 				actionResult = RedirectToAction("Offences", "Admin");
 			}
@@ -383,7 +408,7 @@ namespace CPT331.Web.Controllers
 
 			if (ModelState.IsValid == true)
 			{
-				OffenceCategoryRepository.AddOffenceCategory(offenceCategoryModel.IsDeleted, offenceCategoryModel.IsVisible, offenceCategoryModel.Name);
+				DataProvider.OffenceCategoryRepository.AddOffenceCategory(offenceCategoryModel.IsDeleted, offenceCategoryModel.IsVisible, offenceCategoryModel.Name);
 
 				actionResult = RedirectToAction("OffenceCategories", "Admin");
 			}
@@ -408,7 +433,7 @@ namespace CPT331.Web.Controllers
 
 			if (ModelState.IsValid == true)
 			{
-				StateRepository.AddState(stateModel.AbbreviatedName, stateModel.IsDeleted, stateModel.IsVisible, stateModel.Name);
+				DataProvider.StateRepository.AddState(stateModel.AbbreviatedName, stateModel.IsDeleted, stateModel.IsVisible, stateModel.Name);
 
 				actionResult = RedirectToAction("States", "Admin");
 			}
@@ -424,7 +449,7 @@ namespace CPT331.Web.Controllers
         public ActionResult Offence(uint id)
 		{
 			OffenceModel offenceModel = null;
-			Offence offence = OffenceRepository.GetOffenceByID((int)(id));
+			Offence offence = DataProvider.OffenceRepository.GetOffenceByID((int)(id));
 
 			if (offence != null)
 			{
@@ -447,7 +472,7 @@ namespace CPT331.Web.Controllers
 				}
 				else
 				{
-					OffenceRepository.UpdateOffence(offenceModel.ID, offenceModel.IsDeleted, offenceModel.IsVisible, offenceModel.Name, offenceModel.OffenceCategoryID);
+					DataProvider.OffenceRepository.UpdateOffence(offenceModel.ID, offenceModel.IsDeleted, offenceModel.IsVisible, offenceModel.Name, offenceModel.OffenceCategoryID);
 				}
 
 				actionResult = RedirectToAction("Offences", "Admin");
@@ -463,7 +488,7 @@ namespace CPT331.Web.Controllers
         [HttpGet]
         public ActionResult Offences(string sortBy, SortDirection? sortDirection, uint? page)
 		{
-			IEnumerable<Offence> offences = OffenceRepository.GetOffences();
+			IEnumerable<Offence> offences = DataProvider.OffenceRepository.GetOffences();
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
 			{
@@ -535,7 +560,7 @@ namespace CPT331.Web.Controllers
         public ActionResult OffenceCategory(uint id)
 		{
 			OffenceCategoryModel offenceCategoryModel = null;
-			OffenceCategory offenceCategory = OffenceCategoryRepository.GetOffenceCategoryByID((int)(id));
+			OffenceCategory offenceCategory = DataProvider.OffenceCategoryRepository.GetOffenceCategoryByID((int)(id));
 
 			if (offenceCategory != null)
 			{
@@ -558,7 +583,7 @@ namespace CPT331.Web.Controllers
 				}
 				else
 				{
-					OffenceCategoryRepository.UpdateOffenceCategory(offenceCategoryModel.ID, offenceCategoryModel.IsDeleted, offenceCategoryModel.IsVisible, offenceCategoryModel.Name);
+					DataProvider.OffenceCategoryRepository.UpdateOffenceCategory(offenceCategoryModel.ID, offenceCategoryModel.IsDeleted, offenceCategoryModel.IsVisible, offenceCategoryModel.Name);
 				}
 
 				actionResult = RedirectToAction("OffenceCategories", "Admin");
@@ -574,7 +599,7 @@ namespace CPT331.Web.Controllers
         [HttpGet]
         public ActionResult OffenceCategories(string sortBy, SortDirection? sortDirection, uint? page)
 		{
-			IEnumerable<OffenceCategory> offenceCategories = OffenceCategoryRepository.GetOffenceCategories();
+			IEnumerable<OffenceCategory> offenceCategories = DataProvider.OffenceCategoryRepository.GetOffenceCategories();
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
 			{
@@ -646,7 +671,7 @@ namespace CPT331.Web.Controllers
         public ActionResult State(uint id)
 		{
 			StateModel stateModel = null;
-			State state = StateRepository.GetStateByID((int)(id));
+			State state = DataProvider.StateRepository.GetStateByID((int)(id));
 
 			if (state != null)
 			{
@@ -669,7 +694,7 @@ namespace CPT331.Web.Controllers
 				}
 				else
 				{
-					StateRepository.UpdateState(stateModel.ID, stateModel.AbbreviatedName, stateModel.IsDeleted, stateModel.IsVisible, stateModel.Name);
+					DataProvider.StateRepository.UpdateState(stateModel.ID, stateModel.AbbreviatedName, stateModel.IsDeleted, stateModel.IsVisible, stateModel.Name);
 				}
 
 				actionResult = RedirectToAction("States", "Admin");
@@ -685,7 +710,7 @@ namespace CPT331.Web.Controllers
         [HttpGet]
         public ActionResult States(string sortBy, SortDirection? sortDirection, uint? page)
 		{
-			IEnumerable<State> states = StateRepository.GetStates();
+			IEnumerable<State> states = DataProvider.StateRepository.GetStates();
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
 			{

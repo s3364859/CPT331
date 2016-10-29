@@ -58,7 +58,7 @@ namespace CPT331.Data.Parsers
 
 				OutputStreams.WriteLine($"Commiting {crimesToCommit.Count} records, {(crimes.Count - crimesToCommit.Count)} left");
 
-				AdhocScriptRepository.ExecuteScript(stringBuilder.ToString());
+				DataProvider.AdhocScriptRepository.ExecuteScript(stringBuilder.ToString());
 
 				crimes.RemoveRange(0, crimesToCommit.Count);
 			}

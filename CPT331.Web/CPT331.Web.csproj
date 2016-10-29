@@ -151,6 +151,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\ExportDataActionResult.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -186,6 +187,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\Event.png" />
+    <Content Include="Content\Images\excel.gif" />
     <Content Include="Content\Images\Icon-App.png" />
     <Content Include="Content\Images\key.png" />
     <Content Include="Content\Images\Map.png" />

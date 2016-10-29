@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 
 using Dapper;
@@ -15,9 +16,9 @@ using CPT331.Core.ObjectModel;
 namespace CPT331.Data
 {
 	/// <summary>
-	/// Represents an StateRepository type, used to manipulate state data.
+	/// Represents a StateRepository type, used to manipulate state data.
 	/// </summary>
-	public static class StateRepository
+	public class StateRepository : Repository
 	{
 		/// <summary>
 		/// The Location.spAddState stored procedure name.
@@ -52,7 +53,7 @@ namespace CPT331.Data
 		/// <param name="isVisible">Specifies whether the offence category is flagged as visible.</param>
 		/// <param name="name">The name of the state or territory.</param>
 		/// <returns></returns>
-		public static int AddState(string abbreviatedName, bool isDeleted, bool isVisible, string name)
+		public int AddState(string abbreviatedName, bool isDeleted, bool isVisible, string name)
 		{
 			int id = 0;
 
@@ -72,7 +73,7 @@ namespace CPT331.Data
 		/// </summary>
 		/// <param name="abbreviatedName">The state or territory name in abbreviated form.</param>
 		/// <returns>Returns a State object representing the result of the operation.</returns>
-		public static State GetStateByAbbreviatedName(string abbreviatedName)
+		public State GetStateByAbbreviatedName(string abbreviatedName)
 		{
 			State state = null;
 
@@ -92,7 +93,7 @@ namespace CPT331.Data
 		/// </summary>
 		/// <param name="id">The ID of the corresponding state or territory information.</param>
 		/// <returns>Returns a State object representing the result of the operation.</returns>
-		public static State GetStateByID(int id)
+		public State GetStateByID(int id)
 		{
 			State state = null;
 
@@ -111,7 +112,7 @@ namespace CPT331.Data
 		/// Selects all state or territory information from the underlying data source.
 		/// </summary>
 		/// <returns>Returns a list of State objects representing the result of the operation.</returns>
-		public static List<State> GetStates()
+		public List<State> GetStates()
 		{
 			List<State> states = null;
 
@@ -127,6 +128,18 @@ namespace CPT331.Data
 		}
 
 		/// <summary>
+		/// Exports a list of ReadOnlyDataObject types to a stream.
+		/// </summary>
+		/// <param name="readOnlyDataObjects">The list of ReadOnlyDataObject objects to export.</param>
+		/// <param name="stream">The stream to export the ReadOnlyDataObject list to.</param>
+		protected override void OnExport(List<ReadOnlyDataObject> readOnlyDataObjects, Stream stream)
+		{
+			readOnlyDataObjects = GetStates().ToList<ReadOnlyDataObject>();
+
+			base.OnExport(readOnlyDataObjects, stream);
+		}
+
+		/// <summary>
 		/// Updates state or territory information in the underlying data source.
 		/// </summary>
 		/// <param name="id">The ID of the associated state or territory.</param>
@@ -134,7 +147,7 @@ namespace CPT331.Data
 		/// <param name="isDeleted">Specifies whether the offence category is flagged as deleted.</param>
 		/// <param name="isVisible">Specifies whether the offence category is flagged as visible.</param>
 		/// <param name="name">The name of the state or territory.</param>
-		public static void UpdateState(int id, string abbreviatedName, bool isDeleted, bool isVisible, string name)
+		public void UpdateState(int id, string abbreviatedName, bool isDeleted, bool isVisible, string name)
 		{
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{

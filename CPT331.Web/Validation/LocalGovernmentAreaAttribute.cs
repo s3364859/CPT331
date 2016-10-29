@@ -22,7 +22,7 @@ namespace CPT331.Web.Validation
 
 				if (Int32.TryParse(value.ToString(), out id) == true)
 				{
-					LocalGovernmentArea localGovernmentArea = LocalGovernmentAreaRepository.GetLocalGovernmentAreaByID(id);
+					LocalGovernmentArea localGovernmentArea = DataProvider.LocalGovernmentAreaRepository.GetLocalGovernmentAreaByID(id);
 
 					isValid = (localGovernmentArea != null);
 				}
