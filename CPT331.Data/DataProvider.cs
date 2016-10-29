@@ -12,6 +12,7 @@ namespace CPT331.Data
 	public static class DataProvider
 	{
 		private static AdhocScriptRepository _adhocScriptRepository;
+		private static CrimeOffenceLocalGovernmentAreaStateRepository _crimeOffenceLocalGovernmentAreaStateRepository;
 		private static CrimeRepository _crimeRepository;
 		private static EventInfoRepository _eventInfoRepository;
 		private static LocalGovernmentAreaRepository _localGovernmentAreaRepository;
@@ -34,6 +35,22 @@ namespace CPT331.Data
 				}
 
 				return _adhocScriptRepository;
+			}
+		}
+
+		/// <summary>
+		/// Gets the CrimeOffenceLocalGovernmentAreaStateRepository repository object.
+		/// </summary>
+		public static CrimeOffenceLocalGovernmentAreaStateRepository CrimeOffenceLocalGovernmentAreaStateRepository
+		{
+			get
+			{
+				if (_crimeOffenceLocalGovernmentAreaStateRepository == null)
+				{
+					_crimeOffenceLocalGovernmentAreaStateRepository = new CrimeOffenceLocalGovernmentAreaStateRepository();
+				}
+
+				return _crimeOffenceLocalGovernmentAreaStateRepository;
 			}
 		}
 

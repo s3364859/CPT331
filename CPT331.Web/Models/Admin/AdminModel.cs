@@ -27,6 +27,19 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+		public IEnumerable<SelectListItem> Offences
+		{
+			get
+			{
+				List<SelectListItem> offenceList = new List<SelectListItem>();
+				List<Offence> offences = DataProvider.OffenceRepository.GetOffences();
+
+				offences.ForEach(m => offenceList.Add(new SelectListItem() { Text = $"{m.Name}", Value = m.ID.ToString() }));
+
+				return offenceList;
+			}
+		}
+
 		public IEnumerable<SelectListItem> LocalGovernmentAreas
 		{
 			get

@@ -6,39 +6,39 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Helpers;
 
+using CPT331.Core;
 using CPT331.Core.ObjectModel;
 using CPT331.Data;
 using CPT331.Web.Models.Admin;
-using CPT331.Web.Attributes;
 using CPT331.Web.Actions;
 
 #endregion
 
 namespace CPT331.Web.Controllers
 {
-    [AdminAuthorize]
+    //	[AdminAuthorize]
     public class AdminController : Controller
     {
 		[HttpGet]
 		public ActionResult Crime(uint id)
 		{
 			CrimeModel crimeModel = null;
-			Crime crime = DataProvider.CrimeRepository.GetCrimeByID((int)(id));
+			CrimeOffenceLocalGovernmentAreaState crimeOffenceLocalGovernmentAreaState = DataProvider.CrimeOffenceLocalGovernmentAreaStateRepository.GetCrimeOffenceLocalGovernmentAreaStateByID((int)(id));
 
-			if (crime != null)
+			if (crimeOffenceLocalGovernmentAreaState != null)
 			{
 				crimeModel = new CrimeModel
 				(
-					crime.Count,
-					crime.DateCreatedUtc,
-					crime.DateUpdatedUtc,
-					crime.ID,
-					crime.IsDeleted,
-					crime.IsVisible,
-					crime.LocalGovernmentAreaID,
-					crime.Month,
-					crime.OffenceID,
-					crime.Year
+					crimeOffenceLocalGovernmentAreaState.Count,
+					crimeOffenceLocalGovernmentAreaState.DateCreatedUtc,
+					crimeOffenceLocalGovernmentAreaState.DateUpdatedUtc,
+					crimeOffenceLocalGovernmentAreaState.ID,
+					crimeOffenceLocalGovernmentAreaState.IsDeleted,
+					crimeOffenceLocalGovernmentAreaState.IsVisible,
+					crimeOffenceLocalGovernmentAreaState.LocalGovernmentAreaID,
+					crimeOffenceLocalGovernmentAreaState.Month,
+					crimeOffenceLocalGovernmentAreaState.OffenceID,
+					crimeOffenceLocalGovernmentAreaState.Year
 				);
 			}
 
@@ -71,7 +71,7 @@ namespace CPT331.Web.Controllers
 					);
 				}
 
-				actionResult = RedirectToAction("Offences", "Admin");
+				actionResult = RedirectToAction("Crimes", "Admin");
 			}
 			else
 			{
@@ -84,7 +84,9 @@ namespace CPT331.Web.Controllers
         [HttpGet]
         public ActionResult Crimes(string sortBy, SortDirection? sortDirection, uint? page)
 		{
-			IEnumerable<Crime> crimes = DataProvider.CrimeRepository.GetCrimes();
+			int pageValue = (((page.HasValue == true) ? ((int)(page.Value - 1)) : 0) * ApplicationConfiguration.Default.DataTakeSize);
+
+			IEnumerable<CrimeOffenceLocalGovernmentAreaState> crimeOffenceLocalGovernmentAreaStates = DataProvider.CrimeOffenceLocalGovernmentAreaStateRepository.GetCrimeOffenceLocalGovernmentAreaStates(pageValue, ApplicationConfiguration.Default.DataTakeSize, sortBy, sortDirection.ToString());
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
 			{
@@ -92,64 +94,125 @@ namespace CPT331.Web.Controllers
 
 				switch (sortBy)
 				{
-					case "Date":
+					case "Count":
 						if (sort == SortDirection.Ascending)
 						{
-							crimes = crimes.OrderBy(m => (m.DateCreatedUtc));	//	.ThenBy(m => (m.Name));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.Count));
 						}
 						else
 						{
-							crimes = crimes.OrderByDescending(m => (m.DateCreatedUtc));	//	.ThenBy(m => (m.Name));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.Count));
+						}
+						break;
+
+					case "Date":
+						if (sort == SortDirection.Ascending)
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.DateCreatedUtc));
+						}
+						else
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.DateCreatedUtc));
 						}
 						break;
 
 					case "ID":
 						if (sort == SortDirection.Ascending)
 						{
-							crimes = crimes.OrderBy(m => (m.ID));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.ID));
 						}
 						else
 						{
-							crimes = crimes.OrderByDescending(m => (m.ID));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.ID));
 						}
 						break;
 
 					case "IsDeleted":
 						if (sort == SortDirection.Ascending)
 						{
-							crimes = crimes.OrderBy(m => (m.IsDeleted));	//	.ThenBy(m => (m.Name));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.IsDeleted));
 						}
 						else
 						{
-							crimes = crimes.OrderByDescending(m => (m.IsDeleted));	//	.ThenBy(m => (m.Name));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.IsDeleted));
 						}
 						break;
 
 					case "IsVisible":
 						if (sort == SortDirection.Ascending)
 						{
-							crimes = crimes.OrderBy(m => (m.IsVisible));	//	.ThenBy(m => (m.Name));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.IsVisible));
 						}
 						else
 						{
-							crimes = crimes.OrderByDescending(m => (m.IsVisible));	//	.ThenBy(m => (m.Name));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.IsVisible));
 						}
 						break;
 
-					//	case "Name":
-					//		if (sort == SortDirection.Ascending)
-					//		{
-					//			crimes = crimes.OrderBy(m => (m.Name));
-					//		}
-					//		else
-					//		{
-					//			crimes = crimes.OrderByDescending(m => (m.Name));
-					//		}
-					//		break;
+					case "LocalGovernmentAreaName":
+						if (sort == SortDirection.Ascending)
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.LocalGovernmentAreaName));
+						}
+						else
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.LocalGovernmentAreaName));
+						}
+						break;
+
+					case "Month":
+						if (sort == SortDirection.Ascending)
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.Month));
+						}
+						else
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.Month));
+						}
+						break;
+
+					case "OffenceName":
+						if (sort == SortDirection.Ascending)
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.OffenceName));
+						}
+						else
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.OffenceName));
+						}
+						break;
+
+					case "StateName":
+						if (sort == SortDirection.Ascending)
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.StateName));
+						}
+						else
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.StateName));
+						}
+						break;
+
+					case "Year":
+						if (sort == SortDirection.Ascending)
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.Year));
+						}
+						else
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.Year));
+						}
+						break;
 				}
 			}
 
-			return View(crimes);
+			return View(crimeOffenceLocalGovernmentAreaStates);
+		}
+
+		[HttpGet]
+		public ActionResult ExportCrimes()
+		{
+			return new ExportDataActionResult("Crimes.csv", DataProvider.CrimeRepository);
 		}
 
 		[HttpGet]

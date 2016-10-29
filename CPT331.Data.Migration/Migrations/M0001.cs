@@ -186,6 +186,7 @@ namespace CPT331.Data.Migration.Migrations
 						.WithDefault(SystemMethods.CurrentUTCDateTime);
 
 			//	Views
+			Execute.EmbeddedScript("Crime.CrimeOffenceLocalGovernmentAreaState.sql");
 			Execute.EmbeddedScript("Location.LocalGovernmentAreaState.sql");
 
 			//	Indicies
@@ -197,6 +198,8 @@ namespace CPT331.Data.Migration.Migrations
 			Execute.EmbeddedScript("Crime.spAddOffenceCategory.sql");
 			Execute.EmbeddedScript("Crime.spGetCrime.sql");
 			Execute.EmbeddedScript("Crime.spGetCrimeByID.sql");
+			Execute.EmbeddedScript("Crime.spGetCrimeOffenceLocalGovernmentAreaState.sql");
+			Execute.EmbeddedScript("Crime.spGetCrimeOffenceLocalGovernmentAreaStateByID.sql");
 			Execute.EmbeddedScript("Crime.spGetCrimesByCoordinate.sql");
 			Execute.EmbeddedScript("Crime.spGetOffence.sql");
 			Execute.EmbeddedScript("Crime.spGetOffenceByID.sql");

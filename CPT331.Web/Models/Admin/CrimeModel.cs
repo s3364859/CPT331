@@ -140,7 +140,7 @@ namespace CPT331.Web.Models.Admin
 		}
 
 		[DataType(DataType.Text)]
-		[Display(Name = "Local Government Area")]
+		[Display(Name = "LGA")]
 		[Integer(ErrorMessage = "*")]
 		[Required(ErrorMessage = "*")]
 		[LocalGovernmentArea(ErrorMessage = "*")]

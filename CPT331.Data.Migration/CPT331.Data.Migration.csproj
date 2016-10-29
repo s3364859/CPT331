@@ -76,6 +76,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\Crime.spGetCrimeOffenceLocalGovernmentAreaStateByID.sql" />
+    <EmbeddedResource Include="Migrations\Crime.spGetCrimeOffenceLocalGovernmentAreaState.sql" />
+    <EmbeddedResource Include="Migrations\Crime.CrimeOffenceLocalGovernmentAreaState.sql" />
     <EmbeddedResource Include="Migrations\Crime.spUpdateOffenceCategory.sql" />
     <EmbeddedResource Include="Migrations\Crime.spGetOffenceCategoryByID.sql" />
     <EmbeddedResource Include="Migrations\Crime.spGetOffenceCategory.sql" />

@@ -14,6 +14,8 @@ namespace CPT331.Core
 	{
 		private const string CPT331ConnectionStringKey = "CPT331ConnectionString";
 		private const string DefaultMigrationSize = "100000";
+		private const string DefaultDataTakeSize = "50";
+		private const string DataTakeSizeKey = "DataTakeSize";
 		private const string EventFindaPasswordKey = "EventFindaPassword";
 		private const string EventFindaUrlKey = "EventFindaUrl";
 		private const string EventFindaUsernameKey = "EventFindaUsername";
@@ -42,6 +44,30 @@ namespace CPT331.Core
 			get
 			{
 				return GetConnectionStringValue(CPT331ConnectionStringKey);
+			}
+		}
+
+		/// <summary>
+		/// Gets the size of the number of rows to return.
+		/// </summary>
+		[ApplicationScopedSetting]
+		[DefaultSettingValue(DefaultDataTakeSize)]
+		public int DataTakeSize
+		{
+			get
+			{
+				int dataTakeSize = 0;
+				string dataTakeSizeValue = GetAppSettingsValue(DataTakeSizeKey);
+
+				if (String.IsNullOrEmpty(dataTakeSizeValue) == false)
+				{
+					if (Int32.TryParse(dataTakeSizeValue, out dataTakeSize) == false)
+					{
+						dataTakeSize = Convert.ToInt32(DataTakeSizeKey);
+					}
+				}
+
+				return dataTakeSize;
 			}
 		}
 
@@ -83,7 +109,7 @@ namespace CPT331.Core
 
 		private string GetAppSettingsValue(string key)
 		{
-			return ((this[key] != null) ? ((string)(this[key])) : "");
+			return ((this[key] != null) ? (this[key].ToString()) : "");
 		}
 
 		private static string GetConnectionStringValue(string key)
