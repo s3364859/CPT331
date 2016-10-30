@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using CPT331.Core.ObjectModel;
 
 namespace CPT331.Web.Attributes
 {
@@ -9,7 +10,7 @@ namespace CPT331.Web.Attributes
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            return httpContext.Session["user"] != null;
+            return httpContext.Session[SessionKey.Key] != null;
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)

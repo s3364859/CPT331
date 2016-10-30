@@ -38,7 +38,7 @@ namespace CPT331.Data
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
 				user = SqlMapper
-					.Query(sqlConnection, "Registration.spGetUserByUsername", new { EmailAddress = username }, commandType: CommandType.StoredProcedure)
+					.Query(sqlConnection, "Registration.spGetUserByUsername", new { Username = username }, commandType: CommandType.StoredProcedure)
 					.Select(m => new User(m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsActive, m.IsDeleted, m.Password, m.Username))
 					.FirstOrDefault();
 			}
