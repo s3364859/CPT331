@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\CPT331.Web.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -176,6 +177,7 @@
     <Compile Include="Validation\IntegerAttribute.cs" />
     <Compile Include="Validation\MonthAttribute.cs" />
     <Compile Include="Validation\LocalGovernmentAreaAttribute.cs" />
+    <Compile Include="Validation\OffenceCategoryAttribute.cs" />
     <Compile Include="Validation\YearAttribute.cs" />
     <Compile Include="Validation\OffenceAttribute.cs" />
     <Compile Include="Validation\StateAttribute.cs" />

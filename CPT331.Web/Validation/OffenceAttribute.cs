@@ -10,9 +10,17 @@ using CPT331.Data;
 
 namespace CPT331.Web.Validation
 {
-	public class OffenceAttribute : ValidationAttribute
+    /// <summary>
+    /// Provides validation against existing Offence records.
+    /// </summary>
+    public class OffenceAttribute : ValidationAttribute
 	{
-		public override bool IsValid(object value)
+        /// <summary>
+        /// Checks the database for Offence records based on a specified ID value.
+        /// </summary>
+        /// <param name="value">The ID value for the Offence record.</param>
+        /// <returns>true if the Offence exists; otherwise false.</returns>
+        public override bool IsValid(object value)
 		{
 			bool isValid = false;
 
