@@ -19,6 +19,26 @@ namespace CPT331.Data
     /// </summary>
 	public static class OffenceRepository
 	{
+		/// <summary>
+		/// The Crime.spAddOffence stored procedure name.
+		/// </summary>
+		public const string CrimeSpAddOffence = "Crime.spAddOffence";
+
+		/// <summary>
+		/// The Crime.spGetOffenceByID stored procedure name.
+		/// </summary>
+		public const string CrimeSpGetOffenceByID = "Crime.spGetOffenceByID";
+		
+		/// <summary>
+		/// The Crime.spGetOffence stored procedure name.
+		/// </summary>
+		public const string CrimeSpGetOffence = "Crime.spGetOffence";
+		
+		/// <summary>
+		/// The Crime.spUpdateOffence stored procedure name.
+		/// </summary>
+		public const string CrimeSpUpdateOffence = "Crime.spUpdateOffence";
+
         /// <summary>
         /// Inserts a new record inside the Offence table of the Event-Guardian database.
         /// </summary>
@@ -33,7 +53,7 @@ namespace CPT331.Data
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
 				id = (int)SqlMapper
-					.Query(sqlConnection, "Crime.spAddOffence", new { IsDeleted = isDeleted, IsVisible = isVisible, Name = name }, commandType: CommandType.StoredProcedure)
+					.Query(sqlConnection, CrimeSpAddOffence, new { IsDeleted = isDeleted, IsVisible = isVisible, Name = name }, commandType: CommandType.StoredProcedure)
 					.Select(m => m.NewID)
 					.Single();
 			}
@@ -72,7 +92,7 @@ namespace CPT331.Data
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
 				offences = SqlMapper
-					.Query(sqlConnection, "Crime.spGetOffence", commandType: CommandType.StoredProcedure)
+					.Query(sqlConnection, CrimeSpGetOffence, commandType: CommandType.StoredProcedure)
 					.Select(m => new Offence(m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsDeleted, m.IsVisible, m.Name, m.OffenceCategoryID))
 					.ToList();
 			}
@@ -87,11 +107,12 @@ namespace CPT331.Data
         /// <param name="isDeleted">New value for the IsDeleted column</param>
         /// <param name="isVisible">New value for the IsVisible column</param>
         /// <param name="name">New value for the Name column</param>
+		/// <param name="offenceCategoryID">The ID of the corresponding offence category.</param>
         public static void UpdateOffence(int id, bool isDeleted, bool isVisible, string name, int? offenceCategoryID)
 		{
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
-				SqlMapper.Execute(sqlConnection, "Crime.spUpdateOffence", new { ID = id, IsDeleted = isDeleted, IsVisible = isVisible, Name = name, OffenceCategoryID = offenceCategoryID }, commandType: CommandType.StoredProcedure);
+				SqlMapper.Execute(sqlConnection, CrimeSpUpdateOffence, new { ID = id, IsDeleted = isDeleted, IsVisible = isVisible, Name = name, OffenceCategoryID = offenceCategoryID }, commandType: CommandType.StoredProcedure);
 			}
 		}
 	}

@@ -7,6 +7,9 @@ using System.Text;
 
 namespace CPT331.Core.ObjectModel
 {
+	/// <summary>
+	/// Represents a Coordinate type, used to describe information about a GPS coordinate.
+	/// </summary>
 	public class Coordinate
 	{
 		private Coordinate(double latitude, double longitude)
@@ -15,14 +18,29 @@ namespace CPT331.Core.ObjectModel
 			_longitude = longitude;
 		}
 
+		/// <summary>
+		/// Represents the largest possible value of a latitude. This field is constant.
+		/// </summary>
 		public const double LatitudeMaxValue = 90;
+		/// <summary>
+		/// Represents the smallest possible value of a latitude. This field is constant.
+		/// </summary>
 		public const double LatitudeMinValue = -90;
+		/// <summary>
+		/// Represents the largest possible value of a longitude. This field is constant.
+		/// </summary>
 		public const double LongitudeMaxValue = 180;
+		/// <summary>
+		/// Represents the smallest possible value of a longitude. This field is constant.
+		/// </summary>
 		public const double LongitudeMinValue = -180;
 
 		private readonly double _latitude;
 		private readonly double _longitude;
 
+		/// <summary>
+		/// Gets the latitude value of the coordinate.
+		/// </summary>
 		public double Latitude
 		{
 			get
@@ -31,6 +49,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the longitude value of the coordinate.
+		/// </summary>
 		public double Longitude
 		{
 			get
@@ -98,12 +119,6 @@ namespace CPT331.Core.ObjectModel
 			);
 		}
 
-        [Obsolete("Use IsValid(double, double) instead.")]
-		public static bool IsValid(Coordinate value)
-		{
-			return IsValid(value._latitude, value._longitude);
-		}
-
         /// <summary>
         /// Determines whether the coordindate values specified are valid.
         /// </summary>
@@ -153,14 +168,12 @@ namespace CPT331.Core.ObjectModel
 			return coordinate;
 		}
 
-        /// <summary>
-        /// Converts the coordinate values to an equivalent string representation.
-        /// </summary>
-        /// <returns>The string representation of the value of this instance.</returns>
+		/// <summary>
+		/// Converts the coordinate values to an equivalent string representation.
+		/// </summary>
+		/// <returns>The string representation of the value of this instance.</returns>
 		public override string ToString()
 		{
-            int x = 1;
-            x.ToString();
 			return $"Latitude = {_latitude}, Longitude = {_longitude}";
 		}
     }

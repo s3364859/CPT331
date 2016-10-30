@@ -12,8 +12,16 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data.Parsers
 {
+	/// <summary>
+	/// Represents a KmlParser type, used to manipulate KML data from a file.
+	/// </summary>
 	public class KmlParser
 	{
+		/// <summary>
+		/// Constructs a new KmlParser object.
+		/// </summary>
+		/// <param name="dataSourceDirectory">The path to the directory containing the KML data sources.</param>
+		/// <param name="state">The name of the state or territory to process.</param>
 		public KmlParser(string dataSourceDirectory, string state)
 		{
 			_dataSourceDirectory = dataSourceDirectory;
@@ -35,6 +43,11 @@ namespace CPT331.Data.Parsers
 			}
 		}
 
+		/// <summary>
+		/// Commits records to the underlying data source.
+		/// </summary>
+		/// <param name="coordinates">A list of Coordinate objects containing the information used to update.</param>
+		/// <param name="name">The name of the local government area.</param>
 		protected void Commit(List<Coordinate> coordinates, string name)
 		{
 			OutputStreams.WriteLine("Beginning commit...");
@@ -75,6 +88,9 @@ namespace CPT331.Data.Parsers
 			AdhocScriptRepository.ExecuteScript(stringBuilder.ToString());
 		}
 
+		/// <summary>
+		/// Begins parsing opertaions on the KML file.
+		/// </summary>
 		public void Parse()
 		{
 			if ((String.IsNullOrEmpty(_fileName) == false) && (File.Exists(_fileName) == true))
@@ -85,6 +101,11 @@ namespace CPT331.Data.Parsers
 			}
 		}
 
+		/// <summary>
+		/// Performs parsing operations and constructs a list of Coordinate objects as the result.
+		/// </summary>
+		/// <param name="fileName">The path to the file containing the KML information to parse.</param>
+		/// <param name="coordinates">The list of Coordinate objects to serialise the KML information into.</param>
 		protected virtual void OnParse(string fileName, List<Coordinate> coordinates)
 		{
 			//	Upstream implementations will need to hydrate this list themselves
