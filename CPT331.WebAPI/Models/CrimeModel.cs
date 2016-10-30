@@ -7,9 +7,25 @@ using System.Runtime.Serialization;
 
 namespace CPT331.WebAPI.Models
 {
+    /// <summary>
+    /// A representation of the Crime model that services the Web API framework. 
+    /// </summary>
 	[DataContract(Name = "Crime")]
 	public class CrimeModel
 	{
+        /// <summary>
+        /// Creates an instance of CrimeModel using the values provided.
+        /// </summary>
+        /// <param name="count">The number of crimes recorded in a given area, time and category.</param>
+        /// <param name="dateCreatedUtc">The date when the record was created.</param>
+        /// <param name="dateUpdatedUtc">The date when the record was last updated.</param>
+        /// <param name="id">The unique ID value for the CrimeModel instance.</param>
+        /// <param name="isDeleted">Specifies whether the instance is flagged as deleted.</param>
+        /// <param name="isVisible">Specifies whether the instance is flagged as visible.</param>
+        /// <param name="localGovernmentAreaID">An ID number that represents the local goverment area.</param>
+        /// <param name="month">The month when the crimes were commited.</param>
+        /// <param name="offenceID">An ID number representing the type of crime.</param>
+        /// <param name="year">The year when the crimes were commited.</param>
 		public CrimeModel(int count, DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, int localGovernmentAreaID, int month, int offenceID, int year)
 		{
 			_count = count;
@@ -35,6 +51,9 @@ namespace CPT331.WebAPI.Models
 		private int _offenceID;
 		private int _year;
 
+        /// <summary>
+        /// The number of crimes recorded in a given area, time and category.
+        /// </summary>
 		[DataMember]
 		public int Count
 		{
@@ -48,6 +67,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// The date when the record was created.
+        /// </summary>
 		[DataMember]
 		public DateTime DateCreatedUtc
 		{
@@ -61,6 +83,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// The date when the record was last updated.
+        /// </summary>
 		[DataMember]
 		public DateTime DateUpdatedUtc
 		{
@@ -74,6 +99,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// The unique ID value for the CrimeModel instance.
+        /// </summary>
 		[DataMember]
 		public int ID
 		{
@@ -87,7 +115,10 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
-		[DataMember]
+        /// <summary>
+        /// Specifies whether the instance is flagged as deleted.
+        /// </summary>
+        [DataMember]
 		public bool IsDeleted
 		{
 			get
@@ -100,7 +131,10 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
-		[DataMember]
+        /// <summary>
+        /// Specifies whether the instance is flagged as visible.
+        /// </summary>
+        [DataMember]
 		public bool IsVisible
 		{
 			get
@@ -113,7 +147,10 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
-		[DataMember]
+        /// <summary>
+        /// An ID number that represents the local goverment area.
+        /// </summary>
+        [DataMember]
 		public int LocalGovernmentAreaID
 		{
 			get
@@ -126,7 +163,10 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
-		[DataMember]
+        /// <summary>
+        /// The month when the crimes were commited.
+        /// </summary>
+        [DataMember]
 		public int Month
 		{
 			get
@@ -139,7 +179,10 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
-		[DataMember]
+        /// <summary>
+        /// An ID number representing the type of crime.
+        /// </summary>
+        [DataMember]
 		public int OffenceID
 		{
 			get
@@ -152,7 +195,10 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
-		[DataMember]
+        /// <summary>
+        /// The year when the crimes were commited.
+        /// </summary>
+        [DataMember]
 		public int Year
 		{
 			get

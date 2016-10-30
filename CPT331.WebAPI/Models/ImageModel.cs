@@ -8,9 +8,19 @@ using System.Runtime.Serialization;
 
 namespace CPT331.WebAPI.Models
 {
+    /// <summary>
+    /// A representation of the EventImage model that services the Web API framework. 
+    /// </summary>
 	[DataContract(Name = "Image")]
 	public class ImageModel
 	{
+        /// <summary>
+        /// Creates an instance of ImageModel using the values provided.
+        /// </summary>
+        /// <param name="height">The height of the image.</param>
+        /// <param name="transformationID">An EventFinder image tranformation type.</param>
+        /// <param name="url">The URL of the image.</param>
+        /// <param name="width">The width of the image.</param>
 		public ImageModel(int height, EventFinderImageFormat transformationID, string url, int width)
 		{
 			_height = height;
@@ -24,6 +34,9 @@ namespace CPT331.WebAPI.Models
 		private string _url;
 		private int _width;
 
+        /// <summary>
+        /// The height of the image.
+        /// </summary>
 		[DataMember]
 		public int Height
 		{
@@ -37,6 +50,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// An EventFinder image tranformation type.
+        /// </summary>
 		internal EventFinderImageFormat TransformationID
 		{
 			get
@@ -45,6 +61,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// The URL of the image.
+        /// </summary>
 		[DataMember]
 		public string Url
 		{
@@ -58,6 +77,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// The width of the image.
+        /// </summary>
 		[DataMember]
 		public int Width
 		{
