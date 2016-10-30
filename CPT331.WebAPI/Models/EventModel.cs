@@ -27,8 +27,8 @@ namespace CPT331.WebAPI.Models
         /// <param name="id">The unique ID value for the EventModel instance.</param>
         /// <param name="eventCategoryModels">A list of event categories associated to the event.</param>
         /// <param name="eventImageModels">A list of image URLs associated to the event.</param>
-        /// <param name="latitude">Specifies the latitude used to look up local events.</param>
-        /// <param name="longitude">Specifies the longitude used to look up local events.</param>
+        /// <param name="latitude">Specifies the GPS latitude for the event.</param>
+        /// <param name="longitude">Specifies the GPS longitude for the event.</param>
         /// <param name="name">The name of the event.</param>
         /// <param name="url">A website link to the full details on the EventFinder page.</param>
         public EventModel(string address, DateTime beginDateTime, string description, DateTime endDateTime, int id, List<EventCategoryModel> eventCategoryModels, List<ImageModel> eventImageModels, double latitude, double longitude, string name, string url)
@@ -202,7 +202,7 @@ namespace CPT331.WebAPI.Models
 		}
 
         /// <summary>
-        /// Specifies the latitude used to look up local events.
+        /// Specifies the GPS latitude for the event.
         /// </summary>
 		[DataMember]
 		public double Latitude
@@ -218,7 +218,7 @@ namespace CPT331.WebAPI.Models
 		}
 
         /// <summary>
-        /// Specifies the longitude used to look up local events.
+        /// Specifies the GPS longitude for the event.
         /// </summary>
 		[DataMember]
 		public double Longitude
