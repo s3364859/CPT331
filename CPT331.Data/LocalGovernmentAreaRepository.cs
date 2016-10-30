@@ -9,6 +9,7 @@ using System.Linq;
 using Dapper;
 
 using CPT331.Core.ObjectModel;
+using System.IO;
 
 #endregion
 
@@ -17,7 +18,7 @@ namespace CPT331.Data
 	/// <summary>
 	/// Represents an LocalGovernmentAreaRepository type, used to manipulate local government area data.
 	/// </summary>
-	public static class LocalGovernmentAreaRepository
+	public class LocalGovernmentAreaRepository : Repository
 	{
 		/// <summary>
 		/// The Location.spAddLocalGovernmentArea stored procedure name.
@@ -52,7 +53,7 @@ namespace CPT331.Data
 		/// <param name="name">Specifies the name of the local government area.</param>
 		/// <param name="stateID">Specifies the ID of the associated state.</param>
 		/// <returns>Returns the newly created ID for a successful operation, otherwise returns 0.</returns>
-		public static int AddLocalGovernmentArea(bool isDeleted, bool isVisible, string name, int stateID)
+		public int AddLocalGovernmentArea(bool isDeleted, bool isVisible, string name, int stateID)
 		{
 			int id = 0;
 
@@ -72,7 +73,7 @@ namespace CPT331.Data
 		/// </summary>
 		/// <param name="id">The ID of the associated local government area.</param>
 		/// <returns>Returns a LocalGovernmentArea object representing the result of the operation.</returns>
-		public static LocalGovernmentArea GetLocalGovernmentAreaByID(int id)
+		public LocalGovernmentArea GetLocalGovernmentAreaByID(int id)
 		{
 			LocalGovernmentArea localGovernmentArea = null;
 
@@ -92,7 +93,7 @@ namespace CPT331.Data
 		/// </summary>
 		/// <param name="stateID">The ID of the associated state that the local government area resides in.</param>
 		/// <returns>Returns a list of LocalGovernmentArea objects representing the result of the operation.</returns>
-		public static List<LocalGovernmentArea> GetLocalGovernmentAreasByStateID(int stateID)
+		public List<LocalGovernmentArea> GetLocalGovernmentAreasByStateID(int stateID)
 		{
 			List<LocalGovernmentArea> localGovernmentAreas = null;
 
@@ -111,7 +112,7 @@ namespace CPT331.Data
 		/// Selects all local government area information from the underlying data source.
 		/// </summary>
 		/// <returns>Returns a list of LocalGovernmentArea objects representing the result of the operation.</returns>
-		public static List<LocalGovernmentArea> GetLocalGovernmentAreas()
+		public List<LocalGovernmentArea> GetLocalGovernmentAreas()
 		{
 			List<LocalGovernmentArea> localGovernmentAreas = null;
 
@@ -127,6 +128,18 @@ namespace CPT331.Data
 		}
 
 		/// <summary>
+		/// Exports a list of ReadOnlyDataObject types to a stream.
+		/// </summary>
+		/// <param name="readOnlyDataObjects">The list of ReadOnlyDataObject objects to export.</param>
+		/// <param name="stream">The stream to export the ReadOnlyDataObject list to.</param>
+		protected override void OnExport(List<ReadOnlyDataObject> readOnlyDataObjects, Stream stream)
+		{
+			readOnlyDataObjects = GetLocalGovernmentAreas().ToList<ReadOnlyDataObject>();
+
+			base.OnExport(readOnlyDataObjects, stream);
+		}
+
+		/// <summary>
 		/// Updates local government area information in the underlying data source.
 		/// </summary>
 		/// <param name="id">The ID of the associated local government area.</param>
@@ -134,7 +147,7 @@ namespace CPT331.Data
 		/// <param name="isVisible">Specifies whether the local government area is flagged as visible.</param>
 		/// <param name="name">Specifies the name of the local government area.</param>
 		/// <param name="stateID">Specifies the ID of the associated state.</param>
-		public static void UpdateLocalGovernmentArea(int id, bool isDeleted, bool isVisible, string name, int stateID)
+		public void UpdateLocalGovernmentArea(int id, bool isDeleted, bool isVisible, string name, int stateID)
 		{
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{

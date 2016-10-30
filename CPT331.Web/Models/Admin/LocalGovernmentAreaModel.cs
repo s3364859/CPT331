@@ -9,17 +9,40 @@ using CPT331.Web.Validation;
 
 namespace CPT331.Web.Models.Admin
 {
+    /// <summary>
+    /// A representation of the LocalGovernmentArea model that services the MVC framework. 
+    /// </summary>
 	public class LocalGovernmentAreaModel : AdminModel
-	{
-		public LocalGovernmentAreaModel()
+    {
+        #region Constructors
+        /// <summary>
+        /// Creates an instance of LocalGovernmentAreaModel using default values.
+        /// </summary>
+        public LocalGovernmentAreaModel()
 		{
 		}
 
+        /// <summary>
+        /// Creates an instance of LocalGovernmentAreaModel using the values provided.
+        /// </summary>
+        /// <param name="id">The unique ID value of the LocalGovernmentAreaModel instance.</param>
+        /// <param name="name">The name of the Local Government Area.</param>
+        /// <param name="stateID">An ID number representing the state that the Local Government Area belongs to.</param>
 		public LocalGovernmentAreaModel(int id, string name, int stateID)
 			: this(DateTime.UtcNow, DateTime.UtcNow, id, false, true, name, stateID)
 		{
 		}
 
+        /// <summary>
+        /// Creates an instance of LocalGovernmentAreaModel using the values provided.
+        /// </summary>
+        /// <param name="dateCreatedUtc">The date when the record was created.</param>
+        /// <param name="dateUpdatedUtc">The date when the record was last updated.</param>
+        /// <param name="id">The unique ID value of the LocalGovernmentAreaModel instance.</param>
+        /// <param name="isDeleted">Specifies whether the instance is flagged as deleted.</param>
+        /// <param name="isVisible">Specifies whether the instance is flagged as visible.</param>
+        /// <param name="name">The name of the Local Government Area.</param>
+        /// <param name="stateID">An ID number representing state/territory of the Local Government Area.</param>
 		public LocalGovernmentAreaModel(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name, int stateID)
 		{
 			_dateCreatedUtc = dateCreatedUtc;
@@ -30,16 +53,23 @@ namespace CPT331.Web.Models.Admin
 			_name = name;
 			_stateID = stateID;
 		}
-
-		private DateTime _dateCreatedUtc;
+        #endregion
+        
+        #region Instance Variables
+        private DateTime _dateCreatedUtc;
 		private DateTime _dateUpdatedUtc;
 		private int _id;
 		private bool _isDeleted;
 		private bool _isVisible;
 		private string _name;
 		private int _stateID;
+        #endregion
 
-		[DataType(DataType.DateTime)]
+        #region Public Properties
+        /// <summary>
+        /// The date when the record was created.
+        /// </summary>
+        [DataType(DataType.DateTime)]
 		[Display(Name = "Date Created")]
 		[Required(ErrorMessage = "*")]
 		public DateTime DateCreatedUtc
@@ -54,6 +84,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// The date when the record was last updated.
+        /// </summary>
 		[DataType(DataType.DateTime)]
 		[Display(Name = "Date Updated")]
 		[Required(ErrorMessage = "*")]
@@ -69,7 +102,10 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
-		[Integer(ErrorMessage = "*")]
+        /// <summary>
+        /// The unique ID value For the LocalGovernmentAreaModel instance.
+        /// </summary>
+        [Integer(ErrorMessage = "*")]
 		public int ID
 		{
 			get
@@ -82,7 +118,10 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
-		[DataType(DataType.Text)]
+        /// <summary>
+        /// Specifies whether the instance is flagged as deleted.
+        /// </summary>
+        [DataType(DataType.Text)]
 		[Display(Name = "Deleted")]
 		[Required(ErrorMessage = "*")]
 		public bool IsDeleted
@@ -97,7 +136,10 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
-		[DataType(DataType.Text)]
+        /// <summary>
+        /// Specifies whether the instance is flagged as Visible.
+        /// </summary>
+        [DataType(DataType.Text)]
 		[Display(Name = "Visible")]
 		[Required(ErrorMessage = "*")]
 		public bool IsVisible
@@ -112,6 +154,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// The name of the Local Government Area.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Name")]
 		[Required(ErrorMessage = "*")]
@@ -128,6 +173,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// An ID number representing state/territory of the Local Government Area.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "State")]
 		[Integer(ErrorMessage = "*")]
@@ -144,5 +192,6 @@ namespace CPT331.Web.Models.Admin
 				_stateID = value;
 			}
 		}
-	}
+        #endregion
+    }
 }

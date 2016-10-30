@@ -44,10 +44,10 @@ namespace CPT331.Data.Parsers
 			XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/Workbook/Worksheet/Table/Row[position() > 1]");
 			int year = 1995;
 
-			State state = StateRepository.GetStateByAbbreviatedName(NSW);
-			List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(state.ID);
+			State state = DataProvider.StateRepository.GetStateByAbbreviatedName(NSW);
+			List<LocalGovernmentArea> localGovernmentAreas = DataProvider.LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(state.ID);
 			Dictionary<string, Offence> offences = new Dictionary<string, Offence>();
-			OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));
+			DataProvider.OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));
 
 			foreach (XmlNode xmlNode in xmlNodeList)
 			{

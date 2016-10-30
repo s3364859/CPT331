@@ -56,9 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdhocScriptRepository.cs" />
+    <Compile Include="DataProvider.cs" />
     <Compile Include="LocalGovernmentAreaStateRepository.cs" />
     <Compile Include="OffenceCategoryRepository.cs" />
     <Compile Include="OffenceRepository.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="StateRepository.cs" />
     <Compile Include="LocalGovernmentAreaRepository.cs" />

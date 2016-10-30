@@ -10,8 +10,16 @@ using CPT331.Data;
 
 namespace CPT331.Web.Validation
 {
+    /// <summary>
+    /// Provides validation against existing LocalGovernmentArea records.
+    /// </summary>
 	public class LocalGovernmentAreaAttribute : ValidationAttribute
 	{
+        /// <summary>
+        /// Checks the database for LocalGovernmentAreas records based on a specified ID value.
+        /// </summary>
+        /// <param name="value">The ID value for the LocalGovernmentArea record.</param>
+        /// <returns>true if the LocalGovernmentArea exists; otherwise false.</returns>
 		public override bool IsValid(object value)
 		{
 			bool isValid = false;
@@ -22,7 +30,7 @@ namespace CPT331.Web.Validation
 
 				if (Int32.TryParse(value.ToString(), out id) == true)
 				{
-					LocalGovernmentArea localGovernmentArea = LocalGovernmentAreaRepository.GetLocalGovernmentAreaByID(id);
+					LocalGovernmentArea localGovernmentArea = DataProvider.LocalGovernmentAreaRepository.GetLocalGovernmentAreaByID(id);
 
 					isValid = (localGovernmentArea != null);
 				}

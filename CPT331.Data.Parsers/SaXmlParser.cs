@@ -41,11 +41,11 @@ namespace CPT331.Data.Parsers
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);
 
-			State state = StateRepository.GetStateByAbbreviatedName(SA);
-			List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(state.ID);
+			State state = DataProvider.StateRepository.GetStateByAbbreviatedName(SA);
+			List<LocalGovernmentArea> localGovernmentAreas = DataProvider.LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(state.ID);
 
 			Dictionary<string, Offence> offences = new Dictionary<string, Offence>();
-			OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));
+			DataProvider.OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));
 
 			XmlNodeList workSheetXmlNodeList = xmlDocument.SelectNodes("/Workbook/Worksheet");
 			foreach (XmlNode workSheetXmlNode in workSheetXmlNodeList)

@@ -13,4 +13,8 @@
 
 <p><h3>@Html.ActionLink("New Offence Category", "NewOffenceCategory", "Admin")</h3></p>
 
+<p><a href="@Url.Action("ExportOffenceCategories", "Admin")"><img src="/Content/Images/excel.gif" border="0" title="Export Data" /></a></p>
+
+<br/>
+
 @Html.Partial("OffenceCategoriesPartial", Model)

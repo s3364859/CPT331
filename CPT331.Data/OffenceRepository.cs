@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 
 using Dapper;
@@ -17,7 +18,7 @@ namespace CPT331.Data
     /// <summary>
     /// The OffenceRepository class provides access to the Offence table in Event-Guardian database.
     /// </summary>
-	public static class OffenceRepository
+	public class OffenceRepository : Repository
 	{
 		/// <summary>
 		/// The Crime.spAddOffence stored procedure name.
@@ -46,7 +47,7 @@ namespace CPT331.Data
         /// <param name="isVisible">Indicates whether or not the record should be shown in the user interfaces</param>
         /// <param name="name">The name of the offense</param>
         /// <returns>Offence ID number</returns>
-		public static int AddOffence(bool isDeleted, bool isVisible, string name)
+		public int AddOffence(bool isDeleted, bool isVisible, string name)
 		{
 			int id = 0;
 
@@ -66,7 +67,7 @@ namespace CPT331.Data
         /// </summary>
         /// <param name="id">Identification number for the Offence record</param>
         /// <returns>An Offence record with the specified ID, or null if no matches were found</returns>
-		public static Offence GetOffenceByID(int id)
+		public Offence GetOffenceByID(int id)
 		{
 			Offence offence = null;
 
@@ -85,7 +86,7 @@ namespace CPT331.Data
         /// Retreives a full list of Offenses inside the Event-Guardian database.
         /// </summary>
         /// <returns>A List of Offence records</returns>
-        public static List<Offence> GetOffences()
+        public List<Offence> GetOffences()
 		{
 			List<Offence> offences = null;
 
@@ -100,15 +101,27 @@ namespace CPT331.Data
 			return offences;
 		}
 
-        /// <summary>
-        /// Updates an Offence record inside the Event-Guardian database, using the ID and values provided. 
-        /// </summary>
-        /// <param name="id">ID indicating the Offence record to be updated</param>
-        /// <param name="isDeleted">New value for the IsDeleted column</param>
-        /// <param name="isVisible">New value for the IsVisible column</param>
-        /// <param name="name">New value for the Name column</param>
+		/// <summary>
+		/// Exports a list of ReadOnlyDataObject types to a stream.
+		/// </summary>
+		/// <param name="readOnlyDataObjects">The list of ReadOnlyDataObject objects to export.</param>
+		/// <param name="stream">The stream to export the ReadOnlyDataObject list to.</param>
+		protected override void OnExport(List<ReadOnlyDataObject> readOnlyDataObjects, Stream stream)
+		{
+			readOnlyDataObjects = GetOffences().ToList<ReadOnlyDataObject>();
+
+			base.OnExport(readOnlyDataObjects, stream);
+		}
+
+		/// <summary>
+		/// Updates an Offence record inside the Event-Guardian database, using the ID and values provided. 
+		/// </summary>
+		/// <param name="id">ID indicating the Offence record to be updated</param>
+		/// <param name="isDeleted">New value for the IsDeleted column</param>
+		/// <param name="isVisible">New value for the IsVisible column</param>
+		/// <param name="name">New value for the Name column</param>
 		/// <param name="offenceCategoryID">The ID of the corresponding offence category.</param>
-        public static void UpdateOffence(int id, bool isDeleted, bool isVisible, string name, int? offenceCategoryID)
+		public void UpdateOffence(int id, bool isDeleted, bool isVisible, string name, int? offenceCategoryID)
 		{
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{

@@ -7,9 +7,17 @@ using System.Runtime.Serialization;
 
 namespace CPT331.WebAPI.Models
 {
+    /// <summary>
+    /// A representation of the Offence model that services the Web API framework. 
+    /// </summary>
 	[DataContract(Name = "Offence")]
 	public class OffenceModel
-	{
+    {
+        /// <summary>
+        /// Creates an instance of OffenceModel using the values provided.
+        /// </summary>
+        /// <param name="name">The name of the Offense.</param>
+        /// <param name="value">The number of offenses proportionate to other offenses.</param>
 		public OffenceModel(string name, double value)
 		{
 			_name = name;
@@ -19,6 +27,9 @@ namespace CPT331.WebAPI.Models
 		private string _name;
 		private double _value;
 
+        /// <summary>
+        /// The name of the Offense.
+        /// </summary>
 		[DataMember]
 		public string Name
 		{
@@ -32,6 +43,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// The number of offenses proportionate to other offenses.
+        /// </summary>
 		[DataMember]
 		public double Value
 		{
