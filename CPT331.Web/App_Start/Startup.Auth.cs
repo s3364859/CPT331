@@ -6,6 +6,7 @@ using Owin;
 
 namespace CPT331.Web
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public partial class Startup
     {
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
@@ -62,4 +63,5 @@ namespace CPT331.Web
             //});
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

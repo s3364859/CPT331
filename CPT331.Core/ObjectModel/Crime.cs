@@ -20,7 +20,7 @@ namespace CPT331.Core.ObjectModel
         /// <param name="month">The month the crimes were commited.</param>
         /// <param name="offenceID">An ID number representing the type of crime.</param>
         /// <param name="year">The year the crimes were commited</param>
-        /// <seealso cref="Crime(int count, int id, int localGovernmentAreaID, int month, int offenceID, int year)"/>
+        /// <seealso cref="Crime(int, int, int, int, int, int)"/>
 		public Crime(int count, int localGovernmentAreaID, int month, int offenceID, int year)
 			: this(count, DateTime.UtcNow, DateTime.UtcNow, -1, false, true, localGovernmentAreaID, month, offenceID, year)
 		{

@@ -10,10 +10,28 @@ using System.Runtime.Serialization;
 
 namespace CPT331.WebAPI.Models
 {
+    /// <summary>
+    /// A representation of the Event model that services the Web API framework. 
+    /// </summary>
 	[DataContract(Name = "Event")]
 	public class EventModel
 	{
-		public EventModel(string address, DateTime beginDateTime, string description, DateTime endDateTime, int id, List<EventCategoryModel> eventCategoryModels, List<ImageModel> eventImageModels, double latitude, double longitude, string name, string url)
+        #region Constructors
+        /// <summary>
+        /// Creates an instance of EventModel using the values provided.
+        /// </summary>
+        /// <param name="address">The address where the event is held.</param>
+        /// <param name="beginDateTime">The start time of the event.</param>
+        /// <param name="description">A short description of the event.</param>
+        /// <param name="endDateTime">The end time of the event.</param>
+        /// <param name="id">The unique ID value for the EventModel instance.</param>
+        /// <param name="eventCategoryModels">A list of event categories associated to the event.</param>
+        /// <param name="eventImageModels">A list of image URLs associated to the event.</param>
+        /// <param name="latitude">Specifies the GPS latitude for the event.</param>
+        /// <param name="longitude">Specifies the GPS longitude for the event.</param>
+        /// <param name="name">The name of the event.</param>
+        /// <param name="url">A website link to the full details on the EventFinder page.</param>
+        public EventModel(string address, DateTime beginDateTime, string description, DateTime endDateTime, int id, List<EventCategoryModel> eventCategoryModels, List<ImageModel> eventImageModels, double latitude, double longitude, string name, string url)
 		{
 			_address = address;
 			_beginDateTime = beginDateTime;
@@ -47,8 +65,11 @@ namespace CPT331.WebAPI.Models
 				}
 			}
 		}
+        #endregion
 
-		private const EventFindaImageFormat BannerImageTransformationID = EventFindaImageFormat.Size650x280;
+        #region Instance Variables
+
+        private const EventFindaImageFormat BannerImageTransformationID = EventFindaImageFormat.Size650x280;
 		private const EventFindaImageFormat ThumbnaiImageTransformationID = EventFindaImageFormat.Size75x75;
 
 		private string _address;
@@ -65,8 +86,13 @@ namespace CPT331.WebAPI.Models
 		private string _name;
 		private string _thumbnailUrl;
 		private string _url;
+        #endregion
 
-		[DataMember]
+        #region Public Properties
+        /// <summary>
+        /// The address where the event is held.
+        /// </summary>
+        [DataMember]
 		public string Address
 		{
 			get
@@ -79,6 +105,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// A URL to a large banner image for the event.
+        /// </summary>
 		[DataMember]
 		public string BannerUrl
 		{
@@ -92,6 +121,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// The start time of the event.
+        /// </summary>
 		[DataMember]
 		public DateTime BeginDateTime
 		{
@@ -105,6 +137,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// The event category associated to the event.
+        /// </summary>
 		[DataMember]
 		public string Category
 		{
@@ -118,6 +153,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// A short description of the event.
+        /// </summary>
 		[DataMember]
 		public string Description
 		{
@@ -131,6 +169,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// The end time of the event.
+        /// </summary>
 		[DataMember]
 		public DateTime EndDateTime
 		{
@@ -144,6 +185,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// The unique ID value for the EventModel instance.
+        /// </summary>
 		[DataMember]
 		public int ID
 		{
@@ -157,6 +201,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// Specifies the GPS latitude for the event.
+        /// </summary>
 		[DataMember]
 		public double Latitude
 		{
@@ -170,6 +217,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// Specifies the GPS longitude for the event.
+        /// </summary>
 		[DataMember]
 		public double Longitude
 		{
@@ -183,6 +233,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// The name of the event.
+        /// </summary>
 		[DataMember]
 		public string Name
 		{
@@ -196,6 +249,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// A URL to a thumbnail image for the event.
+        /// </summary>
 		[DataMember]
 		public string ThumbnailUrl
 		{
@@ -209,6 +265,9 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
+        /// <summary>
+        /// A website link to the full details on the EventFinder page.
+        /// </summary>
 		[DataMember]
 		public string Url
 		{
@@ -221,5 +280,6 @@ namespace CPT331.WebAPI.Models
 				_url = value;
 			}
 		}
-	}
+        #endregion
+    }
 }

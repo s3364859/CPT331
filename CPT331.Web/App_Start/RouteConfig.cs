@@ -7,7 +7,8 @@ using System.Web.Routing;
 
 namespace CPT331.Web
 {
-	public class RouteConfig
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public class RouteConfig
 	{
 		public static void RegisterRoutes(RouteCollection routes)
 		{
@@ -19,5 +20,6 @@ namespace CPT331.Web
 				defaults: new { controller = "Home", action = "Home", id = UrlParameter.Optional }
 			);
 		}
-	}
+    }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

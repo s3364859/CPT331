@@ -11,11 +11,17 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Web.Models.Admin
 {
-	public class AdminModel
+    /// <summary>
+    /// A base class that provides common functionality to all Web model classes.
+    /// </summary>
+	public abstract class AdminModel
 	{
 		private bool _isDelete;
 
-		public bool IsDelete
+        /// <summary>
+        /// Specifies whether the instance is flagged as deleted.
+        /// </summary>
+        public bool IsDelete
 		{
 			get
 			{
@@ -27,6 +33,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+		/// <summary>
+		/// A list of Offences required for selector controls.
+		/// </summary>
 		public IEnumerable<SelectListItem> Offences
 		{
 			get
@@ -40,6 +49,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// A list of LocalGovernmentAreas required for selector controls.
+        /// </summary>
 		public IEnumerable<SelectListItem> LocalGovernmentAreas
 		{
 			get
@@ -53,7 +65,10 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
-		public IEnumerable<SelectListItem> States
+        /// <summary>
+        /// A list of States required for selector controls.
+        /// </summary>
+        public IEnumerable<SelectListItem> States
 		{
 			get
 			{

@@ -1,1 +1,1 @@
-"../CPT331.Data.Migration.exe" -d true -k "ACT,NSW,NT,QLD,SA,TAS" -x "ACT,NSW,NT,QLD,SA,TAS,VIC,WA" -s true
+"../CPT331.Data.Migration.exe" -d true -k "ALL" -x "ALL" -s true
