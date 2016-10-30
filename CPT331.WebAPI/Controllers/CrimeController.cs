@@ -15,6 +15,10 @@ using CPT331.WebAPI.Validation;
 
 namespace CPT331.WebAPI.Controllers
 {
+    /// <summary>
+    ///    A RESTful API controller that provides methods that respond to HTTP requests 
+    ///    that are related to the EventGuardian Crime data.
+    /// </summary>
 	public class CrimeController : ApiController
 	{
 		private const int DefaultNumberOfCrimeRecords = 6;
@@ -23,6 +27,11 @@ namespace CPT331.WebAPI.Controllers
 		private const string SortFieldID = "ID";
 		private const string SortFieldName = "NAME";
 
+        /// <summary>
+        /// Provides crime data object based on a specified ID.
+        /// </summary>
+        /// <param name="id">The unique ID value of the crime data record.</param>
+        /// <returns>A single crime record.</returns>
 		[HttpGet]
 		[Route("api/Crime/{id}")]
 		public CrimeModel Crime(int id)
@@ -44,6 +53,15 @@ namespace CPT331.WebAPI.Controllers
 			);
 		}
 
+        /// <summary>
+        /// Provides Local Government Area crime statistics on a based values specified. 
+        /// </summary>
+        /// <param name="latitude">Specifies the latitude used to look up the corresponding local government area.</param>
+        /// <param name="longitude">Specifies the longitude used to look up the corresponding local government area.</param>
+        /// <param name="count">The maximum number of offenses to show.</param>
+        /// <param name="sortBy">The name of Offense property used to sort the data object.</param>
+        /// <param name="sortDirection">The sort order of the data returned; as ascending or descending.</param>
+        /// <returns>Crime statistics.</returns>
 		[HttpGet]
 		[Route("api/Crime/CrimesByCoordinate")]
 		[ValidateCoordinates]
@@ -87,6 +105,13 @@ namespace CPT331.WebAPI.Controllers
             return crimeByCoordinateModel;
 		}
 
+        /// <summary>
+        /// A Coordinate &amp; column sorting provider for the controller actions
+        /// </summary>
+        /// <param name="crimeByCoordinates">List of crimes to be sorted.</param>
+        /// <param name="sortBy">The name of CrimeModel property used to sort the data.</param>
+        /// <param name="sortDirection">The sort order of the data returned; as ascending or descending.</param>
+        /// <returns>A list of Crimes sorted by Coordinate and the specified property.</returns>
 		private static IEnumerable<CrimeByCoordinate> SortCrimeByCoordinates(IEnumerable<CrimeByCoordinate> crimeByCoordinates, string sortBy, SortDirection? sortDirection)
 		{
 			SortDirection direction = ((sortDirection.HasValue == true) ? sortDirection.Value : SortDirection.Ascending);
