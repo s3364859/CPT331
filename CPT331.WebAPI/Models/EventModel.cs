@@ -66,10 +66,11 @@ namespace CPT331.WebAPI.Models
 			}
 		}
         #endregion
-        
+
         #region Instance Variables
-        private const EventFinderImageFormat BannerImageTransformationID = EventFinderImageFormat.Size650x280;
-		private const EventFinderImageFormat ThumbnaiImageTransformationID = EventFinderImageFormat.Size75x75;
+
+        private const EventFindaImageFormat BannerImageTransformationID = EventFindaImageFormat.Size650x280;
+		private const EventFindaImageFormat ThumbnaiImageTransformationID = EventFindaImageFormat.Size75x75;
 
 		private string _address;
 		private string _bannerUrl;

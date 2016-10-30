@@ -6,8 +6,20 @@ using System;
 
 namespace CPT331.Core.ObjectModel
 {
+	/// <summary>
+	/// Represents a CrimeByCoordinate type, used to describe aggregated information about a crime.
+	/// </summary>
 	public class CrimeByCoordinate
 	{
+		/// <summary>
+		/// Constructs a new CrimeByCoordinate object.
+		/// </summary>
+		/// <param name="beginYear">The begin year of the data range.</param>
+		/// <param name="endYear">The end year of the data range.</param>
+		/// <param name="localGovernmentAreaName">The name of the local government area.</param>
+		/// <param name="offenceCount">The number of offences committed.</param>
+		/// <param name="offenceID">The ID of the offence.</param>
+		/// <param name="offenceName">The name of the offence.</param>
 		public CrimeByCoordinate(int beginYear, int endYear, string localGovernmentAreaName, int offenceCount, int offenceID, string offenceName)
 		{
 			_beginYear = beginYear;
@@ -25,6 +37,9 @@ namespace CPT331.Core.ObjectModel
 		private readonly int _offenceID;
 		private readonly string _offenceName;
 
+		/// <summary>
+		/// Gets the begin year of the data range.
+		/// </summary>
 		public int BeginYear
 		{
 			get
@@ -33,6 +48,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the end year of the data range.
+		/// </summary>
 		public int EndYear
 		{
 			get
@@ -41,6 +59,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the local government area name.
+		/// </summary>
 		public string LocalGovernmentAreaName
 		{
 			get
@@ -49,6 +70,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the count of offences.
+		/// </summary>
 		public int OffenceCount
 		{
 			get
@@ -57,6 +81,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the ID of the related offence.
+		/// </summary>
 		public int OffenceID
 		{
 			get
@@ -65,6 +92,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the name of the offence.
+		/// </summary>
 		public string OffenceName
 		{
 			get
@@ -73,6 +103,10 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Serves as a hash function for a particular type.
+		/// </summary>
+		/// <returns>A hash code for the current type.</returns>
 		public override int GetHashCode()
 		{
 			return
@@ -84,6 +118,11 @@ namespace CPT331.Core.ObjectModel
 				_offenceName.GetHashCode();
 		}
 
+		/// <summary>
+		/// Determines object equality.
+		/// </summary>
+		/// <param name="value">The object to check against.</param>
+		/// <returns>Returns true if the object's internals are the same, otherwise false.</returns>
 		public override bool Equals(object value)
 		{
 			bool equals = false;

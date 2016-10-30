@@ -7,8 +7,25 @@ using System.Collections.Generic;
 
 namespace CPT331.Core.ObjectModel
 {
+	/// <summary>
+	/// Represents an EventInfo type, used to describe EventFinda event information.
+	/// </summary>
 	public class EventInfo
 	{
+		/// <summary>
+		/// Constructs a new EventInfo object.
+		/// </summary>
+		/// <param name="address">The address of the event.</param>
+		/// <param name="beginDateTime">The date and time the event begins.</param>
+		/// <param name="description">A description of the event.</param>
+		/// <param name="endDateTime">The date and time the event ends.</param>
+		/// <param name="id">The unique ID of the event.</param>
+		/// <param name="eventCategories">A list of categories the event belongs to.</param>
+		/// <param name="eventImages">A list of images for the event.</param>
+		/// <param name="latitude">The latitude of the event venue location.</param>
+		/// <param name="longitude">The longitude of the event venue location.</param>
+		/// <param name="name">The name of the event</param>
+		/// <param name="url">The URI of the event.</param>
 		public EventInfo(string address, DateTime beginDateTime, string description, DateTime endDateTime, int id, List<EventCategory> eventCategories, List<EventImage> eventImages, double latitude, double longitude, string name, string url)
 		{
 			_address = address;
@@ -36,6 +53,9 @@ namespace CPT331.Core.ObjectModel
 		private readonly string _name;
 		private readonly string _url;
 
+		/// <summary>
+		/// Gets the address of the event.
+		/// </summary>
 		public string Address
 		{
 			get
@@ -44,6 +64,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the date and time that event begins.
+		/// </summary>
 		public DateTime BeginDateTime
 		{
 			get
@@ -52,6 +75,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the event description.
+		/// </summary>
 		public string Description
 		{
 			get
@@ -60,6 +86,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the date and time that the event ends.
+		/// </summary>
 		public DateTime EndDateTime
 		{
 			get
@@ -68,6 +97,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the unique ID of the event.
+		/// </summary>
 		public int ID
 		{
 			get
@@ -76,6 +108,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets a list of categories that the event belongs to.
+		/// </summary>
 		public List<EventCategory> EventCategories
 		{
 			get
@@ -84,6 +119,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets a list of images for the event.
+		/// </summary>
 		public List<EventImage> EventImages
 		{
 			get
@@ -92,6 +130,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the latitude of the event venue location.
+		/// </summary>
 		public double Latitude
 		{
 			get
@@ -100,6 +141,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the longitude of the event venue location.
+		/// </summary>
 		public double Longitude
 		{
 			get
@@ -108,6 +152,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the name of event.
+		/// </summary>
 		public string Name
 		{
 			get
@@ -116,6 +163,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the URI of the event.
+		/// </summary>
 		public string Url
 		{
 			get

@@ -13,8 +13,16 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data.Parsers
 {
+	/// <summary>
+	/// Represents an XmlParser type, used to manipulate XML data from a file.
+	/// </summary>
 	public class XmlParser
 	{
+		/// <summary>
+		/// Constructs a new XmlParser object.
+		/// </summary>
+		/// <param name="dataSourceDirectory">The path to the directory containing the XML data sources.</param>
+		/// <param name="state">The name of the state or territory to process.</param>
 		public XmlParser(string dataSourceDirectory, string state)
 		{
 			_fileName = Path.Combine(dataSourceDirectory, $"{state}.xml");
@@ -58,6 +66,9 @@ namespace CPT331.Data.Parsers
 			OutputStreams.WriteLine("Commit completed");
 		}
 
+		/// <summary>
+		/// Begins parsing opertaions on the XML file.
+		/// </summary>
 		public void Parse()
 		{
 			if ((String.IsNullOrEmpty(_fileName) == false) && (File.Exists(_fileName) == true))
@@ -73,6 +84,11 @@ namespace CPT331.Data.Parsers
 			}
 		}
 
+		/// <summary>
+		/// Performs parsing operations and constructs a list of Coordinate objects as the result.
+		/// </summary>
+		/// <param name="fileName">The path to the file containing the XML information to parse.</param>
+		/// <param name="crimes">The list of Crime objects to serialise the XML information into.</param>
 		protected virtual void OnParse(string fileName, List<Crime> crimes)
 		{
 			//	Upstream implementations will need to hydrate this list themselves
