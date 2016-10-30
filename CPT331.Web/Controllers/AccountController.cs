@@ -12,7 +12,7 @@ namespace CPT331.Web.Controllers
     ///    A controller that provides methods that respond to HTTP requests that are related 
     ///    to the user access and authentication.
     /// </summary>
-    /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to restricted methods.</permission>
+    /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to restricted methods.</permission>
     [AdminAuthorize]
     public class AccountController : Controller
     {
@@ -52,7 +52,7 @@ namespace CPT331.Web.Controllers
         /// <para>Provides a means to securely log out of the Administration portal.</para>
         /// </summary>
         /// <returns>The 'Account/Login' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult SignOut()
         {

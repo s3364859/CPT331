@@ -19,7 +19,7 @@ namespace CPT331.Web.Controllers
     ///    A controller that provides methods that respond to HTTP requests that are related 
     ///    to the administration portal.
     /// </summary>
-    /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to methods in this controller.</permission>
+    /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to methods in this controller.</permission>
     [AdminAuthorize]
     public class AdminController : Controller
     {
@@ -28,7 +28,7 @@ namespace CPT331.Web.Controllers
         /// Provides a landing page for the administration portal.
         /// </summary>
         /// <returns>The 'Admin/Home' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult Home()
         {
@@ -41,7 +41,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="id">The unique ID for the Crime record.</param>
         /// <returns>The 'Edit Crime' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
 		public ActionResult Crime(uint id)
 		{
@@ -73,7 +73,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="crimeModel">An instance of CrimeModel that contains new values to be updated.</param>
         /// <returns>The 'Edit Crime' view, with the updated values, and validation errors.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpPost]
         public ActionResult Crime(CrimeModel crimeModel)
 		{
@@ -126,7 +126,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="crimeModel">An instance of CrimeModel that contains new values to be inserted.</param>
         /// <returns>The 'Edit Crime' view when the model is valid; otherwise 'New Crime' view with the errors listed.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpPost]
         [Route("{controller}/Crime}")]
         public ActionResult NewCrime(CrimeModel crimeModel)
@@ -154,7 +154,7 @@ namespace CPT331.Web.Controllers
         /// <param name="sortDirection">The sort order for the view; as ascending or descending.</param>
         /// <param name="page">A number indicating the page of data to be fetched from the database.</param>
         /// <returns>The 'Crimes List' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult Crimes(string sortBy, SortDirection? sortDirection, uint? page)
 		{
@@ -233,7 +233,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="id">The unique ID for the LocalGovernmentArea record.</param>
         /// <returns>The 'Edit LocalGovernmentArea' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult LocalGovernmentArea(uint id)
 		{
@@ -262,7 +262,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="localGovernmentAreaModel">An instance of LocalGovernmentAreaModel that contains new values to be updated.</param>
         /// <returns>The 'Edit LocalGovernmentArea' view, with the updated values.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpPost]
         public ActionResult LocalGovernmentArea(LocalGovernmentAreaModel localGovernmentAreaModel)
 		{
@@ -311,7 +311,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="localGovernmentAreaModel">An instance of LocalGovernmentAreaModel that contains new values to be inserted.</param>
         /// <returns>The 'Edit LocalGovernmentArea' view when the model is valid; otherwise 'Edit LocalGovernmentArea' view with the errors listed.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpPost]
         public ActionResult NewLocalGovernmentArea(LocalGovernmentAreaModel localGovernmentAreaModel)
         {
@@ -338,7 +338,7 @@ namespace CPT331.Web.Controllers
         /// <param name="sortDirection">The sort order for the view; as ascending or descending.</param>
         /// <param name="page">A number indicating the page of data to be fetched from the database.</param>
         /// <returns>The 'LocalGovernmentAreas List' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult LocalGovernmentAreas(string sortBy, SortDirection? sortDirection, uint? page)
 		{
@@ -428,7 +428,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="id">The unique ID for the Offence record.</param>
         /// <returns>The 'Edit Offence' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult Offence(uint id)
         {
@@ -448,7 +448,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="offenceModel">An instance of OffenceModel that contains new values to be updated.</param>
         /// <returns>The 'Edit Offence' view, with the updated values.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpPost]
         public ActionResult Offence(OffenceModel offenceModel)
         {
@@ -479,7 +479,7 @@ namespace CPT331.Web.Controllers
         /// Provides an editor page for a new Offence record.
         /// </summary>
         /// <returns>The 'New Offence' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult NewOffence()
         {
@@ -491,7 +491,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="offenceModel">An instance of OffenceModel that contains new values to be inserted.</param>
         /// <returns>The 'Edit Offence' view when the model is valid; otherwise 'Edit Offence' view with the errors listed.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpPost]
         public ActionResult NewOffence(OffenceModel offenceModel)
         {
@@ -518,7 +518,7 @@ namespace CPT331.Web.Controllers
         /// <param name="sortDirection">The sort order for the view; as ascending or descending.</param>
         /// <param name="page">A number indicating the page of data to be fetched from the database.</param>
         /// <returns>The 'Offences List' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult Offences(string sortBy, SortDirection? sortDirection, uint? page)
         {
@@ -597,7 +597,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="id">The unique ID for the OffenceCategory record.</param>
         /// <returns>The 'Edit OffenceCategory' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult OffenceCategory(uint id)
 		{
@@ -617,7 +617,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="offenceCategoryModel">An instance of OffenceCategoryModel that contains new values to be updated.</param>
         /// <returns>The 'Edit OffenceCategory' view, with the updated values.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpPost]
         public ActionResult OffenceCategory(OffenceCategoryModel offenceCategoryModel)
 		{
@@ -648,7 +648,7 @@ namespace CPT331.Web.Controllers
         /// Provides an editor page for a new OffenceCategory record.
         /// </summary>
         /// <returns>The 'New OffenceCategory' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult NewOffenceCategory()
         {
@@ -660,7 +660,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="offenceCategoryModel">An instance of OffenceCategoryModel that contains new values to be inserted.</param>
         /// <returns>The 'Edit OffenceCategory' view when the model is valid; otherwise 'Edit OffenceCategory' view with the errors listed.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpPost]
         public ActionResult NewOffenceCategory(OffenceCategoryModel offenceCategoryModel)
         {
@@ -687,7 +687,7 @@ namespace CPT331.Web.Controllers
         /// <param name="sortDirection">The sort order for the view; as ascending or descending.</param>
         /// <param name="page">A number indicating the page of data to be fetched from the database.</param>
         /// <returns>The 'OffenceCategory List' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult OffenceCategories(string sortBy, SortDirection? sortDirection, uint? page)
 		{
@@ -766,7 +766,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="id">The unique ID for the State record.</param>
         /// <returns>The 'Edit State' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult State(uint id)
 		{
@@ -786,7 +786,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="stateModel">An instance of StateModel that contains new values to be updated.</param>
         /// <returns>The 'Edit State' view, with the updated values.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpPost]
         public ActionResult State(StateModel stateModel)
 		{
@@ -817,7 +817,7 @@ namespace CPT331.Web.Controllers
         /// Provides an editor page for a new State record.
         /// </summary>
         /// <returns>The 'New State' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult NewState()
         {
@@ -829,7 +829,7 @@ namespace CPT331.Web.Controllers
         /// </summary>
         /// <param name="stateModel">An instance of StateModel that contains new values to be inserted.</param>
         /// <returns>The 'Edit State' view when the model is valid; otherwise 'Edit State' view with the errors listed.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpPost]
         public ActionResult NewState(StateModel stateModel)
         {
@@ -856,7 +856,7 @@ namespace CPT331.Web.Controllers
         /// <param name="sortDirection">The sort order for the view; as ascending or descending.</param>
         /// <param name="page">A number indicating the page of data to be fetched from the database.</param>
         /// <returns>The 'States List' view.</returns>
-        /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to this method.</permission>
+        /// <permission cref="AdminAuthorizeAttribute">Only authorised personnel have access to this method.</permission>
         [HttpGet]
         public ActionResult States(string sortBy, SortDirection? sortDirection, uint? page)
 		{

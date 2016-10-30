@@ -12,6 +12,9 @@ namespace CPT331.Web.Models.Account
     public class UserModel
     {
         private readonly string _user = "CPT331 Admin";
+        /// <summary>
+        /// The default administration user.
+        /// </summary>
         public string User { get { return _user; } }
 
         /// <summary>

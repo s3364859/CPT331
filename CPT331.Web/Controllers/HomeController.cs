@@ -10,7 +10,6 @@ namespace CPT331.Web.Controllers
     ///    A controller that provides methods that respond to HTTP requests that are related 
     ///    to the EventGuardian home page.
     /// </summary>
-    /// <permission cref="CPT331.Web.Attributes.AdminAuthorize">Only authorised personnel have access to methods in this controller.</permission>
 	public class HomeController : Controller
 	{
         /// <summary>

@@ -25,7 +25,7 @@ namespace CPT331.Web.Models.Admin
         /// <summary>
         /// Creates an instance of CrimeModel using the values provided.
         /// </summary>
-        /// <param name="count">The number of crimes recorded in a given area, time and category</param>
+        /// <param name="count">The number of crimes recorded in a given area, time and category.</param>
         /// <param name="localGovernmentAreaID">An ID number that represents the local goverment area.</param>
         /// <param name="month">The month when the crimes were commited.</param>
         /// <param name="offenceID">An ID number representing the type of crime.</param>
@@ -39,7 +39,7 @@ namespace CPT331.Web.Models.Admin
         /// <summary>
         /// Creates an instance of CrimeModel using the values provided.
         /// </summary>
-        /// <param name="count">The number of crimes recorded in a given area, time and category</param>
+        /// <param name="count">The number of crimes recorded in a given area, time and category.</param>
         /// <param name="id">The unique ID value of the CrimeModel instance.</param>
         /// <param name="localGovernmentAreaID">An ID number that represents the local goverment area.</param>
         /// <param name="month">The month when the crimes were commited.</param>
@@ -53,7 +53,7 @@ namespace CPT331.Web.Models.Admin
         /// <summary>
         /// Creates an instance of CrimeModel using the values provided.
         /// </summary>
-        /// <param name="count">The number of crimes recorded in a given area, time and category</param>
+        /// <param name="count">The number of crimes recorded in a given area, time and category.</param>
         /// <param name="dateCreatedUtc">The date when the record was created.</param>
         /// <param name="dateUpdatedUtc">The date when the record was last updated.</param>
         /// <param name="id">The unique ID value for the CrimeModel instance.</param>
