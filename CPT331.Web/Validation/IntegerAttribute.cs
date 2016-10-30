@@ -11,7 +11,7 @@ using CPT331.Data;
 namespace CPT331.Web.Validation
 {
     /// <summary>
-    /// Provides validation for the Interger type (System.Int32).
+    /// Provides validation for the Integer type (System.Int32).
     /// </summary>
 	public class IntegerAttribute : ValidationAttribute
 	{
