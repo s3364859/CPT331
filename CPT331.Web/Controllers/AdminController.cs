@@ -224,10 +224,14 @@ namespace CPT331.Web.Controllers
 
 			return View(crimes);
 		}
-		#endregion
+        #endregion
 
-		#region LocalGovernmentArea Model
-		[HttpGet]
+        #region LocalGovernmentArea Model
+        /// <summary>
+        /// Exports the ExportLocalGovernmentAreas table as CSV.
+        /// </summary>
+        /// <returns>LocalGovernmentAreas.csv</returns>
+        [HttpGet]
 		public ActionResult ExportLocalGovernmentAreas()
 
 		{
@@ -426,10 +430,14 @@ namespace CPT331.Web.Controllers
 
 			return View(localGovernmentAreaStates);
 		}
-		#endregion
+        #endregion
 
-		#region Offence Model
-		[HttpGet]
+        #region Offence Model
+        /// <summary>
+        /// Exports the Offenses table as CSV.
+        /// </summary>
+        /// <returns>Offences.csv</returns>
+        [HttpGet]
 		public ActionResult ExportOffences()
 		{
 			return new ExportDataActionResult("Offences.csv", DataProvider.OffenceRepository);
@@ -601,10 +609,14 @@ namespace CPT331.Web.Controllers
 
 			return View(offences);
 		}
-		#endregion
+        #endregion
 
-		#region OffenceCategory Model
-		[HttpGet]
+        #region OffenceCategory Model
+        /// <summary>
+        /// Exports the OffenceCateogories table as CSV.
+        /// </summary>
+        /// <returns>OffenceCateogories.csv</returns>
+        [HttpGet]
 		public ActionResult ExportOffenceCategories()
 		{
 			return new ExportDataActionResult("OffenceCateogories.csv", DataProvider.OffenceCategoryRepository);
@@ -776,10 +788,14 @@ namespace CPT331.Web.Controllers
 
 			return View(offenceCategories);
 		}
-		#endregion
+        #endregion
 
-		#region State Model
-		[HttpGet]
+        #region State Model
+        /// <summary>
+        /// Exports the States table as CSV.
+        /// </summary>
+        /// <returns>States.csv</returns>
+        [HttpGet]
 		public ActionResult ExportStates()
 		{
 			return new ExportDataActionResult("States.csv", DataProvider.StateRepository);
