@@ -6,6 +6,9 @@ using System;
 
 namespace CPT331.Core.ObjectModel
 {
+    /// <summary>
+	/// Represents a User type, used to describe the properties of a user.
+	/// </summary>
 	public class User
 	{
 		public User(int id, string password, string username)

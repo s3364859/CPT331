@@ -175,6 +175,7 @@
     <Compile Include="Validation\IntegerAttribute.cs" />
     <Compile Include="Validation\MonthAttribute.cs" />
     <Compile Include="Validation\LocalGovernmentAreaAttribute.cs" />
+    <Compile Include="Validation\OffenceCategoryAttribute.cs" />
     <Compile Include="Validation\YearAttribute.cs" />
     <Compile Include="Validation\OffenceAttribute.cs" />
     <Compile Include="Validation\StateAttribute.cs" />
