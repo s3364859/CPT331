@@ -7,7 +7,7 @@ using System;
 namespace CPT331.Core.ObjectModel
 {
 	/// <summary>
-	/// Represents a ReadOnlyDataObject type, which contains immutable information obtained fron a data source.
+	/// Represents a ReadOnlyDataObject type, which contains immutable information obtained from a data source.
 	/// </summary>
 	public class ReadOnlyDataObject
 	{
