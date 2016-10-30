@@ -30,7 +30,7 @@ namespace CPT331.Web.Validation
 
 				if (Int32.TryParse(value.ToString(), out id) == true)
 				{
-					State state = StateRepository.GetStateByID(id);
+					State state = DataProvider.StateRepository.GetStateByID(id);
 
 					isValid = (state != null);
 				}

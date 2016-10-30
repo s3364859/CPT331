@@ -17,7 +17,7 @@ namespace CPT331.Data
 	/// <summary>
 	/// Represents an LocalGovernmentAreaStateRepository type, used to local government area and state or territory data.
 	/// </summary>
-	public static class LocalGovernmentAreaStateRepository
+	public class LocalGovernmentAreaStateRepository : Repository
 	{
 		/// <summary>
 		/// The Location.spGetLocalGovernmentAreaState stored procedure name.
@@ -28,7 +28,7 @@ namespace CPT331.Data
 		/// Selects all local government area and state or territory information from the underlying data source.
 		/// </summary>
 		/// <returns>Returns a list of LocalGovernmentAreaState objects representing the result of the operation.</returns>
-		public static List<LocalGovernmentAreaState> GetLocalGovernmentAreaStates()
+		public List<LocalGovernmentAreaState> GetLocalGovernmentAreaStates()
 		{
 			List<LocalGovernmentAreaState> localGovernmentAreaStates = null;
 

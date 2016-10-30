@@ -9,7 +9,7 @@ namespace CPT331.Core.ObjectModel
 	/// <summary>
 	/// Represents a User type, used to describe the properties of a user.
 	/// </summary>
-	public class User
+	public class User : ReadOnlyDataObject
 	{
 		/// <summary>
 		/// Constructs a new User type.
@@ -33,56 +33,16 @@ namespace CPT331.Core.ObjectModel
 		/// <param name="password">The user password value.</param>
 		/// <param name="username">The username value.</param>
 		public User(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isActive, bool isDeleted, string password, string username)
+			: base(dateCreatedUtc, dateUpdatedUtc, id, isDeleted, true)
 		{
-			_dateCreatedUtc = dateCreatedUtc;
-			_dateUpdatedUtc = dateUpdatedUtc;
-			_id = id;
 			_isActive = isActive;
-			_isDeleted = isDeleted;
 			_password = password;
 			_username = username;
 		}
 
-		private readonly DateTime _dateCreatedUtc;
-		private readonly DateTime _dateUpdatedUtc;
-		private readonly int _id;
 		private readonly bool _isActive;
-		private readonly bool _isDeleted;
 		private readonly string _password;
 		private readonly string _username;
-
-		/// <summary>
-		/// Gets the date the record was created.
-		/// </summary>
-		public DateTime DateCreatedUtc
-		{
-			get
-			{
-				return _dateCreatedUtc;
-			}
-		}
-
-		/// <summary>
-		/// Gets the date the record was updated.
-		/// </summary>
-		public DateTime DateUpdatedUtc
-		{
-			get
-			{
-				return _dateUpdatedUtc;
-			}
-		}
-
-		/// <summary>
-		/// Gets the unique ID value of the record.
-		/// </summary>
-		public int ID
-		{
-			get
-			{
-				return _id;
-			}
-		}
 
 		/// <summary>
 		/// Gets a boolean value indicating whether this record is considered active.
@@ -92,17 +52,6 @@ namespace CPT331.Core.ObjectModel
 			get
 			{
 				return _isActive;
-			}
-		}
-
-		/// <summary>
-		/// Gets a boolean value indicating whether this record has been soft-deleted.
-		/// </summary>
-		public bool IsDeleted
-		{
-			get
-			{
-				return _isDeleted;
 			}
 		}
 
@@ -134,12 +83,7 @@ namespace CPT331.Core.ObjectModel
 		/// <returns>A hash code for the current type.</returns>
 		public override int GetHashCode()
 		{
-			int getHashCode =
-				_dateCreatedUtc.GetHashCode() ^
-				_dateUpdatedUtc.GetHashCode() ^
-				_id.GetHashCode() ^
-				_isActive.GetHashCode() ^
-				_isDeleted.GetHashCode();
+			int getHashCode = base.GetHashCode() ^ _isActive.GetHashCode();
 
 			if (String.IsNullOrEmpty(_password) == false)
 			{
@@ -168,11 +112,8 @@ namespace CPT331.Core.ObjectModel
 			{
 				equals =
 				(
-					(_dateCreatedUtc == user._dateCreatedUtc) &&
-					(_dateUpdatedUtc == user._dateUpdatedUtc) &&
-					(_id == user._id) &&
+					(base.Equals(user)) &&
 					(_isActive == user._isActive) &&
-					(_isDeleted == user._isDeleted) &&
 					(_password == user._password) &&
 					(_username == user._username)
 				);

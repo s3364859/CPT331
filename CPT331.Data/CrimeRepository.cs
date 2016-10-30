@@ -17,7 +17,7 @@ namespace CPT331.Data
 	/// <summary>
 	/// Represents a CrimeRepository type, used to manipulate local government area data.
 	/// </summary>
-	public static class CrimeRepository
+	public class CrimeRepository : Repository
 	{
 		/// <summary>
 		/// The Crime.spAddCrime stored procedure name.
@@ -53,7 +53,7 @@ namespace CPT331.Data
 		/// <param name="offenceID">Specifies the ID of the associated offence.</param>
 		/// <param name="year">Specifies the year of the crime.</param>
 		/// <returns></returns>
-		public static int AddCrime(int count, int localGovernmentAreaID, int month, int offenceID, int year)
+		public int AddCrime(int count, int localGovernmentAreaID, int month, int offenceID, int year)
 		{
 			int id = 0;
 
@@ -73,7 +73,7 @@ namespace CPT331.Data
 		/// </summary>
 		/// <param name="id">The ID of the associated crime information.</param>
 		/// <returns>Returns a Crime object representing the result of the operation.</returns>
-		public static Crime GetCrimeByID(int id)
+		public Crime GetCrimeByID(int id)
 		{
 			Crime crime = null;
 
@@ -94,7 +94,7 @@ namespace CPT331.Data
 		/// <param name="latitude">Specifies the latitude used to look up the corresponding local government area.</param>
 		/// <param name="longitude">Specifies the longitude used to look up the corresponding local government area.</param>
 		/// <returns>Returns a list of Crime objects representing the result of the operation.</returns>
-		public static List<CrimeByCoordinate> GetCrimesByCoordinate(double latitude, double longitude)
+		public List<CrimeByCoordinate> GetCrimesByCoordinate(double latitude, double longitude)
 		{
 			List<CrimeByCoordinate> crimeByCoordinates = null;
 
@@ -113,7 +113,7 @@ namespace CPT331.Data
 		/// Gets all crime information from the database.
 		/// </summary>
 		/// <returns>Returns a list of Crime objects representing the result of the operation.</returns>
-		public static List<Crime> GetCrimes()
+		public List<Crime> GetCrimes()
 		{
 			List<Crime> crimes = null;
 
@@ -151,7 +151,7 @@ namespace CPT331.Data
 		/// <param name="year">Specifies the year of the crime.</param>
 		/// <param name="isDeleted">Specifies whether the crime information is flagged as deleted.</param>
 		/// <param name="isVisible">Specifies whether the crime information is flagged as visible.</param>
-		public static void UpdateCrime(int id, int localGovernmentAreaID, int offenceID, int count, int month, int year, bool isDeleted, bool isVisible)
+		public void UpdateCrime(int id, int localGovernmentAreaID, int offenceID, int count, int month, int year, bool isDeleted, bool isVisible)
 		{
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{

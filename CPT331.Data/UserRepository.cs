@@ -17,7 +17,7 @@ namespace CPT331.Data
 	/// <summary>
 	/// Represents a UserRepository type, used to manipulate user data.
 	/// </summary>
-	public static class UserRepository
+	public class UserRepository : Repository
 	{
 		/// <summary>
 		/// The Registration.spGetUser stored procedure name.
@@ -39,7 +39,7 @@ namespace CPT331.Data
 		/// </summary>
 		/// <param name="id">The ID of the associated user.</param>
 		/// <returns>Returns a User object representing the result of the operation.</returns>
-		public static User GetUserByID(int id)
+		public User GetUserByID(int id)
 		{
 			User user = null;
 
@@ -59,7 +59,7 @@ namespace CPT331.Data
 		/// </summary>
 		/// <param name="username">The username of theassociated user.</param>
 		/// <returns>Returns a User object representing the result of the operation.</returns>
-		public static User GetUserByUsername(string username)
+		public User GetUserByUsername(string username)
 		{
 			User user = null;
 
@@ -78,7 +78,7 @@ namespace CPT331.Data
 		/// Selects all users from the underlying data source.
 		/// </summary>
 		/// <returns>Returns a list of User objects representing the result of the operation.</returns>
-		public static List<User> GetUsers()
+		public List<User> GetUsers()
 		{
 			List<User> users = null;
 

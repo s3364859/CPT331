@@ -7,8 +7,14 @@
     ViewBag.Title = "Offences | Admin";
 }
 
-<br/>
+<br />
 <h1>@Html.ActionLink("Home", "Home", "Admin") | Offences</h1>
 <hr /><br />
+
 <p><h3>@Html.ActionLink("New Offence", "NewOffence", "Admin")</h3></p>
+
+<p><a href="@Url.Action("ExportOffences", "Admin")"><img src="/Content/Images/excel.gif" border="0" title="Export Data" /></a></p>
+
+<br/>
+
 @Html.Partial("OffencesPartial", Model)

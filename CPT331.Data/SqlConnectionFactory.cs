@@ -12,7 +12,7 @@ namespace CPT331.Data
 	/// <summary>
 	/// Represents an SqlConnectionFactory type, used to construct SqlConnection objects.
 	/// </summary>
-	public static class SqlConnectionFactory
+	internal static class SqlConnectionFactory
 	{
 		static SqlConnectionFactory()
 		{
