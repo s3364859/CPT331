@@ -13,8 +13,15 @@ using System.IO;
 
 namespace CPT331.Data.Parsers
 {
+	/// <summary>
+	/// Represents a WaKmlParser type, used to manipulate KML data from a file.
+	/// </summary>
 	public class WaKmlParser : KmlParser
 	{
+		/// <summary>
+		/// Constructs a new WaKmlParser object.
+		/// </summary>
+		/// <param name="dataSourceDirectory">The path to the directory containing the KML data sources.</param>
 		public WaKmlParser(string dataSourceDirectory)
 			: base(dataSourceDirectory, WA)
 		{
@@ -22,6 +29,11 @@ namespace CPT331.Data.Parsers
 
 		internal const string WA = "WA";
 
+		/// <summary>
+		/// Performs parsing operations and constructs a list of Coordinate objects as the result.
+		/// </summary>
+		/// <param name="fileName">The path to the file containing the KML information to parse.</param>
+		/// <param name="coordinates">The list of Coordinate objects to serialise the KML information into.</param>
 		protected override void OnParse(string fileName, List<Coordinate> coordinates)
 		{
 			OutputStreams.WriteLine($"Parsing {WA} data...");
@@ -45,12 +57,15 @@ namespace CPT331.Data.Parsers
 				}
 				
 				coordinates.Clear();
-				
-				string[] coordinateLines = coordinateValues.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+				string[] coordinateLines = coordinateValues
+					.Replace(Environment.NewLine, "")
+					.Replace("\t", "")
+					.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 				foreach (string coordinateLine in coordinateLines)
 				{
 					string[] coordinateParts = coordinateLine.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-				
+
 					coordinates.Add(Coordinate.FromValues(Double.Parse(coordinateParts[1]), Double.Parse(coordinateParts[0])));
 				}
 
@@ -61,3 +76,4 @@ namespace CPT331.Data.Parsers
 		}
 	}
 }
+ 

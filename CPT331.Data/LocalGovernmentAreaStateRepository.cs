@@ -14,8 +14,20 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data
 {
+	/// <summary>
+	/// Represents an LocalGovernmentAreaStateRepository type, used to local government area and state or territory data.
+	/// </summary>
 	public static class LocalGovernmentAreaStateRepository
 	{
+		/// <summary>
+		/// The Location.spGetLocalGovernmentAreaState stored procedure name.
+		/// </summary>
+		public const string LocationSpGetLocalGovernmentAreaState = "Location.spGetLocalGovernmentAreaState";
+
+		/// <summary>
+		/// Selects all local government area and state or territory information from the underlying data source.
+		/// </summary>
+		/// <returns>Returns a list of LocalGovernmentAreaState objects representing the result of the operation.</returns>
 		public static List<LocalGovernmentAreaState> GetLocalGovernmentAreaStates()
 		{
 			List<LocalGovernmentAreaState> localGovernmentAreaStates = null;
@@ -23,7 +35,7 @@ namespace CPT331.Data
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
 				localGovernmentAreaStates = SqlMapper
-					.Query(sqlConnection, "Location.spGetLocalGovernmentAreaState", commandType: CommandType.StoredProcedure)
+					.Query(sqlConnection, LocationSpGetLocalGovernmentAreaState, commandType: CommandType.StoredProcedure)
 					.Select(m => new LocalGovernmentAreaState(m.AbbreviatedName, m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsDeleted, m.IsVisible, m.Name, m.StateID, m.StateName))
 					.ToList();
 			}

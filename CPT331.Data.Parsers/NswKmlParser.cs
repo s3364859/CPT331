@@ -11,8 +11,15 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data.Parsers
 {
+	/// <summary>
+	/// Represents a NswKmlParser type, used to manipulate KML data from a file.
+	/// </summary>
 	public class NswKmlParser : KmlParser
 	{
+		/// <summary>
+		/// Constructs a new NswKmlParser object.
+		/// </summary>
+		/// <param name="dataSourceDirectory">The path to the directory containing the KML data sources.</param>
 		public NswKmlParser(string dataSourceDirectory)
 			: base(dataSourceDirectory, NSW)
 		{
@@ -20,6 +27,11 @@ namespace CPT331.Data.Parsers
 
 		internal const string NSW = "NSW";
 
+		/// <summary>
+		/// Performs parsing operations and constructs a list of Coordinate objects as the result.
+		/// </summary>
+		/// <param name="fileName">The path to the file containing the KML information to parse.</param>
+		/// <param name="coordinates">The list of Coordinate objects to serialise the KML information into.</param>
 		protected override void OnParse(string fileName, List<Coordinate> coordinates)
 		{
 			OutputStreams.WriteLine($"Parsing {NSW} data...");

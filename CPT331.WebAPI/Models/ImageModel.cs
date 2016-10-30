@@ -11,7 +11,7 @@ namespace CPT331.WebAPI.Models
 	[DataContract(Name = "Image")]
 	public class ImageModel
 	{
-		public ImageModel(int height, EventFinderImageFormat transformationID, string url, int width)
+		public ImageModel(int height, EventFindaImageFormat transformationID, string url, int width)
 		{
 			_height = height;
 			_transformationID = transformationID;
@@ -20,7 +20,7 @@ namespace CPT331.WebAPI.Models
 		}
 
 		private int _height;
-		private readonly EventFinderImageFormat _transformationID;
+		private readonly EventFindaImageFormat _transformationID;
 		private string _url;
 		private int _width;
 
@@ -37,7 +37,7 @@ namespace CPT331.WebAPI.Models
 			}
 		}
 
-		internal EventFinderImageFormat TransformationID
+		internal EventFindaImageFormat TransformationID
 		{
 			get
 			{
