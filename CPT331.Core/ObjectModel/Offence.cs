@@ -6,13 +6,16 @@ using System;
 
 namespace CPT331.Core.ObjectModel
 {
+	/// <summary>
+	/// Represents an Offence type, used to describe an offence.
+	/// </summary>
 	public class Offence
 	{
         /// <summary>
         /// Initialises a new instance of the Offence class to the values provided.
         /// </summary>
-        /// <param name="id">Identification number for the Offence record</param>
-        /// <param name="name">The name of the Offence</param>
+        /// <param name="id">Identification number for the Offence record.</param>
+        /// <param name="name">The name of the Offence.</param>
 		public Offence(int id, string name)
 			: this(DateTime.UtcNow, DateTime.UtcNow, id, false, true, name, null)
 		{
@@ -23,11 +26,11 @@ namespace CPT331.Core.ObjectModel
         /// </summary>
         /// <param name="dateCreatedUtc">A time stamp indicating when the Offence was created.</param>
         /// <param name="dateUpdatedUtc">A time stamp indicating when the Offence was last updated.</param>
-        /// <param name="id">Identification number for the Offence record</param>
-        /// <param name="isDeleted">Indicates whether or not the record is deleted</param>
-        /// <param name="isVisible">Indicates whether or not the record should be shown in the user interfaces</param>
-        /// <param name="name">The name of the Offence</param>
-        /// <param name="offenceCategoryID">An identification number for parent offence category</param>
+        /// <param name="id">Identification number for the Offence record.</param>
+        /// <param name="isDeleted">Indicates whether or not the record is deleted.</param>
+        /// <param name="isVisible">Indicates whether or not the record should be shown in the user interfaces.</param>
+        /// <param name="name">The name of the Offence.</param>
+        /// <param name="offenceCategoryID">An identification number for parent offence category.</param>
         public Offence(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name, int? offenceCategoryID)
 		{
 			_dateCreatedUtc = dateCreatedUtc;
@@ -36,6 +39,7 @@ namespace CPT331.Core.ObjectModel
 			_isDeleted = isDeleted;
 			_isVisible = isVisible;
 			_name = name;
+			_offenceCategoryID = offenceCategoryID;
 		}
 
 		private readonly DateTime _dateCreatedUtc;
@@ -46,7 +50,10 @@ namespace CPT331.Core.ObjectModel
 		private readonly string _name;
         private readonly int? _offenceCategoryID;
 
-        public DateTime DateCreatedUtc
+		/// <summary>
+		/// Gets the date the record was created.
+		/// </summary>
+		public DateTime DateCreatedUtc
 		{
 			get
 			{
@@ -54,6 +61,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the date the record was updated.
+		/// </summary>
 		public DateTime DateUpdatedUtc
 		{
 			get
@@ -62,6 +72,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the unique ID value of the record.
+		/// </summary>
 		public int ID
 		{
 			get
@@ -70,6 +83,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets a boolean value indicating whether this record has been soft-deleted.
+		/// </summary>
 		public bool IsDeleted
 		{
 			get
@@ -78,6 +94,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets a boolean value indicating whether this record should be visible.
+		/// </summary>
 		public bool IsVisible
 		{
 			get
@@ -86,6 +105,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the name of the offence.
+		/// </summary>
 		public string Name
 		{
 			get
@@ -93,7 +115,11 @@ namespace CPT331.Core.ObjectModel
 				return _name;
 			}
         }
-        public int? OffenceCategoryID
+
+		/// <summary>
+		/// Gets the ID of the offence category.
+		/// </summary>
+		public int? OffenceCategoryID
         {
             get
             {
@@ -101,7 +127,11 @@ namespace CPT331.Core.ObjectModel
             }
         }
 
-        public override int GetHashCode()
+		/// <summary>
+		/// Serves as a hash function for a particular type.
+		/// </summary>
+		/// <returns>A hash code for the current type.</returns>
+		public override int GetHashCode()
 		{
 			int getHashCode =
 				_dateCreatedUtc.GetHashCode() ^
@@ -118,6 +148,11 @@ namespace CPT331.Core.ObjectModel
 			return getHashCode;
 		}
 
+		/// <summary>
+		/// Determines object equality.
+		/// </summary>
+		/// <param name="value">The object to check against.</param>
+		/// <returns>Returns true if the object's internals are the same, otherwise false.</returns>
 		public override bool Equals(object value)
 		{
 			bool equals = false;
@@ -140,6 +175,10 @@ namespace CPT331.Core.ObjectModel
 			return equals;
 		}
 
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString()
 		{
 			return _name;

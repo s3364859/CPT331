@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\CPT331.Core.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -55,7 +56,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="ObjectModel\Coordinate.cs" />
     <Compile Include="ObjectModel\CrimeByCoordinate.cs" />
-    <Compile Include="ObjectModel\EventFinderTransform.cs" />
+    <Compile Include="ObjectModel\EventFindaImageFormat.cs" />
     <Compile Include="ObjectModel\LocalGovernmentAreaState.cs" />
     <Compile Include="ObjectModel\LocalGovernmentArea.cs" />
     <Compile Include="ObjectModel\OffenceCategory.cs" />

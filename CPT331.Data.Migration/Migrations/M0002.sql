@@ -727,7 +727,6 @@ INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'P
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'South East Metropolitan District')
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'South Metropolitan District')
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'South West District')
---	INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Western Australia')		--	I doubt this is actually required - there's no associated crime data
 INSERT INTO [Location].LocalGovernmentArea (StateID, Name) VALUES (@@StateID, 'Wheatbelt District')
 
 COMMIT

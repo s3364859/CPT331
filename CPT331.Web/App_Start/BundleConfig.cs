@@ -3,7 +3,8 @@ using System.Web.Optimization;
 
 namespace CPT331.Web
 {
-	public class BundleConfig
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public class BundleConfig
 	{
 		// For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
 		public static void RegisterBundles(BundleCollection bundles)
@@ -27,5 +28,6 @@ namespace CPT331.Web
 					  "~/Content/bootstrap.css",
 					  "~/Content/site.css"));
 		}
-	}
+    }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
