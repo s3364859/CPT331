@@ -36,7 +36,7 @@ namespace CPT331.WebAPI.Controllers
 		[Route("api/Crime/{id}")]
 		public CrimeModel Crime(int id)
 		{
-			Crime crime = CrimeRepository.GetCrimeByID(id);
+			Crime crime = DataProvider.CrimeRepository.GetCrimeByID(id);
 
 			return new CrimeModel
 			(
@@ -68,7 +68,7 @@ namespace CPT331.WebAPI.Controllers
 		public CrimeByCoordinateModel CrimesByCoordinate(double latitude, double longitude, int count = DefaultNumberOfCrimeRecords, string sortBy = "", SortDirection? sortDirection = null)
 		{
 			CrimeByCoordinateModel crimeByCoordinateModel = null;
-			List<CrimeByCoordinate> crimeByCoordinates = CrimeRepository.GetCrimesByCoordinate(latitude, longitude);
+			List<CrimeByCoordinate> crimeByCoordinates = DataProvider.CrimeRepository.GetCrimesByCoordinate(latitude, longitude);
 
             if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
             {

@@ -85,7 +85,7 @@ namespace CPT331.Data.Parsers
 
 			OutputStreams.WriteLine($"Commiting {coordinates.Count} records");
 
-			AdhocScriptRepository.ExecuteScript(stringBuilder.ToString());
+			DataProvider.AdhocScriptRepository.ExecuteScript(stringBuilder.ToString());
 		}
 
 		/// <summary>

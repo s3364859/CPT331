@@ -30,7 +30,7 @@ namespace CPT331.Web.Validation
 
 				if (Int32.TryParse(value.ToString(), out id) == true)
 				{
-					Offence offence = OffenceRepository.GetOffenceByID(id);
+					Offence offence = DataProvider.OffenceRepository.GetOffenceByID(id);
 
 					isValid = (offence != null);
 				}

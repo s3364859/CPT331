@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 
 using Dapper;
@@ -17,7 +18,7 @@ namespace CPT331.Data
 	/// <summary>
 	/// Represents an OffenceCategoryRepository type, used to manipulate offence category data.
 	/// </summary>
-	public static class OffenceCategoryRepository
+	public class OffenceCategoryRepository : Repository
 	{
 		/// <summary>
 		/// The Crime.spAddOffenceCategory stored procedure name.
@@ -46,7 +47,7 @@ namespace CPT331.Data
 		/// <param name="isVisible">Specifies whether the offence category is flagged as visible.</param>
 		/// <param name="name">Specifies the name of the offence category.</param>
 		/// <returns>Returns the newly created ID for a successful operation, otherwise returns 0.</returns>
-		public static int AddOffenceCategory(bool isDeleted, bool isVisible, string name)
+		public int AddOffenceCategory(bool isDeleted, bool isVisible, string name)
 		{
 			int id = 0;
 
@@ -66,7 +67,7 @@ namespace CPT331.Data
 		/// </summary>
 		/// <param name="id">The ID of the associated offence category.</param>
 		/// <returns>Returns an OffenceCategory object representing the result of the operation.</returns>
-		public static OffenceCategory GetOffenceCategoryByID(int id)
+		public OffenceCategory GetOffenceCategoryByID(int id)
 		{
 			OffenceCategory offenceCategory = null;
 
@@ -85,7 +86,7 @@ namespace CPT331.Data
 		/// Selects all offence categories from the underlying data source.
 		/// </summary>
 		/// <returns>Returns a list of OffenceCategory objects representing the result of the operation.</returns>
-		public static List<OffenceCategory> GetOffenceCategories()
+		public List<OffenceCategory> GetOffenceCategories()
 		{
 			List<OffenceCategory> offenceCategories = null;
 
@@ -101,13 +102,25 @@ namespace CPT331.Data
 		}
 
 		/// <summary>
+		/// Exports a list of ReadOnlyDataObject types to a stream.
+		/// </summary>
+		/// <param name="readOnlyDataObjects">The list of ReadOnlyDataObject objects to export.</param>
+		/// <param name="stream">The stream to export the ReadOnlyDataObject list to.</param>
+		protected override void OnExport(List<ReadOnlyDataObject> readOnlyDataObjects, Stream stream)
+		{
+			readOnlyDataObjects = GetOffenceCategories().ToList<ReadOnlyDataObject>();
+
+			base.OnExport(readOnlyDataObjects, stream);
+		}
+
+		/// <summary>
 		/// Updates offence category information in the underlying data source.
 		/// </summary>
 		/// <param name="id">The ID of the associated offence category.</param>
 		/// <param name="isDeleted">Specifies whether the offence category is flagged as deleted.</param>
 		/// <param name="isVisible">Specifies whether the offence category is flagged as visible.</param>
 		/// <param name="name">Specified the name of the offence category.</param>
-		public static void UpdateOffenceCategory(int id, bool isDeleted, bool isVisible, string name)
+		public void UpdateOffenceCategory(int id, bool isDeleted, bool isVisible, string name)
 		{
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{

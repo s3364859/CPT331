@@ -68,6 +68,7 @@
     <Compile Include="ObjectModel\EventImage.cs" />
     <Compile Include="ObjectModel\EventInfo.cs" />
     <Compile Include="ObjectModel\SessionKey.cs" />
+    <Compile Include="ObjectModel\ReadOnlyDataObject.cs" />
     <Compile Include="ObjectModel\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ObjectModel\State.cs" />

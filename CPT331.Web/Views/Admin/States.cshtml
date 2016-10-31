@@ -1,5 +1,4 @@
 ﻿@using CPT331.Core.ObjectModel
-@using CPT331.Data
 
 @model IEnumerable<State>
 
@@ -13,5 +12,9 @@
 <hr /><br />
 
 <p><h3>@Html.ActionLink("New State", "NewState", "Admin")</h3></p>
+
+<p><a href="@Url.Action("ExportStates", "Admin")"><img src="/Content/Images/excel.gif" border="0" title="Export Data" /></a></p>
+
+<br/>
 
 @Html.Partial("StatesPartial", Model)
