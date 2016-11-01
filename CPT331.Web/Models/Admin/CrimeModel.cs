@@ -9,23 +9,61 @@ using CPT331.Web.Validation;
 
 namespace CPT331.Web.Models.Admin
 {
+    /// <summary>
+    /// A representation of the Crime model that services the MVC framework. 
+    /// </summary>
 	public class CrimeModel : AdminModel
 	{
-		public CrimeModel()
+        #region Constructors
+        /// <summary>
+        /// Creates an instance of CrimeModel using default values.
+        /// </summary>
+        public CrimeModel()
 		{
 		}
 
-		public CrimeModel(int count, int localGovernmentAreaID, int month, int offenceID, int year)
+        /// <summary>
+        /// Creates an instance of CrimeModel using the values provided.
+        /// </summary>
+        /// <param name="count">The number of crimes recorded in a given area, time and category.</param>
+        /// <param name="localGovernmentAreaID">An ID number that represents the local goverment area.</param>
+        /// <param name="month">The month when the crimes were commited.</param>
+        /// <param name="offenceID">An ID number representing the type of crime.</param>
+        /// <param name="year">The year when the crimes were commited.</param>
+        public CrimeModel(int count, int localGovernmentAreaID, int month, int offenceID, int year)
 			: this(count, DateTime.UtcNow, DateTime.UtcNow, -1, false, true, localGovernmentAreaID, month, offenceID, year)
 		{
 		}
 
-		public CrimeModel(int count, int id, int localGovernmentAreaID, int month, int offenceID, int year)
+
+        /// <summary>
+        /// Creates an instance of CrimeModel using the values provided.
+        /// </summary>
+        /// <param name="count">The number of crimes recorded in a given area, time and category.</param>
+        /// <param name="id">The unique ID value of the CrimeModel instance.</param>
+        /// <param name="localGovernmentAreaID">An ID number that represents the local goverment area.</param>
+        /// <param name="month">The month when the crimes were commited.</param>
+        /// <param name="offenceID">An ID number representing the type of crime.</param>
+        /// <param name="year">The year when the crimes were commited.</param>
+        public CrimeModel(int count, int id, int localGovernmentAreaID, int month, int offenceID, int year)
 			 : this(count, DateTime.UtcNow, DateTime.UtcNow, id, false, true, localGovernmentAreaID, month, offenceID, year)
 		{
 		}
 
-		public CrimeModel(int count, DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, int localGovernmentAreaID, int month, int offenceID, int year)
+        /// <summary>
+        /// Creates an instance of CrimeModel using the values provided.
+        /// </summary>
+        /// <param name="count">The number of crimes recorded in a given area, time and category.</param>
+        /// <param name="dateCreatedUtc">The date when the record was created.</param>
+        /// <param name="dateUpdatedUtc">The date when the record was last updated.</param>
+        /// <param name="id">The unique ID value for the CrimeModel instance.</param>
+        /// <param name="isDeleted">Specifies whether the instance is flagged as deleted.</param>
+        /// <param name="isVisible">Specifies whether the instance is flagged as visible.</param>
+        /// <param name="localGovernmentAreaID">An ID number that represents the local goverment area.</param>
+        /// <param name="month">The month when the crimes were commited.</param>
+        /// <param name="offenceID">An ID number representing the type of crime.</param>
+        /// <param name="year">The year when the crimes were commited.</param>
+        public CrimeModel(int count, DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, int localGovernmentAreaID, int month, int offenceID, int year)
 		{
 			_count = count;
 			_dateCreatedUtc = dateCreatedUtc;
@@ -38,8 +76,10 @@ namespace CPT331.Web.Models.Admin
 			_offenceID = offenceID;
 			_year = year;
 		}
+        #endregion
 
-		private int _count;
+        #region Instance Variables
+        private int _count;
 		private DateTime _dateCreatedUtc;
 		private DateTime _dateUpdatedUtc;
 		private int _id;
@@ -49,8 +89,13 @@ namespace CPT331.Web.Models.Admin
 		private int _month;
 		private int _offenceID;
 		private int _year;
+        #endregion
 
-		[DataType(DataType.Text)]
+        #region Public Properties
+        /// <summary>
+        /// The number of crimes recorded in a given area, time and category.
+        /// </summary>
+        [DataType(DataType.Text)]
 		[Display(Name = "Count")]
 		[Integer(ErrorMessage = "*")]
 		[Required(ErrorMessage = "*")]
@@ -66,6 +111,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// The date when the record was created.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Date Created")]
 		[Required(ErrorMessage = "*")]
@@ -81,6 +129,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// The date when the record was last updated.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Date Updated")]
 		[Required(ErrorMessage = "*")]
@@ -96,6 +147,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// The unique ID value for the CrimeModel instance.
+        /// </summary>
 		[Integer(ErrorMessage = "*")]
 		public int ID
 		{
@@ -109,6 +163,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// Specifies whether the instance is flagged as deleted.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Deleted")]
 		[Required(ErrorMessage = "*")]
@@ -124,6 +181,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// Specifies whether the instance is flagged as visible.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Visible")]
 		[Required(ErrorMessage = "*")]
@@ -139,6 +199,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// An ID number that represents the local goverment area.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Local Government Area")]
 		[Integer(ErrorMessage = "*")]
@@ -156,6 +219,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// The month when the crimes were commited.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Month")]
 		[Integer(ErrorMessage = "*")]
@@ -173,6 +239,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// An ID number representing the type of crime.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Offence")]
 		[Integer(ErrorMessage = "*")]
@@ -190,6 +259,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// The year when the crimes were commited.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Year")]
 		[Integer(ErrorMessage = "*")]
@@ -206,5 +278,6 @@ namespace CPT331.Web.Models.Admin
 				_year = value;
 			}
 		}
-	}
+        #endregion
+    }
 }

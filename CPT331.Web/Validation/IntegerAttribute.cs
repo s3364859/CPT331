@@ -10,8 +10,16 @@ using CPT331.Data;
 
 namespace CPT331.Web.Validation
 {
+    /// <summary>
+    /// Provides validation for the Integer type (System.Int32).
+    /// </summary>
 	public class IntegerAttribute : ValidationAttribute
 	{
+        /// <summary>
+        /// Checks whether the value specified is a valid Integer number.
+        /// </summary>
+        /// <param name="value">The value to be checked.</param>
+        /// <returns>true if the value is valid; otherwise false.</returns>
 		public override bool IsValid(object value)
 		{
 			bool isValid = false;

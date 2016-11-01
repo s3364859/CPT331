@@ -14,8 +14,15 @@ using System.Web.Http.ModelBinding;
 
 namespace CPT331.WebAPI.Validation
 {
+    /// <summary>
+    /// Provides validation for a given geographical coordindate.
+    /// </summary>
 	public class ValidateCoordinatesAttribute : ActionFilterAttribute
 	{
+        /// <summary>
+        /// Checks if the 'latitude' and 'longitude' method arguments are valid geographical coordindates.
+        /// </summary>
+        /// <param name="httpActionContext">The action context.</param>
 		public override void OnActionExecuting(HttpActionContext httpActionContext)
 		{
 			ModelState latitudeModelState = null;

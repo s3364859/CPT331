@@ -9,18 +9,38 @@ using CPT331.Web.Validation;
 
 namespace CPT331.Web.Models.Admin
 {
+    /// <summary>
+    /// A representation of the OffenceCategory model that services the MVC framework. 
+    /// </summary>
 	public class OffenceCategoryModel : AdminModel
-	{
-		public OffenceCategoryModel()
+    {
+        #region Constructors
+        /// <summary>
+        /// Creates an instance of OffenceCategoryModel using default values.
+        /// </summary>
+        public OffenceCategoryModel()
 		{
 		}
 
-		public OffenceCategoryModel(string name)
+        /// <summary>
+        /// Creates an instance of OffenceCategoryModel using the values provided.
+        /// </summary>
+        /// <param name="name">A group name used to classify similar offesnes.</param>
+        public OffenceCategoryModel(string name)
 			: this(DateTime.UtcNow, DateTime.UtcNow, -1, false, true, name)
 		{
 		}
 
-		public OffenceCategoryModel(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name)
+        /// <summary>
+        /// Creates an instance of OffenceCategoryModel using the values provided.
+        /// </summary>
+        /// <param name="dateCreatedUtc">The date when the record was created.</param>
+        /// <param name="dateUpdatedUtc">The date when the record was last updated.</param>
+        /// <param name="id">The unique ID value for the OffenceCategory instance.</param>
+        /// <param name="isDeleted">Specifies whether the instance is flagged as deleted.</param>
+        /// <param name="isVisible">Specifies whether the instance is flagged as visible.</param>
+        /// <param name="name">A group name used to classify similar offesnes.</param>
+        public OffenceCategoryModel(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name)
 		{
 			_dateCreatedUtc = dateCreatedUtc;
 			_dateUpdatedUtc = dateUpdatedUtc;
@@ -29,15 +49,22 @@ namespace CPT331.Web.Models.Admin
 			_isVisible = isVisible;
 			_name = name;
 		}
-
-		private DateTime _dateCreatedUtc;
+        #endregion
+        
+        #region Instance Variables
+        private DateTime _dateCreatedUtc;
 		private DateTime _dateUpdatedUtc;
 		private int _id;
 		private bool _isDeleted;
 		private bool _isVisible;
 		private string _name;
+        #endregion
 
-		[DataType(DataType.DateTime)]
+        #region Public Properties
+        /// <summary>
+        /// The date when the record was created.
+        /// </summary>
+        [DataType(DataType.DateTime)]
 		[Display(Name = "Date Created")]
 		[Required(ErrorMessage = "*")]
 		public DateTime DateCreatedUtc
@@ -52,6 +79,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// The date when the record was last updated.
+        /// </summary>
 		[DataType(DataType.DateTime)]
 		[Display(Name = "Date Updated")]
 		[Required(ErrorMessage = "*")]
@@ -67,6 +97,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// The unique ID value for the Offense instance.
+        /// </summary>
 		[Integer(ErrorMessage = "*")]
 		public int ID
 		{
@@ -80,6 +113,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// Specifies whether the instance is flagged as deleted.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Deleted")]
 		[Required(ErrorMessage = "*")]
@@ -95,6 +131,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// Specifies whether the instance is flagged as visible.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Visible")]
 		[Required(ErrorMessage = "*")]
@@ -110,6 +149,9 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// The name of the offense.
+        /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Name")]
 		[Required(ErrorMessage = "*")]
@@ -125,5 +167,6 @@ namespace CPT331.Web.Models.Admin
 				_name = value;
 			}
 		}
-	}
+        #endregion
+    }
 }
