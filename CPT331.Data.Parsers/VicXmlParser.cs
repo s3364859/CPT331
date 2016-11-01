@@ -46,10 +46,10 @@ namespace CPT331.Data.Parsers
 			//	The dataset I'm working with has a single year - 2014
 			int year = 2014;
 
-			State state = StateRepository.GetStateByAbbreviatedName(VIC);
-			List<LocalGovernmentArea> localGovernmentAreas = LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(state.ID);
+			State state = DataProvider.StateRepository.GetStateByAbbreviatedName(VIC);
+			List<LocalGovernmentArea> localGovernmentAreas = DataProvider.LocalGovernmentAreaRepository.GetLocalGovernmentAreasByStateID(state.ID);
 			Dictionary<string, Offence> offences = new Dictionary<string, Offence>();
-			OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));
+			DataProvider.OffenceRepository.GetOffences().ForEach(m => offences.Add(m.Name.ToUpper(), m));
 
 			foreach (XmlNode xmlNode in xmlNodeList)
 			{

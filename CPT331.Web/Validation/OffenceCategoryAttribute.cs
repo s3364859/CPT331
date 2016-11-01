@@ -30,7 +30,7 @@ namespace CPT331.Web.Validation
 
                 if (Int32.TryParse(value.ToString(), out id) == true)
                 {
-                    OffenceCategory localGovernmentArea = OffenceCategoryRepository.GetOffenceCategoryByID(id);
+                    OffenceCategory localGovernmentArea = DataProvider.OffenceCategoryRepository.GetOffenceCategoryByID(id);
 
                     isValid = (localGovernmentArea != null);
                 }

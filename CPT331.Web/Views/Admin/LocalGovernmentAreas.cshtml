@@ -7,11 +7,14 @@
     ViewBag.Title = "Local Government Areas | Admin";
 }
 
-<br/>
+<br />
 <h1>@Html.ActionLink("Home", "Home", "Admin") | Local Government Areas</h1>
 <hr /><br />
 
 <p><h3>@Html.ActionLink("New Local Government Area", "NewLocalGovernmentArea", "Admin")</h3></p>
+
+<p><a href="@Url.Action("ExportLocalGovernmentAreas", "Admin")"><img src="/Content/Images/excel.gif" border="0" title="Export Data" /></a></p>
+
 <br/>
 
 @Html.Partial("LocalGovernmentAreasPartial", Model)

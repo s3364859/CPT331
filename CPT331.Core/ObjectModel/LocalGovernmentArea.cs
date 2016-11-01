@@ -9,7 +9,7 @@ namespace CPT331.Core.ObjectModel
 	/// <summary>
 	/// Represents a LocalGovernmentArea type, used to describe a local govenment area.
 	/// </summary>
-	public class LocalGovernmentArea
+	public class LocalGovernmentArea : ReadOnlyDataObject
 	{
 		/// <summary>
 		/// Constructs a new LocalGovernmentArea object.
@@ -33,78 +33,14 @@ namespace CPT331.Core.ObjectModel
 		/// <param name="name">The name of the local government area.</param>
 		/// <param name="stateID">The unique ID of the state that the local government area resides in.</param>
 		public LocalGovernmentArea(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name, int stateID)
+			: base(dateCreatedUtc, dateUpdatedUtc, id, isDeleted, isVisible)
 		{
-			_dateCreatedUtc = dateCreatedUtc;
-			_dateUpdatedUtc = dateUpdatedUtc;
-			_id = id;
-			_isDeleted = isDeleted;
-			_isVisible = isVisible;
 			_name = name;
 			_stateID = stateID;
 		}
 
-		private readonly DateTime _dateCreatedUtc;
-		private readonly DateTime _dateUpdatedUtc;
-		private readonly int _id;
-		private readonly bool _isDeleted;
-		private readonly bool _isVisible;
 		private readonly string _name;
 		private readonly int _stateID;
-
-		/// <summary>
-		/// Gets the date the record was created.
-		/// </summary>
-		public DateTime DateCreatedUtc
-		{
-			get
-			{
-				return _dateCreatedUtc;
-			}
-		}
-
-		/// <summary>
-		/// Gets the date the record was updated.
-		/// </summary>
-		public DateTime DateUpdatedUtc
-		{
-			get
-			{
-				return _dateUpdatedUtc;
-			}
-		}
-
-		/// <summary>
-		/// Gets the unique ID value of the record.
-		/// </summary>
-		public int ID
-		{
-			get
-			{
-				return _id;
-			}
-		}
-
-		/// <summary>
-		/// Gets a boolean value indicating whether this record has been soft-deleted.
-		/// </summary>
-		public bool IsDeleted
-		{
-			get
-			{
-				return _isDeleted;
-			}
-		}
-
-		/// <summary>
-		/// Gets a boolean value indicating whether this record should be visible.
-		/// </summary>
-		public bool IsVisible
-		{
-			get
-			{
-				return _isVisible;
-			}
-		}
 
 		/// <summary>
 		/// Gets the namne of the local government area.
@@ -134,13 +70,7 @@ namespace CPT331.Core.ObjectModel
 		/// <returns>A hash code for the current type.</returns>
 		public override int GetHashCode()
 		{
-			int getHashCode =
-				_dateCreatedUtc.GetHashCode() ^
-				_dateUpdatedUtc.GetHashCode() ^
-				_id.GetHashCode() ^
-				_isDeleted.GetHashCode() ^
-				_isVisible.GetHashCode() ^
-				_stateID.GetHashCode();
+			int getHashCode = base.GetHashCode() ^ _stateID.GetHashCode();
 
 			if (String.IsNullOrEmpty(_name) == false)
 			{
@@ -164,11 +94,7 @@ namespace CPT331.Core.ObjectModel
 			{
 				equals =
 				(
-					(_dateCreatedUtc == localGovernmentArea._dateCreatedUtc) &&
-					(_dateUpdatedUtc == localGovernmentArea._dateUpdatedUtc) &&
-					(_id == localGovernmentArea._id) &&
-					(_isDeleted == localGovernmentArea._isDeleted) &&
-					(_isVisible == localGovernmentArea._isDeleted) &&
+					(base.Equals(localGovernmentArea)) &&
 					(_name == localGovernmentArea._name) &&
 					(_stateID == localGovernmentArea._stateID)
 				);
