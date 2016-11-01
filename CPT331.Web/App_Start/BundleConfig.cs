@@ -23,10 +23,10 @@ namespace CPT331.Web
 			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
 					  "~/Scripts/bootstrap.js",
 					  "~/Scripts/respond.js"));
-
-			bundles.Add(new StyleBundle("~/Content/css").Include(
-					  "~/Content/bootstrap.css",
-					  "~/Content/site.css"));
+            
+			bundles.Add(new StyleBundle("~/Content/css")
+                .Include("~/Content/bootstrap.css")
+				.Include("~/Content/site.css"));
 		}
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
