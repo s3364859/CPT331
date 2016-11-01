@@ -12,39 +12,10 @@ using CPT331.Core.Logging;
 
 namespace CPT331.Data
 {
-	public static class AdhocScriptRepository
+	/// <summary>
+	/// Represents an AdhocScriptRepository type, used to execute SQL against a data source.
+	/// </summary>
+	public class AdhocScriptRepository : Repository
 	{
-		private const int DefaultCommandTimeout = 300;
-
-		public static int ExecuteScript(string sql)
-		{
-			return ExecuteScript(sql, DefaultCommandTimeout);
-		}
-
-		public static int ExecuteScript(string sql, int commandTimeout)
-		{
-			int executeScript = 0;
-
-			if (String.IsNullOrEmpty(sql) == false)
-			{
-				try
-				{
-					using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
-					{
-						SqlMapper.Execute(sqlConnection, sql, commandType: CommandType.Text, commandTimeout: commandTimeout);
-					}
-				}
-				catch (Exception exception)
-				{
-					OutputStreams.WriteLine();
-					OutputStreams.WriteLine(exception.Message);
-					OutputStreams.WriteLine();
-					OutputStreams.WriteLine(sql);
-					OutputStreams.WriteLine();
-				}
-			}
-
-			return executeScript;
-		}
 	}
 }

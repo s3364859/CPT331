@@ -14,16 +14,28 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data
 {
-	public static class LocalGovernmentAreaStateRepository
+	/// <summary>
+	/// Represents an LocalGovernmentAreaStateRepository type, used to local government area and state or territory data.
+	/// </summary>
+	public class LocalGovernmentAreaStateRepository : Repository
 	{
-		public static List<LocalGovernmentAreaState> GetLocalGovernmentAreaStates()
+		/// <summary>
+		/// The Location.spGetLocalGovernmentAreaState stored procedure name.
+		/// </summary>
+		public const string LocationSpGetLocalGovernmentAreaState = "Location.spGetLocalGovernmentAreaState";
+
+		/// <summary>
+		/// Selects all local government area and state or territory information from the underlying data source.
+		/// </summary>
+		/// <returns>Returns a list of LocalGovernmentAreaState objects representing the result of the operation.</returns>
+		public List<LocalGovernmentAreaState> GetLocalGovernmentAreaStates()
 		{
 			List<LocalGovernmentAreaState> localGovernmentAreaStates = null;
 
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
 				localGovernmentAreaStates = SqlMapper
-					.Query(sqlConnection, "Location.spGetLocalGovernmentAreaState", commandType: CommandType.StoredProcedure)
+					.Query(sqlConnection, LocationSpGetLocalGovernmentAreaState, commandType: CommandType.StoredProcedure)
 					.Select(m => new LocalGovernmentAreaState(m.AbbreviatedName, m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsDeleted, m.IsVisible, m.Name, m.StateID, m.StateName))
 					.ToList();
 			}

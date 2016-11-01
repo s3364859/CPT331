@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 
 using Dapper;
@@ -14,16 +15,46 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data
 {
-	public static class OffenceCategoryRepository
+	/// <summary>
+	/// Represents an OffenceCategoryRepository type, used to manipulate offence category data.
+	/// </summary>
+	public class OffenceCategoryRepository : Repository
 	{
-		public static int AddOffenceCategory(bool isDeleted, bool isVisible, string name)
+		/// <summary>
+		/// The Crime.spAddOffenceCategory stored procedure name.
+		/// </summary>
+		public const string CrimeSpAddOffenceCategory = "Crime.spAddOffenceCategory";
+
+		/// <summary>
+		/// The Crime.spGetOffenceCategoryByID stored procedure name.
+		/// </summary>
+		public const string CrimeSpGetOffenceCategoryByID = "Crime.spGetOffenceCategoryByID";
+		
+		/// <summary>
+		/// The Crime.spGetOffenceCategory stored procedure name.
+		/// </summary>
+		public const string CrimeSpGetOffenceCategory = "Crime.spGetOffenceCategory";
+		
+		/// <summary>
+		/// The Crime.spUpdateOffenceCategory stored procedure name.
+		/// </summary>
+		public const string CrimeSpUpdateOffenceCategory = "Crime.spUpdateOffenceCategory";
+	
+		/// <summary>
+		/// Inserts offence category information into the underlying data source.
+		/// </summary>
+		/// <param name="isDeleted">Specifies whether the offence category is flagged as deleted.</param>
+		/// <param name="isVisible">Specifies whether the offence category is flagged as visible.</param>
+		/// <param name="name">Specifies the name of the offence category.</param>
+		/// <returns>Returns the newly created ID for a successful operation, otherwise returns 0.</returns>
+		public int AddOffenceCategory(bool isDeleted, bool isVisible, string name)
 		{
 			int id = 0;
 
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
 				id = (int)SqlMapper
-					.Query(sqlConnection, "Crime.spAddOffenceCategory", new { IsDeleted = isDeleted, IsVisible = isVisible, Name = name }, commandType: CommandType.StoredProcedure)
+					.Query(sqlConnection, CrimeSpAddOffenceCategory, new { IsDeleted = isDeleted, IsVisible = isVisible, Name = name }, commandType: CommandType.StoredProcedure)
 					.Select(m => m.NewID)
 					.Single();
 			}
@@ -31,14 +62,19 @@ namespace CPT331.Data
 			return id;
 		}
 
-		public static OffenceCategory GetOffenceCategoryByID(int id)
+		/// <summary>
+		/// Selects offence category from the underlying data source.
+		/// </summary>
+		/// <param name="id">The ID of the associated offence category.</param>
+		/// <returns>Returns an OffenceCategory object representing the result of the operation.</returns>
+		public OffenceCategory GetOffenceCategoryByID(int id)
 		{
 			OffenceCategory offenceCategory = null;
 
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
 				offenceCategory = SqlMapper
-					.Query(sqlConnection, "Crime.spGetOffenceCategoryByID", new { ID = id }, commandType: CommandType.StoredProcedure)
+					.Query(sqlConnection, CrimeSpGetOffenceCategoryByID, new { ID = id }, commandType: CommandType.StoredProcedure)
 					.Select(m => new OffenceCategory(m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsDeleted, m.IsVisible, m.Name))
 					.FirstOrDefault();
 			}
@@ -46,14 +82,18 @@ namespace CPT331.Data
 			return offenceCategory;
 		}
 
-		public static List<OffenceCategory> GetOffenceCategories()
+		/// <summary>
+		/// Selects all offence categories from the underlying data source.
+		/// </summary>
+		/// <returns>Returns a list of OffenceCategory objects representing the result of the operation.</returns>
+		public List<OffenceCategory> GetOffenceCategories()
 		{
 			List<OffenceCategory> offenceCategories = null;
 
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
 				offenceCategories = SqlMapper
-					.Query(sqlConnection, "Crime.spGetOffenceCategory", commandType: CommandType.StoredProcedure)
+					.Query(sqlConnection, CrimeSpGetOffenceCategory, commandType: CommandType.StoredProcedure)
 					.Select(m => new OffenceCategory(m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsDeleted, m.IsVisible, m.Name))
 					.ToList();
 			}
@@ -61,11 +101,30 @@ namespace CPT331.Data
 			return offenceCategories;
 		}
 
-		public static void UpdateOffenceCategory(int id, bool isDeleted, bool isVisible, string name)
+		/// <summary>
+		/// Exports a list of ReadOnlyDataObject types to a stream.
+		/// </summary>
+		/// <param name="readOnlyDataObjects">The list of ReadOnlyDataObject objects to export.</param>
+		/// <param name="stream">The stream to export the ReadOnlyDataObject list to.</param>
+		protected override void OnExport(List<ReadOnlyDataObject> readOnlyDataObjects, Stream stream)
+		{
+			readOnlyDataObjects = GetOffenceCategories().ToList<ReadOnlyDataObject>();
+
+			base.OnExport(readOnlyDataObjects, stream);
+		}
+
+		/// <summary>
+		/// Updates offence category information in the underlying data source.
+		/// </summary>
+		/// <param name="id">The ID of the associated offence category.</param>
+		/// <param name="isDeleted">Specifies whether the offence category is flagged as deleted.</param>
+		/// <param name="isVisible">Specifies whether the offence category is flagged as visible.</param>
+		/// <param name="name">Specified the name of the offence category.</param>
+		public void UpdateOffenceCategory(int id, bool isDeleted, bool isVisible, string name)
 		{
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
-				SqlMapper.Execute(sqlConnection, "Crime.spUpdateOffenceCategory", new { ID = id, IsDeleted = isDeleted, IsVisible = isVisible, Name = name }, commandType: CommandType.StoredProcedure);
+				SqlMapper.Execute(sqlConnection, CrimeSpUpdateOffenceCategory, new { ID = id, IsDeleted = isDeleted, IsVisible = isVisible, Name = name }, commandType: CommandType.StoredProcedure);
 			}
 		}
 	}

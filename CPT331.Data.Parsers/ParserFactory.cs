@@ -6,8 +6,14 @@ using System;
 
 namespace CPT331.Data.Parsers
 {
+	/// <summary>
+	/// Represents a ParserFactory type, used to construct KmlParser and XmlParser objects from the corresponding name definition.
+	/// </summary>
 	public static class ParserFactory
 	{
+		/// <summary>
+		/// Defines a list of supported KML parser name definitionss.
+		/// </summary>
 		public static string[] SupportedKmlParserNames =
 		{
 			ActKmlParser.ACT,
@@ -20,6 +26,9 @@ namespace CPT331.Data.Parsers
 			WaKmlParser.WA
 		};
 
+		/// <summary>
+		/// Defines a list of supported XML parser name definitionss.
+		/// </summary>
 		public static string[] SupportedXmlParserNames =
 		{
 			ActXmlParser.ACT,
@@ -32,6 +41,12 @@ namespace CPT331.Data.Parsers
 			WaXmlParser.WA
 		};
 
+		/// <summary>
+		/// Constructs new KmlParser objects from the corresponding name definition.
+		/// </summary>
+		/// <param name="dataSourceDirectory">The path to the directory containing the KML data sources.</param>
+		/// <param name="name">The supported KmlParser name definition.</param>
+		/// <returns>Returns a new KmlParser object for a successful operation, otherwise null.</returns>
 		public static KmlParser NewKmlParser(string dataSourceDirectory, string name)
 		{
 			KmlParser parser = null;
@@ -74,6 +89,12 @@ namespace CPT331.Data.Parsers
 			return parser;
 		}
 
+		/// <summary>
+		/// Constructs new XmlParser objects from the corresponding name definition.
+		/// </summary>
+		/// <param name="dataSourceDirectory">The path to the directory containing the KML data sources.</param>
+		/// <param name="name">The supported XmlParser name definition.</param>
+		/// <returns>Returns a new XmlParser object for a successful operation, otherwise null.</returns>
 		public static XmlParser NewXmlParser(string dataSourceDirectory, string name)
 		{
 			XmlParser parser = null;

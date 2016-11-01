@@ -12,22 +12,33 @@ using CPT331.Core.ObjectModel;
 using CPT331.Data;
 using CPT331.WebAPI.Models;
 using CPT331.WebAPI.Validation;
+using Swashbuckle.Swagger.Annotations;
 
 #endregion
 
 namespace CPT331.WebAPI.Controllers
 {
+    /// <summary>
+    ///    A RESTful API controller that provides methods that respond to HTTP requests 
+    ///    that are related to the EventGuardian Event data.
+    /// </summary>
 	public class EventController : ApiController
 	{
 		private const string SortFieldDateTime = "DATETIME";
 		private const string SortFieldID = "ID";
 		private const string SortFieldName = "NAME";
 
+        /// <summary>
+        /// Provides an event data object based on a specified ID.
+        /// </summary>
+        /// <param name="id">The unique ID value of the event data record.</param>
+        /// <returns>A single event record.</returns>
 		[HttpGet]
 		[Route("api/Event/{id}")]
-		public EventModel Event(uint id)
+        [SwaggerResponse(HttpStatusCode.NotFound, "Event Finder data not found.")]
+        public EventModel Event(uint id)
 		{
-			EventModel eventModel = ToEventModel(EventRepository.GetEventByID((int)(id)));
+			EventModel eventModel = ToEventModel(DataProvider.EventInfoRepository.GetEventByID((int)(id)));
 
 			if (eventModel == null)
 			{
@@ -40,12 +51,21 @@ namespace CPT331.WebAPI.Controllers
 			return eventModel;
 		}
 
+        /// <summary>
+        /// Provides a list of events within a specified proximity of the coordinates provided.
+        /// </summary>
+        /// <param name="latitude">Specifies the latitude used to look up local events.</param>
+        /// <param name="longitude">Specifies the longitude used to look up local events.</param>
+        /// <param name="radius">The radius from the latitude/longitude used to look up local events.</param>
+        /// <param name="sortBy">The name of EventModel property used to sort the data object.</param>
+        /// <param name="sortDirection">The sort order of the data returned; as ascending or descending.</param>
+        /// <returns>A list of local Events.</returns>
 		[HttpGet]
 		[Route("api/Event/EventsByCoordinate")]
 		[ValidateCoordinates]
 		public IEnumerable<EventModel> EventsByCoordinate(double latitude, double longitude, double radius, string sortBy = "", SortDirection? sortDirection = null)
 		{
-            IEnumerable<EventInfo> events = EventRepository.GetEventsByCoordinate(latitude, longitude, radius);
+            IEnumerable<EventInfo> events = DataProvider.EventInfoRepository.GetEventsByCoordinate(latitude, longitude, radius);
 			IEnumerable<EventModel> eventModels = events.Select(m => ToEventModel(m));
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
@@ -54,8 +74,15 @@ namespace CPT331.WebAPI.Controllers
 			}
 
 			return eventModels;
-		}
+        }
 
+        /// <summary>
+        /// A sorting provider for the controller actions
+        /// </summary>
+        /// <param name="events">List of events to be sorted.</param>
+        /// <param name="sortBy">The name of EventModel property used to sort the data.</param>
+        /// <param name="sortDirection">The sort order of the data returned; as ascending or descending.</param>
+        /// <returns>A list of Events sorted by the specified property.</returns>
 		private static IEnumerable<EventModel> SortEvents(IEnumerable<EventModel> events, string sortBy, SortDirection? sortDirection)
 		{
 			SortDirection direction = ((sortDirection.HasValue == true) ? sortDirection.Value : SortDirection.Ascending);
@@ -78,6 +105,11 @@ namespace CPT331.WebAPI.Controllers
 			return events;
 		}
 
+        /// <summary>
+        /// Converts an EventInfo instance into an instance of EventModel.
+        /// </summary>
+        /// <param name="eventInfo"></param>
+        /// <returns></returns>
 		private static EventModel ToEventModel(EventInfo eventInfo)
 		{
 			EventModel eventModel = null;

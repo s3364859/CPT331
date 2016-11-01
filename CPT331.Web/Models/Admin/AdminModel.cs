@@ -11,11 +11,17 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Web.Models.Admin
 {
-	public class AdminModel
+    /// <summary>
+    /// A base class that provides common functionality to all Web model classes.
+    /// </summary>
+	public abstract class AdminModel
 	{
 		private bool _isDelete;
 
-		public bool IsDelete
+        /// <summary>
+        /// Specifies whether the instance is flagged as deleted.
+        /// </summary>
+        public bool IsDelete
 		{
 			get
 			{
@@ -27,12 +33,15 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+        /// <summary>
+        /// A list of LocalGovernmentAreas required for selector controls
+        /// </summary>
 		public IEnumerable<SelectListItem> LocalGovernmentAreas
 		{
 			get
 			{
 				List<SelectListItem> localGovernmentAreaList = new List<SelectListItem>();
-				List<LocalGovernmentAreaState> localGovernmentAreaStates = LocalGovernmentAreaStateRepository.GetLocalGovernmentAreaStates();
+				List<LocalGovernmentAreaState> localGovernmentAreaStates = DataProvider.LocalGovernmentAreaStateRepository.GetLocalGovernmentAreaStates();
 
 				localGovernmentAreaStates.ForEach(m => localGovernmentAreaList.Add(new SelectListItem() { Text = $"{m.Name} ({m.AbbreviatedName})", Value = m.ID.ToString() }));
 
@@ -40,12 +49,15 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
-		public IEnumerable<SelectListItem> States
+        /// <summary>
+        /// A list of States required for selector controls
+        /// </summary>
+        public IEnumerable<SelectListItem> States
 		{
 			get
 			{
 				List<SelectListItem> stateList = new List<SelectListItem>();
-				List<State> states = StateRepository.GetStates();
+				List<State> states = DataProvider.StateRepository.GetStates();
 
 				states.ForEach(m => stateList.Add(new SelectListItem() { Text = $"{m.Name} ({m.AbbreviatedName})", Value = m.ID.ToString() }));
 

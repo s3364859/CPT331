@@ -7,7 +7,10 @@ using System.Text;
 
 namespace CPT331.Core.ObjectModel
 {
-	public class Crime
+	/// <summary>
+	/// Represents a Crime type, used to describe information about a crime.
+	/// </summary>
+	public class Crime : ReadOnlyDataObject
 	{
         /// <summary>
         /// Instantiate a Crime object using the values provided.
@@ -17,12 +20,21 @@ namespace CPT331.Core.ObjectModel
         /// <param name="month">The month the crimes were commited.</param>
         /// <param name="offenceID">An ID number representing the type of crime.</param>
         /// <param name="year">The year the crimes were commited</param>
-        /// <seealso cref="Crime(int count, int id, int localGovernmentAreaID, int month, int offenceID, int year)"/>
+        /// <seealso cref="Crime(int, int, int, int, int, int)"/>
 		public Crime(int count, int localGovernmentAreaID, int month, int offenceID, int year)
 			: this(count, DateTime.UtcNow, DateTime.UtcNow, -1, false, true, localGovernmentAreaID, month, offenceID, year)
 		{
 		}
-        
+
+		/// <summary>
+		/// Instantiate a Crime object using the values provided.
+		/// </summary>
+		/// <param name="count">The number of crimes recorded in a given area, time and category.</param>
+		/// <param name="id">The unique ID value.</param>
+		/// <param name="localGovernmentAreaID">An ID number that represents the local goverment area.</param>
+		/// <param name="month">The month the crimes were commited.</param>
+		/// <param name="offenceID">An ID number representing the type of crime.</param>
+		/// <param name="year">The year the crimes were commited</param>
 		public Crime(int count, int id, int localGovernmentAreaID, int month, int offenceID, int year)
 			 : this(count, DateTime.UtcNow, DateTime.UtcNow, id, false, true, localGovernmentAreaID, month, offenceID, year)
 		{
@@ -32,8 +44,8 @@ namespace CPT331.Core.ObjectModel
         /// Instantiate a Crime object using the values provided.
         /// </summary>
         /// <param name="count">The number of crimes recorded in a given area, time and category.</param>
-        /// <param name="dateCreatedUtc">The date when the Crime record was created.</param>
-        /// <param name="dateUpdatedUtc">The date when the Crime record was last updated.</param>
+        /// <param name="dateCreatedUtc">The date when the record was created.</param>
+        /// <param name="dateUpdatedUtc">The date when the record was last updated.</param>
         /// <param name="id">An ID number that represents the Crime record.</param>
         /// <param name="isDeleted">A boolean value indicating a deleted record.</param>
         /// <param name="isVisible">A boolean value indicating a hidden record.</param>
@@ -42,13 +54,9 @@ namespace CPT331.Core.ObjectModel
         /// <param name="offenceID">An ID number representing the type of crime.</param>
         /// <param name="year">The year the crimes were commited</param>
         public Crime(int count, DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, int localGovernmentAreaID, int month, int offenceID, int year)
+			: base(dateCreatedUtc, dateUpdatedUtc, id, isDeleted, isVisible)
 		{
 			_count = count;
-			_dateCreatedUtc = dateCreatedUtc;
-			_dateUpdatedUtc = dateUpdatedUtc;
-			_id = id;
-			_isDeleted = isDeleted;
-			_isVisible = isVisible;
 			_localGovernmentAreaID = localGovernmentAreaID;
 			_month = month;
 			_offenceID = offenceID;
@@ -56,16 +64,14 @@ namespace CPT331.Core.ObjectModel
 		}
 
 		private readonly int _count;
-		private readonly DateTime _dateCreatedUtc;
-		private readonly DateTime _dateUpdatedUtc;
-		private readonly int _id;
-		private readonly bool _isDeleted;
-		private readonly bool _isVisible;
 		private readonly int _localGovernmentAreaID;
 		private readonly int _month;
 		private readonly int _offenceID;
 		private readonly int _year;
 
+		/// <summary>
+		/// Gets the crime count value.
+		/// </summary>
 		public int Count
 		{
 			get
@@ -74,46 +80,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
-		public DateTime DateCreatedUtc
-		{
-			get
-			{
-				return _dateCreatedUtc;
-			}
-		}
-
-		public DateTime DateUpdatedUtc
-		{
-			get
-			{
-				return _dateUpdatedUtc;
-			}
-		}
-
-		public int ID
-		{
-			get
-			{
-				return _id;
-			}
-		}
-
-		public bool IsDeleted
-		{
-			get
-			{
-				return _isDeleted;
-			}
-		}
-
-		public bool IsVisible
-		{
-			get
-			{
-				return _isVisible;
-			}
-		}
-
+		/// <summary>
+		/// Gets the ID of the related local government area.
+		/// </summary>
 		public int LocalGovernmentAreaID
 		{
 			get
@@ -122,6 +91,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the month of the crime data.
+		/// </summary>
 		public int Month
 		{
 			get
@@ -130,6 +102,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the ID of the related offence.
+		/// </summary>
 		public int OffenceID
 		{
 			get
@@ -138,6 +113,9 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
+		/// <summary>
+		/// Gets the year of the crime data.
+		/// </summary>
 		public int Year
 		{
 			get
@@ -146,7 +124,6 @@ namespace CPT331.Core.ObjectModel
 			}
 		}
 
-
         /// <summary>
         /// Returns a Hashcode for this instance.
         /// </summary>
@@ -154,12 +131,8 @@ namespace CPT331.Core.ObjectModel
         public override int GetHashCode()
 		{
 			return
+				base.GetHashCode() ^
 				_count.GetHashCode() ^
-				_dateCreatedUtc.GetHashCode() ^
-				_dateUpdatedUtc.GetHashCode() ^
-				_id.GetHashCode() ^
-				_isDeleted.GetHashCode() ^
-				_isVisible.GetHashCode() ^
 				_localGovernmentAreaID.GetHashCode() ^
 				_month.GetHashCode() ^
 				_offenceID.GetHashCode() ^
@@ -180,12 +153,8 @@ namespace CPT331.Core.ObjectModel
 			{
 				equals =
 				(
+					(base.Equals(crime)) &&
 					(_count == crime._count) &&
-					(_dateCreatedUtc == crime._dateCreatedUtc) &&
-					(_dateUpdatedUtc == crime._dateUpdatedUtc) &&
-					(_id == crime._id) &&
-					(_isDeleted == crime._isDeleted) &&
-					(_isVisible == crime._isDeleted) &&
 					(_localGovernmentAreaID == crime._localGovernmentAreaID) &&
 					(_month == crime._month) &&
 					(_offenceID == crime._offenceID) &&

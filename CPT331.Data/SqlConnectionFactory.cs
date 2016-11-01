@@ -9,7 +9,10 @@ using CPT331.Core;
 
 namespace CPT331.Data
 {
-	public static class SqlConnectionFactory
+	/// <summary>
+	/// Represents an SqlConnectionFactory type, used to construct SqlConnection objects.
+	/// </summary>
+	internal static class SqlConnectionFactory
 	{
 		static SqlConnectionFactory()
 		{
@@ -18,6 +21,10 @@ namespace CPT331.Data
 
 		private static string _connectionString;
 
+		/// <summary>
+		/// Constructs and opens a new SqlConnection object.
+		/// </summary>
+		/// <returns>Returns the newly created and opened SqlConnection object.</returns>
 		public static SqlConnection NewSqlConnetion()
 		{
 			SqlConnection sqlConnection = new SqlConnection(_connectionString);

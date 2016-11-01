@@ -14,16 +14,39 @@ using CPT331.Core.ObjectModel;
 
 namespace CPT331.Data
 {
-	public static class UserRepository
+	/// <summary>
+	/// Represents a UserRepository type, used to manipulate user data.
+	/// </summary>
+	public class UserRepository : Repository
 	{
-		public static User GetUserByID(int id)
+		/// <summary>
+		/// The Registration.spGetUser stored procedure name.
+		/// </summary>
+		public const string RegistrationSpGetUser = "Registration.spGetUser";
+
+		/// <summary>
+		/// The Registration.spGetUserByID stored procedure name.
+		/// </summary>
+		public const string RegistrationSpGetUserByID = "Registration.spGetUserByID";
+		
+		/// <summary>
+		/// The Registration.spGetUserByUsername stored procedure name.
+		/// </summary>
+		public const string RegistrationSpGetUserByUsername = "Registration.spGetUserByUsername";
+
+		/// <summary>
+		/// Selects a user from the underlying data souce.
+		/// </summary>
+		/// <param name="id">The ID of the associated user.</param>
+		/// <returns>Returns a User object representing the result of the operation.</returns>
+		public User GetUserByID(int id)
 		{
 			User user = null;
 
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
 				user = SqlMapper
-					.Query(sqlConnection, "Registration.spGetUserByID", new { ID = id }, commandType: CommandType.StoredProcedure)
+					.Query(sqlConnection, RegistrationSpGetUserByID, new { ID = id }, commandType: CommandType.StoredProcedure)
 					.Select(m => new User(m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsActive, m.IsDeleted, m.Password, m.Username))
 					.FirstOrDefault();
 			}
@@ -31,14 +54,19 @@ namespace CPT331.Data
 			return user;
 		}
 
-		public static User GetUserByUsername(string username)
+		/// <summary>
+		/// Selects a user from the underlying data souce.
+		/// </summary>
+		/// <param name="username">The username of theassociated user.</param>
+		/// <returns>Returns a User object representing the result of the operation.</returns>
+		public User GetUserByUsername(string username)
 		{
 			User user = null;
 
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
 				user = SqlMapper
-					.Query(sqlConnection, "Registration.spGetUserByUsername", new { EmailAddress = username }, commandType: CommandType.StoredProcedure)
+					.Query(sqlConnection, RegistrationSpGetUserByUsername, new { EmailAddress = username }, commandType: CommandType.StoredProcedure)
 					.Select(m => new User(m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsActive, m.IsDeleted, m.Password, m.Username))
 					.FirstOrDefault();
 			}
@@ -46,14 +74,18 @@ namespace CPT331.Data
 			return user;
 		}
 
-		public static List<User> GetUsers()
+		/// <summary>
+		/// Selects all users from the underlying data source.
+		/// </summary>
+		/// <returns>Returns a list of User objects representing the result of the operation.</returns>
+		public List<User> GetUsers()
 		{
 			List<User> users = null;
 
 			using (SqlConnection sqlConnection = SqlConnectionFactory.NewSqlConnetion())
 			{
 				users = SqlMapper
-					.Query(sqlConnection, "Registration.spGetUser", commandType: CommandType.StoredProcedure)
+					.Query(sqlConnection, RegistrationSpGetUser, commandType: CommandType.StoredProcedure)
 					.Select(m => new User(m.DateCreatedUtc, m.DateUpdatedUtc, m.ID, m.IsActive, m.IsDeleted, m.Password, m.Username))
 					.ToList();
 			}

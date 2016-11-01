@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\CPT331.Data.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -55,14 +56,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdhocScriptRepository.cs" />
+    <Compile Include="DataProvider.cs" />
     <Compile Include="LocalGovernmentAreaStateRepository.cs" />
     <Compile Include="OffenceCategoryRepository.cs" />
     <Compile Include="OffenceRepository.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="StateRepository.cs" />
     <Compile Include="LocalGovernmentAreaRepository.cs" />
     <Compile Include="CrimeRepository.cs" />
-    <Compile Include="EventRepository.cs" />
+    <Compile Include="EventInfoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlConnectionFactory.cs" />
   </ItemGroup>
