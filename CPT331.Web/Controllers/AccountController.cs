@@ -44,7 +44,7 @@ namespace CPT331.Web.Controllers
         [HttpPost]
         public ActionResult Login(string loginName, string password)
         {
-            User user = UserRepository.GetUserByUsername("administrator");
+            User user = DataProvider.UserRepository.GetUserByUsername("administrator");
             if (loginName == user.Username && StringExtensions.Hash(password) == user.Password)
             {
                 Session[SessionKey.Key] = new UserModel() { LoginName = loginName, Password = password };
