@@ -8,7 +8,6 @@
 
 import UIKit
 
-// This class is intentionally lite so that the WeatherPredictionView is reusable
 class WeatherPredictionCell: UICollectionViewCell {
     @IBOutlet weak var predictionView: WeatherPredictionView!
 }

@@ -9,6 +9,7 @@
 import Foundation
 import Mapbox
 
+/// Handles loading events in the maps visible region and informing the MapViewController of when it should update
 class MapViewModel:EventsViewModel {
     
     let mapView:MGLMapView
@@ -62,7 +63,7 @@ class MapViewModel:EventsViewModel {
             self.filterEvents(&cachedEvents, withWhitelist: self.whitelist)
 
             self.events = cachedEvents
-            self.delegate?.update()
+            self.delegate?.showData()
         }
         
         if fromAPI {
@@ -84,7 +85,7 @@ class MapViewModel:EventsViewModel {
                 self.filterEvents(&fetchedEvents, withWhitelist: self.whitelist)
                 
                 self.events = fetchedEvents
-                self.delegate?.update()
+                self.delegate?.showData()
             }
         }
     }

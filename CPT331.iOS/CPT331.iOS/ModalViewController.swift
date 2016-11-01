@@ -8,31 +8,43 @@
 
 import UIKit
 
+/**
+    The ModalViewController handles initializing and displaying a custom modal view window.
+    When instantiating, it is expected that a view controller for the sub view is provided.
+ */
 class ModalViewController: UIViewController, UIGestureRecognizerDelegate {
+
+    // -----------------------------
+    // MARK: Constants
+    // -----------------------------
+    internal static let eventStoryboardRef = "eventNavigationController"
+    internal static let locationStoryboardRef = "locationTabBarController"
     
-    enum ModalViewType {
-        case Event
-        case Location
-        
-        var identifier:String {
-            switch self {
-            case .Event: return "eventNavigationController"
-            case .Location: return "locationTabBarController"
-            }
-        }
-    }
     
+    
+    // -----------------------------
+    // MARK: Runtime Variables
+    // -----------------------------
+    /// View controller to be displayed within the container view
+    var subViewController: UIViewController?
+    
+    /// Completion handler to be executed when the view hides
+    var onDisappear: (() -> ())?
+    
+    
+    
+    // -----------------------------
+    // MARK: Storyboard References
+    // -----------------------------
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     @IBOutlet weak var containerView: UIView!
     
-    // One of these vars should be passed in from MapViewController
-    var location:Location?
-    var event:Event?
     
-    // Completion handler to be executed when the view hides
-    var onDisappear: (() -> ())?
     
+    // -----------------------------
+    // MARK: Main Logic
+    // -----------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,61 +52,42 @@ class ModalViewController: UIViewController, UIGestureRecognizerDelegate {
         self.visualEffectView.layer.cornerRadius = 4
         self.visualEffectView.clipsToBounds = true
         
-        // Ensure at least 1 var is set
-        // XOR would be preferred.. but swift no longer supports boolean XOR
-        guard ((location != nil) && (event == nil)) || (location == nil) && (event != nil) else {
-            print("ModalViewController.ViewDidLoad: Both location & event vars are undefined, unable to display view")
-            return
-        }
-    
-        // Toggle desired view
-        if location != nil {
-            self.toggleSubview(ModalViewType.Location)
-        } else if event != nil {
-            self.toggleSubview(ModalViewType.Event)
-        }
-        
         let backgroundTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ModalViewController.backgroundTap(_:)))
         backgroundTapRecognizer.delegate = self
         self.backgroundView.addGestureRecognizer(backgroundTapRecognizer)
+        
+        if let controller = self.subViewController {
+            self.loadSubViewController(controller)
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         self.onDisappear?()
     }
     
-    func toggleSubview(type:ModalViewType) {
-        if let controller = self.storyboard?.instantiateViewControllerWithIdentifier(type.identifier) {
-            
-            // Provide Event object
-            if type == .Event, let eventController = controller as? EventNavigationController {
-                eventController.event = self.event
-                
-            // Provide Location object
-            } else if type == .Location, let locationController = controller as? LocationTabBarController {
-                locationController.location = self.location
-            }
-            
-            // Add new child view controller
-            controller.view.frame = self.containerView.frame
-            self.addChildViewController(controller)
-            self.containerView.addSubview(controller.view)
-            controller.didMoveToParentViewController(self)
-        }
-    }
     
-    // Remove modal window if the background is tapped
+    /// Updates the container view to display the specified view controller.
+    internal func loadSubViewController(controller: UIViewController) {
+        controller.view.frame = self.containerView.frame
+        self.addChildViewController(controller)
+        self.containerView.addSubview(controller.view)
+        controller.didMoveToParentViewController(self)
+    }
+
+    
+    
+    // -----------------------------
+    // MARK: Event responders
+    // -----------------------------
+    
+    /// Responds to the background being tapped by dissmissing the view controller
     func backgroundTap(sender: UITapGestureRecognizer?=nil) {
         self.dismissViewControllerAnimated(true, completion: {})
     }
     
-    // Require the background to be tapped, and not child elements
+    /// Determines if the background touch event should be recognize; it is required that the background itself is being tapped and not a subview.
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         return touch.view == self.backgroundView
     }

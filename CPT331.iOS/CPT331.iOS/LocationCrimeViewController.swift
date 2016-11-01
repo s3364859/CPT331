@@ -8,9 +8,14 @@
 
 import UIKit
 import Charts
+import CoreLocation
 
+/// Handles retrieving and displaying crime data for a particular location
 class LocationCrimeViewController: LocationViewController, ChartViewDelegate {
-    @IBOutlet weak var pieChartView: PieChartView!
+    
+    // -----------------------------
+    // MARK: Constants
+    // -----------------------------
     
     // Chart Title
     let chartTitleFont       = NSUIFont(name: "HelveticaNeue-Light",  size: 15.0)!
@@ -49,56 +54,78 @@ class LocationCrimeViewController: LocationViewController, ChartViewDelegate {
         UIColor(red:  86/255, green: 226/255, blue: 137/255, alpha: 1)  // Sea green
     ]
     
+    
+    
+    // -----------------------------
+    // MARK: Storyboard References
+    // -----------------------------
+    @IBOutlet weak var pieChartView: PieChartView!
 
-
+    
+    
+    // -----------------------------
+    // MARK: Main Logic
+    // -----------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Hide view and display indicator while loading
+        
+        // Show loading indicator until view is ready to be displayed
         self.pieChartView.hidden = true
         let indicator = self.view.showLoadingIndicator()
         
-        // Fetch data
-        CrimeManager.sharedInstance.getCrimeData(atCoordinate: self.location.coordinate) { crimeData in
-            
-            if let crimeData = crimeData {
-                let labels = crimeData.offences.map({$0.name})
-                let values = crimeData.offences.map({$0.value})
-                
-                // Update view
-                dispatch_async(dispatch_get_main_queue(), { 
-                    self.setChartData(labels, values: values)
-                    
-                    var subtitle:String
-                    
-                    // Show year range if dataset is for multiple years
-                    if crimeData.beginYear < crimeData.endYear {
-                        subtitle = "\(crimeData.beginYear)-\(crimeData.endYear)"
-                        
-                    // Otherwise, just show a single year
-                    } else {
-                        subtitle = "\(crimeData.beginYear)"
-                    }
-                    
-                    self.setChartTitle("Crime Data", subtitle: subtitle)
-                    self.setChartDescription(crimeData.name)
-                })
-            }
-            
-            // Make view visible
+        // Load chart data and make view visible again once complete
+        self.loadChartData(forCoordinate: self.location.coordinate) {
             indicator.removeFromSuperview()
             self.pieChartView.hidden = false
         }
     }
     
     
-    
-    
+    /**
+        Retrieves crime data from the CrimeManager and updates the view upon completion
+     
+        - Parameters:
+            - coordinate: the geographical location to request data for
+            - completion: optional completion handler to be fired once data has been loaded
+    */
+    func loadChartData(forCoordinate coordinate:CLLocationCoordinate2D, completion: (()->())?=nil) {
+        CrimeManager.sharedInstance.getCrimeData(atCoordinate: coordinate) { crimeData in
+            
+            if let crimeData = crimeData {
+                let labels = crimeData.offences.map({$0.name})
+                let values = crimeData.offences.map({$0.value})
+                
+                // Update view
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.setChartData(labels, values: values)
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+                    // Show year range if dataset is for multiple years, otherwise show single year
+                    let subtitle:String = crimeData.beginYear < crimeData.endYear ?
+                        "\(crimeData.beginYear)-\(crimeData.endYear)" : "\(crimeData.beginYear)"
+                    
+                    self.setChartTitle("Crime Data", subtitle: subtitle)
+                    self.setChartDescription(crimeData.name)
+                })
+            }
+            
+            // Fire completion handler
+            completion?()
+        }
     }
     
+    
+    
+    // -----------------------------
+    // MARK: Data Display
+    // -----------------------------
+    
+    /**
+        Updates the chart view to reflect data in the parallel ararys. The sort order for each array should be identical.
+        
+        - Parameters:
+            - labels: labels to be displayed
+            - values: corresponding numeric data
+    */
     func setChartData(labels: [String], values: [Double]) {
         var dataEntries = [ChartDataEntry]()
         
@@ -124,6 +151,8 @@ class LocationCrimeViewController: LocationViewController, ChartViewDelegate {
         self.pieChartView.data = data
     }
     
+    
+    /// Updates the title & subtitle in the center of the chart
     func setChartTitle(title:String?, subtitle:String?) {
         guard let title = title else {
             self.pieChartView.centerAttributedText = nil
@@ -156,6 +185,8 @@ class LocationCrimeViewController: LocationViewController, ChartViewDelegate {
         self.pieChartView.centerAttributedText = centerText
     }
     
+    
+    /// Updates the description in the bottom right corner of the chart
     func setChartDescription(description:String?) {
         if description != nil {
             self.pieChartView.descriptionText = description!

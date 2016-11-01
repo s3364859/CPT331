@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/// Stores a location reference to make it more convenient for passing data between views
 class LocationTabBarController: UITabBarController {
     
     // Passed in from ModalViewController

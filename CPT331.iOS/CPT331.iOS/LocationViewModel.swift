@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Handles loading events for particular location and informing the LocationEventsViewController of when it should update
 class LocationViewModel:EventsViewModel {
     
     let location:Location
@@ -71,7 +72,7 @@ class LocationViewModel:EventsViewModel {
             self.filterEvents(&cachedEvents, withWhitelist: whitelist)
 
             self.sections = self.sections(forEvents: cachedEvents, withSortOrder: self.sortOrder!)
-            self.delegate?.update()
+            self.delegate?.showData()
         }
         
         if fromAPI {
@@ -92,7 +93,7 @@ class LocationViewModel:EventsViewModel {
                 self.filterEvents(&fetchedEvents, withWhitelist: whitelist)
 
                 self.sections = self.sections(forEvents: fetchedEvents, withSortOrder: self.sortOrder!)
-                self.delegate?.update()
+                self.delegate?.showData()
             }
         }
     }

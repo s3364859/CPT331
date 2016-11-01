@@ -106,6 +106,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "eventguardian"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

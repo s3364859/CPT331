@@ -10,6 +10,10 @@ import UIKit
 import Mapbox
 import SideMenu
 
+/**
+    The MapViewController handles populating the map with event data and responding to user touch events (Panning, zooming, tapping). To display the event markers,
+    it relies upon a MapViewModel to handle fetching event data in the visible region and informing the MapViewController of when it should update the visible markers.
+ */
 class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDelegate, UIGestureRecognizerDelegate, LocationSearchDelegate {
     
     // -----------------------------
@@ -36,8 +40,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     // MARK: Runtime Variables
     // -----------------------------
     var viewModel:MapViewModel!
-    
-    /// Used to keep track of when the map region is changing
     var mapRegionIsChanging:Bool=false
     
     
@@ -154,29 +156,39 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
     
     
     /**
-        Handles passing data to the view which is about to be displayed.
+        Handles view controller transitions. If the destination view controller is a modal view controller, the respectivfe subview controller will also be initialized. 
+        Additionally, while the modal view controller is visible, updating of the mapview will be disabled to minimise framerate lag.
      
-        - Note: If the requested view is a ModalViewController, map updates will be disabled until the modal view has disappeared.
+        - Note: If a modal view is to be displayed for a location or event, it is expected that the sender parameter is either a location or event.
      
         - Parameters:
             - segue: the segue object containing information about view controllers involved in segue
-            - pan: the object that initiated the segue
+            - sender: the object to be displayed in the view
      */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? ModalViewController, let identifier = segue.identifier {
+        
+        if let modalViewController = segue.destinationViewController as? ModalViewController, let identifier = segue.identifier {
+
             switch identifier {
-            case "showLocationView":
-                vc.location = sender as? Location
             case "showEventView":
-                vc.event = sender as? Event
-            default:
-                ()
+                if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("eventNavigationController") as? EventNavigationController {
+                    controller.event = sender as! Event
+                    modalViewController.subViewController = controller
+                }
+                
+            case "showLocationView":
+                if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("locationTabBarController") as? LocationTabBarController {
+                    controller.location = sender as! Location
+                    modalViewController.subViewController = controller
+                }
+                
+            default:()
             }
             
             // Prevent map from updating while ModalViewController is visible
             // Updating map markers is expensive, it will cause event list view to stutter if not disabled
             self.viewModel.delegate = nil
-            vc.onDisappear = {
+            modalViewController.onDisappear = {
                 self.viewModel.delegate = self
                 self.viewModel.loadEvents(fromCache: true, fromAPI: false)
             }
@@ -199,7 +211,7 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
      
         - Returns: TRUE: if the map markers were updated. FALSE: if the map markers weren't updated.
      */
-    func update() {
+    func showData() {
         
         // Only update map if not already panning
         guard self.mapRegionIsChanging == false else {

@@ -8,17 +8,35 @@
 
 import UIKit
 
+/// Handles retrieving and displaying events surrounding a particular location
 class LocationEventsViewController: LocationViewController, UITableViewDataSource, UITableViewDelegate, EventsViewModelDelegate {
-
-    let ROW_HEIGHT:CGFloat = 54
     
-    @IBOutlet weak var tableView: UITableView!
+    // -----------------------------
+    // MARK: Constants
+    // -----------------------------
+    let rowHeight:CGFloat = 54
     
+    
+    
+    // -----------------------------
+    // MARK: Runtime Variables
+    // -----------------------------
     var viewModel:LocationViewModel!
-
     var indicator:UIActivityIndicatorView?
     var navIndicator:UIBarButtonItem?
-
+    
+    
+    
+    // -----------------------------
+    // MARK: Storyboard References
+    // -----------------------------
+    @IBOutlet weak var tableView: UITableView!
+    
+    
+    
+    // -----------------------------
+    // MARK: Main Logic
+    // -----------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,6 +49,7 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         self.tableView.delegate = self
         self.tableView.backgroundColor = .clearColor()
         self.tableView.tableFooterView = UIView()
+        self.tableView.rowHeight = self.rowHeight
         
         // Loading Indicators
         self.indicator = self.view.showLoadingIndicator()
@@ -42,6 +61,14 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         self.viewModel.loadEvents(fromCache: true, fromAPI: true)
     }
     
+    
+    /**
+        Overrides default functionality so that the tables alpha can also be animated. This is necessary because of the clear background.
+        Under normal circumstances, it is expected that the pushed views background will cover the current view
+     
+        - Parameters
+            - animated: whether or not the transition is being animated
+    */
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -54,24 +81,27 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         }
     }
     
+    
+    /// Overrides the default functionality so the table alpha can be restored, ensuring it is visible again
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Restore the table alpha so that it is visible
         self.tableView.alpha = 1
     }
-
-
     
-    func update() {
+    
+    
+    // -----------------------------
+    // MARK: Data Display
+    // -----------------------------
+    
+    /// Updates the view to reflect the currently stored data
+    func showData() {
         // Execute table reload on main thread
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
         })
 
-        // First call
-        // Assumption: 2 calls will be made
-        // TODO: make this logic more robust
+        // On first call, move the loading indicator to the nav bar
         if self.indicator != nil && self.navIndicator != nil {
             
             if self.viewModel.sections?.count > 0 {
@@ -91,6 +121,13 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
     }
 
 
+    
+    
+    
+    // -----------------------------
+    // MARK: Table view data source
+    // -----------------------------
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if let sections = self.viewModel.sections {
             return sections.count
@@ -122,6 +159,7 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         return cell
     }
     
+    /// Transitions the view to the selected event
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -132,13 +170,5 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
                 self.navigationController?.pushViewController(controller, animated: true)
             }
         }
-    }
-    
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.backgroundColor = .clearColor()
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.ROW_HEIGHT
     }
 }

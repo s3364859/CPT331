@@ -7,12 +7,29 @@
 //
 
 import UIKit
+import CoreLocation
 
+/// Handles retrieving and displaying weather data for a particular location
 class LocationWeatherViewController: LocationViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    // Constants
-    let predictionColumns = 4
+    // -----------------------------
+    // MARK: Constants
+    // -----------------------------
+    let predictionColumnCount = 4
     
+    
+    
+    // -----------------------------
+    // MARK: Runtime Variables
+    // -----------------------------
+    /// Weather data loaded from async API call
+    var weatherData: WeatherDataCollection?
+    
+    
+    
+    // -----------------------------
+    // MARK: Storyboard References
+    // -----------------------------
     @IBOutlet weak var mainStackView: UIStackView!
     @IBOutlet weak var currentTemperatureLabel: UILabel!
     @IBOutlet weak var currentCategoryImageView: UIImageView!
@@ -32,9 +49,10 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
     }
     
     
-    // Loaded from async api call
-    var weatherData: WeatherDataCollection?
     
+    // -----------------------------
+    // MARK: Main Logic
+    // -----------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,17 +63,16 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
         self.windSpeedView.type = .WindSpeed
         self.windBearingView.type = .WindBearing
         
-        
         self.predictionCollectionView.backgroundView?.backgroundColor = nil
         self.predictionCollectionView.delegate = self
         self.predictionCollectionView.dataSource = self
         
+        // Show loading indicator until view is ready to be displayed
         self.mainStackView.hidden = true
         let indicator = self.view.showLoadingIndicator()
         
-        WeatherManager.sharedInstance.getWeather(atCoordinate: self.location.coordinate) { data in
-            self.weatherData = data
-            self.update()
+        // Load weather data and make view visible again once complete
+        self.loadWeatherData(forCoordinate: self.location.coordinate) {
             indicator.removeFromSuperview()
             self.mainStackView.hidden = false
         }
@@ -63,22 +80,41 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.updateConstraints()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.resizeConstraints()
     }
     
-    // Monitor device rotation so constraints can be updated upon changing
+    
+    /**
+        Retrieves weather data from the WeatherManager and updates the view upon completion
+     
+        - Parameters:
+            - coordinate: the geographical location to request data for
+            - completion: optional completion handler to be fired once data has been loaded
+     */
+    func loadWeatherData(forCoordinate coordinate:CLLocationCoordinate2D, completion: (()->())?=nil) {
+        WeatherManager.sharedInstance.getWeather(atCoordinate: self.location.coordinate) { data in
+            self.weatherData = data
+            self.showData()
+            
+            // Fire completion handler
+            completion?()
+        }
+    }
+    
+    
+    
+    // -----------------------------
+    // MARK: Helpers
+    // -----------------------------
+    /// Monitor device rotation so constraints can be updated upon changing, automatically called
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        self.updateConstraints()
+        self.resizeConstraints()
     }
     
-    func updateConstraints() {
-        // Hide prediction views when device is in landscape
+    
+    /// Hides prediction views when device is in landscape
+    func resizeConstraints() {
         if UIDevice.currentDevice().orientation.isLandscape {
             self.predictionsHeightConstraint?.priority = 900
         } else {
@@ -89,7 +125,13 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
     }
     
     
-    func update() {
+    
+    // -----------------------------
+    // MARK: Data Display
+    // -----------------------------
+    
+    /// Updates the view to reflect the currently stored data
+    func showData() {
         guard self.weatherData != nil else {
             return
         }
@@ -126,16 +168,18 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
             }
         }
         
-        self.updateConstraints()
+        self.resizeConstraints()
         self.predictionCollectionView.reloadData()
     }
     
     
     
     
-    /* --------------------------------- *
-     *    Prediction Colleciton View     *
-     * --------------------------------- */
+    // -----------------------------
+    // MARK: Collection view data source
+    // -----------------------------
+    
+    /// The number of weather predictions to display
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let predictions = self.weatherData?.dailyData {
             return predictions.count
@@ -144,6 +188,8 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
         }
     }
     
+    
+    /// Instantiates a collection view cell for the respective weather prediction
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("weatherPredictionCell", forIndexPath: indexPath)
         
@@ -156,8 +202,10 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
         return cell
     }
     
+    
+    /// Determines the width and height of the cell so that the width is equal to (device width / column count)
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let width = CGFloat(Int(self.predictionCollectionView.frame.width)/self.predictionColumns)
+        let width = CGFloat(Int(self.predictionCollectionView.frame.width)/self.predictionColumnCount)
         let height = self.predictionCollectionView.frame.height
         return CGSize(width: width, height: height)
     }

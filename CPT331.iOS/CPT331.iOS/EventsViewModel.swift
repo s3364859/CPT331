@@ -11,7 +11,7 @@ import Mapbox
 
 /// Delegate to be used to trigger UIView updates
 protocol EventsViewModelDelegate {
-    func update()
+    func showData()
 }
 
 /// Abstract class for retrieving data from event API and updating UIView. This class should be subclassed to utilize its functionality.
