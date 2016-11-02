@@ -11,15 +11,16 @@ namespace CPT331.Data
 	/// </summary>
 	public static class DataProvider
 	{
-		private static AdhocScriptRepository _adhocScriptRepository;
-		private static CrimeRepository _crimeRepository;
-		private static EventInfoRepository _eventInfoRepository;
-		private static LocalGovernmentAreaRepository _localGovernmentAreaRepository;
-		private static LocalGovernmentAreaStateRepository _localGovernmentAreaStateRepository;
-		private static OffenceCategoryRepository _offenceCategoryRepository;
-		private static OffenceRepository _offenceRepository;
-		private static StateRepository _stateRepository;
-		private static UserRepository _userRepository;
+		private static AdhocScriptRepository _adhocScriptRepository = null;
+		private static CrimeOffenceLocalGovernmentAreaStateRepository _crimeOffenceLocalGovernmentAreaStateRepository = null;
+		private static CrimeRepository _crimeRepository = null;
+		private static EventInfoRepository _eventInfoRepository = null;
+		private static LocalGovernmentAreaRepository _localGovernmentAreaRepository = null;
+		private static LocalGovernmentAreaStateRepository _localGovernmentAreaStateRepository = null;
+		private static OffenceCategoryRepository _offenceCategoryRepository = null;
+		private static OffenceRepository _offenceRepository = null;
+		private static StateRepository _stateRepository = null;
+		private static UserRepository _userRepository = null;
 
 		/// <summary>
 		/// Gets the AdhocScriptRepository repository object.
@@ -28,12 +29,18 @@ namespace CPT331.Data
 		{
 			get
 			{
-				if (_adhocScriptRepository == null)
-				{
-					_adhocScriptRepository = new AdhocScriptRepository();
-				}
+				return GetDataRepository(_adhocScriptRepository);
+			}
+		}
 
-				return _adhocScriptRepository;
+		/// <summary>
+		/// Gets the CrimeOffenceLocalGovernmentAreaStateRepository repository object.
+		/// </summary>
+		public static CrimeOffenceLocalGovernmentAreaStateRepository CrimeOffenceLocalGovernmentAreaStateRepository
+		{
+			get
+			{
+				return GetDataRepository(_crimeOffenceLocalGovernmentAreaStateRepository);
 			}
 		}
 
@@ -44,12 +51,7 @@ namespace CPT331.Data
 		{
 			get
 			{
-				if (_crimeRepository == null)
-				{
-					_crimeRepository = new CrimeRepository();
-				}
-
-				return _crimeRepository;
+				return GetDataRepository(_crimeRepository);
 			}
 		}
 
@@ -60,12 +62,7 @@ namespace CPT331.Data
 		{
 			get
 			{
-				if (_eventInfoRepository == null)
-				{
-					_eventInfoRepository = new EventInfoRepository();
-				}
-
-				return _eventInfoRepository;
+				return GetDataRepository(_eventInfoRepository);
 			}
 		}
 
@@ -76,12 +73,7 @@ namespace CPT331.Data
 		{
 			get
 			{
-				if (_localGovernmentAreaRepository == null)
-				{
-					_localGovernmentAreaRepository = new LocalGovernmentAreaRepository();
-				}
-
-				return _localGovernmentAreaRepository;
+				return GetDataRepository(_localGovernmentAreaRepository);
 			}
 		}
 
@@ -92,12 +84,7 @@ namespace CPT331.Data
 		{
 			get
 			{
-				if (_localGovernmentAreaStateRepository == null)
-				{
-					_localGovernmentAreaStateRepository = new LocalGovernmentAreaStateRepository();
-				}
-
-				return _localGovernmentAreaStateRepository;
+				return GetDataRepository(_localGovernmentAreaStateRepository);
 			}
 		}
 
@@ -108,12 +95,7 @@ namespace CPT331.Data
 		{
 			get
 			{
-				if (_offenceCategoryRepository == null)
-				{
-					_offenceCategoryRepository = new OffenceCategoryRepository();
-				}
-
-				return _offenceCategoryRepository;
+				return GetDataRepository(_offenceCategoryRepository);
 			}
 		}
 
@@ -124,12 +106,7 @@ namespace CPT331.Data
 		{
 			get
 			{
-				if (_offenceRepository == null)
-				{
-					_offenceRepository = new OffenceRepository();
-				}
-
-				return _offenceRepository;
+                return GetDataRepository(_offenceRepository);
 			}
 		}
 
@@ -139,13 +116,8 @@ namespace CPT331.Data
 		public static StateRepository StateRepository
 		{
 			get
-			{
-				if (_stateRepository == null)
-				{
-					_stateRepository = new StateRepository();
-				}
-
-				return _stateRepository;
+            {
+                return GetDataRepository(_stateRepository);
 			}
 		}
 
@@ -156,13 +128,17 @@ namespace CPT331.Data
 		{
 			get
 			{
-				if (_userRepository == null)
-				{
-					_userRepository = new UserRepository();
-				}
-
-				return _userRepository;
-			}
+                return GetDataRepository(_userRepository);
+            }
 		}
+
+        private static T GetDataRepository<T>(T instanceVariable) where T : Repository, new()
+        {
+            if(instanceVariable == null)
+            {
+                instanceVariable = new T();
+            }
+            return instanceVariable;
+        }
 	}
 }

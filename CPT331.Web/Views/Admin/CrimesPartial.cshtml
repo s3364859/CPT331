@@ -1,0 +1,71 @@
+﻿@using CPT331.Core.ObjectModel
+
+@model IEnumerable<CrimeOffenceLocalGovernmentAreaState>
+
+@{
+    SortDirection sortDirection = ((Request.QueryString["SortDirection"] == "Ascending") ? SortDirection.Descending : SortDirection.Ascending);
+    string sortBy = "";
+
+    if (Request.QueryString["SortBy"] != null)
+    {
+        sortBy = Request.QueryString["SortBy"];
+    }
+
+    int pageSize = 50;
+    int currentPage = 0, pages = 0, previousPage = 0, nextPage = 0, startIndex = 0;
+
+    if (Model != null)
+    {
+        currentPage = ((Request.QueryString["Page"] != null) ? Convert.ToInt32(Request.QueryString["Page"]) : 1);
+        previousPage = ((currentPage - 1) > 1) ? (currentPage - 1) : 1;
+        nextPage = ((Model.Count() < pageSize) ? currentPage : (currentPage + 1));
+        startIndex = (currentPage * pageSize) - pageSize;
+    }
+}
+
+<br />
+
+<table cellpadding="3" cellspacing="0" border="0" width="100%" class="AdminTable">
+
+<tr>
+<td>@Html.ActionLink("<< Previous", "Crimes", "Admin", new { Page = previousPage }, null)</td>
+<td colspan="8">&nbsp;</td>
+<td align="right">@Html.ActionLink("Next >>", "Crimes", "Admin", new { Page = nextPage }, null)</td>
+</tr>
+
+<tr>
+<td colspan="10">&nbsp;</td>
+</tr>
+
+<tr>
+<td><strong>@Html.ActionLink("ID", "Crimes", "Admin", new { @SortBy = "ID", @SortDirection = sortDirection }, new { @class = (sortBy == "ID" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("State/Territory", "Crimes", "Admin", new { @SortBy = "StateName", @SortDirection = sortDirection }, new { @class = (sortBy == "StateName" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("LGA", "Crimes", "Admin", new { @SortBy = "LocalGovernmentAreaName", @SortDirection = sortDirection }, new { @class = (sortBy == "LocalGovernmentAreaName" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Offence", "Crimes", "Admin", new { @SortBy = "OffenceName", @SortDirection = sortDirection }, new { @class = (sortBy == "OffenceName" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Count", "Crimes", "Admin", new { @SortBy = "Count", @SortDirection = sortDirection }, new { @class = (sortBy == "Count" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Month", "Crimes", "Admin", new { @SortBy = "Month", @SortDirection = sortDirection }, new { @class = (sortBy == "Month" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Year", "Crimes", "Admin", new { @SortBy = "Year", @SortDirection = sortDirection }, new { @class = (sortBy == "Year" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Date", "Crimes", "Admin", new { @SortBy = "Date", @SortDirection = sortDirection }, new { @class = (sortBy == "Date" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Visible", "Crimes", "Admin", new { @SortBy = "Visible", @SortDirection = sortDirection }, new { @class = (sortBy == "Visible" ? "Orange" : "BoneD") })</strong></td>
+<td><strong>@Html.ActionLink("Deleted", "Crimes", "Admin", new { @SortBy = "Deleted", @SortDirection = sortDirection }, new { @class = (sortBy == "Deleted" ? "Orange" : "BoneD") })</strong></td>
+</tr>
+
+@{
+    foreach (CrimeOffenceLocalGovernmentAreaState crimeOffenceLocalGovernmentAreaState in Model)
+    {
+<tr>
+<td>@crimeOffenceLocalGovernmentAreaState.ID</td>
+<td>@Html.ActionLink(crimeOffenceLocalGovernmentAreaState.StateName, "State", "Admin", new { ID = crimeOffenceLocalGovernmentAreaState.StateID }, null)&nbsp;</td>
+<td>@Html.ActionLink(crimeOffenceLocalGovernmentAreaState.LocalGovernmentAreaName, "LocalGovernmentArea", "Admin", new { ID = crimeOffenceLocalGovernmentAreaState.LocalGovernmentAreaID }, null)&nbsp;</td>
+<td>@Html.ActionLink(crimeOffenceLocalGovernmentAreaState.OffenceName, "Offence", "Admin", new { ID = crimeOffenceLocalGovernmentAreaState.OffenceID }, null)&nbsp;</td>
+<td>@Html.ActionLink(crimeOffenceLocalGovernmentAreaState.Count.ToString(), "Crime", "Admin", new { ID = crimeOffenceLocalGovernmentAreaState.ID }, null)&nbsp;</td>
+<td>@crimeOffenceLocalGovernmentAreaState.Month</td>
+<td>@crimeOffenceLocalGovernmentAreaState.Year</td>
+<td>@crimeOffenceLocalGovernmentAreaState.DateUpdatedUtc.ToString("dd MMM yyyy HH:mm")</td>
+<td>@crimeOffenceLocalGovernmentAreaState.IsVisible</td>
+<td>@crimeOffenceLocalGovernmentAreaState.IsDeleted</td>
+</tr>
+    }
+}
+
+</table>
