@@ -11,7 +11,7 @@ SELECT
 	OffenceID,
 	[Count],
 	[Month],
-	[Year]
+	[Year],
 	IsDeleted,
 	IsVisible,
 	DateCreatedUtc,

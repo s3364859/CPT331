@@ -112,11 +112,11 @@ namespace CPT331.Web.Controllers
 			return actionResult;
 		}
 
-		/// <summary>
-		/// Exports the ExportLocalGovernmentAreas table as CSV.
-		/// </summary>
-		/// <returns>LocalGovernmentAreas.csv</returns>
-		[HttpGet]
+        /// <summary>
+        /// Exports the Crimes table as CSV.
+        /// </summary>
+        /// <returns>Crimes.csv</returns>
+        [HttpGet]
 		public ActionResult ExportCrimes()
 		{
 			return new ExportDataActionResult("Crimes.csv", DataProvider.CrimeRepository);
