@@ -14,8 +14,8 @@
 		D04259A91DA627B70019103E /* WeatherStatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04259A81DA627B70019103E /* WeatherStatView.swift */; };
 		D04259AB1DA6416F0019103E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04259AA1DA6416F0019103E /* UIImage.swift */; };
 		D044A0291DAB438000C6717D /* JSONAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D044A0281DAB438000C6717D /* JSONAPI.swift */; };
-		D044E7A11DCAF86F0029C4EC /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = D044E7A01DCAF86F0029C4EC /* Config.plist */; };
-		D044E7A31DCAF96C0029C4EC /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D044E7A21DCAF96C0029C4EC /* ConfigManager.swift */; };
+		D044E79D1DCAD61D0029C4EC /* NSMutableAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D044E79C1DCAD61D0029C4EC /* NSMutableAttributedString.swift */; };
+		D044E79F1DCADB200029C4EC /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D044E79E1DCADB200029C4EC /* UILabel.swift */; };
 		D04532481DA4904800345DC3 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04532471DA4904800345DC3 /* WeatherManager.swift */; };
 		D045324A1DA499C100345DC3 /* WeatherDataCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04532491DA499C100345DC3 /* WeatherDataCollection.swift */; };
 		D045324C1DA4A45400345DC3 /* WeatherCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D045324B1DA4A45400345DC3 /* WeatherCategory.swift */; };
@@ -62,6 +62,13 @@
 		D08BFF471D900899001B89B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08BFF451D900899001B89B6 /* LaunchScreen.storyboard */; };
 		D097BDA11DA76E4F004B1AB0 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097BDA01DA76E4F004B1AB0 /* UIView.swift */; };
 		D097BDA31DA7747F004B1AB0 /* EventNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097BDA21DA7747F004B1AB0 /* EventNavigationController.swift */; };
+		D09B08CF1DC9B4790069C857 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09B08CE1DC9B4790069C857 /* TutorialViewController.swift */; };
+		D09B08D11DC9BEAA0069C857 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09B08D01DC9BEAA0069C857 /* Tutorial.storyboard */; };
+		D09B08D41DC9CB630069C857 /* TutorialWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09B08D31DC9CB630069C857 /* TutorialWelcomeViewController.swift */; };
+		D09B08D61DC9CB6E0069C857 /* TutorialLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09B08D51DC9CB6E0069C857 /* TutorialLocationViewController.swift */; };
+		D09B08D81DC9CB770069C857 /* TutorialAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09B08D71DC9CB770069C857 /* TutorialAnnotationViewController.swift */; };
+		D09B08DA1DC9CB810069C857 /* TutorialSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09B08D91DC9CB810069C857 /* TutorialSearchViewController.swift */; };
+		D09B08DC1DC9CB970069C857 /* TutorialMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09B08DB1DC9CB970069C857 /* TutorialMenuViewController.swift */; };
 		D09BB5301DA6694500438289 /* WeatherPredictionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D09BB52F1DA6694500438289 /* WeatherPredictionView.xib */; };
 		D09BB5321DA6699400438289 /* WeatherPredictionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09BB5311DA6699400438289 /* WeatherPredictionView.swift */; };
 		D0A32F101DB7B5B700DF8623 /* CategoryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A32F0F1DB7B5B700DF8623 /* CategoryListCell.swift */; };
@@ -72,6 +79,8 @@
 		D0CA27121DADF94300217875 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA27111DADF94300217875 /* Dictionary.swift */; };
 		D0CA271A1DAF4FA700217875 /* CrimeDataCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA27191DAF4FA700217875 /* CrimeDataCollection.swift */; };
 		D0CA271C1DAF548700217875 /* CrimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA271B1DAF548700217875 /* CrimeManager.swift */; };
+		D0DF76311DCB242D00A6C706 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0DF76301DCB242D00A6C706 /* Config.plist */; };
+		D0DF76331DCB245D00A6C706 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF76321DCB245D00A6C706 /* ConfigManager.swift */; };
 		D0EFB9C31DC02F2A0029FEF3 /* EventSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EFB9C21DC02F2A0029FEF3 /* EventSection.swift */; };
 		D0EFB9C51DC02F6D0029FEF3 /* EventSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EFB9C41DC02F6D0029FEF3 /* EventSectionType.swift */; };
 		D0FB9F001DA75AD200848C11 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB9EFF1DA75AD200848C11 /* LocationViewController.swift */; };
@@ -103,8 +112,8 @@
 		D04259A81DA627B70019103E /* WeatherStatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherStatView.swift; sourceTree = "<group>"; };
 		D04259AA1DA6416F0019103E /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		D044A0281DAB438000C6717D /* JSONAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPI.swift; sourceTree = "<group>"; };
-		D044E7A01DCAF86F0029C4EC /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
-		D044E7A21DCAF96C0029C4EC /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
+		D044E79C1DCAD61D0029C4EC /* NSMutableAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMutableAttributedString.swift; sourceTree = "<group>"; };
+		D044E79E1DCADB200029C4EC /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		D04532471DA4904800345DC3 /* WeatherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		D04532491DA499C100345DC3 /* WeatherDataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherDataCollection.swift; sourceTree = "<group>"; };
 		D045324B1DA4A45400345DC3 /* WeatherCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCategory.swift; sourceTree = "<group>"; };
@@ -157,6 +166,13 @@
 		D08BFF461D900899001B89B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D097BDA01DA76E4F004B1AB0 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		D097BDA21DA7747F004B1AB0 /* EventNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventNavigationController.swift; sourceTree = "<group>"; };
+		D09B08CE1DC9B4790069C857 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		D09B08D01DC9BEAA0069C857 /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
+		D09B08D31DC9CB630069C857 /* TutorialWelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialWelcomeViewController.swift; sourceTree = "<group>"; };
+		D09B08D51DC9CB6E0069C857 /* TutorialLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialLocationViewController.swift; sourceTree = "<group>"; };
+		D09B08D71DC9CB770069C857 /* TutorialAnnotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialAnnotationViewController.swift; sourceTree = "<group>"; };
+		D09B08D91DC9CB810069C857 /* TutorialSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialSearchViewController.swift; sourceTree = "<group>"; };
+		D09B08DB1DC9CB970069C857 /* TutorialMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialMenuViewController.swift; sourceTree = "<group>"; };
 		D09BB52F1DA6694500438289 /* WeatherPredictionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherPredictionView.xib; sourceTree = "<group>"; };
 		D09BB5311DA6699400438289 /* WeatherPredictionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherPredictionView.swift; sourceTree = "<group>"; };
 		D0A32F0F1DB7B5B700DF8623 /* CategoryListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryListCell.swift; sourceTree = "<group>"; };
@@ -167,6 +183,8 @@
 		D0CA27111DADF94300217875 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		D0CA27191DAF4FA700217875 /* CrimeDataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeDataCollection.swift; sourceTree = "<group>"; };
 		D0CA271B1DAF548700217875 /* CrimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeManager.swift; sourceTree = "<group>"; };
+		D0DF76301DCB242D00A6C706 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		D0DF76321DCB245D00A6C706 /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		D0EFB9C21DC02F2A0029FEF3 /* EventSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSection.swift; sourceTree = "<group>"; };
 		D0EFB9C41DC02F6D0029FEF3 /* EventSectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSectionType.swift; sourceTree = "<group>"; };
 		D0FB9EFF1DA75AD200848C11 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
@@ -266,8 +284,9 @@
 				D04F33E81D8E65E700103669 /* AppDelegate.swift */,
 				D08BFF421D900893001B89B6 /* Main.storyboard */,
 				D08BFF451D900899001B89B6 /* LaunchScreen.storyboard */,
+				D09B08D01DC9BEAA0069C857 /* Tutorial.storyboard */,
 				D04F33EA1D8E65EE00103669 /* Info.plist */,
-				D044E7A01DCAF86F0029C4EC /* Config.plist */,
+				D0DF76301DCB242D00A6C706 /* Config.plist */,
 			);
 			path = CPT331.iOS;
 			sourceTree = "<group>";
@@ -301,9 +320,11 @@
 				D0628AF31DB5EDF500334E1A /* MGLMapView.swift */,
 				D0630E4F1D92466F00200606 /* NSDate.swift */,
 				D06EC6051DAC8A9100626F6C /* NSDateComponents.swift */,
+				D044E79C1DCAD61D0029C4EC /* NSMutableAttributedString.swift */,
 				D0630E4B1D92243D00200606 /* String.swift */,
 				D04259AA1DA6416F0019103E /* UIImage.swift */,
 				D06EC5FF1DAC40DC00626F6C /* UIImageView.swift */,
+				D044E79E1DCADB200029C4EC /* UILabel.swift */,
 				D097BDA01DA76E4F004B1AB0 /* UIView.swift */,
 				D08BFF2E1D9007FC001B89B6 /* UIViewController.swift */,
 			);
@@ -319,7 +340,7 @@
 				D08BFF381D90082C001B89B6 /* LocationManager.swift */,
 				D04532471DA4904800345DC3 /* WeatherManager.swift */,
 				D0A32F111DB7CB2500DF8623 /* SettingsManager.swift */,
-				D044E7A21DCAF96C0029C4EC /* ConfigManager.swift */,
+				D0DF76321DCB245D00A6C706 /* ConfigManager.swift */,
 				D044A0281DAB438000C6717D /* JSONAPI.swift */,
 			);
 			name = "API & Model";
@@ -330,9 +351,11 @@
 			children = (
 				D0628AE81DB5B72700334E1A /* Components */,
 				D0FB9EFA1DA7502800848C11 /* Modal Views */,
+				D09B08D21DC9CB290069C857 /* Tutorial Views */,
 				D08BFF3C1D900846001B89B6 /* MenuViewController.swift */,
 				D08BFF3B1D900846001B89B6 /* MapViewController.swift */,
 				D08857881D90E62600790857 /* ModalViewController.swift */,
+				D09B08CE1DC9B4790069C857 /* TutorialViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -382,6 +405,18 @@
 				D088578C1D91108300790857 /* LocationCrimeViewController.swift */,
 			);
 			name = Location;
+			sourceTree = "<group>";
+		};
+		D09B08D21DC9CB290069C857 /* Tutorial Views */ = {
+			isa = PBXGroup;
+			children = (
+				D09B08D31DC9CB630069C857 /* TutorialWelcomeViewController.swift */,
+				D09B08D51DC9CB6E0069C857 /* TutorialLocationViewController.swift */,
+				D09B08D71DC9CB770069C857 /* TutorialAnnotationViewController.swift */,
+				D09B08D91DC9CB810069C857 /* TutorialSearchViewController.swift */,
+				D09B08DB1DC9CB970069C857 /* TutorialMenuViewController.swift */,
+			);
+			name = "Tutorial Views";
 			sourceTree = "<group>";
 		};
 		D0CA270B1DADD55400217875 /* ViewModels */ = {
@@ -549,14 +584,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D09B08D11DC9BEAA0069C857 /* Tutorial.storyboard in Resources */,
 				D08BFF411D900851001B89B6 /* Assets.xcassets in Resources */,
-				D044E7A11DCAF86F0029C4EC /* Config.plist in Resources */,
 				D06EC6021DAC6FDE00626F6C /* EventDataView.xib in Resources */,
 				D0628AF21DB5D41600334E1A /* LocationListCell.xib in Resources */,
 				D08BFF471D900899001B89B6 /* LaunchScreen.storyboard in Resources */,
 				D08BFF441D900893001B89B6 /* Main.storyboard in Resources */,
 				D0628AEC1DB5B7A000334E1A /* LocationSearchView.xib in Resources */,
 				D09BB5301DA6694500438289 /* WeatherPredictionView.xib in Resources */,
+				D0DF76311DCB242D00A6C706 /* Config.plist in Resources */,
 				D04259A71DA627950019103E /* WeatherStatView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -651,15 +687,18 @@
 				D08857891D90E62600790857 /* ModalViewController.swift in Sources */,
 				D04808F91DC1F12000F928A0 /* MGLCoordinateBounds.swift in Sources */,
 				D06740BB1DA4CCB100E87E0B /* WeatherDataPrediction.swift in Sources */,
+				D09B08DA1DC9CB810069C857 /* TutorialSearchViewController.swift in Sources */,
 				D0A32F121DB7CB2500DF8623 /* SettingsManager.swift in Sources */,
 				D045324E1DA4B1AF00345DC3 /* PrecipitationType.swift in Sources */,
 				D06EC6061DAC8A9100626F6C /* NSDateComponents.swift in Sources */,
 				D0CA271A1DAF4FA700217875 /* CrimeDataCollection.swift in Sources */,
 				D080C2841D93C3A90071BB43 /* EventViewController.swift in Sources */,
 				D097BDA31DA7747F004B1AB0 /* EventNavigationController.swift in Sources */,
+				D09B08D81DC9CB770069C857 /* TutorialAnnotationViewController.swift in Sources */,
 				D037F2951DB72B85008B512D /* LocationViewModel.swift in Sources */,
 				D0630E501D92466F00200606 /* NSDate.swift in Sources */,
 				D04532501DA4B26800345DC3 /* WeatherData.swift in Sources */,
+				D09B08D61DC9CB6E0069C857 /* TutorialLocationViewController.swift in Sources */,
 				D06740B91DA4CC8B00E87E0B /* WeatherDataCurrent.swift in Sources */,
 				D0EFB9C51DC02F6D0029FEF3 /* EventSectionType.swift in Sources */,
 				D0CA270D1DADD60900217875 /* EventsViewModel.swift in Sources */,
@@ -668,24 +707,29 @@
 				D037F2931DB72B74008B512D /* MapViewModel.swift in Sources */,
 				D04259A91DA627B70019103E /* WeatherStatView.swift in Sources */,
 				D0AD35DE1DA9150100EA3013 /* EventSubcategory.swift in Sources */,
+				D09B08D41DC9CB630069C857 /* TutorialWelcomeViewController.swift in Sources */,
 				D045324C1DA4A45400345DC3 /* WeatherCategory.swift in Sources */,
 				D06EC6001DAC40DC00626F6C /* UIImageView.swift in Sources */,
+				D044E79D1DCAD61D0029C4EC /* NSMutableAttributedString.swift in Sources */,
 				D088578D1D91108300790857 /* LocationCrimeViewController.swift in Sources */,
 				D080C2861D93C8110071BB43 /* EventPointFeature.swift in Sources */,
 				D080C2821D937F020071BB43 /* EventsListCell.swift in Sources */,
 				D0CA27121DADF94300217875 /* Dictionary.swift in Sources */,
 				D08BFF391D90082C001B89B6 /* LocationManager.swift in Sources */,
+				D09B08CF1DC9B4790069C857 /* TutorialViewController.swift in Sources */,
 				D0AD35DB1DA913EC00EA3013 /* EventCategory.swift in Sources */,
+				D09B08DC1DC9CB970069C857 /* TutorialMenuViewController.swift in Sources */,
 				D0EFB9C31DC02F2A0029FEF3 /* EventSection.swift in Sources */,
-				D044E7A31DCAF96C0029C4EC /* ConfigManager.swift in Sources */,
 				D080C2801D937AA20071BB43 /* LocationTabBarController.swift in Sources */,
 				D044A0291DAB438000C6717D /* JSONAPI.swift in Sources */,
 				D088578F1D9110C600790857 /* LocationWeatherViewController.swift in Sources */,
 				D0630E541D93058E00200606 /* Event.swift in Sources */,
+				D044E79F1DCADB200029C4EC /* UILabel.swift in Sources */,
 				D04580EC1DAA2AD8002DC89F /* GeocodedPlacemark.swift in Sources */,
 				D04259AB1DA6416F0019103E /* UIImage.swift in Sources */,
 				D045324A1DA499C100345DC3 /* WeatherDataCollection.swift in Sources */,
 				D08BFF3E1D900846001B89B6 /* MapViewController.swift in Sources */,
+				D0DF76331DCB245D00A6C706 /* ConfigManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

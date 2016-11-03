@@ -16,6 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.applyGlobalStyling()
+        
+        // Run tutorial mode on first launch
+        if NSUserDefaults.standardUserDefaults().boolForKey("launchedBefore") == false {
+            self.setRootViewController(withIdentifier: "tutorialView", animated: false)
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
+        } else {
+            print("Previously launched, skipping tutorial")
+        }
+        
         return true
     }
 
@@ -68,6 +77,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tableHeaderText = UILabel.appearanceWhenContainedInInstancesOfClasses([UITableViewHeaderFooterView.self])
         tableHeaderText.textColor = tableHeaderTextcolor
         tableHeaderText.font = tableHeaderFont
+    }
+    
+    func setRootViewController(withIdentifier identifier:String, animated:Bool) {
+        guard let viewController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier(identifier) else {
+            return
+        }
+        
+        if animated {
+            let snapshot:UIView = (self.window?.snapshotViewAfterScreenUpdates(true))!
+            viewController.view.addSubview(snapshot);
+            self.window?.rootViewController = viewController
+            
+            UIView.animateWithDuration(0.3, animations:
+                {() in
+                    snapshot.layer.opacity = 0
+                }, completion: {
+                    (value: Bool) in
+                    snapshot.removeFromSuperview()
+                }
+            )
+            
+        } else {
+            self.window?.rootViewController = viewController
+        }
     }
 }
 
