@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using CPT331.Core.ObjectModel;
 
 namespace CPT331.Web.Attributes
 {
@@ -22,7 +23,7 @@ namespace CPT331.Web.Attributes
         /// <returns>true if the user is authorized; otherwise, false.</returns>
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            return httpContext.Session["user"] != null;
+            return httpContext.Session[SessionKey.Key] != null;
         }
 
         /// <summary>

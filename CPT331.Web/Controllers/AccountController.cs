@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using CPT331.Web.Models.Account;
 using CPT331.Web.Attributes;
+using CPT331.Data;
+using CPT331.Core.ObjectModel;
+using CPT331.Core.Logging;
+using CPT331.Core.Extensions;
 
 namespace CPT331.Web.Controllers
 {
@@ -40,9 +44,10 @@ namespace CPT331.Web.Controllers
         [HttpPost]
         public ActionResult Login(string loginName, string password)
         {
-            if ("administrator".Equals(loginName) && "Rgx53r$t5r".Equals(password))
+            User user = DataProvider.UserRepository.GetUserByUsername("administrator");
+            if (loginName == user.Username && StringExtensions.Hash(password) == user.Password)
             {
-                Session["user"] = new UserModel() { LoginName = loginName, Password = password };
+                Session[SessionKey.Key] = new UserModel() { LoginName = loginName, Password = password };
                 return RedirectToAction("Home", "Admin");
             }
             return View();

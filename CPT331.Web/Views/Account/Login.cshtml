@@ -7,7 +7,7 @@
 <section id="loginForm" autoCompleteType="disable">
     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form"}))
     {
-        Html.AntiForgeryToken();
+        @Html.AntiForgeryToken();
         <br/><br />
         <img src="~/Content/Images/key.png" />
         <h1>Administator Login</h1>
