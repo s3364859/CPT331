@@ -203,7 +203,7 @@ namespace CPT331.Web.Models.Admin
         /// An ID number that represents the local goverment area.
         /// </summary>
 		[DataType(DataType.Text)]
-		[Display(Name = "Local Government Area")]
+		[Display(Name = "LGA")]
 		[Integer(ErrorMessage = "*")]
 		[Required(ErrorMessage = "*")]
 		[LocalGovernmentArea(ErrorMessage = "*")]

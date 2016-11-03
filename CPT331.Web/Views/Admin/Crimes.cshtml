@@ -1,0 +1,20 @@
+﻿@using CPT331.Core.ObjectModel
+
+@model IEnumerable<CrimeOffenceLocalGovernmentAreaState>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Crimes | Admin";
+}
+
+<br />
+<h1>@Html.ActionLink("Home", "Home", "Admin") | Crimes</h1>
+<hr /><br />
+
+<p><h3>@Html.ActionLink("New Crime", "NewCrime", "Admin")</h3></p>
+
+@*<p><a href="@Url.Action("ExportCrimes", "Admin")"><img src="/Content/Images/excel.gif" border="0" title="Export Data" /></a></p>*@
+
+<br/>
+
+@Html.Partial("CrimesPartial", Model)

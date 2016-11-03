@@ -1,0 +1,78 @@
+﻿@using CPT331.Web.Models.Admin
+
+@model CrimeModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Crimes | Crime";
+}
+
+<br />
+<h1>@Html.ActionLink("Home", "Home", "Admin") | Crime</h1>
+<hr /><br />
+
+@using (Html.BeginForm())
+{
+<table cellpadding="3" cellspacing="0" border="0" width="100%">
+
+<tr>
+<td width="100">* @Html.LabelFor(m => m.OffenceID)</td>
+<td>
+@Html.DropDownListFor(m => m.OffenceID, Model.Offences)
+@Html.ValidationMessageFor(m => m.OffenceID)
+</td>
+</tr>
+
+<tr>
+<td width="100">* @Html.LabelFor(m => m.LocalGovernmentAreaID)</td>
+<td>
+@Html.DropDownListFor(m => m.LocalGovernmentAreaID, Model.LocalGovernmentAreas)
+@Html.ValidationMessageFor(m => m.LocalGovernmentAreaID)
+</td>
+</tr>
+
+<tr>
+<td width="100">* @Html.LabelFor(m => m.Count)</td>
+<td>
+@Html.TextBoxFor(m => m.Count, new { size = 10 })
+@Html.ValidationMessageFor(m => m.Count)
+</td>
+</tr>
+
+<tr>
+<td width="100">* @Html.LabelFor(m => m.Month)</td>
+<td>
+@Html.TextBoxFor(m => m.Month, new { size = 10 })
+@Html.ValidationMessageFor(m => m.Month)
+</td>
+</tr>
+
+<tr>
+<td width="100">* @Html.LabelFor(m => m.Year)</td>
+<td>
+@Html.TextBoxFor(m => m.Year, new { size = 10 })
+@Html.ValidationMessageFor(m => m.Year)
+</td>
+</tr>
+
+<tr>
+<td width="150">* @Html.LabelFor(m => m.IsDeleted)</td>
+<td>@Html.CheckBoxFor(m => m.IsDeleted)</td>
+</tr>
+
+<tr>
+<td width="150">* @Html.LabelFor(m => m.IsVisible)</td>
+<td>@Html.CheckBoxFor(m => m.IsVisible)</td>
+</tr>
+
+@Html.HiddenFor(m => m.ID)
+
+<tr>
+<td width="100">&nbsp;</td>
+<td><input type="submit" value="Save" /></td>
+</tr>
+
+</table>
+}
+
+<p>&nbsp;</p>

@@ -186,13 +186,14 @@
   <ItemGroup>
     <Content Include="Content\Admin.css" />
     <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\Crime Stats.png" />
+    <Content Include="Content\Images\Event Categories.png" />
     <Content Include="Content\Images\Event.png" />
     <Content Include="Content\Images\excel.gif" />
     <Content Include="Content\Images\Icon-App.png" />
     <Content Include="Content\Images\key.png" />
+    <Content Include="Content\Images\Map small.png" />
     <Content Include="Content\Images\Map.png" />
     <Content Include="Content\Images\states.png" />
     <Content Include="Content\Images\Weather Forecast.png" />
@@ -207,9 +208,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\Release Web Publish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -285,6 +284,10 @@
     <Content Include="Views\Admin\OffenceCategories.cshtml" />
     <Content Include="Views\Admin\OffenceCategoriesPartial.cshtml" />
     <Content Include="Views\Account\SignOut.cshtml" />
+    <Content Include="Views\Admin\Crime.cshtml" />
+    <Content Include="Views\Admin\Crimes.cshtml" />
+    <Content Include="Views\Admin\CrimesPartial.cshtml" />
+    <Content Include="Views\Admin\NewCrime.cshtml" />
     <None Include="Web.AWS.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
