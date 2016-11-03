@@ -10,31 +10,30 @@ import Foundation
 
 extension NSDateComponents {
     
+    /// Constructs a NSDateCompontents object using date range
     class func fromRange(startDate: NSDate, _ endDate: NSDate) -> NSDateComponents {
         return NSCalendar.currentCalendar().components([.Day, .Hour, .Minute], fromDate: startDate, toDate: endDate, options: NSCalendarOptions.init(rawValue: 0))
     }
     
+    /**
+        String representation of NSDateComponents
+     
+        - Returns: the amount of days if >= 1, hours if >= 1 or minutes >= 1. The largest unit is always preferred.
+    */
     var string:String {
         let (days, hours, minutes) = (self.day, self.hour, self.minute)
         
-        var components = [String]()
-        
         if days > 0 {
-            components.append("\(days) day\(days > 1 ? "s" : "")")
-        }
-        
-        if hours > 0 {
-            components.append(hours > 0 ? "\(hours) hour\(hours > 1 ? "s" : "")" : "")
-        }
-        
-        if minutes > 0 {
-            components.append("\(minutes) min")
-        }
-        
-        if components.count > 0 {
-            return components.joinWithSeparator(", ")
+            return "\(days) day\(days > 1 ? "s" : "")"
+
+        } else if hours > 0 {
+            return hours > 0 ? "\(hours) hour\(hours > 1 ? "s" : "")" : ""
+
+        } else if  minutes > 0 {
+            return "\(minutes) min"
+
         } else {
-            return "None"
+            return ""
         }
     }
 }

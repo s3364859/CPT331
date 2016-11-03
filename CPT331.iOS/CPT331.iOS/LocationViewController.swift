@@ -8,7 +8,12 @@
 
 import UIKit
 
+/// Parent class for displaying location data, intended to be subclassed.
 class LocationViewController: UIViewController {
+    
+    // -----------------------------
+    // MARK: Runtime Variables
+    // -----------------------------
     
     // Allow the location to be manually set.
     // If not set, fetch it from the tab bar controller
@@ -27,15 +32,19 @@ class LocationViewController: UIViewController {
         }
     }
     
+    
+    
+    // -----------------------------
+    // MARK: Main Logic
+    // -----------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = self.location.name
     }
     
+    /// Overrides the default functionality to ensure the tab bar is visible upon returning to this view
     override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // Enable tab bar
         self.tabBarController?.tabBar.hidden = false
     }
 }

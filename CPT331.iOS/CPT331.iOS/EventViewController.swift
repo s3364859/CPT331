@@ -55,16 +55,15 @@ class EventViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.showEvent(self.event)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         
         // Disable tab bar
         self.tabBarController?.tabBar.hidden = true
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.showEvent(self.event)
+    }
     
     func showEvent(event:Event) {
         // Load banner image if it exists

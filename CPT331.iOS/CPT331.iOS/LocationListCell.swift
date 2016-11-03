@@ -11,19 +11,29 @@ import Mapbox
 import MapboxGeocoder
 
 class LocationListCell: UITableViewCell {
+
+    // -----------------------------
+    // MARK: Runtime Variables
+    // -----------------------------
+    var placemark:GeocodedPlacemark!
+    var userLocation: CLLocation?
     
+    
+    
+    // -----------------------------
+    // MARK: Storyboard References
+    // -----------------------------
+    @IBOutlet var view: LocationListCell!
     @IBOutlet weak var primaryLabel: UILabel!
     @IBOutlet weak var secondaryLabel: UILabel!
     @IBOutlet weak var distanceValueLabel: UILabel!
     @IBOutlet weak var distanceUnitsLabel: UILabel!
+
     
-    var placemark:GeocodedPlacemark!
-    var userLocation: MGLUserLocation?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
+    // -----------------------------
+    // MARK: Functions
+    // -----------------------------
     func update(withAttributedText query:String?=nil) {
         if let name = self.placemark.addressDictionary?["name"] as? String {
             primaryLabel.hidden = false

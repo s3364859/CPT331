@@ -7,79 +7,72 @@
 //
 
 import UIKit
-import CSVImporter
 import Mapbox
-import MapboxGeocoder
 import SideMenu
 
-
-struct Pair<T:Hashable,U:Hashable> : Hashable {
-    let values : (T, U)
+/**
+    The MapViewController handles populating the map with event data and responding to user touch events (Panning, zooming, tapping). To display the event markers,
+    it relies upon a MapViewModel to handle fetching event data in the visible region and informing the MapViewController of when it should update the visible markers.
+ */
+class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDelegate, UIGestureRecognizerDelegate, LocationSearchDelegate {
     
-    var hashValue : Int {
-        get {
-            let (a,b) = values
-            return a.hashValue &* 31 &+ b.hashValue
-        }
-    }
-}
-
-// comparison function for conforming to Equatable protocol
-func ==<T:Hashable,U:Hashable>(lhs: Pair<T,U>, rhs: Pair<T,U>) -> Bool {
-    return lhs.values == rhs.values
-}
-
-
-class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDelegate, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
+    // -----------------------------
+    // MARK: Constants
+    // -----------------------------
     
-    // Constants
-    let searchResultsRowHeight = 50
+    /// The base image to be used for representing event locations on the map
     let annotationImage = UIImage(named: "Event-Annotation.png")
     
+    /// The zoom level to be used when selecting a event from the LocationSearchView
+    let selectionZoomLevel:Double = 12.5
+    
+    /// Offsets used to center a selected suburb/annotation, relative to the visible region between search bar and subview
+    let centerOffsets:CoordinateOffset = (
+        top: 85, // Search bar
+        right: 0,
+        bottom: 400, // Subview
+        left: 0
+    )
+    
+    
+    
+    // -----------------------------
+    // MARK: Runtime Variables
+    // -----------------------------
+    var viewModel:MapViewModel!
+    var mapRegionIsChanging:Bool=false
+    
+    
+    
+    // -----------------------------
+    // MARK: Storyboard References
+    // -----------------------------
     @IBOutlet weak var mapView: MGLMapView!
-    @IBOutlet weak var searchBarView: UIVisualEffectView!
-    @IBOutlet weak var menuButton: UIButton!
-    @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var searchSubmitButton: UIButton!
-    @IBOutlet weak var searchResultsView: UIVisualEffectView!
-    @IBOutlet weak var searchResultsTable: UITableView!
-    @IBOutlet weak var searchResultsTableHeight: NSLayoutConstraint!
-    @IBOutlet weak var searchResultsTableMarginBottom: NSLayoutConstraint!
+    @IBOutlet weak var locationSearchView: LocationSearchView!
     
-    // Runtime vars
-    var viewModel:MapViewModel = MapViewModel()
-    var searchResults = [GeocodedPlacemark]()
-    var searchQuery:String?
     
-    // Stores the most recently tapped location label
-    // Used to pass the location to child views
-    var lastLocationTapped:Location?
-    var lastEventTapped:Event?
-
+    
+    // -----------------------------
+    // MARK: Main Logic
+    // -----------------------------
+    
+    /// Responsible for initializing: the sidebar menu, map, search box and gesture recognizers
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Setup the sidebar menu
         let menu = UISideMenuNavigationController()
         menu.leftSide = true
         SideMenuManager.menuFadeStatusBar = false
         SideMenuManager.menuLeftNavigationController = menu
         
-        // Setup search bar
-        searchBarView.layer.cornerRadius = 4
-        searchTextField.addTarget(self, action: #selector(MapViewController.searchQueryDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
-        
-        // Setup search results
-        searchResultsView.layer.cornerRadius = 4
-        searchResultsView.hidden = true
-        searchResultsTable.backgroundColor = .clearColor()
-        searchResultsTable.tableFooterView = UIView()
-        searchResultsTable.delegate = self
-        searchResultsTable.dataSource = self
-        
         // Setup map
-        mapView.delegate = self
-        viewModel.delegate = self
+        self.mapView.delegate = self
+        self.viewModel = MapViewModel(mapView: self.mapView)
+        self.viewModel.delegate = self
+        
+        // Setup search
+        self.locationSearchView.delegate = self
         
         // Register double tap recognizer so the single tap knows to ignore them
         let doubleTap = UITapGestureRecognizer(target: self, action: nil)
@@ -87,93 +80,244 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
         self.mapView.addGestureRecognizer(doubleTap)
 
         // Register single tap recognizer to check if the user tapped on a city/town/village label
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.mapSingleTapped))
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.gestureRecognizerBegan))
         singleTap.requireGestureRecognizerToFail(doubleTap)
         singleTap.delegate = self
         singleTap.cancelsTouchesInView = false
         self.mapView.addGestureRecognizer(singleTap)
+    }
+    
+    /**
+        Retrieves the current user location
+     
+        - Returns: User Location
+    */
+    func getUserLocation() -> CLLocation? {
+        return self.mapView.userLocation?.location
+    }
+    
+    
+    
+    // -----------------------------
+    // MARK: Subviews
+    // -----------------------------
+    
+    /**
+        Called in response to the menu button being tapped
+     
+        - Parameters:
+            - button: the tapped button
+     */
+    func menuButtonTapped(button: UIButton) {
+        self.performSegueWithIdentifier("showMenu", sender: nil)
+    }
+    
+    
+    /**
+        Called in response to a location map label or search result being selected. This function will handle transitioning the map visible region and displaying the Location subview.
+     
+        - Parameters:
+            - location: the Location that was selected
+            - pan: determines if the map should pan to the Location
+            - zoom: determines if the map should zoom in on the Location. Panning must be enabled if zooming.
+     */
+    func locationSelected(location:Location, pan:Bool=true, zoom:Bool=true) {
+        if pan && zoom {
+            self.mapView.setCenterCoordinate(location.coordinate, zoomLevel: self.selectionZoomLevel, animated: true, withOffset: self.centerOffsets)
+        } else if pan {
+            self.mapView.setCenterCoordinate(location.coordinate, zoomLevel: nil, animated: true, withOffset: self.centerOffsets)
+        }
         
-        // Bind observers to listen to keyboard show/hide events
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        self.performSegueWithIdentifier("showLocationView", sender: location)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    /**
+        Called in response to a event map marker being selected. This function will handle transitioning the map visible region and displaying the Event subview.
+     
+        - Parameters:
+            - event: the Event that was selected
+            - pan: determines if the map should pan to the Event
+            - zoom: determines if the map should zoom in on the Event. Panning must be enabled if zooming.
+     */
+    func eventSelected(event:Event, pan:Bool=true, zoom:Bool=true) {
+        guard let coordinate = event.coordinate else {
+            return
+        }
+        
+        if pan && zoom {
+            self.mapView.setCenterCoordinate(coordinate, zoomLevel: self.selectionZoomLevel, animated: true, withOffset: self.centerOffsets)
+        } else if pan {
+            self.mapView.setCenterCoordinate(coordinate, zoomLevel: nil, animated: true, withOffset: self.centerOffsets)
+        }
+        
+        self.performSegueWithIdentifier("showEventView", sender: event)
     }
     
+    
+    /**
+        Handles view controller transitions. If the destination view controller is a modal view controller, the respectivfe subview controller will also be initialized. 
+        Additionally, while the modal view controller is visible, updating of the mapview will be disabled to minimise framerate lag.
+     
+        - Note: If a modal view is to be displayed for a location or event, it is expected that the sender parameter is either a location or event.
+     
+        - Parameters:
+            - segue: the segue object containing information about view controllers involved in segue
+            - sender: the object to be displayed in the view
+     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showLocationView", let location = self.lastLocationTapped {
-            let vc = segue.destinationViewController as! ModalViewController
-            vc.location = location
+        
+        if let modalViewController = segue.destinationViewController as? ModalViewController, let identifier = segue.identifier {
+
+            switch identifier {
+            case "showEventView":
+                if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("eventNavigationController") as? EventNavigationController {
+                    controller.event = sender as! Event
+                    modalViewController.subViewController = controller
+                }
+                
+            case "showLocationView":
+                if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("locationTabBarController") as? LocationTabBarController {
+                    controller.location = sender as! Location
+                    modalViewController.subViewController = controller
+                }
+                
+            default:()
+            }
             
-        } else if segue.identifier == "showEventView", let event = self.lastEventTapped {
-            let vc = segue.destinationViewController as! ModalViewController
-            vc.event = event
+            // Prevent map from updating while ModalViewController is visible
+            // Updating map markers is expensive, it will cause event list view to stutter if not disabled
+            self.viewModel.delegate = nil
+            modalViewController.onDisappear = {
+                self.viewModel.delegate = self
+                self.viewModel.loadEvents(fromCache: true, fromAPI: false)
+            }
         }
     }
     
     
     
+    // -----------------------------
+    // MARK: Map Drawing
+    // -----------------------------
     
-    /* --------------------------------- *
-     *         Map Functionality         *
-     * --------------------------------- */
-    
-    // Conform to MapViewModelDelegate
-    // Will be called twice after calling mapView.loadEvents:
-    //      The first will be the cached events in that region
-    //      The second will be fetched events from the API
-    func update(forEvents events:[Int:Event]) {
-        var annotations = [MGLAnnotation]()
+    /**
+        EventsViewModelDelegate function. Handles displaying event annotation markers on the map.
+     
+        - Note: To minimise redraw latency, the map will not be updated while panning.
         
-        // Remove existing annotations if they exist
+        - Parameters:
+            - Event dictionary: event ID / event pairs
+     
+        - Returns: TRUE: if the map markers were updated. FALSE: if the map markers weren't updated.
+     */
+    func showData() {
+        
+        // Only update map if not already panning
+        guard self.mapRegionIsChanging == false else {
+            return
+        }
+        
+        // Remove existing annotations
         if let existing = mapView.annotations {
-            mapView.removeAnnotations(existing)
+            self.mapView.removeAnnotations(existing)
         }
         
-        // Build annotations array
-        for (_,event) in events {
-            annotations.append(EventPointFeature(event: event))
+        // Filter events without coordinates
+        if let filteredEvents = self.viewModel.events?.filter({$0.1.coordinate != nil}) {
+
+            // Build annotations array
+            let annotations = filteredEvents.map{(_,event) in EventPointFeature(event: event)}
+
+            // Add annotations
+            self.mapView.addAnnotations(annotations)
+        }
+    }
+
+    
+    /**
+        MGLMapViewDelegate function. Responsible for instantiating or reusing a MGLAnnotationImage, to be displayed in place of a marker on the map. 
+     
+        - Note: It is expected that the annotation object passed in is an instance of EventPointFeature.
+     
+        - Parameters:
+            - mapView: the map view which the annotation will be displayed on
+            - annotation: the annotation object for which an image should be generated
+     
+        - Returns:
+            - annotation image: color-coded marker which reflects the events category. Refer to enum EventCategory for colors.
+    */
+    // Returns a reusable annotation image which reflects the event category
+    func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
+        // Only event features with event categories should have custom images
+        guard let category = (annotation as? EventPointFeature)?.event.category else {
+            return nil
         }
         
-        // Add Markers
-        mapView.addAnnotations(annotations)
+        // Get the resuse identifier for the annotation
+        let reuseIdentifier = category.name
+        
+        // Try to reuse an existing annotation image, if it exists
+        var reusableImage = mapView.dequeueReusableAnnotationImageWithIdentifier(reuseIdentifier)
+        
+        // if the annotation image hasn‘t been used yet, initialize it here with the reuse identifier
+        if reusableImage == nil, var image = self.annotationImage?.tintWithColor(category.color) {
+            
+            // Set the image anchor to the bottom (By default it is center)
+            image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(0, 0, image.size.height/2, 0))
+            reusableImage = MGLAnnotationImage(image: image, reuseIdentifier: reuseIdentifier)
+        }
+        
+        return reusableImage
     }
     
-    // Fires when panning, zooming out or transitioning to a new location
-    func mapViewRegionIsChanging(mapView: MGLMapView) {
+    
+    
+    // -----------------------------
+    // MARK: Map event responders
+    // -----------------------------
+    
+    /// Keeps track of when the map region is changing
+    func mapView(mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
+        self.mapRegionIsChanging = true
         self.dismissKeyboard()
     }
     
-    // Update the markers displayed on the map with the region changes
+    
+    /// Updates the map view to display event markers within the visible region
     func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
-        self.viewModel.loadEvents(forMapView: mapView)
+        self.mapRegionIsChanging = false
+        self.viewModel.loadEvents(fromCache: true, fromAPI: true)
     }
     
-    // Returns the image to be displayed for a marker on the map
-    func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
-        if let eventFeature = annotation as? EventPointFeature {
-            let category = eventFeature.event.category
-            
-            // TODO: implement anotation dequeueing
-            if let tintedImage = self.annotationImage?.tintWithColor(category.color) {
-                return MGLAnnotationImage(image: tintedImage, reuseIdentifier: category.name)
-            }
+    
+    /// Responds to annotations being selected
+    func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
+        if let event = (annotation as? EventPointFeature)?.event {
+            self.eventSelected(event, pan: true, zoom:false)
         }
-        
-        return nil
     }
-
+    
+    
+    /**
+        Checks to see if the tap gesture should be recognized. If there is a marker present at the tapped location, the gesture will not be recognized. This is necessary because a tap gesture by default will intercept all taps and prevent the maps own gestures from working.
+     
+        - Parameters:
+            - gestureRecognizer: the touch gesture object to be tested
+     
+        - Returns:
+            - TRUE: to proceed with processing touch event. FALSE: to prevent the gesture from being recognized.
+    */
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        // Dismiss keyboard whenever the map is tapped
+        self.dismissKeyboard()
+        
         if let tap = gestureRecognizer as? UITapGestureRecognizer {
-            let pointFeatures = self.mapView.visibleFeatures(at: tap.locationInView(self.mapView)).filter{$0 is MGLPointFeature}
             
-            // Because single tap is being intercepted, it's necessary to manually call didSelectannotation
-            for feature in pointFeatures {
+            // Iterate over each feature, attempting to find an annotation
+            for feature in self.mapView.visiblePointFeatures(atGestureLocation: tap) {
                 
-                // If it doesn't have a name attribute, it's probably a marker?
+                // If it doesn't have a name attribute, it's probably an annotation?
                 if feature.attributeForKey("name") == nil {
                     return false
                 }
@@ -184,157 +328,24 @@ class MapViewController: UIViewController, MGLMapViewDelegate, MapViewModelDeleg
     }
     
     
-    func mapSingleTapped(tap: UITapGestureRecognizer) {
-        let pointFeatures = self.mapView.visibleFeatures(at: tap.locationInView(self.mapView)).filter{$0 is MGLPointFeature}
+    /**
+        Called in response to user touching map. Scans the touched area for location labels; if found, a location subview will be requested.
+     
+        - Parameters:
+            - gestureRecognizer: the touch gesture object to be tested
+     */
+    func gestureRecognizerBegan(gestureRecognizer: UIGestureRecognizer) {
+        let pointFeatures = self.mapView.visiblePointFeatures(atGestureLocation: gestureRecognizer)
         
         // If it has a name attribute, assume it's a location label
         if pointFeatures.count > 0, let name = pointFeatures[0].attributeForKey("name") as? String {
             let feature = pointFeatures[0]
             
             if let type = feature.attributeForKey("type") as? String {
-                print(String(format: "%@ label tapped: %@", type, name))
-                
                 // Convert object to make it easier to work with
-                locationLabelTapped(Location(name: name, type: type, coordinate: feature.coordinate))
-                
-            } else if let abbr = feature.attributeForKey("abbr") as? String {
-                print(String(format: "State label tapped: %@ (%@)", name, abbr))
-                
-            } else {
-                print("UNKNOWN LABEL TYPE tapped:")
-                print(feature.attributes)
+                let location = Location(name: name, type: type, coordinate: feature.coordinate)
+                self.locationSelected(location, zoom:false)
             }
         }
-    }
-    
-    // Type = town, village, city
-    func locationLabelTapped(location:Location) {
-        if location.shouldShowDetails {
-            self.lastLocationTapped = location
-            self.performSegueWithIdentifier("showLocationView", sender: nil)
-        }
-    }
-    
-    func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
-        if let a = annotation as? EventPointFeature {
-            self.lastEventTapped = a.event
-            self.performSegueWithIdentifier("showEventView", sender: nil)
-        }
-    }
-    
-    
-    
-    
-    
-    
-    /* --------------------------------- *
-     *       Search Functionality        *
-     * --------------------------------- */
-    func searchQueryDidChange(textField:UITextField) {
-        if let query = self.searchTextField.text {
-            LocationManager.sharedInstance.getSearchPredictions(query, relativeToLocation: self.mapView.userLocation?.location, completion: { (searchResults) in
-                if searchResults != nil {
-                    
-                    // Sort results by distance from user
-                    if let userLocation = self.mapView.userLocation?.location {
-                        self.searchResults = searchResults!.sort({ $0.distanceFrom(userLocation) < $1.distanceFrom(userLocation)})
-                    } else {
-                        self.searchResults = searchResults!
-                    }
-                    
-                    self.searchQuery = query
-                    
-                } else {
-                    self.searchResults.removeAll(keepCapacity: false)
-                    self.searchQuery = nil
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    // Hide table if no results, otherwise show
-                    if !self.searchTextField.isFirstResponder() || self.searchResults.count == 0 {
-                        self.searchResultsView.hidden = true
-                    } else {
-                        self.searchResultsView.hidden = false
-                    }
-                    
-                    // Request table update
-                    self.searchResultsTable.reloadData()
-                    
-                    // Update search results table to fit all cells
-                    UIView.animateWithDuration(0.5, animations: {
-                        let height = self.searchResultsRowHeight * self.searchResults.count
-                        self.searchResultsTableHeight.constant = CGFloat(height)
-                        self.view.setNeedsUpdateConstraints()
-                    })
-                })
-            })
-        }
-    }
-    
-    // When the keyboard is shown, update table view bottom constraint to include keyboard height
-    func keyboardWillShow(notification: NSNotification) {
-        
-        let userInfo:NSDictionary = notification.userInfo!
-        let keyboardFrame: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
-        
-        let offset = keyboardFrame.size.height
-        
-        UIView.animateWithDuration(1, animations: {
-            self.searchResultsTableMarginBottom.constant = offset + 10
-            self.view.layoutIfNeeded()
-        })
-    }
-    
-    // Remove keyboard height offset when closing keyboard
-    func keyboardWillHide(notification: NSNotification) {
-        UIView.animateWithDuration(1, animations: {
-            self.searchResultsTableMarginBottom.constant = 10
-            self.view.layoutIfNeeded()
-        })
-    }
-    
-    
-    
-    
-    
-    
-    /* --------------------------------- *
-     *           Tabular Data            *
-     * --------------------------------- */
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.searchResults.count
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! LocationListCell
-        
-        cell.placemark = self.searchResults[indexPath.row]
-        cell.userLocation = self.mapView.userLocation
-        cell.update(withAttributedText: self.searchQuery)
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // Deselect row immediately, selection is only temporarily shown to indicate user touch
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-        let location = self.searchResults[indexPath.row]
-        
-        // Update search bar text to use suburb names
-        self.searchTextField.text = location.name
-        self.searchTextField.resignFirstResponder()
-        self.searchQueryDidChange(self.searchTextField)
-        
-        // Pan to suburb location
-        self.mapView.setCenterCoordinate(location.location.coordinate, zoomLevel: 12.5, animated: true)
     }
 }

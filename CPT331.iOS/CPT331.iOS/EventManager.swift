@@ -8,34 +8,37 @@
 
 import UIKit
 import Mapbox
-import CoreLocation
 import Alamofire
 import SwiftyJSON
 
+/// Handles retrieval, parsing and caching of event data from the EventGuardian JSON API
 class EventManager: JSONAPI {
     static let sharedInstance = EventManager()
     
-    // TODO: move domain to info.plist
-    private let ENDPOINT = "http://ec2-52-32-105-85.us-west-2.compute.amazonaws.com/api/Event/EventsByCoordinate"
+    /// EventGuardian API endpoint for event data (read-only)
+    private let ENDPOINT = ConfigManager.sharedInstance.eventGuardianAPI + "/api/Event/EventsByCoordinate"
     
-    // Prevent external initialization
-    private override init() {}
-    
-    // Cache to store all events
+    /// Stores all cached events
     private var eventCache = [Int:Event]()
     
-    // Helper function
-    internal func coordinate(coordinate: CLLocationCoordinate2D, isInsideBounds bounds: MGLCoordinateBounds) -> Bool {
-        return ((coordinate.latitude >= bounds.sw.latitude && coordinate.latitude <= bounds.ne.latitude) &&
-            (coordinate.longitude >= bounds.sw.longitude && coordinate.longitude <= bounds.ne.longitude))
-    }
+    /// Singleton initializer
+    private override init() {}
     
     
     
-    // Synchronously fetch events from cache
+    // -----------------------------
+    // MARK: Public functions
+    // -----------------------------
+    
+    /**
+        Synchronously fetches events from cache within the specified coordinate bounds.
+     
+        - Parameters:
+            - bounds: the geographical coordinate abounds to search within
+     
+        - Returns: a dictionary of events (event id / event pairs)
+     */
     func getEventsFromCache(withinBounds bounds: MGLCoordinateBounds) -> [Int:Event] {
-        let startTime:CFTimeInterval = CACurrentMediaTime();
-        // Benchmark: START ---------------------------------
         
         var filtered = [Int:Event]()
         for (_,cachedEvent) in self.eventCache {
@@ -44,19 +47,43 @@ class EventManager: JSONAPI {
             }
         }
         
-        // Benchmark: END -----------------------------------
-        print(String(format: "Cache Request: %g ms", (CACurrentMediaTime() - startTime)*1000));
+        return filtered
+    }
+    
+    
+    /**
+        Synchronously fetches events from cache within the specified radius of the specified coordinate.
+     
+        - Parameters:
+            - coordinate: the geographical center of the search (latitude/longitude pair)
+            - radius: the size of the search radius in Kilometers
+        
+        - Returns: a dictionary of events (event id / event pairs)
+     */
+    func getEventsFromCache(atCoordinate coordinate:CLLocationCoordinate2D, withinRadius radius:Double) -> [Int:Event] {
+        // convert to meters
+        let radius = radius * 1000
+        
+        var filtered = [Int:Event]()
+        for (_,cachedEvent) in self.eventCache {
+            if cachedEvent.coordinate?.distanceFrom(coordinate) <= radius {
+                filtered[cachedEvent.id] = cachedEvent
+            }
+        }
         
         return filtered
     }
     
     
-    
-    // Asynchronously fetch events from API
+    /**
+        Asynchronously fetches events from API within the specified radius of the specified coordinate.
+     
+        - Parameters:
+            - coordinate: the geographical center of the search (latitude/longitude pair)
+            - radius: the size of the search radius in Kilometers
+            - completion: fired with a dictionary of events (event id / event pairs) once the data has been fetched and parsed
+    */
     func getEventsFromAPI(atCoordinate coordinate: CLLocationCoordinate2D, withinRadius radius:Double, completion: ([Int:Event]?) -> ()) {
-        let startTime:CFTimeInterval = CACurrentMediaTime();
-        // Benchmark: START ---------------------------------
-        
         let parameters:[String:AnyObject] = [
             "latitude": coordinate.latitude,
             "longitude": coordinate.longitude,
@@ -65,127 +92,187 @@ class EventManager: JSONAPI {
         
         fetchJSON(self.ENDPOINT, parameters: parameters) { json in
             
-            if let events = json {
-                var parsedEvents = [Int:Event]()
+            if json != nil {
+                let events = self.parseJSON(json!)
+                completion(events)
                 
-                for (_,event) in events {
-                    // Skip events that don't have an ID (This probably will never happen)
-                    guard let id = event["ID"].int else {
-                        continue
-                    }
-                    
-                    // Optional fields
-                    let name = event["Name"].string
-                    let description = event["Description"].string
-                    let address = event["Address"].string
-                    var beginDateTime:NSDate?
-                    var endDateTime:NSDate?
-                    var coordinate:CLLocationCoordinate2D?
-                    var subcategory:EventSubcategry?
-                    var url:NSURL?
-                    var thumbnailURL:NSURL?
-                    var bannerURL:NSURL?
-                    
-                    // Get event begin and end times
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                    
-                    if let rawBegin = event["BeginDateTime"].string {
-                        beginDateTime = NSDate.fromISO8601(rawBegin)
-                    }
-                    
-                    if let rawEnd = event["EndDateTime"].string {
-                        endDateTime = NSDate.fromISO8601(rawEnd)
-                    }
-                    
-                    // Get coordinate
-                    if let lat = event["Latitude"].double, let lng = event["Longitude"].double {
-                        coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-                    }
-                    
-                    // Get subcategory
-                    if let subcategoryName = event["Categories"].array?[0]["Name"].string {
-                        subcategory = EventSubcategry.fromString(subcategoryName)
-                    } else {
-                        subcategory = EventSubcategry.Generic
-                    }
-                    
-                    // Get event callback url
-                    if let urlString = event["Url"].string {
-                        url = NSURL(string: urlString)
-                    }
-                    
-                    // Find banner and thumbnail images
-                    // TODO: Should this be done on serverside??
-                    if let images = event["Images"].array {
-                        for image in images {
-                            // Skip images that don't have a url (This probably will never happen)
-                            guard let urlString = image["Url"].string, let url = NSURL(string: urlString) else {
-                                continue
-                            }
-                            
-                            let height = image["Height"].int
-                            let width = image["Width"].int
-                            
-                            if height == 75 && width == 75 {
-                                thumbnailURL = url
-                            } else if height == 280 && width == 650 {
-                                bannerURL = url
-                            }
-                            
-                            // Break out of loop early if both images have been found
-                            if thumbnailURL != nil && bannerURL != nil {
-                                break
-                            }
-                        }
-                    }
-                    
-                    // Update cached event if it exists
-                    if let cachedEvent = self.eventCache[id] {
-                        cachedEvent.update(
-                            name: name,
-                            desc: description,
-                            address: address,
-                            coordinate: coordinate,
-                            beginDateTime: beginDateTime,
-                            endDateTime: endDateTime,
-                            url: url,
-                            thumbnailURL: thumbnailURL,
-                            bannerURL: bannerURL,
-                            subcategory: subcategory
-                        )
-                        
-                        parsedEvents[cachedEvent.id] = cachedEvent
-                        
-                    // Otherwise create a new event and add to cache
-                    } else {
-                        let newEvent = Event(
-                            id: id,
-                            name: name,
-                            desc: description,
-                            address: address,
-                            coordinate: coordinate,
-                            beginDateTime: beginDateTime,
-                            endDateTime: endDateTime,
-                            url: url,
-                            thumbnailURL: thumbnailURL,
-                            bannerURL: bannerURL,
-                            subcategory: subcategory
-                        )
-                        
-                        self.eventCache[id] = newEvent
-                        parsedEvents[newEvent.id] = newEvent
-                    }
-                }
-                
-                completion(parsedEvents)
             } else {
                 completion(nil)
             }
+        }
+    }
+    
+    
+    // -----------------------------
+    // MARK: Internal functions
+    // -----------------------------
+    
+    /**
+        Helper function to determine if a specific coordinate is inside a coordinate region
+     
+        - Parameters:
+            - coordinate: the specific coordinate to check
+            - bounds: the coordinate bounds to match against
+     
+        - Returns: TRUE if inside, FALSE if outside
+    */
+    internal func coordinate(coordinate: CLLocationCoordinate2D, isInsideBounds bounds: MGLCoordinateBounds) -> Bool {
+        return ((coordinate.latitude >= bounds.sw.latitude && coordinate.latitude <= bounds.ne.latitude) &&
+            (coordinate.longitude >= bounds.sw.longitude && coordinate.longitude <= bounds.ne.longitude))
+    }
+    
+    
+    /**
+        Parses json event array into an event dictionary
+     
+            Expected JSON Format:
+            [
+                {
+                    ID: int,
+                    Name: string,
+                    Description: string,
+                    Address: string,
+                    BeginDateTime: string (ISO 8601),
+                    EndDateTime: string (ISO 8601),
+                    Latitude: double,
+                    Longitude: double,
+                    Category: int,
+                    ThumbnailURL: string,
+                    BannerURL: string
+                },
+                ...
+            ]
+     
+        - Parameters:
+            - JSON: json object containing event data
+     
+        - Returns: event dictionary with event id's as the keys
+    */
+    internal func parseJSON(json:JSON) -> [Int:Event]? {
+        var parsedEvents = [Int:Event]()
+        
+        for (_,event) in json {
+            // Skip events that don't have an ID (This probably will never happen)
+            guard let id = event["ID"].int else {
+                continue
+            }
             
-            // Benchmark: END -----------------------------------
-            print(String(format: "API Request: %g ms", (CACurrentMediaTime() - startTime)*1000));
+            // Optional fields
+            let name = event["Name"].string
+            let description = event["Description"].string
+            let address = event["Address"].string
+            var coordinate:CLLocationCoordinate2D?
+            var beginDateTime:NSDate?
+            var endDateTime:NSDate?
+            var url:NSURL?
+            var thumbnailURL:NSURL?
+            var bannerURL:NSURL?
+            var subcategory:EventSubcategry?
             
-        } // END: fetchJSON
-    } // END: getEventsFromAPI
+            if let rawBeginDateTime = event["BeginDateTime"].string {
+                beginDateTime = NSDate.fromISO8601(rawBeginDateTime)
+            }
+            
+            if let rawEndDateTime = event["EndDateTime"].string {
+                endDateTime = NSDate.fromISO8601(rawEndDateTime)
+            }
+            
+            if let lat = event["Latitude"].double, let lng = event["Longitude"].double {
+                coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+            }
+            
+            if let subcategoryName = event["Category"].string {
+                subcategory = EventSubcategry.fromString(subcategoryName)
+            } else {
+                subcategory = EventSubcategry.Generic
+            }
+            
+            if let urlString = event["Url"].string {
+                url = NSURL(string: urlString)
+            }
+            
+            if let urlString = event["BannerUrl"].string {
+                bannerURL = NSURL(string: urlString)
+            }
+            
+            if let urlString = event["ThumbnailUrl"].string {
+                thumbnailURL = NSURL(string: urlString)
+            }
+            
+            parsedEvents[id] = self.createOrUpdateEvent(
+                id: id,
+                name: name,
+                desc: description,
+                address: address,
+                coordinate: coordinate,
+                beginDateTime: beginDateTime,
+                endDateTime: endDateTime,
+                url: url,
+                thumbnailURL: thumbnailURL,
+                bannerURL: bannerURL,
+                subcategory: subcategory
+            )
+        }
+        
+        return parsedEvents
+    }
+    
+    
+    
+    /**
+        Handles creating or updating events in the cache. If an object for the event exists in the cache already, it will be updated. Otherwise, a new event will be created and cached.
+     
+        - Parameters:
+            - id: event id
+            - name: event title
+            - desc: a short description
+            - address: human-readable street address
+            - coordinate: geographical coordinate (lat/lng pair)
+            - beginDateTime: the date/time of when the event starts
+            - endDateTime: the date/time of when the event ends
+            - url: webpage link for the event on Eventfinda
+            - thumbnailUrl: thumbnail image (75x75)
+            - bannerUrl: banner image (650x280)
+            - subcategory: the subcategory which the event belongs to
+     
+        - Returns: cached event object
+    */
+    internal func createOrUpdateEvent(id id:Int, name:String?, desc:String?, address:String?, coordinate:CLLocationCoordinate2D?, beginDateTime:NSDate?,endDateTime:NSDate?, url:NSURL?, thumbnailURL:NSURL?, bannerURL:NSURL?, subcategory:EventSubcategry?) -> Event {
+        // Update cached event if it exists
+        if let cachedEvent = self.eventCache[id] {
+            cachedEvent.update(
+                name: name,
+                desc: desc,
+                address: address,
+                coordinate: coordinate,
+                beginDateTime: beginDateTime,
+                endDateTime: endDateTime,
+                url: url,
+                thumbnailURL: thumbnailURL,
+                bannerURL: bannerURL,
+                subcategory: subcategory
+            )
+            
+            return cachedEvent
+            
+            // Otherwise create a new event and add to cache
+        } else {
+            let newEvent = Event(
+                id: id,
+                name: name,
+                desc: desc,
+                address: address,
+                coordinate: coordinate,
+                beginDateTime: beginDateTime,
+                endDateTime: endDateTime,
+                url: url,
+                thumbnailURL: thumbnailURL,
+                bannerURL: bannerURL,
+                subcategory: subcategory
+            )
+            
+            self.eventCache[id] = newEvent
+            return newEvent
+        }
+    }
 }

@@ -8,21 +8,29 @@
 
 import UIKit
 
-enum EventCategory {
-    case None
-    case Concert
-    case WorkshopAndConference
-    case SportAndOutdoors
-    case Exhibition
-    case FestivalsAndLifestyle
-    case PerformingArts
+/// Responsible for mapping event subcategories to categories and providing providing human-readable names and colors for categories.
+enum EventCategory:Int {
     
+    // -----------------------------
+    // MARK: Category cases
+    // -----------------------------
+    
+    /// Category
+    case None = 0, Concert, WorkshopAndConference, SportAndOutdoors, Exhibition, FestivalsAndLifestyle, PerformingArts
+    
+    
+    
+    // -----------------------------
+    // MARK: Computed properties
+    // -----------------------------
+    
+    /// The name of the Event Category.
     var name:String {
         get {
             switch self {
             case .None:                     return "No Category"
             case .Concert:                  return "Concerts & Gig Guide"
-            case .WorkshopAndConference:    return "Workshops, Conferences & Classes"
+            case .WorkshopAndConference:    return "Workshops & Conferences"
             case .SportAndOutdoors:         return "Sport & Outdoors"
             case .Exhibition:               return "Exhibitions"
             case .FestivalsAndLifestyle:    return "Festivals & Lifestyle"
@@ -31,21 +39,36 @@ enum EventCategory {
         }
     }
     
+    /// The color for representing a category in the view
     var color:UIColor {
         get {
             switch self {
-            case .None:                     return UIColor(red:  50/255, green:  50/255, blue:  50/255, alpha: 1)
-            case .Concert:                  return UIColor(red: 195/255, green:  83/255, blue:  74/255, alpha: 1)
-            case .WorkshopAndConference:    return UIColor(red: 248/255, green: 182/255, blue:  55/255, alpha: 1)
-            case .SportAndOutdoors:         return UIColor(red: 225/255, green: 128/255, blue:  77/255, alpha: 1)
-            case .Exhibition:               return UIColor(red: 202/255, green: 120/255, blue: 218/255, alpha: 1)
-            case .FestivalsAndLifestyle:    return UIColor(red:  99/255, green: 190/255, blue:  97/255, alpha: 1)
-            case .PerformingArts:           return UIColor(red:  66/255, green: 151/255, blue: 221/255, alpha: 1)
+            case .None:                     return UIColor(red:  50/255, green:  50/255, blue:  50/255, alpha: 1) // Black
+            case .Concert:                  return UIColor(red: 195/255, green:  83/255, blue:  74/255, alpha: 1) // Red
+            case .WorkshopAndConference:    return UIColor(red: 248/255, green: 182/255, blue:  55/255, alpha: 1) // Yellow
+            case .SportAndOutdoors:         return UIColor(red: 225/255, green: 128/255, blue:  77/255, alpha: 1) // Orange
+            case .Exhibition:               return UIColor(red: 202/255, green: 120/255, blue: 218/255, alpha: 1) // Purple
+            case .FestivalsAndLifestyle:    return UIColor(red:  99/255, green: 190/255, blue:  97/255, alpha: 1) // Green
+            case .PerformingArts:           return UIColor(red:  66/255, green: 151/255, blue: 221/255, alpha: 1) // Blue
             }
         }
     }
     
-    // subcategory > category mappings
+    
+    
+    // -----------------------------
+    // MARK: Functions
+    // -----------------------------
+    
+    /// A list of all the categories in the EventCategory enum
+    static var allCategories:[EventCategory] {
+        get {
+            return [.Concert, .WorkshopAndConference, .SportAndOutdoors, .Exhibition, .FestivalsAndLifestyle, .PerformingArts]
+        }
+    }
+    
+    
+    /// Parses a string identifier (from API) into a EventCategory value
     static func fromSubcategory(category: EventSubcategry) -> EventCategory {
         switch category {
             // Concerts & Gig Guide
@@ -64,6 +87,7 @@ enum EventCategory {
             case .Electronica:          fallthrough
             case .Folk:                 fallthrough
             case .Funk:                 fallthrough
+            case .HardRock:             fallthrough
             case .HipHopAndRap:         fallthrough
             case .House:                fallthrough
             case .Jazz:                 fallthrough

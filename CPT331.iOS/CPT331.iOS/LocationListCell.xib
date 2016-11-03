@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LocationListCell" customModule="CPT331_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="iN0-l3-epB" id="sCS-bq-qhW"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LocationListCell" customModule="CPT331_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STATE NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pc4-hW-aF8">
+                    <rect key="frame" x="8" y="24.5" width="89.5" height="17"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <color key="textColor" white="0.75472561469999999" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="402.12" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJq-el-uJr">
+                    <rect key="frame" x="323" y="9" width="47" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XZR-Iv-wIW">
+                    <rect key="frame" x="372" y="10" width="20" height="18"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Suburb Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUh-8J-HVU">
+                    <rect key="frame" x="8" y="7.5" width="303" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="MJq-el-uJr" firstAttribute="leading" secondItem="FUh-8J-HVU" secondAttribute="trailing" constant="12" id="7qX-Yi-2g7"/>
+                <constraint firstItem="FUh-8J-HVU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="OR9-b7-rK4"/>
+                <constraint firstItem="XZR-Iv-wIW" firstAttribute="leading" secondItem="MJq-el-uJr" secondAttribute="trailing" constant="2" id="RPH-Sl-BJ1"/>
+                <constraint firstItem="Pc4-hW-aF8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="VbF-EJ-mrr"/>
+                <constraint firstItem="MJq-el-uJr" firstAttribute="bottom" secondItem="FUh-8J-HVU" secondAttribute="bottom" id="cv5-sO-vmZ"/>
+                <constraint firstItem="FUh-8J-HVU" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-8" id="gWS-tA-MPa"/>
+                <constraint firstItem="XZR-Iv-wIW" firstAttribute="height" secondItem="MJq-el-uJr" secondAttribute="height" id="hxj-HN-xBR"/>
+                <constraint firstItem="XZR-Iv-wIW" firstAttribute="bottom" secondItem="MJq-el-uJr" secondAttribute="bottom" constant="1" id="kus-UE-Ii2"/>
+                <constraint firstItem="Pc4-hW-aF8" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="8" id="wym-ey-FcU"/>
+                <constraint firstAttribute="trailing" secondItem="XZR-Iv-wIW" secondAttribute="trailing" constant="8" id="z4Q-Bv-19D"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="distanceUnitsLabel" destination="XZR-Iv-wIW" id="Vbi-IQ-gLF"/>
+                <outlet property="distanceValueLabel" destination="MJq-el-uJr" id="VCa-EJ-LPb"/>
+                <outlet property="primaryLabel" destination="FUh-8J-HVU" id="TXA-cq-FXg"/>
+                <outlet property="secondaryLabel" destination="Pc4-hW-aF8" id="mSD-a9-YKw"/>
+            </connections>
+            <point key="canvasLocation" x="434" y="406"/>
+        </view>
+    </objects>
+</document>

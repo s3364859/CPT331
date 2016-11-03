@@ -7,30 +7,31 @@
 //
 
 import Foundation
-import SwiftyJSON
 
+/// Stores data for a weather prediction. Extends WeatherData to add support for storing temperature ranges and precipitation data.
 class WeatherDataPrediction:WeatherData {
-    let temperature:(
-    // The minimum value of temperature during a given day
-    min:Double?,
     
-    // The maximum value of temperature during a given day
-    max:Double?
-    )
+    /**
+        Temperature prediction data (read-only)
+     
+        - Parameters:
+            - min: the minimum value of temperature during a given day
+            - max: the maximum value of temperature during a given day
+    */
+    let temperature:(min:Double?, max:Double?)
     
-    let precipitation:(
-    // The intensity (in millimeters of liquid water per hour) of precipitation occurring at the given time.
-    intensity:Double?,
     
-    // The probability of precipitation occurring, between 0 and 1, inclusive.
-    probability:Double?,
+    /**
+        Precipitation prediction data (read-only)
+     
+        - Parameters:
+            - intensity: the intensity (in millimeters of liquid water per hour) of precipitation occurring at the given time.
+            - probaility: the probability of precipitation occurring, between 0 and 1, inclusive.
+            - type: the type of precipitation occurring at the given time.
+            - accumulation: The amount of snowfall accumulation expected to occur, in Centimeters. (If no snowfall is expected, this property will be nil)
+    */
+    let precipitation:(intensity:Double?, probability:Double?, type:PrecipitationType?, accumulation:Double?)
     
-    // The type of precipitation occurring at the given time.
-    type:PrecipitationType?,
-    
-    // The amount of snowfall accumulation expected to occur, in Centimeters. (If no snowfall is expected, this property will not be defined.)
-    accumulation:Double?
-    )
     
     init(datetime:NSDate, category:WeatherCategory?, summary:String?, dewPoint:Double?, humidity: Double?, cloudCover: Double?, pressure: Double?, visibility: Double?, windSpeed:Double?, windBearing:Int?, tempMin:Double?, tempMax:Double?, precipIntensity:Double?, precipProbability:Double?, precipType: PrecipitationType?, precipAccumulation:Double?) {
         

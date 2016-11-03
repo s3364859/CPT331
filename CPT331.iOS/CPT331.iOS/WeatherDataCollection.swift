@@ -10,13 +10,19 @@ import UIKit
 import CoreLocation
 import SwiftyJSON
 
+/// Stores current weather data and an array of weather predictions.
 class WeatherDataCollection {
+    
+    /// The geographical location of the data source - typically a weather station
     let coordinate:CLLocationCoordinate2D
     
-    // Stores the prediction for current or requested time
+    /// Stores the prediction for current or requested time
     let current:WeatherDataCurrent?
     
+    /// A human-readable summary of the weather forecast for the next 7 days
     let dailySummary:String?
+    
+    /// Array of weather predictions for the subsequent days including and after the current weather data
     let dailyData:[WeatherDataPrediction]?
     
     init(coordinate:CLLocationCoordinate2D, current: WeatherDataCurrent?, dailySummary:String?, dailyData:[WeatherDataPrediction]?) {

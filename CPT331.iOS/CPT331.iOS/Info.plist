@@ -30,12 +30,14 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>eventguardian.ddns.net</key>
+			<string></string>
 			<key>www.eventfinda.com.au</key>
 			<string></string>
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>SpatioNews is using your location</string>
+	<string>EventGuardian will also share location and usage data with Mapbox.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

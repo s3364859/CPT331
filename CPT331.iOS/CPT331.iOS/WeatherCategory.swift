@@ -8,9 +8,11 @@
 
 import UIKit
 
+/// Conveniently stores formatted names and images for each weather category
 enum WeatherCategory:Int {
     case Unknown=1, ClearDay, ClearNight, Rain, Snow, Sleet, Wind, Fog, Cloudy, PartlyCloudyDay, PartlyCloudyNight, Hail, Thunderstorm, Tornado
     
+    /// The formatted name of the weather category
     var name:String {
         get {
             switch self {
@@ -32,6 +34,7 @@ enum WeatherCategory:Int {
         }
     }
     
+    /// Image to be used for visually representing the category in the view
     var image:UIImage? {
         get {
             switch self {
@@ -53,6 +56,7 @@ enum WeatherCategory:Int {
         }
     }
     
+    /// Parses a string identifier (from API) into a WeatherCategory value
     static func fromString(string:String) -> WeatherCategory {
         switch string {
         case "clear-day": return .ClearDay

@@ -9,8 +9,13 @@
 import UIKit
 
 extension UIView {
-    
-    // Force self to be the same size as parent view
+
+    /**
+        Forces the view to match the frame size of its parent view by setting top, trailing, bottom & leading constraints.
+     
+        - Parameters:
+            - view: the specified view must be the parent view
+    */
     func sizeToFit(parent parentView:UIView) {
         self.translatesAutoresizingMaskIntoConstraints = false
         parentView.addConstraints([
@@ -19,5 +24,26 @@ extension UIView {
             NSLayoutConstraint(item: self, attribute: .Bottom, relatedBy: .Equal, toItem: parentView, attribute: .Bottom, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: self, attribute: .Leading, relatedBy: .Equal, toItem: parentView, attribute: .Leading, multiplier: 1, constant: 0)
         ])
+    }
+    
+    
+    /**
+        Adds a loading indicator to the center of the view.
+     
+        - Parameters:
+            - style: the style of the indicator view: .Gray, .White, .WhiteLarge
+     
+        - Returns: the loading indicator subview so that it can be laterhdiden by calling indicator.removeFromSuperView()
+     */
+    func showLoadingIndicator(style style:UIActivityIndicatorViewStyle = .Gray) -> UIActivityIndicatorView {
+        let indicator = UIActivityIndicatorView(frame: self.bounds)
+        indicator.activityIndicatorViewStyle = style
+        indicator.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        indicator.userInteractionEnabled = false
+        
+        self.addSubview(indicator)
+        indicator.startAnimating()
+        
+        return indicator
     }
 }
