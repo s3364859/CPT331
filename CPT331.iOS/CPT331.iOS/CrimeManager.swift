@@ -15,9 +15,8 @@ import SwiftyJSON
 class CrimeManager: JSONAPI {
     static let sharedInstance = CrimeManager()
     
-    // TODO: move domain to info.plist
     /// EventGuardian API endpoint for crime data (read-only)
-    private let ENDPOINT = "http://ec2-52-32-105-85.us-west-2.compute.amazonaws.com/api/Crime/CrimesByCoordinate"
+    private let ENDPOINT = ConfigManager.sharedInstance.eventGuardianAPI + "/api/Crime/CrimesByCoordinate"
     
     /// Singleton initializer
     private override init() {}

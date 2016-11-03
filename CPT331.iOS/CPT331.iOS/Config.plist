@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API</key>
+	<dict>
+		<key>DarkSky</key>
+		<string>https://api.darksky.net</string>
+		<key>EventGuardian</key>
+		<string>http://ec2-52-32-105-85.us-west-2.compute.amazonaws.com</string>
+	</dict>
+</dict>
+</plist>

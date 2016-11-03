@@ -17,7 +17,7 @@ class WeatherManager: JSONAPI {
     
     // TODO: move domain and API key to info.plist
     /// DarkSky API endpoint for weather data (read-only)
-    private let ENDPOINT = "https://api.darksky.net/forecast/5136e36ec5498cfd8c583e3f580d3060"
+    private let ENDPOINT = ConfigManager.sharedInstance.darkSkyAPI + "/forecast/5136e36ec5498cfd8c583e3f580d3060"
     
     /// Singleton initializer
     private override init() {}

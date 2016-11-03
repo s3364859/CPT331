@@ -14,6 +14,8 @@
 		D04259A91DA627B70019103E /* WeatherStatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04259A81DA627B70019103E /* WeatherStatView.swift */; };
 		D04259AB1DA6416F0019103E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04259AA1DA6416F0019103E /* UIImage.swift */; };
 		D044A0291DAB438000C6717D /* JSONAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D044A0281DAB438000C6717D /* JSONAPI.swift */; };
+		D044E7A11DCAF86F0029C4EC /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = D044E7A01DCAF86F0029C4EC /* Config.plist */; };
+		D044E7A31DCAF96C0029C4EC /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D044E7A21DCAF96C0029C4EC /* ConfigManager.swift */; };
 		D04532481DA4904800345DC3 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04532471DA4904800345DC3 /* WeatherManager.swift */; };
 		D045324A1DA499C100345DC3 /* WeatherDataCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04532491DA499C100345DC3 /* WeatherDataCollection.swift */; };
 		D045324C1DA4A45400345DC3 /* WeatherCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D045324B1DA4A45400345DC3 /* WeatherCategory.swift */; };
@@ -101,6 +103,8 @@
 		D04259A81DA627B70019103E /* WeatherStatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherStatView.swift; sourceTree = "<group>"; };
 		D04259AA1DA6416F0019103E /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		D044A0281DAB438000C6717D /* JSONAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONAPI.swift; sourceTree = "<group>"; };
+		D044E7A01DCAF86F0029C4EC /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		D044E7A21DCAF96C0029C4EC /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		D04532471DA4904800345DC3 /* WeatherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		D04532491DA499C100345DC3 /* WeatherDataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherDataCollection.swift; sourceTree = "<group>"; };
 		D045324B1DA4A45400345DC3 /* WeatherCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCategory.swift; sourceTree = "<group>"; };
@@ -263,6 +267,7 @@
 				D08BFF421D900893001B89B6 /* Main.storyboard */,
 				D08BFF451D900899001B89B6 /* LaunchScreen.storyboard */,
 				D04F33EA1D8E65EE00103669 /* Info.plist */,
+				D044E7A01DCAF86F0029C4EC /* Config.plist */,
 			);
 			path = CPT331.iOS;
 			sourceTree = "<group>";
@@ -314,6 +319,7 @@
 				D08BFF381D90082C001B89B6 /* LocationManager.swift */,
 				D04532471DA4904800345DC3 /* WeatherManager.swift */,
 				D0A32F111DB7CB2500DF8623 /* SettingsManager.swift */,
+				D044E7A21DCAF96C0029C4EC /* ConfigManager.swift */,
 				D044A0281DAB438000C6717D /* JSONAPI.swift */,
 			);
 			name = "API & Model";
@@ -544,6 +550,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D08BFF411D900851001B89B6 /* Assets.xcassets in Resources */,
+				D044E7A11DCAF86F0029C4EC /* Config.plist in Resources */,
 				D06EC6021DAC6FDE00626F6C /* EventDataView.xib in Resources */,
 				D0628AF21DB5D41600334E1A /* LocationListCell.xib in Resources */,
 				D08BFF471D900899001B89B6 /* LaunchScreen.storyboard in Resources */,
@@ -670,6 +677,7 @@
 				D08BFF391D90082C001B89B6 /* LocationManager.swift in Sources */,
 				D0AD35DB1DA913EC00EA3013 /* EventCategory.swift in Sources */,
 				D0EFB9C31DC02F2A0029FEF3 /* EventSection.swift in Sources */,
+				D044E7A31DCAF96C0029C4EC /* ConfigManager.swift in Sources */,
 				D080C2801D937AA20071BB43 /* LocationTabBarController.swift in Sources */,
 				D044A0291DAB438000C6717D /* JSONAPI.swift in Sources */,
 				D088578F1D9110C600790857 /* LocationWeatherViewController.swift in Sources */,

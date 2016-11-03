@@ -15,9 +15,8 @@ import SwiftyJSON
 class EventManager: JSONAPI {
     static let sharedInstance = EventManager()
     
-    // TODO: move domain to info.plist
     /// EventGuardian API endpoint for event data (read-only)
-    private let ENDPOINT = "http://ec2-52-32-105-85.us-west-2.compute.amazonaws.com/api/Event/EventsByCoordinate"
+    private let ENDPOINT = ConfigManager.sharedInstance.eventGuardianAPI + "/api/Event/EventsByCoordinate"
     
     /// Stores all cached events
     private var eventCache = [Int:Event]()
