@@ -11,4 +11,5 @@ target 'CPT331.iOS' do
   pod 'SideMenu', '~> 1.2.0'
   pod 'MXParallaxHeader', '~> 0.5.2'
   pod 'Charts', '~> 2.2.5'
+  pod 'ReachabilitySwift', '~> 2.4'
 end
