@@ -284,6 +284,10 @@
     <Content Include="Views\Admin\OffenceCategories.cshtml" />
     <Content Include="Views\Admin\OffenceCategoriesPartial.cshtml" />
     <Content Include="Views\Account\SignOut.cshtml" />
+    <Content Include="Views\Admin\Crime.cshtml" />
+    <Content Include="Views\Admin\Crimes.cshtml" />
+    <Content Include="Views\Admin\CrimesPartial.cshtml" />
+    <Content Include="Views\Admin\NewCrime.cshtml" />
     <None Include="Web.AWS.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

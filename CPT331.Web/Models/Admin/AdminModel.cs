@@ -33,8 +33,24 @@ namespace CPT331.Web.Models.Admin
 			}
 		}
 
+		/// <summary>
+		/// A list of Offences required for selector controls.
+		/// </summary>
+		public IEnumerable<SelectListItem> Offences
+		{
+			get
+			{
+				List<SelectListItem> offenceList = new List<SelectListItem>();
+				List<Offence> offences = DataProvider.OffenceRepository.GetOffences();
+
+				offences.ForEach(m => offenceList.Add(new SelectListItem() { Text = $"{m.Name}", Value = m.ID.ToString() }));
+
+				return offenceList;
+			}
+		}
+
         /// <summary>
-        /// A list of LocalGovernmentAreas required for selector controls
+        /// A list of LocalGovernmentAreas required for selector controls.
         /// </summary>
 		public IEnumerable<SelectListItem> LocalGovernmentAreas
 		{
@@ -50,7 +66,7 @@ namespace CPT331.Web.Models.Admin
 		}
 
         /// <summary>
-        /// A list of States required for selector controls
+        /// A list of States required for selector controls.
         /// </summary>
         public IEnumerable<SelectListItem> States
 		{

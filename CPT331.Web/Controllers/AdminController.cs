@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Helpers;
 
+using CPT331.Core;
 using CPT331.Core.ObjectModel;
 using CPT331.Data;
 using CPT331.Web.Models.Admin;
@@ -36,6 +37,7 @@ namespace CPT331.Web.Controllers
 		}
 
 		#region Crime Model
+
 		/// <summary>
 		/// Provides an editor page for an existing Crime record.
 		/// </summary>
@@ -46,22 +48,22 @@ namespace CPT331.Web.Controllers
 		public ActionResult Crime(uint id)
 		{
 			CrimeModel crimeModel = null;
-			Crime crime = DataProvider.CrimeRepository.GetCrimeByID((int)(id));
+			CrimeOffenceLocalGovernmentAreaState crimeOffenceLocalGovernmentAreaState = DataProvider.CrimeOffenceLocalGovernmentAreaStateRepository.GetCrimeOffenceLocalGovernmentAreaStateByID((int)(id));
 
-			if (crime != null)
+			if (crimeOffenceLocalGovernmentAreaState != null)
 			{
 				crimeModel = new CrimeModel
 				(
-					crime.Count,
-					crime.DateCreatedUtc,
-					crime.DateUpdatedUtc,
-					crime.ID,
-					crime.IsDeleted,
-					crime.IsVisible,
-					crime.LocalGovernmentAreaID,
-					crime.Month,
-					crime.OffenceID,
-					crime.Year
+					crimeOffenceLocalGovernmentAreaState.Count,
+					crimeOffenceLocalGovernmentAreaState.DateCreatedUtc,
+					crimeOffenceLocalGovernmentAreaState.DateUpdatedUtc,
+					crimeOffenceLocalGovernmentAreaState.ID,
+					crimeOffenceLocalGovernmentAreaState.IsDeleted,
+					crimeOffenceLocalGovernmentAreaState.IsVisible,
+					crimeOffenceLocalGovernmentAreaState.LocalGovernmentAreaID,
+					crimeOffenceLocalGovernmentAreaState.Month,
+					crimeOffenceLocalGovernmentAreaState.OffenceID,
+					crimeOffenceLocalGovernmentAreaState.Year
 				);
 			}
 
@@ -100,7 +102,7 @@ namespace CPT331.Web.Controllers
 					);
 				}
 
-				actionResult = RedirectToAction("Offences", "Admin");
+				actionResult = RedirectToAction("Crimes", "Admin");
 			}
 			else
 			{
@@ -108,6 +110,16 @@ namespace CPT331.Web.Controllers
 			}
 
 			return actionResult;
+		}
+
+        /// <summary>
+        /// Exports the Crimes table as CSV.
+        /// </summary>
+        /// <returns>Crimes.csv</returns>
+        [HttpGet]
+		public ActionResult ExportCrimes()
+		{
+			return new ExportDataActionResult("Crimes.csv", DataProvider.CrimeRepository);
 		}
 
 		/// <summary>
@@ -157,7 +169,9 @@ namespace CPT331.Web.Controllers
 		[HttpGet]
 		public ActionResult Crimes(string sortBy, SortDirection? sortDirection, uint? page)
 		{
-			IEnumerable<Crime> crimes = DataProvider.CrimeRepository.GetCrimes();
+			int pageValue = (((page.HasValue == true) ? ((int)(page.Value - 1)) : 0) * ApplicationConfiguration.Default.DataTakeSize);
+
+			IEnumerable<CrimeOffenceLocalGovernmentAreaState> crimeOffenceLocalGovernmentAreaStates = DataProvider.CrimeOffenceLocalGovernmentAreaStateRepository.GetCrimeOffenceLocalGovernmentAreaStates(pageValue, ApplicationConfiguration.Default.DataTakeSize, sortBy, sortDirection.ToString());
 
 			if ((String.IsNullOrEmpty(sortBy) == false) && (sortDirection.HasValue == true))
 			{
@@ -165,73 +179,130 @@ namespace CPT331.Web.Controllers
 
 				switch (sortBy)
 				{
-					case "Date":
+					case "Count":
 						if (sort == SortDirection.Ascending)
 						{
-							crimes = crimes.OrderBy(m => (m.DateCreatedUtc));   //	.ThenBy(m => (m.Name));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.Count));
 						}
 						else
 						{
-							crimes = crimes.OrderByDescending(m => (m.DateCreatedUtc)); //	.ThenBy(m => (m.Name));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.Count));
+						}
+						break;
+
+					case "Date":
+						if (sort == SortDirection.Ascending)
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.DateCreatedUtc));
+						}
+						else
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.DateCreatedUtc));
 						}
 						break;
 
 					case "ID":
 						if (sort == SortDirection.Ascending)
 						{
-							crimes = crimes.OrderBy(m => (m.ID));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.ID));
 						}
 						else
 						{
-							crimes = crimes.OrderByDescending(m => (m.ID));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.ID));
 						}
 						break;
 
 					case "IsDeleted":
 						if (sort == SortDirection.Ascending)
 						{
-							crimes = crimes.OrderBy(m => (m.IsDeleted));    //	.ThenBy(m => (m.Name));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.IsDeleted));
 						}
 						else
 						{
-							crimes = crimes.OrderByDescending(m => (m.IsDeleted));  //	.ThenBy(m => (m.Name));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.IsDeleted));
 						}
 						break;
 
 					case "IsVisible":
 						if (sort == SortDirection.Ascending)
 						{
-							crimes = crimes.OrderBy(m => (m.IsVisible));    //	.ThenBy(m => (m.Name));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.IsVisible));
 						}
 						else
 						{
-							crimes = crimes.OrderByDescending(m => (m.IsVisible));  //	.ThenBy(m => (m.Name));
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.IsVisible));
 						}
 						break;
 
-						//	case "Name":
-						//		if (sort == SortDirection.Ascending)
-						//		{
-						//			crimes = crimes.OrderBy(m => (m.Name));
-						//		}
-						//		else
-						//		{
-						//			crimes = crimes.OrderByDescending(m => (m.Name));
-						//		}
-						//		break;
+					case "LocalGovernmentAreaName":
+						if (sort == SortDirection.Ascending)
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.LocalGovernmentAreaName));
+						}
+						else
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.LocalGovernmentAreaName));
+						}
+						break;
+
+					case "Month":
+						if (sort == SortDirection.Ascending)
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.Month));
+						}
+						else
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.Month));
+						}
+						break;
+
+					case "OffenceName":
+						if (sort == SortDirection.Ascending)
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.OffenceName));
+						}
+						else
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.OffenceName));
+						}
+						break;
+
+					case "StateName":
+						if (sort == SortDirection.Ascending)
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.StateName));
+						}
+						else
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.StateName));
+						}
+						break;
+
+					case "Year":
+						if (sort == SortDirection.Ascending)
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderBy(m => (m.Year));
+						}
+						else
+						{
+							crimeOffenceLocalGovernmentAreaStates = crimeOffenceLocalGovernmentAreaStates.OrderByDescending(m => (m.Year));
+						}
+						break;
 				}
 			}
 
-			return View(crimes);
+			return View(crimeOffenceLocalGovernmentAreaStates);
 		}
-        #endregion
 
-        #region LocalGovernmentArea Model
-        /// <summary>
-        /// Exports the ExportLocalGovernmentAreas table as CSV.
-        /// </summary>
-        /// <returns>LocalGovernmentAreas.csv</returns>
-        [HttpGet]
+		#endregion
+
+		#region LocalGovernmentArea Model
+
+		/// <summary>
+		/// Exports the ExportLocalGovernmentAreas table as CSV.
+		/// </summary>
+		/// <returns>LocalGovernmentAreas.csv</returns>
+		[HttpGet]
 		public ActionResult ExportLocalGovernmentAreas()
 
 		{
@@ -430,14 +501,16 @@ namespace CPT331.Web.Controllers
 
 			return View(localGovernmentAreaStates);
 		}
-        #endregion
 
-        #region Offence Model
-        /// <summary>
-        /// Exports the Offenses table as CSV.
-        /// </summary>
-        /// <returns>Offences.csv</returns>
-        [HttpGet]
+		#endregion
+
+		#region Offence Model
+
+		/// <summary>
+		/// Exports the Offenses table as CSV.
+		/// </summary>
+		/// <returns>Offences.csv</returns>
+		[HttpGet]
 		public ActionResult ExportOffences()
 		{
 			return new ExportDataActionResult("Offences.csv", DataProvider.OffenceRepository);
@@ -609,14 +682,16 @@ namespace CPT331.Web.Controllers
 
 			return View(offences);
 		}
-        #endregion
 
-        #region OffenceCategory Model
-        /// <summary>
-        /// Exports the OffenceCateogories table as CSV.
-        /// </summary>
-        /// <returns>OffenceCateogories.csv</returns>
-        [HttpGet]
+		#endregion
+
+		#region OffenceCategory Model
+
+		/// <summary>
+		/// Exports the OffenceCateogories table as CSV.
+		/// </summary>
+		/// <returns>OffenceCateogories.csv</returns>
+		[HttpGet]
 		public ActionResult ExportOffenceCategories()
 		{
 			return new ExportDataActionResult("OffenceCateogories.csv", DataProvider.OffenceCategoryRepository);
@@ -788,14 +863,16 @@ namespace CPT331.Web.Controllers
 
 			return View(offenceCategories);
 		}
-        #endregion
 
-        #region State Model
-        /// <summary>
-        /// Exports the States table as CSV.
-        /// </summary>
-        /// <returns>States.csv</returns>
-        [HttpGet]
+		#endregion
+
+		#region State Model
+
+		/// <summary>
+		/// Exports the States table as CSV.
+		/// </summary>
+		/// <returns>States.csv</returns>
+		[HttpGet]
 		public ActionResult ExportStates()
 		{
 			return new ExportDataActionResult("States.csv", DataProvider.StateRepository);
@@ -978,6 +1055,7 @@ namespace CPT331.Web.Controllers
 
 			return View(states);
 		}
+
 		#endregion
 	}
 }
