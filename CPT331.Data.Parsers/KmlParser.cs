@@ -7,6 +7,7 @@ using System.Text;
 
 using CPT331.Core.Logging;
 using CPT331.Core.ObjectModel;
+using System.Reflection;
 
 #endregion
 
@@ -29,7 +30,7 @@ namespace CPT331.Data.Parsers
 			_state = state;
 		}
 
-		private const int WGS84Datum = 4326;
+        private const int WGS84Datum = 4326;
 
 		private readonly string _dataSourceDirectory;
 		private readonly string _fileName;
@@ -78,8 +79,8 @@ namespace CPT331.Data.Parsers
 			stringBuilder.AppendLine();
 
 			stringBuilder.AppendLine("UPDATE [Location].LocalGovernmentArea SET Area = @@Area WHERE ID = @@LocalGovernmentAreaID");
-
-			stringBuilder.AppendLine();
+            
+            stringBuilder.AppendLine();
 			stringBuilder.AppendLine("COMMIT");
 			stringBuilder.AppendLine();
 
