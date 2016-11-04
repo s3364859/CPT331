@@ -11,7 +11,7 @@
         <!--Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Map View Controller" id="BYZ-38-t0r" customClass="MapViewController" customModule="CPT331_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapView" title="Map View Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="MapViewController" customModule="CPT331_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -106,6 +106,108 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="582" y="451"/>
+        </scene>
+        <!--Tutorial View Controller-->
+        <scene sceneID="Wqf-ox-uCl">
+            <objects>
+                <viewController storyboardIdentifier="tutorialView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nWi-Ke-mQT" customClass="TutorialViewController" customModule="CPT331_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="R72-bE-TXp"/>
+                        <viewControllerLayoutGuide type="bottom" id="T8H-0o-JV3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="F1p-11-5Ev">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tutorial-Map" translatesAutoresizingMaskIntoConstraints="NO" id="cwo-9u-bHL">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xhy-4Z-2Be" customClass="LocationSearchView" customModule="CPT331_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="barHeight">
+                                        <real key="value" value="50"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="resultHeight">
+                                        <real key="value" value="50"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="margin">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tutorial-Annotation" translatesAutoresizingMaskIntoConstraints="NO" id="yaH-5X-gKu">
+                                <rect key="frame" x="282.5" y="261.5" width="35" height="71"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="yaH-5X-gKu" secondAttribute="height" multiplier="62:125" id="Wd7-9R-81d"/>
+                                    <constraint firstAttribute="width" constant="35" id="gsa-f4-AQ6"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tutorial-LocationLabel" translatesAutoresizingMaskIntoConstraints="NO" id="GxI-fl-aN6">
+                                <rect key="frame" x="250" y="287" width="100" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="V0b-Rj-uKX"/>
+                                    <constraint firstAttribute="width" secondItem="GxI-fl-aN6" secondAttribute="height" multiplier="66:37" id="fgS-Cl-XSC"/>
+                                </constraints>
+                            </imageView>
+                            <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cl3-Q2-zVq" userLabel="Dim Background">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ade-WB-VyQ">
+                                <rect key="frame" x="525" y="560" width="75" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="eEy-oR-khd"/>
+                                    <constraint firstAttribute="width" constant="75" id="jau-i0-vwx"/>
+                                </constraints>
+                                <state key="normal" title="Skip &gt;">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="exitButtonTapped:" destination="nWi-Ke-mQT" eventType="touchUpInside" id="FIV-tb-iys"/>
+                                </connections>
+                            </button>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="gj0-Nw-a9d">
+                                <rect key="frame" x="264" y="563" width="71" height="37"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Cl3-Q2-zVq" firstAttribute="top" secondItem="F1p-11-5Ev" secondAttribute="top" id="57e-Vf-3DP"/>
+                            <constraint firstAttribute="trailing" secondItem="Cl3-Q2-zVq" secondAttribute="trailing" id="6dN-CB-PvM"/>
+                            <constraint firstItem="gj0-Nw-a9d" firstAttribute="centerX" secondItem="F1p-11-5Ev" secondAttribute="centerX" id="6ri-BW-ah0"/>
+                            <constraint firstAttribute="trailing" secondItem="xhy-4Z-2Be" secondAttribute="trailing" id="BmZ-sl-EZh"/>
+                            <constraint firstItem="GxI-fl-aN6" firstAttribute="centerX" secondItem="F1p-11-5Ev" secondAttribute="centerX" id="EuO-Lv-4jb"/>
+                            <constraint firstItem="GxI-fl-aN6" firstAttribute="centerY" secondItem="F1p-11-5Ev" secondAttribute="centerY" constant="15" id="F2r-h9-ygo"/>
+                            <constraint firstItem="xhy-4Z-2Be" firstAttribute="top" secondItem="R72-bE-TXp" secondAttribute="bottom" id="KC2-vb-n0e"/>
+                            <constraint firstItem="yaH-5X-gKu" firstAttribute="width" secondItem="yaH-5X-gKu" secondAttribute="height" multiplier="62:125" id="MXM-Q1-DRD"/>
+                            <constraint firstItem="cwo-9u-bHL" firstAttribute="leading" secondItem="F1p-11-5Ev" secondAttribute="leading" id="OHg-fp-lMU"/>
+                            <constraint firstItem="T8H-0o-JV3" firstAttribute="top" secondItem="cwo-9u-bHL" secondAttribute="bottom" id="QKr-TE-oDv"/>
+                            <constraint firstItem="Cl3-Q2-zVq" firstAttribute="leading" secondItem="F1p-11-5Ev" secondAttribute="leading" id="U50-3s-K3L"/>
+                            <constraint firstItem="T8H-0o-JV3" firstAttribute="top" secondItem="ade-WB-VyQ" secondAttribute="bottom" id="UAt-xy-hbu"/>
+                            <constraint firstItem="T8H-0o-JV3" firstAttribute="top" secondItem="gj0-Nw-a9d" secondAttribute="bottom" id="Wnt-GP-gTY"/>
+                            <constraint firstItem="T8H-0o-JV3" firstAttribute="top" secondItem="xhy-4Z-2Be" secondAttribute="bottom" id="Xyz-XB-szE"/>
+                            <constraint firstItem="T8H-0o-JV3" firstAttribute="top" secondItem="Cl3-Q2-zVq" secondAttribute="bottom" id="bgc-7v-3Rb"/>
+                            <constraint firstItem="xhy-4Z-2Be" firstAttribute="leading" secondItem="F1p-11-5Ev" secondAttribute="leading" id="jRZ-VQ-0hX"/>
+                            <constraint firstItem="cwo-9u-bHL" firstAttribute="top" secondItem="F1p-11-5Ev" secondAttribute="top" id="lJ7-va-NnL"/>
+                            <constraint firstItem="yaH-5X-gKu" firstAttribute="centerY" secondItem="F1p-11-5Ev" secondAttribute="centerY" constant="-3" id="nsV-1w-dIk"/>
+                            <constraint firstAttribute="trailing" secondItem="cwo-9u-bHL" secondAttribute="trailing" id="oU0-nh-z24"/>
+                            <constraint firstItem="yaH-5X-gKu" firstAttribute="centerX" secondItem="F1p-11-5Ev" secondAttribute="centerX" id="oc8-bD-PyK"/>
+                            <constraint firstAttribute="trailing" secondItem="ade-WB-VyQ" secondAttribute="trailing" id="rKc-cw-vii"/>
+                            <constraint firstItem="GxI-fl-aN6" firstAttribute="width" secondItem="GxI-fl-aN6" secondAttribute="height" multiplier="66:37" id="vEQ-bB-5Ko"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="exitButton" destination="ade-WB-VyQ" id="uXa-bU-Lgu"/>
+                        <outlet property="pageControl" destination="gj0-Nw-a9d" id="Yvi-tT-iGZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OvN-7w-It2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1267" y="451"/>
         </scene>
         <!--Menu-->
         <scene sceneID="7HG-Bv-c9V">
@@ -997,6 +1099,9 @@
         <image name="Icon-Tab-Weather-Selected" width="25" height="25"/>
         <image name="Logo-Eventfinda" width="438" height="146"/>
         <image name="Logo-Mapbox" width="438" height="146"/>
+        <image name="Tutorial-Annotation" width="62" height="125"/>
+        <image name="Tutorial-LocationLabel" width="198" height="111"/>
+        <image name="Tutorial-Map" width="2484" height="1715"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="gV5-8L-EfB"/>
