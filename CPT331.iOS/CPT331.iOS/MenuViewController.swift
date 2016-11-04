@@ -12,13 +12,50 @@ import UIKit
 class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // -----------------------------
+    // MARK: Constants
+    // -----------------------------
+    enum MenuSection:Int {
+        case Configuration=0, Category
+        
+        static var all:[MenuSection] {
+            return [Configuration, Category]
+        }
+        
+        var name:String {
+            switch self {
+            case .Configuration:
+                return "Configuration"
+            case .Category:
+                return "Event Categories"
+            }
+        }
+        
+        var rowHeight:CGFloat {
+            switch self {
+            case .Configuration:
+                return 70
+            case .Category:
+                return 50
+            }
+        }
+    }
+    
+    
+    
+    // -----------------------------
     // MARK: Runtime Variables
     // -----------------------------
     lazy var categories = EventCategory.allCategories.sort{ $0.name < $1.name }
     lazy var whitelist = SettingsManager.sharedInstance.whitelist
     
+    
+    
+    // -----------------------------
+    // MARK: Storyboard References
+    // -----------------------------
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var helpView: UIView!
+    
     
     
     // -----------------------------
@@ -43,38 +80,65 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.performSegueWithIdentifier("showTutorial", sender: nil)
     }
     
+    func searchRadiusChanged(newValue:Double) {
+        print("New search radius: \(newValue)")
+    }
+    
     
     
     // -----------------------------
     // MARK: Table view data source
     // -----------------------------
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return MenuSection.all.count
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Event Categories"
+        return MenuSection(rawValue: section)?.name
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.categories.count
+        switch MenuSection(rawValue: section)! {
+        case .Configuration:
+            return 1
+        case .Category:
+            return self.categories.count
+        }
     }
 
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return MenuSection(rawValue: indexPath.section)!.rowHeight
+    }
     
     /// Instantiates a table view cell for the respective event category
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell", forIndexPath: indexPath) as! CategoryListCell
-        let category = self.categories[indexPath.row]
+        var cell:UITableViewCell!
         
-        // If an event category is in the whitelist, make it appear selected
-        if let categories = self.whitelist where categories.contains(category) {
-            self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: UITableViewScrollPosition.Middle)
-        } else {
-            self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        switch MenuSection(rawValue: indexPath.section)! {
+        case .Configuration:
+            let radiusCell = tableView.dequeueReusableCellWithIdentifier("sliderCell", forIndexPath: indexPath) as! SliderCell
+            cell = radiusCell
+            
+            radiusCell.titleLabel.text = "Event Search Radius"
+            radiusCell.unitsLabel.text = "km"
+            radiusCell.onSliderChange = self.searchRadiusChanged
+            
+        case .Category:
+            let categoryCell = tableView.dequeueReusableCellWithIdentifier("categoryCell", forIndexPath: indexPath) as! CategoryListCell
+            cell = categoryCell
+            
+            let category = self.categories[indexPath.row]
+            
+            // If an event category is in the whitelist, make it appear selected
+            if let categories = self.whitelist where categories.contains(category) {
+                self.tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: UITableViewScrollPosition.Middle)
+            } else {
+                self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            }
+            
+            categoryCell.category = category
+            categoryCell.update()
         }
-        
-        cell.category = category
-        cell.update()
         
         return cell
     }
@@ -82,8 +146,8 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     /// Responds to an event category being selected, adding it to the whitelist
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! CategoryListCell
-        if let category = cell.category {
+
+        if MenuSection(rawValue: indexPath.section)! == .Category, let category = (tableView.cellForRowAtIndexPath(indexPath) as? CategoryListCell)?.category {
             SettingsManager.sharedInstance.addWhitelistCategory(category)
         }
     }
@@ -91,8 +155,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     /// Responds to an event category being deselected, removing it from the whitelist
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! CategoryListCell
-        if let category = cell.category {
+        if MenuSection(rawValue: indexPath.section)! == .Category, let category = (tableView.cellForRowAtIndexPath(indexPath) as? CategoryListCell)?.category {
             SettingsManager.sharedInstance.removeWhitelistCategory(category)
         }
     }
