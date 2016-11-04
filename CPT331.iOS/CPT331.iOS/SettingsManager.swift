@@ -12,28 +12,35 @@ typealias EventCategoryWhitelist = [EventCategory]
 
 /// Manages the persistence and retrieval of user settings
 class SettingsManager {
+    
     static let sharedInstance = SettingsManager()
     
     /// Shared defaults object
-    private let defaults = NSUserDefaults.standardUserDefaults()
+    private let settings = NSUserDefaults.standardUserDefaults()
     
-    /// The key used to store whitelist data in NSUserDefaults (read-only)
-    private let whitelistKey = "eventCategoryWhitelist"
-    
+    /// The keys used to store data in NSUserDefaults (read-only)
+    private let keys = (
+        whitelist: "eventCategoryWhitelist",
+        searchRadius: "eventSearchRadius"
+    )
     
     
     /// Singleton Initializer. Initializes settings with default values if not already defined.
     private init() {
         if self.whitelist == nil {
-            self.updateWhitelistCategories(EventCategory.allCategories)
+            self._whitelist = EventCategory.allCategories
         }
     }
     
     
+    
+    // -----------------------------
+    // MARK: Whitelist
+    // -----------------------------
     /// Retrieves current event category whitelist from NSUserDefaults
-    var whitelist:EventCategoryWhitelist? {
+    private var _whitelist:EventCategoryWhitelist? {
         get {
-            if let rawValues = defaults.arrayForKey(whitelistKey) as? [Int] {
+            if let rawValues = settings.arrayForKey(keys.whitelist) as? [Int] {
                 var categories = EventCategoryWhitelist()
                 
                 for rawValue in rawValues {
@@ -48,6 +55,20 @@ class SettingsManager {
                 return nil
             }
         }
+        
+        set {
+            let rawValues = newValue != nil ? newValue!.map({$0.hashValue}) : []
+            settings.setObject(rawValues, forKey: keys.whitelist)
+            
+            // App-wide broadcast
+            NSNotificationCenter.defaultCenter().postNotificationName("WhitelistUpdated", object: nil)
+        }
+    }
+    
+    var whitelist:EventCategoryWhitelist? {
+        get {
+            return self._whitelist
+        }
     }
     
     
@@ -56,7 +77,7 @@ class SettingsManager {
         if let current = self.whitelist where !current.contains(category) {
             var modified = current
             modified.append(category)
-            self.updateWhitelistCategories(modified)
+            self._whitelist = modified
         }
     }
     
@@ -66,17 +87,29 @@ class SettingsManager {
         if let current = self.whitelist, let index = current.indexOf(category) {
             var modified = current
             modified.removeAtIndex(index)
-            self.updateWhitelistCategories(modified)
+            self._whitelist = modified
         }
     }
     
     
-    /// Updates the persisted whitelist to reflect the provided one
-    private func updateWhitelistCategories(categories:EventCategoryWhitelist) {
-        let rawValues = categories.map({$0.hashValue})
-        defaults.setObject(rawValues, forKey: whitelistKey)
+    
+    // -----------------------------
+    // MARK: Search Radius
+    // -----------------------------
+    var searchRadius:Double? {
+        get {
+            if let settingsValue = settings.valueForKey(keys.searchRadius) as? Double {
+                return settingsValue
+            } else {
+                let defaultValue = ConfigManager.sharedInstance.defaultSearchRadius
+                return defaultValue
+            }
+        }
         
-        // App-wide broadcast
-        NSNotificationCenter.defaultCenter().postNotificationName("WhitelistUpdated", object: nil)
+        set {
+            if newValue != nil {
+                settings.setDouble(newValue!, forKey: keys.searchRadius)
+            }
+        }
     }
 }

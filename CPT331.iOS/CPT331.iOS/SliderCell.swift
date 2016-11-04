@@ -19,19 +19,49 @@ class SliderCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = UITableViewCellSelectionStyle.None
+        
+        self.selectionStyle = .None
+        
+        // Add custom recognizers... because the hitbox for default handler is small
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:))))
+        self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:))))
         
         self.updateValueLabel()
     }
     
+    // Default handler (Really small)
     @IBAction func sliderValueChanged(sender: AnyObject) {
         self.updateValueLabel()
-        
-        let value = Double(self.slider.value)
-        self.onSliderChange?(newValue: value)
+        self.onSliderChange?(newValue: Double(self.slider.value))
     }
     
     func updateValueLabel() {
         self.valueLabel.text = String(Double(slider.value).roundToPlaces(1))
+    }
+    
+    func handleTapGesture(gesture:UITapGestureRecognizer) {
+        if gesture.state == .Ended {
+            self.updateValue(forGesture: gesture)
+        }
+    }
+    
+    func handlePanGesture(gesture:UIPanGestureRecognizer) {
+        if gesture.state == .Changed {
+            self.updateValue(forGesture: gesture)
+        }
+    }
+    
+    func updateValue(forGesture gesture:UIGestureRecognizer) {
+        var percent = gesture.locationOfTouch(0, inView: slider).x/slider.frame.width
+        
+        // Set lower and upper bounds
+        if percent < 0 {
+            percent = 0
+        } else if percent > 1 {
+            percent = 1
+        }
+        
+        slider.value = Float(percent) * slider.maximumValue
+        sliderValueChanged(slider)
     }
 }

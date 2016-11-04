@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SideMenu
 
 /// Populates the side bar menu with quick configuration options, allowing the user to configure what events are shown
 class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -21,10 +22,10 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             return [Configuration, Category]
         }
         
-        var name:String {
+        var name:String? {
             switch self {
             case .Configuration:
-                return "Configuration"
+                return nil
             case .Category:
                 return "Event Categories"
             }
@@ -33,7 +34,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         var rowHeight:CGFloat {
             switch self {
             case .Configuration:
-                return 70
+                return 75
             case .Category:
                 return 50
             }
@@ -70,6 +71,10 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.contentInset = UIEdgeInsetsZero
         
+        
+        SideMenuManager.menuFadeStatusBar = false
+//        SideMenuManager.menuEnableSwipeGestures = false
+        
         // Setup help gesture recognizer
         self.helpView.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(self.helpViewTapped))
@@ -81,7 +86,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func searchRadiusChanged(newValue:Double) {
-        print("New search radius: \(newValue)")
+        SettingsManager.sharedInstance.searchRadius = newValue
     }
     
     
@@ -119,8 +124,13 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             let radiusCell = tableView.dequeueReusableCellWithIdentifier("sliderCell", forIndexPath: indexPath) as! SliderCell
             cell = radiusCell
             
-            radiusCell.titleLabel.text = "Event Search Radius"
+            radiusCell.titleLabel.text = "Search Radius"
             radiusCell.unitsLabel.text = "km"
+            
+            radiusCell.slider.value = Float(SettingsManager.sharedInstance.searchRadius!)
+            radiusCell.slider.minimumValue = Float(ConfigManager.sharedInstance.minSearchRadius)
+            radiusCell.slider.maximumValue = Float(ConfigManager.sharedInstance.maxSearchRadius)
+            radiusCell.updateValueLabel()
             radiusCell.onSliderChange = self.searchRadiusChanged
             
         case .Category:

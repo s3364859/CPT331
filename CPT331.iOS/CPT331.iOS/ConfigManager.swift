@@ -48,4 +48,17 @@ class ConfigManager {
             return dictionary["Launch"]!.valueForKey("ForceTutorialMode") as! Bool
         }
     }
+    
+    var defaultSearchRadius:Double {
+        return dictionary["Search"]!.valueForKey("DefaultSearchRadius") as! Double
+    }
+    
+    
+    var minSearchRadius:Double {
+        return dictionary["Search"]!.valueForKey("MinSearchRadius") as! Double
+    }
+    
+    var maxSearchRadius:Double {
+        return dictionary["Search"]!.valueForKey("MaxSearchRadius") as! Double
+    }
 }

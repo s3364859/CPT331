@@ -63,7 +63,6 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
         // Setup the sidebar menu
         let menu = UISideMenuNavigationController()
         menu.leftSide = true
-        SideMenuManager.menuFadeStatusBar = false
         SideMenuManager.menuLeftNavigationController = menu
         
         // Setup map
