@@ -42,4 +42,10 @@ class ConfigManager {
             return dictionary["NetworkMonitor"]!.valueForKey("Delay") as! Double
         }
     }
+    
+    var forceTutorialMode:Bool {
+        get {
+            return dictionary["Launch"]!.valueForKey("ForceTutorialMode") as! Bool
+        }
+    }
 }

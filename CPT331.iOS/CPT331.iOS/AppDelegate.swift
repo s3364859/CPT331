@@ -27,7 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.applyGlobalStyling()
         
         // Run tutorial mode on first launch
-        if NSUserDefaults.standardUserDefaults().boolForKey("launchedBefore") == false {
+        let forceTutorialMode = ConfigManager.sharedInstance.forceTutorialMode
+        if forceTutorialMode || NSUserDefaults.standardUserDefaults().boolForKey("launchedBefore") == false {
+            if forceTutorialMode {
+                print("Tutorial mode presentation forced, ignoring first run requirement")
+            }
+            
             UIApplication.setRootViewController("tutorialView", animated: false)
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
         } else {

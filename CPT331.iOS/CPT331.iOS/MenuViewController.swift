@@ -9,7 +9,7 @@
 import UIKit
 
 /// Populates the side bar menu with quick configuration options, allowing the user to configure what events are shown
-class MenuViewController: UITableViewController {
+class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // -----------------------------
     // MARK: Runtime Variables
@@ -17,6 +17,8 @@ class MenuViewController: UITableViewController {
     lazy var categories = EventCategory.allCategories.sort{ $0.name < $1.name }
     lazy var whitelist = SettingsManager.sharedInstance.whitelist
     
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var helpView: UIView!
     
     
     // -----------------------------
@@ -25,8 +27,20 @@ class MenuViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Hide extra separators
+        // Setup table
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+        self.tableView.contentInset = UIEdgeInsetsZero
+        
+        // Setup help gesture recognizer
+        self.helpView.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(self.helpViewTapped))
+        )
+    }
+    
+    func helpViewTapped(view:UIView) {
+        self.performSegueWithIdentifier("showTutorial", sender: nil)
     }
     
     
@@ -34,21 +48,21 @@ class MenuViewController: UITableViewController {
     // -----------------------------
     // MARK: Table view data source
     // -----------------------------
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Event Categories"
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.categories.count
     }
 
     
     /// Instantiates a table view cell for the respective event category
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell", forIndexPath: indexPath) as! CategoryListCell
         let category = self.categories[indexPath.row]
         
@@ -67,7 +81,7 @@ class MenuViewController: UITableViewController {
     
     
     /// Responds to an event category being selected, adding it to the whitelist
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! CategoryListCell
         if let category = cell.category {
             SettingsManager.sharedInstance.addWhitelistCategory(category)
@@ -76,7 +90,7 @@ class MenuViewController: UITableViewController {
     
     
     /// Responds to an event category being deselected, removing it from the whitelist
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! CategoryListCell
         if let category = cell.category {
             SettingsManager.sharedInstance.removeWhitelistCategory(category)
