@@ -50,6 +50,7 @@ extension UIImageView {
         
         // Download the image if the network is reachable
         if NetworkMonitor.sharedInstance.reachable {
+            
             let request = NSMutableURLRequest(URL: url)
             NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
                 guard let data = data where error == nil else{
