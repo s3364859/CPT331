@@ -80,7 +80,7 @@ class NetworkMonitor {
         }
         
         let alert = UIAlertController(title: "Network Error", message: "An internet connection is required to use EventGuardian.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         topViewController.presentViewController(alert, animated: true, completion: nil)
     }
 }
