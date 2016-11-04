@@ -56,9 +56,15 @@ extension UIView {
      
         - Returns: the label subview so that it can be later hidden by calling label.removeFromSuperView()
      */
-    func showNetworkMissingIndicator(message:String="Network Connection Required") -> UILabel {
+    func showNetworkMissingIndicator(message:String="Network Connection Required", color:UIColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.7)) -> UILabel {
         let label = UILabel(frame: self.bounds)
+        
+        // Formatting
         label.text = message
+        label.textColor = color
+        label.textAlignment = .Center
+        label.font = UIFont.systemFontOfSize(15)
+        
         label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         self.addSubview(label)
         
