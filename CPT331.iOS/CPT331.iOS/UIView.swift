@@ -33,7 +33,7 @@ extension UIView {
         - Parameters:
             - style: the style of the indicator view: .Gray, .White, .WhiteLarge
      
-        - Returns: the loading indicator subview so that it can be laterhdiden by calling indicator.removeFromSuperView()
+        - Returns: the loading indicator subview so that it can be later hidden by calling indicator.removeFromSuperView()
      */
     func showLoadingIndicator(style style:UIActivityIndicatorViewStyle = .Gray) -> UIActivityIndicatorView {
         let indicator = UIActivityIndicatorView(frame: self.bounds)
@@ -45,5 +45,23 @@ extension UIView {
         indicator.startAnimating()
         
         return indicator
+    }
+    
+    
+    /**
+        Adds a network required message to the center of the view.
+     
+        - Parameters:
+            - message: the message to be displayed, default: "Network Connection Required"
+     
+        - Returns: the label subview so that it can be later hidden by calling label.removeFromSuperView()
+     */
+    func showNetworkMissingIndicator(message:String="Network Connection Required") -> UILabel {
+        let label = UILabel(frame: self.bounds)
+        label.text = message
+        label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        self.addSubview(label)
+        
+        return label
     }
 }

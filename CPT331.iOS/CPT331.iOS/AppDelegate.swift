@@ -14,19 +14,10 @@ import ReachabilitySwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // -----------------------------
-    // MARK: Constants
-    // -----------------------------
-    let networkMonitorDelay:Double = 3
-    let networkMonitorHostname:String = "google.com"
-    
-    
-    
-    // -----------------------------
     // MARK: Runtime Variables
     // -----------------------------
     var window: UIWindow?
-    var networkMonitor: Reachability?
-
+    
     
     
     // -----------------------------
@@ -36,75 +27,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.applyGlobalStyling()
         
         // Run tutorial mode on first launch
-        // NSUserDefaults.standardUserDefaults().boolForKey("launchedBefore") == false
-        if true {
-            self.setRootViewController(withIdentifier: "tutorialView", animated: false)
+        if NSUserDefaults.standardUserDefaults().boolForKey("launchedBefore") == false {
+            UIApplication.setRootViewController("tutorialView", animated: false)
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
         } else {
             print("Previously launched, skipping tutorial")
         }
         
-        dispatch_after(UInt64(self.networkMonitorDelay * Double(NSEC_PER_SEC)), dispatch_get_main_queue()) {
-            self.initNetworkMonitor()
+        // Initialize monitor after delay
+        let delay = ConfigManager.sharedInstance.networkMonitorDelay
+        dispatch_after(UInt64(delay * Double(NSEC_PER_SEC)), dispatch_get_main_queue()) {
+            NetworkMonitor.sharedInstance.start()
         }
         
         return true
     }
     
     func applicationDidEnterBackground(application: UIApplication) {
-        self.stopNetworkMonitor()
+        NetworkMonitor.sharedInstance.stop()
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
-        self.startNetworkMonitor()
-    }
-    
-    
-    // -----------------------------
-    // MARK: Network Monitor
-    // -----------------------------
-    func initNetworkMonitor() {
-        do {
-            let reachability = try Reachability(hostname: self.networkMonitorHostname)
-            self.networkMonitor = reachability
-            self.networkMonitor?.whenReachable = self.networkReachable(_:)
-            self.networkMonitor?.whenUnreachable = self.networkUnreachable(_:)
-            self.startNetworkMonitor()
-            
-        } catch _ {
-            print("Failed to setup reachability")
-        }
-    }
-    
-    func startNetworkMonitor() {
-        print("--- start notifier")
-        do {
-            try networkMonitor?.startNotifier()
-        } catch {
-            print("Unable to start reachability notifier")
-        }
-    }
-    
-    func stopNetworkMonitor() {
-        print("--- stop notifier")
-        networkMonitor?.stopNotifier()
-    }
-    
-    func networkReachable(reachability:Reachability) {
-        print("Network is now reachable")
-    }
-    
-    func networkUnreachable(reachability:Reachability) {
-        print("Network is no longer reachable")
-        
-        // Only present view controller if an alert view isnt already presented (prevents stacking)
-        guard let topViewController = UIApplication.topViewController() where !(topViewController is UIAlertController) else {
-            return
-        }
-        
-        let alert = UIAlertController(title: "Network Error", message: "An internet connection is required to use EventGuardian.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-        topViewController.presentViewController(alert, animated: true, completion: nil)
+        NetworkMonitor.sharedInstance.start()
     }
     
     
@@ -138,30 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tableHeaderText = UILabel.appearanceWhenContainedInInstancesOfClasses([UITableViewHeaderFooterView.self])
         tableHeaderText.textColor = tableHeaderTextcolor
         tableHeaderText.font = tableHeaderFont
-    }
-    
-    func setRootViewController(withIdentifier identifier:String, animated:Bool) {
-        guard let viewController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier(identifier) else {
-            return
-        }
-        
-        if animated {
-            let snapshot:UIView = (self.window?.snapshotViewAfterScreenUpdates(true))!
-            viewController.view.addSubview(snapshot);
-            self.window?.rootViewController = viewController
-            
-            UIView.animateWithDuration(0.3, animations:
-                {() in
-                    snapshot.layer.opacity = 0
-                }, completion: {
-                    (value: Bool) in
-                    snapshot.removeFromSuperview()
-                }
-            )
-            
-        } else {
-            self.window?.rootViewController = viewController
-        }
     }
 }
 

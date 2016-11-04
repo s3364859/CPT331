@@ -30,4 +30,16 @@ class ConfigManager {
             return dictionary["API"]!.valueForKey("DarkSky") as! String
         }
     }
+    
+    var networkMonitorHostname:String {
+        get {
+            return dictionary["NetworkMonitor"]!.valueForKey("Hostname") as! String
+        }
+    }
+    
+    var networkMonitorDelay:Double {
+        get {
+            return dictionary["NetworkMonitor"]!.valueForKey("Delay") as! Double
+        }
+    }
 }
