@@ -84,7 +84,7 @@ class LocationCrimeViewController: LocationViewController, ChartViewDelegate {
             }
             
         } else {
-            self.view.showNetworkMissingIndicator()
+            self.view.showNetworkMissingMessage()
         }
     }
     

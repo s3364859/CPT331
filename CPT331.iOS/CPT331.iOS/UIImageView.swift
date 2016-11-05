@@ -44,7 +44,7 @@ extension UIImageView {
             if NetworkMonitor.sharedInstance.reachable {
                 indicator = self.showLoadingIndicator()
             } else {
-                self.showNetworkMissingIndicator()
+                self.showNetworkMissingMessage()
             }
         }
         

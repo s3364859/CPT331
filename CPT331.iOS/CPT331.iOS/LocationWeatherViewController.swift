@@ -82,7 +82,7 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
             }
             
         } else {
-            self.view.showNetworkMissingIndicator()
+            self.view.showNetworkMissingMessage()
         }
         
     }

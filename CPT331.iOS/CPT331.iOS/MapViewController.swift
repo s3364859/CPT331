@@ -73,14 +73,8 @@ class MapViewController: UIViewController, MGLMapViewDelegate, EventsViewModelDe
         // Setup search
         self.locationSearchView.delegate = self
         
-        // Register double tap recognizer so the single tap knows to ignore them
-        let doubleTap = UITapGestureRecognizer(target: self, action: nil)
-        doubleTap.numberOfTapsRequired = 2
-        self.mapView.addGestureRecognizer(doubleTap)
-
         // Register single tap recognizer to check if the user tapped on a city/town/village label
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.gestureRecognizerBegan))
-        singleTap.requireGestureRecognizerToFail(doubleTap)
         singleTap.delegate = self
         singleTap.cancelsTouchesInView = false
         self.mapView.addGestureRecognizer(singleTap)

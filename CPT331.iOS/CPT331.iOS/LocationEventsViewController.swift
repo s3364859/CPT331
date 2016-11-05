@@ -63,7 +63,7 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
             self.viewModel.loadEvents(fromCache: true, fromAPI: true)
             
         } else {
-            self.view.showNetworkMissingIndicator()
+            self.view.showNetworkMissingMessage()
         }
     }
     
@@ -123,6 +123,10 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
             self.indicator?.removeFromSuperview()
             self.navIndicator = nil
             self.navigationItem.rightBarButtonItem = nil
+            
+            if self.viewModel.sections?.count == 0 {
+                self.view.showMessage("No Events Found")
+            }
         }
     }
 
