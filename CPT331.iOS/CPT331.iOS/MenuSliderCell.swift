@@ -1,5 +1,5 @@
 //
-//  SliderCell.swift
+//  MenuSliderCell.swift
 //  CPT331.iOS
 //
 //  Created by Peter Weller on 4/11/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SliderCell: UITableViewCell {
+class MenuSliderCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!

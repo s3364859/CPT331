@@ -8,7 +8,7 @@ target 'CPT331.iOS' do
   pod 'Mapbox-iOS-SDK', '~> 3.3.4'
   pod 'MapboxGeocoder.swift', :git => 'https://github.com/mapbox/MapboxGeocoder.swift.git', :tag => 'v0.5.0'
   pod 'AlamofireSwiftyJSON', '~> 0.1.1'
-  pod 'SideMenu', '~> 1.2.0'
+  pod 'SideMenu', '1.2.0'
   pod 'MXParallaxHeader', '~> 0.5.2'
   pod 'Charts', '~> 2.2.5'
   pod 'ReachabilitySwift', '~> 2.4'

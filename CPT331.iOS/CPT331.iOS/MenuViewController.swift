@@ -8,6 +8,7 @@
 
 import UIKit
 import SideMenu
+import EZAlertController
 
 /// Populates the side bar menu with quick configuration options, allowing the user to configure what events are shown
 class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -16,18 +17,20 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Constants
     // -----------------------------
     enum MenuSection:Int {
-        case Configuration=0, Category
+        case Configuration=0, Category, Other
         
         static var all:[MenuSection] {
-            return [Configuration, Category]
+            return [Configuration, Category, Other]
         }
         
         var name:String? {
             switch self {
             case .Configuration:
-                return nil
+                return "Configuration"
             case .Category:
                 return "Event Categories"
+            case .Other:
+                return "EventGuardian"
             }
         }
         
@@ -36,7 +39,9 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             case .Configuration:
                 return 75
             case .Category:
-                return 50
+                return 45
+            case .Other:
+                return 45
             }
         }
     }
@@ -55,6 +60,8 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Storyboard References
     // -----------------------------
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var creditsView: UIView!
     @IBOutlet weak var helpView: UIView!
     
     
@@ -64,31 +71,38 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     // -----------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
+        SideMenuManager.menuFadeStatusBar = false
         
         // Setup table
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.contentInset = UIEdgeInsetsZero
-        
-        
-        SideMenuManager.menuFadeStatusBar = false
-//        SideMenuManager.menuEnableSwipeGestures = false
-        
-        // Setup help gesture recognizer
-        self.helpView.addGestureRecognizer(
-            UITapGestureRecognizer(target: self, action: #selector(self.helpViewTapped))
-        )
     }
     
-    func helpViewTapped(view:UIView) {
-        self.performSegueWithIdentifier("showTutorial", sender: nil)
+    
+    /**
+        Handles view controller transitions. If the destination view controller is a modal view controller, the respectivfe subview controller will also be initialized.
+
+        - Parameters:
+            - segue: the segue object containing information about view controllers involved in segue
+            - sender: the object to be displayed in the view
+     */
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "showCreditsView", let modalViewController = segue.destinationViewController as? ModalViewController {
+            if let controller = self.storyboard?.instantiateViewControllerWithIdentifier("creditsNavigationController") {
+                modalViewController.subViewController = controller
+            }
+        }
     }
+    
+    
     
     func searchRadiusChanged(newValue:Double) {
         SettingsManager.sharedInstance.searchRadius = newValue
     }
-    
+
     
     
     // -----------------------------
@@ -108,6 +122,8 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             return 1
         case .Category:
             return self.categories.count
+        case .Other:
+            return 2
         }
     }
 
@@ -121,7 +137,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         switch MenuSection(rawValue: indexPath.section)! {
         case .Configuration:
-            let radiusCell = tableView.dequeueReusableCellWithIdentifier("sliderCell", forIndexPath: indexPath) as! SliderCell
+            let radiusCell = tableView.dequeueReusableCellWithIdentifier("sliderCell", forIndexPath: indexPath) as! MenuSliderCell
             cell = radiusCell
             
             radiusCell.titleLabel.text = "Search Radius"
@@ -134,7 +150,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             radiusCell.onSliderChange = self.searchRadiusChanged
             
         case .Category:
-            let categoryCell = tableView.dequeueReusableCellWithIdentifier("categoryCell", forIndexPath: indexPath) as! CategoryListCell
+            let categoryCell = tableView.dequeueReusableCellWithIdentifier("categoryCell", forIndexPath: indexPath) as! MenuCategoryCell
             cell = categoryCell
             
             let category = self.categories[indexPath.row]
@@ -148,6 +164,16 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             categoryCell.category = category
             categoryCell.update()
+            
+        case .Other:
+            let disclosureCell = tableView.dequeueReusableCellWithIdentifier("disclosureCell", forIndexPath: indexPath) as! MenuDisclosureCell
+            cell = disclosureCell
+            
+            if indexPath.row == 0 {
+                disclosureCell.titleLabel.text = "Credits"
+            } else if indexPath.row == 1 {
+                disclosureCell.titleLabel.text = "Help"
+            }
         }
         
         return cell
@@ -157,15 +183,24 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     /// Responds to an event category being selected, adding it to the whitelist
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-        if MenuSection(rawValue: indexPath.section)! == .Category, let category = (tableView.cellForRowAtIndexPath(indexPath) as? CategoryListCell)?.category {
+        if MenuSection(rawValue: indexPath.section)! == .Category, let category = (tableView.cellForRowAtIndexPath(indexPath) as? MenuCategoryCell)?.category {
             SettingsManager.sharedInstance.addWhitelistCategory(category)
+            
+        } else if MenuSection(rawValue: indexPath.section)! == .Other {
+            // Prevent row from being in selected state
+            tableView.deselectRowAtIndexPath(indexPath, animated: false)
+            
+            if indexPath.row == 0 {
+                self.performSegueWithIdentifier("showCreditsView", sender: nil)
+            } else if indexPath.row == 1 {
+                self.performSegueWithIdentifier("showTutorial", sender: nil)
+            }
         }
     }
     
-    
     /// Responds to an event category being deselected, removing it from the whitelist
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        if MenuSection(rawValue: indexPath.section)! == .Category, let category = (tableView.cellForRowAtIndexPath(indexPath) as? CategoryListCell)?.category {
+        if MenuSection(rawValue: indexPath.section)! == .Category, let category = (tableView.cellForRowAtIndexPath(indexPath) as? MenuCategoryCell)?.category {
             SettingsManager.sharedInstance.removeWhitelistCategory(category)
         }
     }
