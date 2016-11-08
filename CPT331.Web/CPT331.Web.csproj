@@ -190,6 +190,7 @@
     <Content Include="Content\Images\Crime Stats.png" />
     <Content Include="Content\Images\Event Categories.png" />
     <Content Include="Content\Images\Event.png" />
+    <Content Include="Content\Images\EventList.png" />
     <Content Include="Content\Images\excel.gif" />
     <Content Include="Content\Images\Icon-App.png" />
     <Content Include="Content\Images\key.png" />
