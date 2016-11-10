@@ -58,12 +58,11 @@ class LocationViewModel:EventsViewModel {
             - use API: whether or not events should be loaded from the API (slow)
      
         - Note: if sourcing from both cache and API, the delegate update function will be fired twice.
-     
-        - TODO: search radius should be fetched from SettingsManager once implemented
     */
     func loadEvents(fromCache fromCache:Bool=true, fromAPI:Bool=true) {
-        let radius:Double = 20
         let coordinate = self.location.coordinate
+        
+        let radius:Double = SettingsManager.sharedInstance.searchRadius!
         let whitelist = SettingsManager.sharedInstance.whitelist
         
         if fromCache {

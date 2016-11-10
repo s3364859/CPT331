@@ -66,9 +66,11 @@ class EventViewController: UIViewController {
     }
     
     func showEvent(event:Event) {
-        // Load banner image if it exists
-        if let url = self.event.bannerURL {
-            self.showBannerImage(fromURL: url)
+        if NetworkMonitor.sharedInstance.reachable {
+            // Load banner image if it exists
+            if let url = self.event.bannerURL {
+                self.showBannerImage(fromURL: url)
+            }
         }
         
         // Header

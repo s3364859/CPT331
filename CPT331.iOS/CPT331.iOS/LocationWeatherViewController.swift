@@ -67,15 +67,24 @@ class LocationWeatherViewController: LocationViewController, UICollectionViewDat
         self.predictionCollectionView.delegate = self
         self.predictionCollectionView.dataSource = self
         
-        // Show loading indicator until view is ready to be displayed
+        // Hide view by default
         self.mainStackView.hidden = true
-        let indicator = self.view.showLoadingIndicator()
         
-        // Load weather data and make view visible again once complete
-        self.loadWeatherData(forCoordinate: self.location.coordinate) {
-            indicator.removeFromSuperview()
-            self.mainStackView.hidden = false
+        if NetworkMonitor.sharedInstance.reachable {
+            
+            // Show loading indicator until view is ready to be displayed
+            let indicator = self.view.showLoadingIndicator()
+            
+            // Load weather data and make view visible again once complete
+            self.loadWeatherData(forCoordinate: self.location.coordinate) {
+                indicator.removeFromSuperview()
+                self.mainStackView.hidden = false
+            }
+            
+        } else {
+            self.view.showNetworkMissingMessage()
         }
+        
     }
     
     override func viewWillAppear(animated: Bool) {

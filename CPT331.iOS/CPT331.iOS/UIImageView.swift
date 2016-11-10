@@ -40,32 +40,40 @@ extension UIImageView {
         
         if showIndicator {
             self.backgroundColor = UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 0.5)
-            indicator = self.showLoadingIndicator()
+            
+            if NetworkMonitor.sharedInstance.reachable {
+                indicator = self.showLoadingIndicator()
+            } else {
+                self.showNetworkMissingMessage()
+            }
         }
         
-        // Download the imagee
-        let request = NSMutableURLRequest(URL: url)
-        NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
-            guard let data = data where error == nil else{
-                NSLog("Image download error: \(error)")
-                return
-            }
+        // Download the image if the network is reachable
+        if NetworkMonitor.sharedInstance.reachable {
             
-            if let httpResponse = response as? NSHTTPURLResponse{
-                if httpResponse.statusCode > 400 {
-                    let errorMsg = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    NSLog("Image download error, statusCode: \(httpResponse.statusCode), error: \(errorMsg!)")
+            let request = NSMutableURLRequest(URL: url)
+            NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
+                guard let data = data where error == nil else{
+                    NSLog("Image download error: \(error)")
                     return
                 }
-            }
-            
-            // Display the image using returned data
-            dispatch_async(dispatch_get_main_queue(), {
-                // Remove indicator if it exists
-                indicator?.removeFromSuperview()
                 
-                self.image = UIImage(data: data)
-            })
-        }.resume()
+                if let httpResponse = response as? NSHTTPURLResponse{
+                    if httpResponse.statusCode > 400 {
+                        let errorMsg = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        NSLog("Image download error, statusCode: \(httpResponse.statusCode), error: \(errorMsg!)")
+                        return
+                    }
+                }
+                
+                // Display the image using returned data
+                dispatch_async(dispatch_get_main_queue(), {
+                    // Remove indicator if it exists
+                    indicator?.removeFromSuperview()
+                    
+                    self.image = UIImage(data: data)
+                })
+            }.resume()
+        }
     }
 }

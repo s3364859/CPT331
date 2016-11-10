@@ -74,7 +74,12 @@ class TutorialViewController: UIViewController, UIPageViewControllerDataSource, 
     }
     
     @IBAction func exitButtonTapped(sender: AnyObject) {
-        (UIApplication.sharedApplication().delegate as? AppDelegate)?.setRootViewController(withIdentifier: "mapView", animated: true)
+        
+        if UIApplication.appDelegate.window?.rootViewController is MapViewController {
+            self.dismissViewControllerAnimated(true, completion: {})
+        } else {
+            UIApplication.setRootViewController("mapView", animated: true)
+        }
     }
     
     

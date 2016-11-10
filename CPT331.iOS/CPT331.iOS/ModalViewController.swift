@@ -13,14 +13,6 @@ import UIKit
     When instantiating, it is expected that a view controller for the sub view is provided.
  */
 class ModalViewController: UIViewController, UIGestureRecognizerDelegate {
-
-    // -----------------------------
-    // MARK: Constants
-    // -----------------------------
-    internal static let eventStoryboardRef = "eventNavigationController"
-    internal static let locationStoryboardRef = "locationTabBarController"
-    
-    
     
     // -----------------------------
     // MARK: Runtime Variables

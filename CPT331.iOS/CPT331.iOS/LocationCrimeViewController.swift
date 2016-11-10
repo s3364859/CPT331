@@ -69,14 +69,22 @@ class LocationCrimeViewController: LocationViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Show loading indicator until view is ready to be displayed
+        // Hide view by default
         self.pieChartView.hidden = true
-        let indicator = self.view.showLoadingIndicator()
         
-        // Load chart data and make view visible again once complete
-        self.loadChartData(forCoordinate: self.location.coordinate) {
-            indicator.removeFromSuperview()
-            self.pieChartView.hidden = false
+        if NetworkMonitor.sharedInstance.reachable {
+            
+            // Show loading indicator until view is ready to be displayed
+            let indicator = self.view.showLoadingIndicator()
+            
+            // Load chart data and make view visible again once complete
+            self.loadChartData(forCoordinate: self.location.coordinate) {
+                indicator.removeFromSuperview()
+                self.pieChartView.hidden = false
+            }
+            
+        } else {
+            self.view.showNetworkMissingMessage()
         }
     }
     
