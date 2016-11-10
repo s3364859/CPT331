@@ -29,54 +29,54 @@ class ConfigManager {
     
     var eventGuardianAPI:String {
         get {
-            return valueFor(.API, "EventGuardian")
+            return valueFor(.API, "EventGuardian") as! String
         }
     }
     
     var darkSkyAPI:String {
         get {
-            return valueFor(.API, "DarkSky")
+            return valueFor(.API, "DarkSky") as! String
         }
     }
     
     var networkMonitorHostname:String {
         get {
-            return valueFor(.NetworkMonitor, "HostName")
+            return valueFor(.NetworkMonitor, "Hostname") as! String
         }
     }
     
     var networkMonitorDelay:Double {
         get {
-            return valueFor(.NetworkMonitor, "Delay")
+            return valueFor(.NetworkMonitor, "Delay") as! Double
         }
     }
     
     var forceTutorialMode:Bool {
         get {
-            return valueFor(.Launch, "ForceTutorialMode")
+            return valueFor(.Launch, "ForceTutorialMode") as! Bool
         }
     }
     
     var defaultSearchRadius:Double {
         get {
-            return valueFor(.Search, "DefaultSearchRadius")
+            return valueFor(.Search, "DefaultSearchRadius") as! Double
         }
     }
     
     
     var minSearchRadius:Double {
         get {
-            return valueFor(.Search, "MinSearchRadius")
+            return valueFor(.Search, "MinSearchRadius") as! Double
         }
     }
     
     var maxSearchRadius:Double {
         get {
-            return valueFor(.Search, "MaxSearchRadius")
+            return valueFor(.Search, "MaxSearchRadius") as! Double
         }
     }
     
-    private func valueFor(parentKey:ParentKey, _ childKey:String) -> AnyObject {
+    private func valueFor(parentKey:ParentKey, _ childKey:String) -> AnyObject! {
         return dictionary[parentKey.rawValue]!.valueForKey(childKey)
     }
 }
