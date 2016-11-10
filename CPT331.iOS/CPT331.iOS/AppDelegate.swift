@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     
+    
     // -----------------------------
     // MARK: UIApplicationDelegate
     // -----------------------------
@@ -28,13 +29,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Run tutorial mode on first launch
         let forceTutorialMode = ConfigManager.sharedInstance.forceTutorialMode
-        if forceTutorialMode || NSUserDefaults.standardUserDefaults().boolForKey("launchedBefore") == false {
+        if forceTutorialMode || SettingsManager.sharedInstance.launchedBefore == false {
             if forceTutorialMode {
                 print("Tutorial mode presentation forced, ignoring first run requirement")
             }
             
-            UIApplication.setRootViewController("tutorialView", animated: false)
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
+            UIApplication.setRootViewController(UIApplication.tutorialStoryboardIdentifier, animated: false)
+            SettingsManager.sharedInstance.launchedBefore = true
         } else {
             print("Previously launched, skipping tutorial")
         }

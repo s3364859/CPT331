@@ -10,6 +10,14 @@ import Foundation
 
 /// Convenience wrapper for Config.plist
 class ConfigManager {
+    
+    enum ParentKey:String {
+        case Search = "Search"
+        case Launch = "Launch"
+        case NetworkMonitor = "NetworkMonitor"
+        case API = "API"
+    }
+    
     static let sharedInstance = ConfigManager()
     
     private let dictionary: NSDictionary!
@@ -21,44 +29,54 @@ class ConfigManager {
     
     var eventGuardianAPI:String {
         get {
-            return dictionary["API"]!.valueForKey("EventGuardian") as! String
+            return valueFor(.API, "EventGuardian")
         }
     }
     
     var darkSkyAPI:String {
         get {
-            return dictionary["API"]!.valueForKey("DarkSky") as! String
+            return valueFor(.API, "DarkSky")
         }
     }
     
     var networkMonitorHostname:String {
         get {
-            return dictionary["NetworkMonitor"]!.valueForKey("Hostname") as! String
+            return valueFor(.NetworkMonitor, "HostName")
         }
     }
     
     var networkMonitorDelay:Double {
         get {
-            return dictionary["NetworkMonitor"]!.valueForKey("Delay") as! Double
+            return valueFor(.NetworkMonitor, "Delay")
         }
     }
     
     var forceTutorialMode:Bool {
         get {
-            return dictionary["Launch"]!.valueForKey("ForceTutorialMode") as! Bool
+            return valueFor(.Launch, "ForceTutorialMode")
         }
     }
     
     var defaultSearchRadius:Double {
-        return dictionary["Search"]!.valueForKey("DefaultSearchRadius") as! Double
+        get {
+            return valueFor(.Search, "DefaultSearchRadius")
+        }
     }
     
     
     var minSearchRadius:Double {
-        return dictionary["Search"]!.valueForKey("MinSearchRadius") as! Double
+        get {
+            return valueFor(.Search, "MinSearchRadius")
+        }
     }
     
     var maxSearchRadius:Double {
-        return dictionary["Search"]!.valueForKey("MaxSearchRadius") as! Double
+        get {
+            return valueFor(.Search, "MaxSearchRadius")
+        }
+    }
+    
+    private func valueFor(parentKey:ParentKey, _ childKey:String) -> AnyObject {
+        return dictionary[parentKey.rawValue]!.valueForKey(childKey)
     }
 }

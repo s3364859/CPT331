@@ -15,13 +15,17 @@ class SettingsManager {
     
     static let sharedInstance = SettingsManager()
     
+    /// Key used for NSNotficationCenter
+    static let whitelistChangedNotification = "WhitelistUpdated"
+    
     /// Shared defaults object
     private let settings = NSUserDefaults.standardUserDefaults()
     
     /// The keys used to store data in NSUserDefaults (read-only)
     private let keys = (
         whitelist: "eventCategoryWhitelist",
-        searchRadius: "eventSearchRadius"
+        searchRadius: "eventSearchRadius",
+        launchedBefore: "launchedBefore"
     )
     
     
@@ -61,7 +65,7 @@ class SettingsManager {
             settings.setObject(rawValues, forKey: keys.whitelist)
             
             // App-wide broadcast
-            NSNotificationCenter.defaultCenter().postNotificationName("WhitelistUpdated", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(SettingsManager.whitelistChangedNotification, object: nil)
         }
     }
     
@@ -110,6 +114,16 @@ class SettingsManager {
             if newValue != nil {
                 settings.setDouble(newValue!, forKey: keys.searchRadius)
             }
+        }
+    }
+    
+    var launchedBefore:Bool {
+        get {
+            return settings.boolForKey(keys.launchedBefore)
+        }
+        
+        set {
+            settings.setBool(newValue, forKey: keys.launchedBefore)
         }
     }
 }

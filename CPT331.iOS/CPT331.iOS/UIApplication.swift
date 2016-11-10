@@ -16,6 +16,12 @@ extension UIApplication {
         return UIApplication.sharedApplication().delegate as! AppDelegate
     }
     
+    static var tutorialStoryboardIdentifier:String {
+        get {
+            return "tutorialView"
+        }
+    }
+    
     
     /**
         Retrieves the topmost view controller
