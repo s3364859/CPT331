@@ -23,7 +23,6 @@ namespace CPT331.WebAPI.Controllers
 	{
 		private const int DefaultNumberOfCrimeRecords = 6;
 		private const string OtherCrimesName = "Other";
-		private const string SortFieldDateTime = "DATETIME";
 		private const string SortFieldID = "ID";
 		private const string SortFieldName = "NAME";
 
@@ -116,20 +115,16 @@ namespace CPT331.WebAPI.Controllers
 		{
 			SortDirection direction = ((sortDirection.HasValue == true) ? sortDirection.Value : SortDirection.Ascending);
 
-			//	switch (sortBy.ToUpper())
-			//	{
-			//		case SortFieldID:
-			//			events = ((sortDirection.Value == SortDirection.Ascending) ? events.OrderBy(m => (m.ID)) : events.OrderByDescending(m => (m.ID)));
-			//			break;
-			//	
-			//		case SortFieldDateTime:
-			//			events = ((sortDirection.Value == SortDirection.Ascending) ? events.OrderBy(m => (m.BeginDateTime)).ThenBy(m => (m.Name)) : events.OrderByDescending(m => (m.BeginDateTime)).ThenBy(m => (m.Name)));
-			//			break;
-			//	
-			//		case SortFieldName:
-			//			events = ((sortDirection.Value == SortDirection.Ascending) ? events.OrderBy(m => (m.Name)) : events.OrderByDescending(m => (m.Name)));
-			//			break;
-			//	}
+			switch (sortBy.ToUpper())
+			{
+				case SortFieldID:
+					crimeByCoordinates = ((sortDirection.Value == SortDirection.Ascending) ? crimeByCoordinates.OrderBy(m => (m.OffenceID)) : crimeByCoordinates.OrderByDescending(m => (m.OffenceID)));
+					break;
+			
+				case SortFieldName:
+					crimeByCoordinates = ((sortDirection.Value == SortDirection.Ascending) ? crimeByCoordinates.OrderBy(m => (m.OffenceName)) : crimeByCoordinates.OrderByDescending(m => (m.OffenceName)));
+					break;
+			}
 
 			return crimeByCoordinates;
 		}

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CPT331.Data.AdhocScriptRepository">
+    <Position X="20" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AdhocScriptRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.CrimeOffenceLocalGovernmentAreaStateRepository">
+    <Position X="20" Y="6.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAgAAAAAAAAAAAAAAAAQAAAAAAAAgAAAA=</HashCode>
+      <FileName>CrimeOffenceLocalGovernmentAreaStateRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.CrimeRepository">
+    <Position X="20" Y="3.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAQIAAAAAAAAggAAICAEAAAAAAGQAAAAAAAA=</HashCode>
+      <FileName>CrimeRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.EventInfoRepository">
+    <Position X="22.75" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABQAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EventInfoRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.LocalGovernmentAreaRepository">
+    <Position X="17.25" Y="3.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAEkEAAAAAAAAgAAkAAAoAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>LocalGovernmentAreaRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.LocalGovernmentAreaStateRepository">
+    <Position X="17.25" Y="9" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>LocalGovernmentAreaStateRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.OffenceCategoryRepository">
+    <Position X="22.75" Y="3.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAggEAAAAQAAEAAAgIAAAQAAAA=</HashCode>
+      <FileName>OffenceCategoryRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.OffenceRepository">
+    <Position X="14.5" Y="6.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAABAAMFAAAAAAAABAgAAAQAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>OffenceRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.Repository">
+    <Position X="18.5" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAgBAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.StateRepository">
+    <Position X="14.5" Y="3.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAQAEAAAAAAAAACAEAgAAGAAAQEAAAAAAAABAAACAA=</HashCode>
+      <FileName>StateRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.UserRepository">
+    <Position X="17.25" Y="6.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAABAAAAAggAAAABAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>UserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

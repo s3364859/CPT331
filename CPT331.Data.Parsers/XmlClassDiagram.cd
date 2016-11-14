@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CPT331.Data.Parsers.ActXmlParser">
+    <Position X="8.25" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>ActXmlParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.Parsers.NswXmlParser">
+    <Position X="10.25" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAI=</HashCode>
+      <FileName>NswXmlParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.Parsers.NtXmlParser">
+    <Position X="13.25" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>NtXmlParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.Parsers.QldXmlParser">
+    <Position X="15.25" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>QldXmlParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.Parsers.SaXmlParser">
+    <Position X="8.25" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>SaXmlParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.Parsers.TasXmlParser">
+    <Position X="10.25" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>TasXmlParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.Parsers.VicXmlParser">
+    <Position X="13.25" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAgA=</HashCode>
+      <FileName>VicXmlParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.Parsers.WaXmlParser">
+    <Position X="15.25" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>WaXmlParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.Parsers.XmlParser">
+    <Position X="11.75" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAgAEAAAAAAAAQAAAAACAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>XmlParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Data.Parsers.ParserFactory">
+    <Position X="15.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAABAAAAAAAABAACAAAAAAAAAAA=</HashCode>
+      <FileName>ParserFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CPT331.Core.ObjectModel.Crime">
+    <Position X="3.5" Y="4.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAABAAAAAAEgAAAAIcACAAAIIAEAACAAAAAAAA=</HashCode>
+      <FileName>ObjectModel\Crime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.Offence">
+    <Position X="9" Y="4.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAIAIAAAAAAAAAAEgAAAAQQAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectModel\Offence.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.State">
+    <Position X="16.5" Y="4.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAgAgAAAAAQAAAAAAIABAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectModel\State.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.LocalGovernmentArea">
+    <Position X="6.25" Y="4.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAEAEgAAAAAQAAAAAAIAAAAABAAAAAAA=</HashCode>
+      <FileName>ObjectModel\LocalGovernmentArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.CrimeOffenceLocalGovernmentAreaState">
+    <Position X="3.5" Y="8.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAACAAAAACAACAEAAAgABCAEAAAA=</HashCode>
+      <FileName>ObjectModel\CrimeOffenceLocalGovernmentAreaState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.LocalGovernmentAreaState">
+    <Position X="6.25" Y="7.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgEgAAAAAAAAAACAIABAAAAAAEAAAA=</HashCode>
+      <FileName>ObjectModel\LocalGovernmentAreaState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.OffenceCategory">
+    <Position X="14" Y="4.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAEgAAAAAQAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectModel\OffenceCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.ReadOnlyDataObject">
+    <Position X="10" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAABAAkBAAgABAAAAAIAAAAIAAAAAIIQAAAAA=</HashCode>
+      <FileName>ObjectModel\ReadOnlyDataObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPT331.Core.ObjectModel.User">
+    <Position X="11.5" Y="4.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAkYAAAAAAAAAAAIACAAIAAAAAAAA=</HashCode>
+      <FileName>ObjectModel\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
