@@ -25,7 +25,7 @@ namespace CPT331.Web.Models.Admin
         /// <summary>
         /// Creates an instance of OffenceModel using the values provided.
         /// </summary>
-        /// <param name="name">The name of the offense.</param>
+        /// <param name="name">The name of the offence.</param>
 		public OffenceModel(string name)
 			: this(DateTime.UtcNow, DateTime.UtcNow, -1, false, true, name, null)
 		{
@@ -36,11 +36,11 @@ namespace CPT331.Web.Models.Admin
         /// </summary>
         /// <param name="dateCreatedUtc">The date when the record was created.</param>
         /// <param name="dateUpdatedUtc">The date when the record was last updated.</param>
-        /// <param name="id">The unique ID value of the Offense instance.</param>
+        /// <param name="id">The unique ID value of the Offence instance.</param>
         /// <param name="isDeleted">Specifies whether the instance is flagged as deleted.</param>
         /// <param name="isVisible">Specifies whether the instance is flagged as visible.</param>
-        /// <param name="name">The name of the offense.</param>
-        /// <param name="offenceCategoryID">An ID number representing the offenses category; grouping similar offenses.</param>
+        /// <param name="name">The name of the offence.</param>
+        /// <param name="offenceCategoryID">An ID number representing the offences category; grouping similar offences.</param>
 		public OffenceModel(DateTime dateCreatedUtc, DateTime dateUpdatedUtc, int id, bool isDeleted, bool isVisible, string name, int? offenceCategoryID)
 		{
 			_dateCreatedUtc = dateCreatedUtc;
@@ -101,7 +101,7 @@ namespace CPT331.Web.Models.Admin
 		}
 
         /// <summary>
-        /// The unique ID value of the Offense instance.
+        /// The unique ID value of the Offence instance.
         /// </summary>
 		[Integer(ErrorMessage = "*")]
 		public int ID
@@ -153,7 +153,7 @@ namespace CPT331.Web.Models.Admin
 		}
         
         /// <summary>
-        /// The name of the offense.
+        /// The name of the offence.
         /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Name")]
@@ -172,7 +172,7 @@ namespace CPT331.Web.Models.Admin
         }
 
         /// <summary>
-        /// An ID number representing the offenses category; grouping similar offenses.
+        /// An ID number representing the offences category; grouping similar offenses.
         /// </summary>
         [Display(Name = "Offence Category")]
         [Integer(ErrorMessage = "*")]

@@ -98,7 +98,7 @@ namespace CPT331.Web.Models.Admin
 		}
 
         /// <summary>
-        /// The unique ID value for the Offense instance.
+        /// The unique ID value for the Offence instance.
         /// </summary>
 		[Integer(ErrorMessage = "*")]
 		public int ID
@@ -150,7 +150,7 @@ namespace CPT331.Web.Models.Admin
 		}
 
         /// <summary>
-        /// The name of the offense.
+        /// The name of the offence.
         /// </summary>
 		[DataType(DataType.Text)]
 		[Display(Name = "Name")]

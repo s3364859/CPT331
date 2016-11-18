@@ -16,8 +16,8 @@ namespace CPT331.WebAPI.Models
         /// <summary>
         /// Creates an instance of OffenceModel using the values provided.
         /// </summary>
-        /// <param name="name">The name of the Offense.</param>
-        /// <param name="value">The number of offenses proportionate to other offenses.</param>
+        /// <param name="name">The name of the Offence.</param>
+        /// <param name="value">The number of offences proportionate to other offenses.</param>
 		public OffenceModel(string name, double value)
 		{
 			_name = name;
@@ -28,7 +28,7 @@ namespace CPT331.WebAPI.Models
 		private double _value;
 
         /// <summary>
-        /// The name of the Offense.
+        /// The name of the Offence.
         /// </summary>
 		[DataMember]
 		public string Name
@@ -44,7 +44,7 @@ namespace CPT331.WebAPI.Models
 		}
 
         /// <summary>
-        /// The number of offenses proportionate to other offenses.
+        /// The number of offences proportionate to other offences.
         /// </summary>
 		[DataMember]
 		public double Value

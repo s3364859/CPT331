@@ -57,8 +57,8 @@ namespace CPT331.WebAPI.Controllers
         /// </summary>
         /// <param name="latitude">Specifies the latitude used to look up the corresponding local government area.</param>
         /// <param name="longitude">Specifies the longitude used to look up the corresponding local government area.</param>
-        /// <param name="count">The maximum number of offenses to show.</param>
-        /// <param name="sortBy">The name of Offense property used to sort the data object.</param>
+        /// <param name="count">The maximum number of offences to show.</param>
+        /// <param name="sortBy">The name of Offence property used to sort the data object.</param>
         /// <param name="sortDirection">The sort order of the data returned; as ascending or descending.</param>
         /// <returns>Crime statistics.</returns>
 		[HttpGet]

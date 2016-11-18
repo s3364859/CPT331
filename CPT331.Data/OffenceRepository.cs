@@ -45,7 +45,7 @@ namespace CPT331.Data
         /// </summary>
         /// <param name="isDeleted">Indicates whether or not the record is deleted</param>
         /// <param name="isVisible">Indicates whether or not the record should be shown in the user interfaces</param>
-        /// <param name="name">The name of the offense</param>
+        /// <param name="name">The name of the offence</param>
         /// <returns>Offence ID number</returns>
 		public int AddOffence(bool isDeleted, bool isVisible, string name)
 		{
@@ -83,7 +83,7 @@ namespace CPT331.Data
 		}
 
         /// <summary>
-        /// Retreives a full list of Offenses inside the Event-Guardian database.
+        /// Retreives a full list of Offences inside the Event-Guardian database.
         /// </summary>
         /// <returns>A List of Offence records</returns>
         public List<Offence> GetOffences()

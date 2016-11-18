@@ -83,7 +83,7 @@ namespace CPT331.WebAPI.Models
 		}
 
         /// <summary>
-        /// A list of offenses committed inside the Local Government Area.
+        /// A list of offences committed inside the Local Government Area.
         /// </summary>
 		[DataMember(Name = "Offences")]
 		public IEnumerable<OffenceModel> OffenceModels

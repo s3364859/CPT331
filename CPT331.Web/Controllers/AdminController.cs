@@ -507,7 +507,7 @@ namespace CPT331.Web.Controllers
 		#region Offence Model
 
 		/// <summary>
-		/// Exports the Offenses table as CSV.
+		/// Exports the Offences table as CSV.
 		/// </summary>
 		/// <returns>Offences.csv</returns>
 		[HttpGet]
