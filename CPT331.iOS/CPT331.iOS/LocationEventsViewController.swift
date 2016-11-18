@@ -51,14 +51,20 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
         self.tableView.tableFooterView = UIView()
         self.tableView.rowHeight = self.rowHeight
         
-        // Loading Indicators
-        self.indicator = self.view.showLoadingIndicator()
-        self.navIndicator = UIBarButtonItem(customView:
-            UIView(frame: CGRectMake(0, 0, 30, 30)).showLoadingIndicator(style: .White)
-        )
-
-        // Populate table with data
-        self.viewModel.loadEvents(fromCache: true, fromAPI: true)
+        
+        if NetworkMonitor.sharedInstance.reachable {
+            // Loading Indicators
+            self.indicator = self.view.showLoadingIndicator()
+            self.navIndicator = UIBarButtonItem(customView:
+                UIView(frame: CGRectMake(0, 0, 30, 30)).showLoadingIndicator(style: .White)
+            )
+            
+            // Populate table with data
+            self.viewModel.loadEvents(fromCache: true, fromAPI: true)
+            
+        } else {
+            self.view.showNetworkMissingMessage()
+        }
     }
     
     
@@ -117,6 +123,10 @@ class LocationEventsViewController: LocationViewController, UITableViewDataSourc
             self.indicator?.removeFromSuperview()
             self.navIndicator = nil
             self.navigationItem.rightBarButtonItem = nil
+            
+            if self.viewModel.sections?.count == 0 {
+                self.view.showMessage("No Events Found")
+            }
         }
     }
 

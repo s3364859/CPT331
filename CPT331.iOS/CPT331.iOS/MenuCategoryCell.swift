@@ -1,5 +1,5 @@
 //
-//  CategoryListCell.swift
+//  MenuCategoryCell.swift
 //  CPT331.iOS
 //
 //  Created by Peter Weller on 20/10/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoryListCell: UITableViewCell {
+class MenuCategoryCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var selectionImage: UIImageView!
     

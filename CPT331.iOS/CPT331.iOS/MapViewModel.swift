@@ -38,7 +38,7 @@ class MapViewModel:EventsViewModel {
         NSNotificationCenter.defaultCenter().addObserver(
             self,
             selector: #selector(MapViewModel.respondToWhitelistChanged(_:)),
-            name:"WhitelistUpdated",
+            name: SettingsManager.whitelistChangedNotification,
             object: nil
         )
     }
